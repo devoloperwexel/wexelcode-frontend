@@ -34,7 +34,7 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "../../apps/wexelcode-frontend/.next/types/**/*.ts",
+    ".next/types/**/*.ts",
     "../../dist/apps/wexelcode-frontend/.next/types/**/*.ts",
     "next-env.d.ts",
     ".next/types/**/*.ts"
