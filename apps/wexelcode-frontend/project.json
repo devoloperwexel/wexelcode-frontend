@@ -1,0 +1,9 @@
+{
+  "name": "wexelcode-frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/wexelcode-frontend",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project wexelcode-frontend --web",
+  "targets": {}
+}
