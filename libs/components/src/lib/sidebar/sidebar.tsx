@@ -16,7 +16,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../../';
-import { useIsMobile } from './temp';
+import { useIsMobile } from '@wexelcode/hooks';
 import { Slot } from '@radix-ui/react-slot';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
