@@ -16,7 +16,11 @@
     "baseUrl": ".",
     "paths": {
       "@wexelcode-frontend/components": ["libs/components/src/index.ts"],
-      "@wexelcode-frontend/components/server": ["libs/components/src/server.ts"]
+      "@wexelcode-frontend/components/server": [
+        "libs/components/src/server.ts"
+      ],
+      "@wexelcode-frontend/utils": ["libs/utils/src/index.ts"],
+      "@wexelcode-frontend/utils/server": ["libs/utils/src/server.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
