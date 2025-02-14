@@ -1,3 +1,11 @@
-// Use this file to export React client components (e.g. those with 'use client' directive) or other non-server utilities
-
-export * from './lib/components';
+export * from './lib/button/button';
+export * from './lib/avatar/avatar';
+export * from './lib/dropdown-menu/dropdown-menu';
+export * from './lib/skeleton/skeleton';
+export * from './lib/separator/separator';
+export * from './lib/input/input';
+export * from './lib/sheet/sheet';
+export * from './lib/tooltip/tooltip';
+export * from './lib/sidebar/sidebar';
+export * from './lib/collapsible/collapsible';
+export * from './lib/breadcrumb/breadcrumb';
