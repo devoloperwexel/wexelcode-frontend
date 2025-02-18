@@ -33,6 +33,8 @@
     "@nx/js": "20.4.3",
     "@nx/next": "20.4.3",
     "@nx/react": "20.4.3",
+    "@nx/vite": "20.4.3",
+    "@nx/web": "20.4.3",
     "@nx/workspace": "20.4.3",
     "@swc-node/register": "~1.9.1",
     "@swc/cli": "~0.3.12",
@@ -43,6 +45,7 @@
     "@types/node": "18.16.9",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
+    "@vitest/ui": "^1.3.1",
     "autoprefixer": "10.4.13",
     "babel-jest": "^29.7.0",
     "eslint": "^9.8.0",
@@ -62,6 +65,9 @@
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",
     "typescript": "~5.7.2",
-    "typescript-eslint": "^8.19.0"
+    "typescript-eslint": "^8.19.0",
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "~3.8.1",
+    "vitest": "^1.3.1"
   }
 }
