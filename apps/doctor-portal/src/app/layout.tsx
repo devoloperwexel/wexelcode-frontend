@@ -1,5 +1,5 @@
 import DashboardLayout from '../layouts/dashboard-layout';
-import './global.css';
+import '@wexelcode/theme';
 
 export const metadata = {
   title: 'Wexelcode',

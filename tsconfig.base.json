@@ -18,11 +18,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@wexelcode/hooks": [
-        "libs/hooks/src/index.ts"
+      "@wexelcode/theme": [
+        "libs/theme/src/index.ts"
       ],
       "@wexelcode/components": [
         "libs/components/src/index.ts"
+      ],
+      "@wexelcode/hooks": [
+        "libs/hooks/src/index.ts"
       ],
       "@wexelcode/types": [
         "libs/types/src/index.ts"
