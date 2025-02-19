@@ -1,7 +1,6 @@
 'use client';
 
-import * as React from 'react';
-
+import { logo } from '@wexelcode/assets';
 import {
   Sidebar,
   SidebarContent,
@@ -12,11 +11,11 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from '@wexelcode/components';
-import { NavMain } from './nav-main';
-
-import { logo } from '@wexelcode/assets';
-import Image from 'next/image';
 import { NavigationItem } from '@wexelcode/types';
+import Image from 'next/image';
+import * as React from 'react';
+
+import { NavMain } from './nav-main';
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   navigationItems: NavigationItem[];

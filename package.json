@@ -6,7 +6,9 @@
     "doctor-portal:dev": "npx nx dev doctor-portal",
     "doctor-portal:build": "npx nx build doctor-portal",
     "patient-portal:dev": "npx nx dev patient-portal",
-    "patient-portal:build": "npx nx build patient-portal"
+    "patient-portal:build": "npx nx build patient-portal",
+    "lint": "nx run-many --target=lint --all",
+    "lint:fix": "nx run-many --target=lint --all --fix"
   },
   "private": true,
   "dependencies": {
