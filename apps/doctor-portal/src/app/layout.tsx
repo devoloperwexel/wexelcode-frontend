@@ -1,7 +1,8 @@
-import { DashboardLayout } from '@wexelcode/layouts';
 import '@wexelcode/theme';
-import { MainNavigationItems } from '../constants';
+import { DashboardLayout } from '@wexelcode/layouts';
+
 import { UserMenu } from '../components/user-menu';
+import { MainNavigationItems } from '../constants';
 
 export const metadata = {
   title: 'Wexelcode',
