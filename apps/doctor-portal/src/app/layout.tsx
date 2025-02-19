@@ -1,4 +1,5 @@
 import '@wexelcode/theme';
+
 import { DashboardLayout } from '@wexelcode/layouts';
 
 import { UserMenu } from '../components/user-menu';
