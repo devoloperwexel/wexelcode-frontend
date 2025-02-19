@@ -1,5 +1,7 @@
-import DashboardLayout from '../layouts/dashboard-layout';
+import { DashboardLayout } from '@wexelcode/layouts';
 import '@wexelcode/theme';
+import { MainNavigationItems } from '../constants';
+import { UserMenu } from '../components/user-menu';
 
 export const metadata = {
   title: 'Wexelcode',
@@ -14,7 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <DashboardLayout>{children}</DashboardLayout>
+        <DashboardLayout
+          navigationItems={MainNavigationItems}
+          userMenu={<UserMenu />}
+        >
+          {children}
+        </DashboardLayout>
       </body>
     </html>
   );

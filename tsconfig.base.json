@@ -10,18 +10,39 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@wexelcode/assets": ["libs/assets/src/index.ts"],
-      "@wexelcode/components": ["libs/components/src/index.ts"],
-      "@wexelcode/hooks": ["libs/hooks/src/index.ts"],
-      "@wexelcode/theme": ["libs/theme/src/index.ts"],
-      "@wexelcode/types": ["libs/types/src/index.ts"],
-      "@wexelcode/utils": ["libs/utils/src/index.ts"]
+      "@wexelcode/layouts": [
+        "libs/layouts/src/index.ts"
+      ],
+      "@wexelcode/assets": [
+        "libs/assets/src/index.ts"
+      ],
+      "@wexelcode/components": [
+        "libs/components/src/index.ts"
+      ],
+      "@wexelcode/hooks": [
+        "libs/hooks/src/index.ts"
+      ],
+      "@wexelcode/theme": [
+        "libs/theme/src/index.ts"
+      ],
+      "@wexelcode/types": [
+        "libs/types/src/index.ts"
+      ],
+      "@wexelcode/utils": [
+        "libs/utils/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
