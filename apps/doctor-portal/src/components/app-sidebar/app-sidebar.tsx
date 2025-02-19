@@ -15,6 +15,9 @@ import {
 import { MainNavigationItems } from '../../constants';
 import { NavMain } from './nav-main';
 
+import { logo } from '@wexelcode/assets';
+import Image from 'next/image';
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -24,11 +27,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <img
-                    width={40}
-                    src="	https://dev.physio.wexelcode.de/_next/image?url=%2Fimages%2Flogo.png&w=96&q=75"
-                    alt="Wexelcode"
-                  />
+                  <Image src={logo} alt="Logo" width={40} />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold uppercase">Wexelcode</span>
