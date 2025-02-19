@@ -2,7 +2,12 @@
   "name": "@wexelcode-frontend/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "doctor-portal:dev": "npx nx dev doctor-portal",
+    "doctor-portal:build": "npx nx build doctor-portal",
+    "patient-portal:dev": "npx nx dev patient-portal",
+    "patient-portal:build": "npx nx build patient-portal"
+  },
   "private": true,
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.3",
