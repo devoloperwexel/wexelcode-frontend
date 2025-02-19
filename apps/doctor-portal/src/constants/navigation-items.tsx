@@ -5,6 +5,6 @@ export const MainNavigationItems: NavigationItem[] = [
   {
     title: 'Home',
     url: '/',
-    icon: Home,
+    icon: <Home />,
   },
 ];

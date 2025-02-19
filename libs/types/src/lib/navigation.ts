@@ -1,9 +1,7 @@
-import { type LucideIcon } from 'lucide-react';
-
 export interface NavigationItem {
   title: string;
   url: string;
-  icon?: LucideIcon;
+  icon?: React.ReactNode;
   isActive?: boolean;
   items?: Array<NavigationItem>;
 }
