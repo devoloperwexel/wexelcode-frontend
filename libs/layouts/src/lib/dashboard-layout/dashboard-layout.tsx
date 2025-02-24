@@ -10,8 +10,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@wexelcode/components';
-import { AppSidebar } from './components/app-sidebar';
 import { PropsWithChildren } from 'react';
+
+import { AppSidebar } from './components/app-sidebar';
 
 interface DashboardLayoutProps extends React.ComponentProps<typeof AppSidebar> {
   userMenu: React.ReactNode;

@@ -1,5 +1,5 @@
 import nx from '@nx/eslint-plugin';
-
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
@@ -37,6 +37,12 @@ export default [
       '**/*.mjs',
     ],
     // Override or add rules here
-    rules: {},
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+    },
   },
 ];

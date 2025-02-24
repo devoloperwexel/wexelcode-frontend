@@ -1,5 +1,7 @@
-import { DashboardLayout } from '@wexelcode/layouts';
 import '@wexelcode/theme';
+
+import { DashboardLayout } from '@wexelcode/layouts';
+
 import { UserMenu } from '../user-menu';
 
 export const metadata = {

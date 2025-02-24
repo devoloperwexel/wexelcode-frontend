@@ -12,12 +12,12 @@ import {
   SidebarMenuButton,
 } from '@wexelcode/components';
 import {
-  ChevronsUpDown,
-  Sparkles,
   BadgeCheck,
-  CreditCard,
   Bell,
+  ChevronsUpDown,
+  CreditCard,
   LogOut,
+  Sparkles,
 } from 'lucide-react';
 
 export function UserMenu() {

@@ -1,7 +1,5 @@
 'use client';
 
-import { ChevronRight } from 'lucide-react';
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -15,6 +13,7 @@ import {
   SidebarMenuSubItem,
 } from '@wexelcode/components';
 import { NavigationItem } from '@wexelcode/types';
+import { ChevronRight } from 'lucide-react';
 
 interface NavMainProps {
   items: NavigationItem[];
