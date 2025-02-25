@@ -32,7 +32,7 @@ export function DoctorCard() {
         <p>Dr. John Doe is a cardiologist with 10 years of experience.</p>
       </CardContent>
       <CardFooter className="justify-center">
-        <LocalLink href={`${Routes.doctors}/1`}>
+        <LocalLink href={`${Routes.doctors.url}/1`}>
           <Button>Book Now</Button>
         </LocalLink>
       </CardFooter>
