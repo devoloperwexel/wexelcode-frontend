@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  LocalLink,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
@@ -10,6 +9,7 @@ import {
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 
 export default function Navigation() {
   const t = useTranslations('navigation');
@@ -20,12 +20,9 @@ export default function Navigation() {
         {Object.entries(Routes).map(([key, route]) => {
           return (
             <NavigationMenuItem key={key}>
-              <LocalLink
-                className={navigationMenuTriggerStyle()}
-                href={route.url}
-              >
+              <Link className={navigationMenuTriggerStyle()} href={route.url}>
                 {t(key)}
-              </LocalLink>
+              </Link>
             </NavigationMenuItem>
           );
         })}
