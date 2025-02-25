@@ -1,8 +1,6 @@
 import '@wexelcode/theme';
 
-import { DashboardLayout } from '@wexelcode/layouts';
-
-import { UserMenu } from '../user-menu';
+import MainLayout from '../layouts/main-layout';
 
 export const metadata = {
   title: 'WexelCode Patient',
@@ -17,9 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <DashboardLayout navigationItems={[]} userMenu={<UserMenu />}>
-          {children}
-        </DashboardLayout>
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );
