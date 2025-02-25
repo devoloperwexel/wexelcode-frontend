@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
 import {
@@ -28,6 +28,8 @@ interface LocalSwitcherProps {
 }
 
 const LocalSwitcherItem = ({ language, country }: LocalItem) => {
+  const t = useTranslations('language');
+
   return (
     <div className="flex items-center space-x-2">
       <Avatar className="w-8 h-8">
@@ -38,7 +40,7 @@ const LocalSwitcherItem = ({ language, country }: LocalItem) => {
         <AvatarFallback>{language.toUpperCase()}</AvatarFallback>
       </Avatar>
 
-      <span>{language.toUpperCase()}</span>
+      <span>{t(language)}</span>
     </div>
   );
 };

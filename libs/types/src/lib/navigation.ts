@@ -5,14 +5,3 @@ export interface NavigationItem {
   isActive?: boolean;
   items?: Array<NavigationItem>;
 }
-
-export type RouteItem = Record<string, NavigationItem>;
-
-const myRoutes: RouteItem = {
- home: {
-    title: "Home",
-    url: "/home",
- }
-};
-
-const current = myRoutes.

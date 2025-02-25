@@ -4,8 +4,8 @@ const Locales = [
     country: 'us',
   },
   {
-    language: 'ar',
-    country: 'sa',
+    language: 'de',
+    country: 'nl',
   },
 ];
 
