@@ -9,7 +9,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  LocalLink,
 } from '@wexelcode/components';
+
+import Routes from '../../constants/routes';
 
 export function DoctorCard() {
   return (
@@ -29,7 +32,9 @@ export function DoctorCard() {
         <p>Dr. John Doe is a cardiologist with 10 years of experience.</p>
       </CardContent>
       <CardFooter className="justify-center">
-        <Button>Book Now</Button>
+        <LocalLink href={`${Routes.doctors}/1`}>
+          <Button>Book Now</Button>
+        </LocalLink>
       </CardFooter>
     </Card>
   );
