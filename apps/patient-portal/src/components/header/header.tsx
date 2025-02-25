@@ -1,7 +1,9 @@
 'use client';
 
+import { LocalSwitcher } from '@wexelcode/components';
 import Link from 'next/link';
 
+import Locales from '../../constants/locales';
 import { UserMenu } from '../user-menu';
 import Navigation from './navigation';
 
@@ -14,7 +16,11 @@ export function Header() {
 
       <Navigation />
 
-      <UserMenu />
+      <div className="flex items-center space-x-4">
+        <LocalSwitcher locales={Locales} />
+
+        <UserMenu />
+      </div>
     </header>
   );
 }
