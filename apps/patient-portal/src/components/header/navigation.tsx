@@ -4,7 +4,6 @@ import {
   LocalLink,
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@wexelcode/components';
@@ -21,10 +20,11 @@ export default function Navigation() {
         {Object.entries(Routes).map(([key, route]) => {
           return (
             <NavigationMenuItem key={key}>
-              <LocalLink href={route.url}>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {t(key)}
-                </NavigationMenuLink>
+              <LocalLink
+                className={navigationMenuTriggerStyle()}
+                href={route.url}
+              >
+                {t(key)}
               </LocalLink>
             </NavigationMenuItem>
           );
