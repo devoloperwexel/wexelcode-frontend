@@ -1,13 +1,24 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import { GetDoctors } from '@wexelcode/api';
+import { QueryKeys } from '@wexelcode/constants';
 
-import DoctorsPageContent from './content';
+import DoctorsPageContent from './page-content';
 
 export default async function DoctorsPage() {
-  try {
-    const response = await GetDoctors({ query: 'page=1&limit=10' });
-  } catch (error) {
-    console.error(error);
-  }
+  const queryClient = new QueryClient();
 
-  return <DoctorsPageContent />;
+  await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.doctors],
+    queryFn: async () => GetDoctors({ query: 'page=1&limit=10&includes=user' }),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <DoctorsPageContent />
+    </HydrationBoundary>
+  );
 }
