@@ -1,20 +1,12 @@
-import { DatePicker, Input } from '@wexelcode/components';
+import { request } from '@wexelcode/utils';
 
-import { DoctorCard } from '../../../components/doctors';
+import API from '../../../api/physios';
+import DoctorsPageContent from './content';
 
-export default function DoctorsPage() {
-  return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-4 gap-4">
-        <Input placeholder="Search Doctors" className="col-span-3" />
-        <DatePicker initialDate={new Date()} />
-      </div>
-
-      <div className="grid grid-cols-4 gap-4">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <DoctorCard key={index} />
-        ))}
-      </div>
-    </div>
-  );
+export default async function DoctorsPage() {
+  const response = await request(API.GET_ALL, {
+    query: 'page=1&limit=20',
+  });
+  console.log(response);
+  return <DoctorsPageContent />;
 }
