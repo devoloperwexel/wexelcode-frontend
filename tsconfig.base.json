@@ -18,9 +18,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@wexelcode/layouts": [
-        "libs/layouts/src/index.ts"
-      ],
       "@wexelcode/assets": [
         "libs/assets/src/index.ts"
       ],
@@ -29,6 +26,9 @@
       ],
       "@wexelcode/hooks": [
         "libs/hooks/src/index.ts"
+      ],
+      "@wexelcode/layouts": [
+        "libs/layouts/src/index.ts"
       ],
       "@wexelcode/theme": [
         "libs/theme/src/index.ts"

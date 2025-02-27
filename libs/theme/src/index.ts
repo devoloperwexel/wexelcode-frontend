@@ -1,1 +1,1 @@
-export * from './lib/styles/theme.css';
+export * from './lib/theme-provider';
