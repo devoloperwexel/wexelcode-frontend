@@ -1,6 +1,5 @@
-import '@wexelcode/theme';
-
 import { DashboardLayout } from '@wexelcode/layouts';
+import { ThemeProvider } from '@wexelcode/theme';
 
 import { UserMenu } from '../user-menu';
 
@@ -15,12 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <DashboardLayout navigationItems={[]} userMenu={<UserMenu />}>
-          {children}
-        </DashboardLayout>
-      </body>
-    </html>
+    <ThemeProvider>
+      <html lang="en">
+        <body>
+          <DashboardLayout navigationItems={[]} userMenu={<UserMenu />}>
+            {children}
+          </DashboardLayout>
+        </body>
+      </html>
+    </ThemeProvider>
   );
 }
