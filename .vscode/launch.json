@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+    ],
+    "configurations": [
+        {
+            "name": "patient-portal – Server",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "pnpm",
+            "runtimeArgs": [
+                "run",
+                "patient-portal:dev",
+            ],
+            "outputCapture": "std",
+            "internalConsoleOptions": "openOnSessionStart",
+            "console": "internalConsole",
+            "env": {
+                "TS_NODE_IGNORE": "false",
+                "TS_NODE_PROJECT": "${workspaceFolder}/apps/patient-portal/tsconfig.json"
+            },
+            "cwd": "${workspaceFolder}/apps/patient-portal/"
+        }
+    ]
+}

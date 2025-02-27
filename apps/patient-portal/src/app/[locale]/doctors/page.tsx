@@ -1,12 +1,13 @@
-import { request } from '@wexelcode/utils';
+import { GetDoctors } from '@wexelcode/api';
 
-import API from '../../../api/physios';
 import DoctorsPageContent from './content';
 
 export default async function DoctorsPage() {
-  const response = await request(API.GET_ALL, {
-    query: 'page=1&limit=20',
-  });
-  console.log(response);
+  try {
+    const response = await GetDoctors({ query: 'page=1&limit=10' });
+  } catch (error) {
+    console.error(error);
+  }
+
   return <DoctorsPageContent />;
 }

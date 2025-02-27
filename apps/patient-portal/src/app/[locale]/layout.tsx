@@ -1,5 +1,6 @@
 import '@wexelcode/theme';
 
+import { QueryProvider } from '@wexelcode/react-query';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -33,9 +34,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <MainLayout>{children}</MainLayout>
-        </NextIntlClientProvider>
+        <QueryProvider>
+          <NextIntlClientProvider messages={messages}>
+            <MainLayout>{children}</MainLayout>
+          </NextIntlClientProvider>
+        </QueryProvider>
       </body>
     </html>
   );

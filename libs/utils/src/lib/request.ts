@@ -13,7 +13,7 @@ export class ResponseError extends Error {
  *
  * @return {object} The parsed JSON from the request
  */
-const parseJSON = (response: AxiosResponse<any, any>) => {
+const parseJSON = <T>(response: AxiosResponse<T, any>) => {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
@@ -38,7 +38,7 @@ const errorHandling = async (error: any) => {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           The response data
  */
-const request = async (
+const request = async <T>(
   _metadata: any,
   data: any,
   multipart = false,
@@ -96,7 +96,7 @@ const request = async (
   //
   try {
     const response = await axios(options);
-    return parseJSON(response);
+    return parseJSON<T>(response);
   } catch (error) {
     console.log(error);
     return errorHandling(error);
