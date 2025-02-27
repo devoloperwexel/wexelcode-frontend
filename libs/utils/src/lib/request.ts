@@ -1,5 +1,5 @@
 import axios from '@wexelcode/axios';
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 
 export class ResponseError extends Error {
   constructor(error: { code: any; message: any }) {
