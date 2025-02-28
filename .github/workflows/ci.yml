@@ -54,8 +54,8 @@ jobs:
 
     - name: Check affected
       if: contains(env.APPS, 'patient-portal')
-    - run: echo "patient-portal is affected!"
-    - run: cd apps/patient-portal
+      run: echo "patient-portal is affected!"
+      run: cd apps/patient-portal
 
     # - name: Build and push Docker image to ECR
     #   id: image
