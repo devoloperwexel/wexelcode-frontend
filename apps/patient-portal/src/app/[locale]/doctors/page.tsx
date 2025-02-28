@@ -13,7 +13,7 @@ export default async function DoctorsPage() {
 
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.doctors],
-    queryFn: async () => GetDoctors({ query: 'page=1&limit=10&includes=user' }),
+    queryFn: async () => GetDoctors({ page: 1, limit: 10, includes: ['user'] }),
   });
 
   return (
