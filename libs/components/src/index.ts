@@ -9,6 +9,7 @@ export * from './lib/dropdown-menu/dropdown-menu';
 export * from './lib/input/input';
 export * from './lib/local/local-switcher';
 export * from './lib/navigation-menu/navigation-menu';
+export * from './lib/pagination/pagination';
 export * from './lib/popover/popover';
 export * from './lib/scroll-area/scroll-area';
 export * from './lib/separator/separator';
