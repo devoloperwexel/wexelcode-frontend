@@ -5,7 +5,7 @@ import { GetDoctorsRequest } from '@wexelcode/types';
 
 export const useGetDoctors = (request: GetDoctorsRequest) => {
   return useQuery({
-    queryKey: [QueryKeys.doctors],
+    queryKey: [QueryKeys.doctors, request.page, request.limit],
     queryFn: async () => GetDoctors(request),
   });
 };
