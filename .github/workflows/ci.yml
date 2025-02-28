@@ -15,7 +15,7 @@ permissions:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    name: "Build & Push Docker Image 🛠️"
+    name: "Build & Push Docker Images 🛠️"
     steps:
     - uses: actions/checkout@v4
       with:
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "Deploy to Dev Environment 🚀"
     needs: build-and-push
-    if: github.ref == 'refs/heads/dev'
+    # if: github.ref == 'refs/heads/dev'
 
     steps:
     - name: Checkout code
