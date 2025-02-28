@@ -8,7 +8,7 @@ export interface PaginatedResult<T> {
   results: Array<T>;
   page: number;
   limit: number;
-  totalPage: number;
+  totalPages: number;
   totalResult: number;
 }
 
