@@ -12,8 +12,8 @@ export default async function DoctorsPage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.doctors],
-    queryFn: async () => GetDoctors({ page: 1, limit: 10, includes: ['user'] }),
+    queryKey: [QueryKeys.doctors, 1, 1],
+    queryFn: async () => GetDoctors({ page: 1, limit: 1, includes: ['user'] }),
   });
 
   return (
