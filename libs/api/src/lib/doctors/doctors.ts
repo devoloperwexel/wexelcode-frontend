@@ -3,10 +3,14 @@ import { request } from '@wexelcode/utils';
 
 import API from './constant';
 
-export const GetDoctors = async ({ query }: GetDoctorsRequest) => {
-  const response = await request<GetDoctorsResponse>(API.GET_ALL, {
-    query,
-  });
+export const GetDoctors = async (params: GetDoctorsRequest) => {
+  const response = await request<GetDoctorsResponse>(
+    API.GET_ALL,
+    {},
+    {
+      params,
+    }
+  );
 
   return response;
 };
