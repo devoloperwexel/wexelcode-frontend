@@ -41,8 +41,8 @@ jobs:
       id: affected
       run: echo "APPS=$(npx nx show projects --affected | tr '\n' ' ')" >> $GITHUB_ENV
 
-    - name: Check affected
+    - name: Run commands for patient-portal if affected
       if: contains(env.APPS, 'patient-portal')
-    - run: echo "patient-portal is affected!"
-    - run: cd apps/patient-portal
-
+      run: |
+        cd apps/patient-portal
+        echo "Now inside patient-portal directory"
