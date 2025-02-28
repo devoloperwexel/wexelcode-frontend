@@ -1,14 +1,16 @@
 'use client';
 
-import { DatePicker, Input } from '@wexelcode/components';
-import { useGetDoctors } from '@wexelcode/hooks';
+import { DatePicker, Input, Pagination } from '@wexelcode/components';
+import { useGetDoctors, useQueryParams } from '@wexelcode/hooks';
 
 import { DoctorCard } from '../../../components/doctors';
 
 export default function DoctorsPageContent() {
+  const queryParams = useQueryParams();
+
   const { data: response } = useGetDoctors({
-    page: 1,
-    limit: 10,
+    page: queryParams.getInt('page') || 1,
+    limit: queryParams.getInt('limit') || 1,
     includes: ['user'],
   });
 
@@ -24,6 +26,8 @@ export default function DoctorsPageContent() {
           <DoctorCard key={item.id} doctor={item} />
         ))}
       </div>
+
+      <Pagination totalPages={response?.data?.totalPages || 0} />
     </div>
   );
 }
