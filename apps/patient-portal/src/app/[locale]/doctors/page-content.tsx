@@ -7,7 +7,9 @@ import { DoctorCard } from '../../../components/doctors';
 
 export default function DoctorsPageContent() {
   const { data: response } = useGetDoctors({
-    query: 'page=1&limit=10&includes=user',
+    page: 1,
+    limit: 10,
+    includes: ['user'],
   });
 
   return (
