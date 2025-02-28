@@ -78,6 +78,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Sets the base and head SHAs for the nx affected commands in CI
+      uses: nrwl/nx-set-shas@v4
+
     - name: Get affected projects
       id: affected
       run: echo "APPS=$(npx nx show projects --affected | tr '\n' ' ')" >> $GITHUB_ENV
