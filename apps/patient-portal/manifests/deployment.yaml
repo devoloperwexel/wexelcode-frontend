@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wexel-patient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wexel-patient
+  template:
+    metadata:
+      labels:
+        app: wexel-patient
+    spec:
+      containers:
+      - name: wexel-patient
+        image: <IMAGE>:<VERSION>
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
