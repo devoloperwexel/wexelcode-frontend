@@ -1,6 +1,6 @@
 const API = {
   GET_ALL: {
-    path: '/physios?:query',
+    path: '/physios',
     method: 'GET',
   },
 };
