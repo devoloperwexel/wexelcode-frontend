@@ -12,4 +12,4 @@ export interface PaginatedResult<T> {
   totalResult: number;
 }
 
-export type PaginatedResponse<T> = Response<PaginatedResult<T>>;
+export type BaseResponse<T> = Response<PaginatedResult<T>>;
