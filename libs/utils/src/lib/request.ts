@@ -6,6 +6,7 @@ export class ResponseError extends Error {
     super(`${error.code} - ${error.message}`);
   }
 }
+
 /**
  * Parses the JSON returned by a network request
  *
@@ -19,6 +20,7 @@ const parseJSON = <T>(response: AxiosResponse<T, any>) => {
   }
   return response.data;
 };
+
 /**
  * Checks if a network request came back fine, and throws an error if not
  *
@@ -31,76 +33,51 @@ const errorHandling = async (error: any) => {
   errorResponse.message = error?.response?.data;
   throw errorResponse;
 };
-/**
- * Requests a URL, returning a promise
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- * @return {object}           The response data
- */
-const request = async <T>(
-  _metadata: any,
-  data: any,
-  multipart = false,
-  isSecure = true
-) => {
-  const payload = { ...data };
-  const metadata = { ..._metadata };
 
+export const request = async <T>(
+  metadata: any,
+  data: any,
+  options: { params?: any; multipart?: boolean; isSecure?: boolean } = {
+    multipart: false,
+    isSecure: false,
+  }
+) => {
   const pathTokens = metadata.path.split(':');
 
-  //
   if (metadata.path.indexOf(':') !== 0) {
     pathTokens.shift();
   }
-  //
+
   pathTokens.forEach((token: string) => {
     if (token.includes('/')) {
       const key = token.split('/')[0];
-      metadata.path = metadata.path.replace(`:${key}`, `${payload[key]}`);
-      delete payload[key];
-    } else {
-      metadata.path = metadata.path.replace(`:${token}`, `${payload[token]}`);
-      delete payload[token];
+      metadata.path = metadata.path.replace(`:${key}`, `${data[key]}`);
+      delete data[key];
     }
   });
-  //
-  let requestBody = JSON.stringify(payload);
-  if (multipart) {
-    requestBody = payload.files;
-  }
-  //
-  const options = {
-    method: metadata.method,
-    // mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache',
-    url: metadata.path,
-    // credentials: 'include', // include, *same-origin, omit
-    headers: {
-      'Content-Type': multipart ? 'multipart/form-data' : 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      ...(isSecure && {
-        Authorization: '',
-      }),
-      ...(multipart && {
-        enctype: 'multipart/form-data',
-      }),
-    },
-    redirect: 'follow', // manual, *follow, error
-    referrer: 'no-referrer', // no-referrer, *client
-    ...(['POST', 'PUT', 'PATCH', 'DELETE'].includes(metadata.method) && {
-      data: requestBody,
-    }),
-  };
-  //
+
   try {
-    const response = await axios(options);
+    const response = await axios({
+      method: metadata.method,
+      url: metadata.path,
+      params: options.params,
+      paramsSerializer: {
+        indexes: null,
+      },
+      cache: 'no-cache',
+      redirect: 'follow',
+      referrer: 'no-referrer',
+      headers: {
+        'Content-Type': options.multipart
+          ? 'multipart/form-data'
+          : 'application/json',
+      },
+      ...(['POST', 'PUT', 'PATCH', 'DELETE'].includes(metadata.method) && data),
+    });
+
     return parseJSON<T>(response);
   } catch (error) {
     console.log(error);
     return errorHandling(error);
   }
 };
-//
-export { request };
