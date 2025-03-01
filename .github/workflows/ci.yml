@@ -16,7 +16,7 @@ permissions:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: "Run Linting ✅"
+    name: "Run Linting 🔍"
     if: github.event_name == 'pull_request'
     steps:
     - uses: actions/checkout@v4
