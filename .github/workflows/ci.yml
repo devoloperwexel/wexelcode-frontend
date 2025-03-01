@@ -6,6 +6,7 @@ on:
     - dev
     - staging
     - main
+    - feature/ci-cd
   pull_request:
 
 
@@ -14,8 +15,28 @@ permissions:
   contents: read
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: "Run Linting ✅"
+    if: github.event_name == 'pull_request'
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - run: npm install -g pnpm
+    - run: pnpm install --frozen-lockfile
+
+    - name: Run Lint
+      run: npx nx affected -t lint --verbose
+
   build-and-push:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     name: "Build & Push Docker Images 🛠️"
     outputs:
       affected_apps: ${{ steps.affected.outputs.apps }}
