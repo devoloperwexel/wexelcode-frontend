@@ -18,7 +18,6 @@ jobs:
     name: "Build & Push Docker Images 🛠️"
     outputs:
       affected_apps: ${{ steps.affected.outputs.apps }}
-      patient_image_tag: ${{ steps.image.outputs.image_tag }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -92,7 +91,6 @@ jobs:
     needs: build-and-push
     env:
       APPS: ${{ needs.build-and-push.outputs.affected_apps }}
-      PATIENT_IMAGE_TAG: ${{ needs.build-and-push.outputs.patient_image_tag }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -118,19 +116,18 @@ jobs:
         cd apps/patient-portal
         echo "Deploying to Dev"
         sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
-        sed -i "s/<VERSION>/${{ env.PATIENT_IMAGE_TAG }}/g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
         kubectl apply -f ./manifests/deployment.yaml -n dev
         kubectl apply -f ./manifests/service.yaml -n dev
         echo "✅ Patient Portal Deployment to Dev completed successfully!"
 
-    # - name: Deploy Physio Portal to Dev
-    #   if: contains(env.APPS, 'doctor-portal')
-    #   run: |
-    #     cd apps/doctor-portal
-    #     echo "Deploying to Dev..."
-    #     sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
-    #     sed -i "s/<VERSION>/${{ env.PATIENT_IMAGE_TAG }}/g" ./manifests/deployment.yaml
-    #     kubectl apply -f ./manifests/deployment.yaml -n dev
-    #     kubectl apply -f ./manifests/service.yaml -n dev
-    #     echo "Physio Portal Deployment to Dev completed successfully! 🔥"
-
+    - name: Deploy Physio Portal to Dev
+      if: contains(env.APPS, 'doctor-portal')
+      run: |
+        cd apps/doctor-portal
+        echo "Deploying to Dev..."
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n dev
+        kubectl apply -f ./manifests/service.yaml -n dev
+        echo "Physio Portal Deployment to Dev completed successfully! 🔥"
