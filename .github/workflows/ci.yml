@@ -116,12 +116,12 @@ jobs:
       if: contains(env.APPS, 'patient-portal')
       run: |
         cd apps/patient-portal
-        echo "Deploying to Dev..."
+        echo "Deploying to Dev"
         sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
         sed -i "s/<VERSION>/${{ env.PATIENT_IMAGE_TAG }}/g" ./manifests/deployment.yaml
         kubectl apply -f ./manifests/deployment.yaml -n dev
         kubectl apply -f ./manifests/service.yaml -n dev
-        echo "Patient Portal Deployment to Dev completed successfully! 🔥"
+        echo "✅ Patient Portal Deployment to Dev completed successfully!"
 
     # - name: Deploy Physio Portal to Dev
     #   if: contains(env.APPS, 'doctor-portal')
