@@ -1,4 +1,4 @@
-export interface Response<T> {
+export interface BaseResponse<T> {
   data: T;
   statusCode: number;
   message: string;
@@ -12,4 +12,4 @@ export interface PaginatedResult<T> {
   totalResult: number;
 }
 
-export type BaseResponse<T> = Response<PaginatedResult<T>>;
+export type PaginatedResponse<T> = BaseResponse<PaginatedResult<T>>;
