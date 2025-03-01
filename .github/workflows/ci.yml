@@ -60,7 +60,7 @@ jobs:
 
     - name: Build & Push Patient Portal Docker Image
       if: contains(steps.affected.outputs.apps, 'patient-portal')
-      id: image
+      id: patient-image
       env:
         ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
@@ -74,7 +74,7 @@ jobs:
 
     - name: Build & Push Physio Portal Docker Image
       if: contains(steps.affected.outputs.apps, 'patient-portal')
-      id: image
+      id: physio-image
       env:
         ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
