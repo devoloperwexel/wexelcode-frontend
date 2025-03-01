@@ -37,7 +37,7 @@ export function DoctorCard({ doctor }: DoctorCardProps) {
         <p>{doctor.description}</p>
       </CardContent>
       <CardFooter className="justify-center">
-        <Link href={`${Routes.doctors.url}/${doctor.id}`}>
+        <Link href={`${Routes.doctors.url}/${doctor.userId}`}>
           <Button>Book Now</Button>
         </Link>
       </CardFooter>
