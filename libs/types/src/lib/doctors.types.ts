@@ -10,7 +10,7 @@ export interface Doctor {
 }
 
 export interface TimeSlot {
-  time: string;
+  time: string[];
   available: boolean;
 }
 
@@ -30,4 +30,4 @@ export type GetPaginatedDoctorsResponse = PaginatedResponse<Doctor>;
 
 export type GetDoctorResponse = BaseResponse<Doctor>;
 
-export type GetDoctorsAvailabilityResponse = BaseResponse<DoctorAvailability[]>;
+export type GetDoctorsAvailabilityResponse = BaseResponse<DoctorAvailability>;
