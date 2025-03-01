@@ -51,8 +51,11 @@ export const request = async <T>(
   pathTokens.forEach((token: string) => {
     if (token.includes('/')) {
       const key = token.split('/')[0];
-      metadata.path = metadata.path.replace(`:${key}`, `${data[key]}`);
-      delete data[key];
+      metadata.path = metadata.path.replace(
+        `:${key}`,
+        `${options.params[key]}`
+      );
+      delete options.params[key];
     }
   });
 
