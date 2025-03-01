@@ -2,7 +2,7 @@ import { Text } from '@wexelcode/components';
 
 interface DoctorDetailsTitleProps {
   title: string;
-  detail: string;
+  detail?: string;
 }
 
 export function DoctorDetailsTitle({ title, detail }: DoctorDetailsTitleProps) {
