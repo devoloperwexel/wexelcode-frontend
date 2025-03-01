@@ -76,7 +76,7 @@ jobs:
     needs: build-and-push
     # if: github.ref == 'refs/heads/dev'
     env:
-      APPS: ${{ needs.build.outputs.affected_apps }}
+      APPS: ${{ needs.build-and-push.outputs.affected_apps }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
