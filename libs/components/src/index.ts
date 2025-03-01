@@ -16,4 +16,6 @@ export * from './lib/separator/separator';
 export * from './lib/sheet/sheet';
 export * from './lib/sidebar/sidebar';
 export * from './lib/skeleton/skeleton';
+export * from './lib/tabs/tabs';
+export * from './lib/text/text';
 export * from './lib/tooltip/tooltip';
