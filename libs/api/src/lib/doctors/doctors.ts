@@ -21,9 +21,9 @@ export const GetDoctors = async (params: GetDoctorsRequest) => {
   return response;
 };
 
-export const GetDoctorById = async (id: string) => {
-  const response = await request<GetDoctorResponse>(API.GET_BY_ID, null, {
-    params: { id },
+export const GetDoctorByUserId = async (userId: string) => {
+  const response = await request<GetDoctorResponse>(API.GET_BY_USER_ID, null, {
+    params: { userId },
   });
 
   return response;
