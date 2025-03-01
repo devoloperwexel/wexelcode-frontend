@@ -1,3 +1,3 @@
 export * from './useGetDoctorAvailability';
-export * from './useGetDoctorById';
+export * from './useGetDoctorByUserId';
 export * from './useGetDoctors';
