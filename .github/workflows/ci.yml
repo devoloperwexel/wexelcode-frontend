@@ -52,12 +52,12 @@ jobs:
         aws-region: ${{ vars.AWS_REGION }}
 
     - name: Login to Amazon ECR
-      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'doctor-portal')
+      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal') || contains(needs.build-and-push.outputs.affected_apps, 'doctor-portal')
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
 
     - name: Build & Push Patient Portal Docker Image
-      if: contains(env.APPS, 'patient-portal')
+      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal')
       id: image
       env:
         ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
@@ -85,7 +85,7 @@ jobs:
       uses: nrwl/nx-set-shas@v4
 
     - name: Configure AWS Credentials
-      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'doctor-portal')
+      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal') || contains(needs.build-and-push.outputs.affected_apps, 'doctor-portal')
       uses: aws-actions/configure-aws-credentials@v2
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -93,11 +93,11 @@ jobs:
         aws-region: ${{ vars.AWS_REGION }}
 
     - name: Update kubeconfig
-      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'doctor-portal')
+      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal') || contains(needs.build-and-push.outputs.affected_apps, 'doctor-portal')
       run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
 
     - name: Patient Portal Deploy to Dev
-      if: contains(env.APPS, 'patient-portal')
+      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal')
       run: |
         cd apps/patient-portal
         echo "Deploying to Dev"
