@@ -16,6 +16,8 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     name: "Build & Push Docker Images 🛠️"
+    outputs:
+      affected_apps: ${{ steps.affected.outputs.APPS }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -73,17 +75,14 @@ jobs:
     name: "Deploy to Dev Environment 🚀"
     needs: build-and-push
     # if: github.ref == 'refs/heads/dev'
-
+    env:
+      APPS: ${{ needs.build.outputs.affected_apps }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Sets the base and head SHAs for the nx affected commands in CI
       uses: nrwl/nx-set-shas@v4
-
-    - name: Get affected projects
-      id: affected
-      run: echo "APPS=$(npx nx show projects --affected | tr '\n' ' ')" >> $GITHUB_ENV
 
     - name: Configure AWS Credentials
       if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'doctor-portal')
