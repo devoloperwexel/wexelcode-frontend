@@ -3,8 +3,8 @@ const API = {
     path: '/physios',
     method: 'GET',
   },
-  GET_BY_ID: {
-    path: '/physios/:id',
+  GET_BY_USER_ID: {
+    path: 'users/:userId/physios?includes=user',
     method: 'GET',
   },
   GET_AVAILABILITY: {
