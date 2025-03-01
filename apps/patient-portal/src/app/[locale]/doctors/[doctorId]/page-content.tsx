@@ -11,13 +11,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  DatePicker,
   ScrollArea,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Text,
 } from '@wexelcode/components';
+
+import { DoctorDetailsTitle } from '../../../../components/doctors';
 
 export default function DoctorPageContent() {
   return (
     <div className="grid grid-cols-3 gap-4">
-      <Card className="h-[400px]">
+      <Card>
         <CardHeader className="flex items-center">
           <Avatar className="h-[120px] w-[120px]">
             <AvatarImage
@@ -29,18 +37,31 @@ export default function DoctorPageContent() {
           <CardTitle>Dr. John Doe</CardTitle>
           <CardDescription>Cardiologist</CardDescription>
         </CardHeader>
-        <CardContent>
-          <p>Dr. John Doe is a cardiologist with 10 years of experience.</p>
+        <CardContent className="space-y-2">
+          <Text>
+            Dr John Doe is a cardiologist with over 10 years of experience. He
+            has worked in various hospitals and has a good reputation in the
+            medical community.
+          </Text>
+
+          <div className="space-y-4">
+            <DoctorDetailsTitle title="Gender" detail="10 years" />
+            <DoctorDetailsTitle title="Experience" detail="10 years" />
+            <DoctorDetailsTitle title="Languages" detail="English, German" />
+          </div>
         </CardContent>
       </Card>
 
       <Card className="col-span-2">
         <CardContent className="p-8">
-          <ScrollArea className="h-[600px]">
-            <CardTitle>Appointments</CardTitle>
-            {Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="p-4 border-b border-border space-y-2">
-                <p>Monday, 12th July 2021</p>
+          <Tabs defaultValue="appointments">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="appointments">Appointments</TabsTrigger>
+              <TabsTrigger value="experience">Experience</TabsTrigger>
+            </TabsList>
+            <TabsContent value="appointments" className="space-y-4">
+              <DatePicker initialDate={new Date()} />
+              <ScrollArea className="h-[600px]">
                 <div className="grid grid-cols-3 gap-4">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <div
@@ -51,14 +72,18 @@ export default function DoctorPageContent() {
                     </div>
                   ))}
                 </div>
-              </div>
-            ))}
-          </ScrollArea>
+              </ScrollArea>
+              <Button>Book</Button>
+            </TabsContent>
+            <TabsContent value="experience">
+              <Text>
+                Dr John Doe has over 10 years of experience in cardiology. He
+                has worked in various hospitals and has a good reputation in the
+                medical community.
+              </Text>
+            </TabsContent>
+          </Tabs>
         </CardContent>
-
-        <CardFooter className="justify-end">
-          <Button>Book</Button>
-        </CardFooter>
       </Card>
     </div>
   );
