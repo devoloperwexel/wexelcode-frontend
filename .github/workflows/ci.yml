@@ -36,10 +36,10 @@ jobs:
     - name: Sets the base and head SHAs for the nx affected commands in CI
       uses: nrwl/nx-set-shas@v4
 
-    - name: Build affected libs
+    - name: Build Affected Projects
       run: npx nx affected -t build --verbose
 
-    - name: Get affected projects
+    - name: Get Affected Projects
       id: affected
       run: |
         APPS=$(npx nx show projects --affected | tr '\n' ' ')
