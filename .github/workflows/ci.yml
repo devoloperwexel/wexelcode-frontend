@@ -1,10 +1,11 @@
-name: CI
+name: Wexel Patient & Physio Frontend Build, Push ECR & Deploy
 
 on:
   push:
     branches:
     - dev
-    - feature/ci-cd
+    - staging
+    - main
   pull_request:
 
 
@@ -23,7 +24,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Cache node_modules
     - uses: actions/setup-node@v4
       with:
         node-version: 20
@@ -88,6 +88,7 @@ jobs:
   deploy-dev:
     runs-on: ubuntu-latest
     name: "Deploy to Dev Environment 🚀"
+    if: github.ref == 'refs/heads/dev'
     needs: build-and-push
     env:
       APPS: ${{ needs.build-and-push.outputs.affected_apps }}
@@ -119,7 +120,7 @@ jobs:
         sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
         kubectl apply -f ./manifests/deployment.yaml -n dev
         kubectl apply -f ./manifests/service.yaml -n dev
-        echo "✅ Patient Portal Deployment to Dev completed successfully!"
+        echo "Patient Portal Deployment to Dev completed successfully! 🔥"
 
     - name: Deploy Physio Portal to Dev
       if: contains(env.APPS, 'doctor-portal')
@@ -131,3 +132,99 @@ jobs:
         kubectl apply -f ./manifests/deployment.yaml -n dev
         kubectl apply -f ./manifests/service.yaml -n dev
         echo "Physio Portal Deployment to Dev completed successfully! 🔥"
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    name: "Deploy to Staging Environment 🚀"
+    if: github.ref == 'refs/heads/staging'
+    needs: build-and-push
+    env:
+      APPS: ${{ needs.build-and-push.outputs.affected_apps }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Sets the base and head SHAs for the nx affected commands in CI
+      uses: nrwl/nx-set-shas@v4
+
+    - name: Configure AWS Credentials
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Update kubeconfig
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+
+    - name: Deploy Patient Portal to Staging
+      if: contains(env.APPS, 'patient-portal')
+      run: |
+        cd apps/patient-portal
+        echo "Deploying to Staging"
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n staging
+        kubectl apply -f ./manifests/service.yaml -n staging
+        echo "Patient Portal Deployment to Staging completed successfully! 🔥"
+
+    - name: Deploy Physio Portal to Staging
+      if: contains(env.APPS, 'doctor-portal')
+      run: |
+        cd apps/doctor-portal
+        echo "Deploying to Staging..."
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n staging
+        kubectl apply -f ./manifests/service.yaml -n staging
+        echo "Physio Portal Deployment to Staging completed successfully! 🔥"
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    name: "Deploy to Prod Environment 🚀"
+    if: github.ref == 'refs/heads/main'
+    needs: build-and-push
+    env:
+      APPS: ${{ needs.build-and-push.outputs.affected_apps }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Sets the base and head SHAs for the nx affected commands in CI
+      uses: nrwl/nx-set-shas@v4
+
+    - name: Configure AWS Credentials
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Update kubeconfig
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+
+    - name: Deploy Patient Portal to Prod
+      if: contains(env.APPS, 'patient-portal')
+      run: |
+        cd apps/patient-portal
+        echo "Deploying to Prod"
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n prod
+        kubectl apply -f ./manifests/service.yaml -n prod
+        echo "Patient Portal Deployment to Production completed successfully! 🔥"
+
+    - name: Deploy Physio Portal to Prod
+      if: contains(env.APPS, 'doctor-portal')
+      run: |
+        cd apps/doctor-portal
+        echo "Deploying to Prod..."
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n prod
+        kubectl apply -f ./manifests/service.yaml -n prod
+        echo "Physio Portal Deployment to Production completed successfully! 🔥"
