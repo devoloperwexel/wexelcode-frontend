@@ -21,7 +21,11 @@
                 "TS_NODE_IGNORE": "false",
                 "TS_NODE_PROJECT": "${workspaceFolder}/apps/patient-portal/tsconfig.json"
             },
-            "cwd": "${workspaceFolder}/apps/patient-portal/"
+            "cwd": "${workspaceFolder}/apps/patient-portal/",
+            "outFiles": [
+                "${workspaceFolder}/**/*.(m|c|)js",
+                "!**/node_modules/**"
+            ]
         }
     ]
 }
