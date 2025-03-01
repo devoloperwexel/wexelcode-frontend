@@ -3,10 +3,9 @@ name: CI
 on:
   push:
     branches:
-    - dev
-    - feature/ci-cd
+      - dev
+      - feature/ci-cd
   pull_request:
-
 
 permissions:
   actions: read
@@ -17,92 +16,94 @@ jobs:
     runs-on: ubuntu-latest
     name: "Build & Push Docker Images 🛠️"
     outputs:
-      affected_apps: ${{ steps.affected.outputs.APPS }}
+      affected_apps: ${{ steps.affected.outputs.apps }}
+      patient_image_tag: ${{ steps.image.outputs.image_tag }}
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    # Cache node_modules
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      # Cache node_modules
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - run: npm install -g pnpm
-    - run: pnpm install --frozen-lockfile
+      - run: npm install -g pnpm
+      - run: pnpm install --frozen-lockfile
 
-    # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-    # - run: npx nx-cloud record -- echo Hello World
-    # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-    - name: Sets the base and head SHAs for the nx affected commands in CI
-      uses: nrwl/nx-set-shas@v4
+      # Nx Affected logic
+      - name: Sets the base and head SHAs for the nx affected commands in CI
+        uses: nrwl/nx-set-shas@v4
 
-    - name: Build affected libs
-      run: npx nx affected -t build --verbose
+      - name: Build affected libs
+        run: npx nx affected -t build --verbose
 
-    - name: Get affected projects
-      id: affected
-      run: echo "APPS=$(npx nx show projects --affected | tr '\n' ' ')" >> $GITHUB_ENV
+      - name: Get affected projects
+        id: affected
+        run: |
+          APPS=$(npx nx show projects --affected | tr '\n' ' ')
+          echo "apps=$APPS" >> $GITHUB_OUTPUT
+          echo "Affected projects: $APPS"
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ vars.AWS_REGION }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
 
-    - name: Login to Amazon ECR
-      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal') || contains(needs.build-and-push.outputs.affected_apps, 'doctor-portal')
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
+      - name: Login to Amazon ECR
+        if: contains(steps.affected.outputs.apps, 'patient-portal') || contains(steps.affected.outputs.apps, 'doctor-portal')
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
 
-    - name: Build & Push Patient Portal Docker Image
-      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal')
-      id: image
-      env:
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-        IMAGE_TAG: ${{ github.run_number }}
-      run: |
-        cd apps/patient-portal
-        echo "Building Patient Portal Docker Image..."
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY/patient:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY/patient:$IMAGE_TAG
-        echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+      - name: Build & Push Patient Portal Docker Image
+        if: contains(steps.affected.outputs.apps, 'patient-portal')
+        id: image
+        env:
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.run_number }}
+        run: |
+          cd apps/patient-portal
+          echo "Building Patient Portal Docker Image..."
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY/patient:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY/patient:$IMAGE_TAG
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
   deploy-dev:
     runs-on: ubuntu-latest
     name: "Deploy to Dev Environment 🚀"
     needs: build-and-push
-    # if: github.ref == 'refs/heads/dev'
     env:
       APPS: ${{ needs.build-and-push.outputs.affected_apps }}
+      PATIENT_IMAGE_TAG: ${{ needs.build-and-push.outputs.patient_image_tag }}
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Sets the base and head SHAs for the nx affected commands in CI
-      uses: nrwl/nx-set-shas@v4
+      - name: Sets the base and head SHAs for the nx affected commands in CI
+        uses: nrwl/nx-set-shas@v4
 
-    - name: Configure AWS Credentials
-      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal') || contains(needs.build-and-push.outputs.affected_apps, 'doctor-portal')
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ vars.AWS_REGION }}
+      - name: Configure AWS Credentials
+        if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'doctor-portal')
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
 
-    - name: Update kubeconfig
-      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal') || contains(needs.build-and-push.outputs.affected_apps, 'doctor-portal')
-      run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+      - name: Update kubeconfig
+        if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'doctor-portal')
+        run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
 
-    - name: Patient Portal Deploy to Dev
-      if: contains(needs.build-and-push.outputs.affected_apps, 'patient-portal')
-      run: |
-        cd apps/patient-portal
-        echo "Deploying to Dev"
-        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
-        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
-        kubectl apply -f ./manifests/deployment.yaml -n dev
-        kubectl apply -f ./manifests/service.yaml -n dev
-        echo "Patient Portal Deployment to Dev completed successfully 🔥"       
+      - name: Deploy Patient Portal to Dev
+        if: contains(env.APPS, 'patient-portal')
+        run: |
+          cd apps/patient-portal
+          echo "Deploying to Dev"
+          sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
+          sed -i "s/<VERSION>/${{ env.PATIENT_IMAGE_TAG }}/g" ./manifests/deployment.yaml
+          kubectl apply -f ./manifests/deployment.yaml -n dev
+          kubectl apply -f ./manifests/service.yaml -n dev
+          echo "✅ Patient Portal Deployment to Dev completed successfully!"
