@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wexel-physio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wexel-physio
+  template:
+    metadata:
+      labels:
+        app: wexel-physio
+    spec:
+      containers:
+      - name: wexel-physio
+        image: <IMAGE>:<VERSION>
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
