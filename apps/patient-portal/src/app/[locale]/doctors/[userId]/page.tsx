@@ -9,12 +9,12 @@ import { QueryKeys } from '@wexelcode/constants';
 import DoctorPageContent from './page-content';
 
 interface DoctorPageProps {
-  params: {
+  params: Promise<{
     userId: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     date?: string;
-  };
+  }>;
 }
 
 export default async function DoctorPage({

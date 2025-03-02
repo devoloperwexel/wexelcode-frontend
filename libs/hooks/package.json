@@ -1,5 +1,5 @@
 {
-  "name": "@wexelcode-frontend/hooks",
+  "name": "@wexelcode/hooks",
   "version": "0.0.1",
   "private": true,
   "type": "commonjs",

@@ -36,9 +36,6 @@
       "@wexelcode/hooks": [
         "libs/hooks/src/index.ts"
       ],
-      "@wexelcode/layouts": [
-        "libs/layouts/src/index.ts"
-      ],
       "@wexelcode/react-query": [
         "libs/react-query/src/index.ts"
       ],
