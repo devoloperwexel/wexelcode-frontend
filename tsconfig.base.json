@@ -42,6 +42,9 @@
       "@wexelcode/react-query": [
         "libs/react-query/src/index.ts"
       ],
+      "@wexelcode/layouts": [
+        "libs/layouts/src/index.ts"
+      ],
       "@wexelcode/theme": [
         "libs/theme/src/index.ts"
       ],
