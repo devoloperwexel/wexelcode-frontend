@@ -4,14 +4,11 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  DatePicker,
-  ScrollArea,
   Tabs,
   TabsContent,
   TabsList,
@@ -19,14 +16,24 @@ import {
   Text,
 } from '@wexelcode/components';
 import { useGetDoctorByUserId } from '@wexelcode/hooks';
+import { useTranslations } from 'next-intl';
 
-import { DoctorDetailsTitle } from '../../../../components/doctors';
+import {
+  DoctorAppointmentsTab,
+  DoctorDetailsTitle,
+} from '../../../../components/doctors';
 
 interface DoctorPageContentProps {
   userId: string;
+  initialDate: Date;
 }
 
-export default function DoctorPageContent({ userId }: DoctorPageContentProps) {
+export default function DoctorPageContent({
+  userId,
+  initialDate,
+}: DoctorPageContentProps) {
+  const t = useTranslations('doctors.doctorPage');
+
   const { data: response } = useGetDoctorByUserId(userId);
 
   return (
@@ -45,20 +52,20 @@ export default function DoctorPageContent({ userId }: DoctorPageContentProps) {
           <CardTitle>{response?.data.user.name}</CardTitle>
           <CardDescription>{response?.data.specialty}</CardDescription>
         </CardHeader>
+
         <CardContent className="space-y-2">
           <Text>{response?.data.description}</Text>
-
           <div className="space-y-4">
             <DoctorDetailsTitle
-              title="Gender"
+              title={t('gender')}
               detail={response?.data.user.gender}
             />
             <DoctorDetailsTitle
-              title="Experience"
-              detail={`${response?.data.totalYearsOfExperience} years`}
+              title={t('experience')}
+              detail={`${response?.data.totalYearsOfExperience} ${t('years')}`}
             />
             <DoctorDetailsTitle
-              title="Languages"
+              title={t('languages')}
               detail={response?.data.user.languages
                 .map((language) => language)
                 .join(', ')}
@@ -71,31 +78,21 @@ export default function DoctorPageContent({ userId }: DoctorPageContentProps) {
         <CardContent className="p-8">
           <Tabs defaultValue="appointments">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="appointments">Appointments</TabsTrigger>
-              <TabsTrigger value="experience">Experience</TabsTrigger>
+              <TabsTrigger value="appointments">
+                {t('appointments')}
+              </TabsTrigger>
+              <TabsTrigger value="experience">{t('experience')}</TabsTrigger>
             </TabsList>
             <TabsContent value="appointments" className="space-y-4">
-              <DatePicker initialDate={new Date()} />
-              <ScrollArea className="h-[600px]">
-                <div className="grid grid-cols-3 gap-4">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-center border p-2 hover:bg-border rounded-md cursor-pointer"
-                    >
-                      <p>10:00 AM - 10:30 AM</p>
-                    </div>
-                  ))}
-                </div>
-              </ScrollArea>
-              <Button>Book</Button>
+              {response?.data.id && (
+                <DoctorAppointmentsTab
+                  doctorId={response?.data.id}
+                  initialDate={initialDate}
+                />
+              )}
             </TabsContent>
             <TabsContent value="experience">
-              <Text>
-                Dr John Doe has over 10 years of experience in cardiology. He
-                has worked in various hospitals and has a good reputation in the
-                medical community.
-              </Text>
+              <Text>{response?.data.description}</Text>
             </TabsContent>
           </Tabs>
         </CardContent>
