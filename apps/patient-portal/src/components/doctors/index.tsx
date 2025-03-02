@@ -1,4 +1,3 @@
-export * from './appointments-loading-skeleton';
 export * from './doctor-appointments-tab';
 export * from './doctor-card';
 export * from './doctor-details-title';
