@@ -37,7 +37,7 @@ export default function DoctorPageContent({
   const { data: response } = useGetDoctorByUserId(userId);
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-4 h-full">
       <Card>
         <CardHeader className="flex items-center">
           <Avatar className="h-[120px] w-[120px]">
@@ -83,7 +83,7 @@ export default function DoctorPageContent({
               </TabsTrigger>
               <TabsTrigger value="experience">{t('experience')}</TabsTrigger>
             </TabsList>
-            <TabsContent value="appointments" className="space-y-4">
+            <TabsContent value="appointments">
               {response?.data.id && (
                 <DoctorAppointmentsTab
                   doctorId={response?.data.id}
