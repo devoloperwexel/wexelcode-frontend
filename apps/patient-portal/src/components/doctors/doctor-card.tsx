@@ -9,6 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Text,
 } from '@wexelcode/components';
 import { Doctor } from '@wexelcode/types';
 import { useTranslations } from 'next-intl';
@@ -44,7 +45,7 @@ export function DoctorCard({ doctor, date }: DoctorCardProps) {
         <CardDescription>{doctor.specialty}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>{doctor.description}</p>
+        <Text className="line-clamp-3">{doctor.description}</Text>
       </CardContent>
       <CardFooter className="justify-center">
         <Link href={href}>
