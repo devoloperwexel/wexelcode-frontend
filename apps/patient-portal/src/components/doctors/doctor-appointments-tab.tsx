@@ -1,9 +1,12 @@
 import { Button, DatePicker, Label, ScrollArea } from '@wexelcode/components';
 import { useGetDoctorAvailability } from '@wexelcode/hooks';
+import { CalendarPlus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { AppointmentsLoadingSkeleton } from '.';
+import AppointmentsLoadingSkeleton from './appointments-loading-skeleton';
+import TimeSlotGuideItem from './time-slot-guide-item';
+import TimeSlotSelector from './time-slot-selector';
 
 interface DoctorAppointmentsTabProps {
   doctorId: string;
@@ -31,7 +34,7 @@ export function DoctorAppointmentsTab({
   };
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col space-y-4">
       <div className="flex items-center space-x-2 py-2 border-b">
         <Label>{t('appointmentDate')}</Label>
         <div className="w-1/4">
@@ -45,30 +48,33 @@ export function DoctorAppointmentsTab({
         </div>
       </div>
 
-      <ScrollArea className="h-[600px]">
+      <div className="flex space-x-4">
+        <TimeSlotGuideItem title={t('selected')} status="selected" />
+        <TimeSlotGuideItem title={t('available')} status="available" />
+        <TimeSlotGuideItem title={t('unavailable')} status="unavailable" />
+      </div>
+
+      <ScrollArea className="flex-grow">
         <div className="grid grid-cols-3 gap-4">
           {isLoading ? (
             <AppointmentsLoadingSkeleton />
           ) : (
             response?.data.timeSlots.map((timeSlot, index) => (
-              <div
+              <TimeSlotSelector
                 key={index}
-                className={`flex justify-center border p-2 hover:bg-border rounded-md cursor-pointer ${
-                  timeSlot.time[0] === selectedTimeSlot ? 'bg-border' : ''
-                }`}
-                onClick={() => handleTimeSlotClick(timeSlot.time[0])}
-              >
-                <p>
-                  {timeSlot.time[0]} -{timeSlot.time[1]}
-                </p>
-              </div>
+                start={timeSlot.time[0]}
+                end={timeSlot.time[1]}
+                available={timeSlot.available}
+                isSelected={selectedTimeSlot === timeSlot.time[0]}
+                onSelect={handleTimeSlotClick}
+              />
             ))
           )}
         </div>
       </ScrollArea>
 
-      <Button className="w-full" disabled={!selectedTimeSlot}>
-        {t('bookAppointment')}
+      <Button className="w-full mt-auto" disabled={!selectedTimeSlot}>
+        <CalendarPlus /> {t('bookAppointment')}
       </Button>
     </div>
   );
