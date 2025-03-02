@@ -1,6 +1,6 @@
 import { Skeleton } from '@wexelcode/components';
 
-export function AppointmentsLoadingSkeleton() {
+export default function AppointmentsLoadingSkeleton() {
   return (
     <>
       {Array.from({ length: 13 }).map((_, index) => (
