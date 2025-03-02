@@ -55,6 +55,22 @@ jobs:
     - name: Sets the base and head SHAs for the nx affected commands in CI
       uses: nrwl/nx-set-shas@v4
 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Fetch AWS SSM Parameters and Build .env
+      run: |
+        echo "Fetching common parameters from AWS SSM..."
+        NEXT_PUBLIC_BASE_URL=$(aws ssm get-parameter --name "/wexel/dev/frontend/base_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/doctor-portal/.env
+        echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/patient-portal/.env
+        echo "Generated .env files:"
+
+
     - name: Build Affected Projects
       run: npx nx affected -t build --verbose
 
@@ -64,13 +80,6 @@ jobs:
         APPS=$(npx nx show projects --affected | tr '\n' ' ')
         echo "apps=$APPS" >> $GITHUB_OUTPUT
         echo "Affected projects: $APPS"
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ vars.AWS_REGION }}
 
     - name: Login to Amazon ECR
       if: contains(steps.affected.outputs.apps, 'patient-portal') || contains(steps.affected.outputs.apps, 'physio-portal')
