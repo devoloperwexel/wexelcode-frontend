@@ -69,8 +69,6 @@ jobs:
         echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/doctor-portal/.env
         echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/patient-portal/.env
         echo "Generated .env files:"
-        cat ./apps/patient-portal/.env
-        cat ./apps/doctor-portal/.env
 
 
     - name: Build Affected Projects
