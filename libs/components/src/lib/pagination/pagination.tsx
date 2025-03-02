@@ -1,6 +1,9 @@
+'use client';
+
 import { useQueryParams } from '@wexelcode/hooks';
 import { cn } from '@wexelcode/utils';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
 import { Button, ButtonProps } from './../..';
@@ -16,7 +19,10 @@ const Pagination = ({
   className,
   ...props
 }: PaginationProps) => {
+  const t = useTranslations('pagination');
+
   const queryParams = useQueryParams();
+
   const page = queryParams.getInt('page') || 1;
 
   const handleOnClickPrevious = () => {
@@ -40,6 +46,7 @@ const Pagination = ({
     >
       <PaginationContent>
         <PaginationPrevious
+          title={t('previous')}
           onClick={handleOnClickPrevious}
           disabled={page === 1}
         />
@@ -58,6 +65,7 @@ const Pagination = ({
           );
         })}
         <PaginationNext
+          title={t('next')}
           onClick={handleOnClickNext}
           disabled={page === totalPages}
         />
