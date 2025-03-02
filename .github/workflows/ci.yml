@@ -62,10 +62,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ vars.AWS_REGION }}
 
-    - name: Install AWS CLI
-      run: |
-        sudo apt-get update && sudo apt-get install -y awscli
-
     - name: Fetch AWS SSM Parameters and Build .env
       run: |
         echo "Fetching common parameters from AWS SSM..."
