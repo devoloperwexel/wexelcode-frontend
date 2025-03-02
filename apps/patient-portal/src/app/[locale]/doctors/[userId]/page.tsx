@@ -12,10 +12,19 @@ interface DoctorPageProps {
   params: {
     userId: string;
   };
+  searchParams: {
+    date?: string;
+  };
 }
 
-export default async function DoctorPage({ params }: DoctorPageProps) {
+export default async function DoctorPage({
+  params,
+  searchParams,
+}: DoctorPageProps) {
   const { userId } = await params;
+  const { date } = await searchParams;
+
+  const initialDate = date ? new Date(date) : new Date();
 
   const queryClient = new QueryClient();
 
@@ -26,7 +35,7 @@ export default async function DoctorPage({ params }: DoctorPageProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <DoctorPageContent userId={userId} />
+      <DoctorPageContent userId={userId} initialDate={initialDate} />
     </HydrationBoundary>
   );
 }
