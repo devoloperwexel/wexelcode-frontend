@@ -1,0 +1,32 @@
+{
+  "language": {
+    "de": "DE",
+    "en": "EN"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "doctors": "Ärzte"
+  },
+  "pagination": {
+    "previous": "Zurück",
+    "next": "Weiter"
+  },
+  "doctors": {
+    "doctorListingPage": {
+      "searchTitle": "Ärzte suchen",
+      "bookAppointment": "Termin buchen"
+    },
+    "doctorPage": {
+      "appointments": "Termine",
+      "experience": "Erfahrung",
+      "gender": "Geschlecht",
+      "languages": "Sprachen",
+      "bookAppointment": "Termin buchen",
+      "years": "Jahre",
+      "appointmentDate": "Termin Datum",
+      "available": "Verfügbar",
+      "selected": "Ausgewählt",
+      "unavailable": "Nicht verfügbar"
+    }
+  }
+}

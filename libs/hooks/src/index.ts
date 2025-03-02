@@ -1,1 +1,3 @@
-export * from './lib/useIsMobile';
+export * from './lib/doctors';
+export * from './lib/responsive';
+export * from './lib/url-params';

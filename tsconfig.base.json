@@ -18,14 +18,26 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@wexelcode/constants": [
+        "libs/constants/src/index.ts"
+      ],
+      "@wexelcode/api": [
+        "libs/api/src/index.ts"
+      ],
       "@wexelcode/assets": [
         "libs/assets/src/index.ts"
+      ],
+      "@wexelcode/axios": [
+        "libs/axios/src/index.ts"
       ],
       "@wexelcode/components": [
         "libs/components/src/index.ts"
       ],
       "@wexelcode/hooks": [
         "libs/hooks/src/index.ts"
+      ],
+      "@wexelcode/react-query": [
+        "libs/react-query/src/index.ts"
       ],
       "@wexelcode/layouts": [
         "libs/layouts/src/index.ts"

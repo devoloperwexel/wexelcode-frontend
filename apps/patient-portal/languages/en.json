@@ -1,0 +1,32 @@
+{
+  "language": {
+    "de": "DE",
+    "en": "EN"
+  },
+  "navigation": {
+    "home": "Home",
+    "doctors": "Doctors"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "doctors": {
+    "doctorListingPage": {
+      "searchTitle": "Search Doctors",
+      "bookAppointment": "Book Appointment"
+    },
+    "doctorPage": {
+      "appointments": "Appointments",
+      "experience": "Experience",
+      "gender": "Gender",
+      "languages": "Languages",
+      "bookAppointment": "Book Appointment",
+      "years": "years",
+      "appointmentDate": "Appointment Date",
+      "available": "Available",
+      "selected": "Selected",
+      "unavailable": "Unavailable"
+    }
+  }
+}
