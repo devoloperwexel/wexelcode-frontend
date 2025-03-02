@@ -11,15 +11,25 @@ import {
   CardTitle,
 } from '@wexelcode/components';
 import { Doctor } from '@wexelcode/types';
+import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 interface DoctorCardProps {
   doctor: Doctor;
+  date?: Date;
 }
 
-export function DoctorCard({ doctor }: DoctorCardProps) {
+export function DoctorCard({ doctor, date }: DoctorCardProps) {
+  const t = useTranslations('doctors.doctorListingPage');
+
+  let href = `${Routes.doctors.url}/${doctor.userId}`;
+
+  if (date) {
+    href += `?date=${date.toISOString()}`;
+  }
+
   return (
     <Card>
       <CardHeader className="flex items-center">
@@ -37,8 +47,8 @@ export function DoctorCard({ doctor }: DoctorCardProps) {
         <p>{doctor.description}</p>
       </CardContent>
       <CardFooter className="justify-center">
-        <Link href={`${Routes.doctors.url}/${doctor.userId}`}>
-          <Button>Book Now</Button>
+        <Link href={href}>
+          <Button>{t('bookAppointment')}</Button>
         </Link>
       </CardFooter>
     </Card>
