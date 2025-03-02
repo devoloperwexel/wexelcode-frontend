@@ -19,7 +19,7 @@ export default function DoctorsPageContent() {
 
   const { data: response, isLoading } = useGetDoctors({
     page: queryParams.getInt('page') || 1,
-    limit: queryParams.getInt('limit') || 1,
+    limit: queryParams.getInt('limit') || 10,
     includes: ['user'],
   });
 
