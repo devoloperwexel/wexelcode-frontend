@@ -23,7 +23,10 @@
       "languages": "Languages",
       "bookAppointment": "Book Appointment",
       "years": "years",
-      "appointmentDate": "Appointment Date"
+      "appointmentDate": "Appointment Date",
+      "available": "Available",
+      "selected": "Selected",
+      "unavailable": "Unavailable"
     }
   }
 }
