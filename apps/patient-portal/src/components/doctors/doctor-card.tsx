@@ -37,11 +37,11 @@ export function DoctorCard({ doctor, date }: DoctorCardProps) {
         <Avatar className="h-[120px] w-[120px]">
           <AvatarImage
             src={doctor.user.profilePictureUrl}
-            alt={doctor.user.name}
+            alt={`${doctor.user.firstName} ${doctor.user.lastName}`}
           />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <CardTitle>{doctor.user.name}</CardTitle>
+        <CardTitle>{`${doctor.user.firstName} ${doctor.user.lastName}`}</CardTitle>
         <CardDescription>{doctor.specialty}</CardDescription>
       </CardHeader>
       <CardContent>

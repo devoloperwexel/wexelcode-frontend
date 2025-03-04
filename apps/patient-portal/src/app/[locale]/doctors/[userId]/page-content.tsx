@@ -43,13 +43,15 @@ export default function DoctorPageContent({
           <Avatar className="h-[120px] w-[120px]">
             <AvatarImage
               src={response?.data.user.profilePictureUrl}
-              alt={response?.data.user.name}
+              alt={`${response?.data.user.firstName} ${response?.data.user.lastName}`}
             />
             <AvatarFallback>
-              {response?.data.user.name[0].toUpperCase()}
+              {response?.data.user.firstName[0].toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <CardTitle>{response?.data.user.name}</CardTitle>
+          <CardTitle>
+            {response?.data.user.firstName} {response?.data.user.lastName}
+          </CardTitle>
           <CardDescription>{response?.data.specialty}</CardDescription>
         </CardHeader>
 
