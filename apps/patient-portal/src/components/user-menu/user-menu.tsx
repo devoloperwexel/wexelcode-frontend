@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@wexelcode/components';
+import { useAuthenticatedUser } from '@wexelcode/hooks';
 import {
   BadgeCheck,
   Bell,
@@ -19,26 +20,38 @@ import {
   LogOut,
   Sparkles,
 } from 'lucide-react';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 export function UserMenu() {
-  const user = {
-    name: 'John Doe',
-    email: 'johon@gmail.com',
-    avatar: 'https://ui.shadcn.com/avatars/shadcn.jpg',
+  const user = useSession();
+
+  useEffect(() => {
+    console.log('User:', user);
+  }, [user]);
+
+  const handleSinIn = async () => {
+    await signIn('keycloak', { redirectTo: '/' });
   };
 
-  return (
+  const handleSinOut = async () => {
+    await signOut({ redirect: false });
+  };
+
+  return user.data ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-          <Avatar className="h-8 w-8 rounded-lg">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+          {/* <Avatar className="h-8 w-8 rounded-lg">
+            <AvatarImage alt={user.name} />
+            <AvatarFallback className="rounded-lg">
+              {user.name[0]}
+            </AvatarFallback>
           </Avatar>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-semibold">{user.name}</span>
             <span className="truncate text-xs">{user.email}</span>
-          </div>
+          </div> */}
           <ChevronsUpDown className="ml-auto size-4" />
         </Button>
       </DropdownMenuTrigger>
@@ -50,14 +63,14 @@ export function UserMenu() {
       >
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage src={user.avatar} alt={user.name} />
+            {/* <Avatar className="h-8 w-8 rounded-lg">
+              <AvatarImage alt={user.name} />
               <AvatarFallback className="rounded-lg">CN</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-semibold">{user.name}</span>
               <span className="truncate text-xs">{user.email}</span>
-            </div>
+            </div> */}
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -83,11 +96,19 @@ export function UserMenu() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleSinOut}>
           <LogOut />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  ) : (
+    <Button
+      onClick={handleSinIn}
+      className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+    >
+      <LogOut className="size-4" />
+      <span className="ml-2">Sign in</span>
+    </Button>
   );
 }
