@@ -1,7 +1,4 @@
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +7,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  Skeleton,
+  UserAvatar,
 } from '@wexelcode/components';
-import { useAuthenticatedUser } from '@wexelcode/hooks';
 import {
   BadgeCheck,
   Bell,
@@ -21,37 +19,48 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 
 export function UserMenu() {
-  const user = useSession();
-
-  useEffect(() => {
-    console.log('User:', user);
-  }, [user]);
+  const { data, status } = useSession();
 
   const handleSinIn = async () => {
-    await signIn('keycloak', { redirectTo: '/' });
+    await signIn('keycloak', { redirectTo: window.location.href });
   };
 
   const handleSinOut = async () => {
     await signOut({ redirect: false });
   };
 
-  return user.data ? (
+  if (status === 'loading')
+    return (
+      <div className="flex space-x-2 items-center">
+        <Skeleton className="h-8 w-8 rounded-lg" />
+        <div className="flex flex-col space-y-1">
+          <Skeleton className="h-2 w-[150px]" />
+          <Skeleton className="h-2 w-[100px]" />
+        </div>
+      </div>
+    );
+
+  if (status === 'unauthenticated')
+    return (
+      <Button className="bg-white text-black" onClick={handleSinIn}>
+        Sign in
+      </Button>
+    );
+
+  return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-          {/* <Avatar className="h-8 w-8 rounded-lg">
-            <AvatarImage alt={user.name} />
-            <AvatarFallback className="rounded-lg">
-              {user.name[0]}
-            </AvatarFallback>
-          </Avatar>
+          <UserAvatar
+            name={data?.user.firstName ?? ''}
+            profileUrl={data?.user.firstName}
+          />
           <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">{user.name}</span>
-            <span className="truncate text-xs">{user.email}</span>
-          </div> */}
+            <span className="truncate font-semibold">{`${data?.user.firstName} ${data?.user.lastName}`}</span>
+            <span className="truncate text-xs">{data?.user.email}</span>
+          </div>
           <ChevronsUpDown className="ml-auto size-4" />
         </Button>
       </DropdownMenuTrigger>
@@ -63,14 +72,14 @@ export function UserMenu() {
       >
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            {/* <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage alt={user.name} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-            </Avatar>
+            <UserAvatar
+              name={data?.user.firstName ?? ''}
+              profileUrl={data?.user.profilePictureUrl}
+            />
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">{user.name}</span>
-              <span className="truncate text-xs">{user.email}</span>
-            </div> */}
+              <span className="truncate font-semibold">{`${data?.user.firstName}`}</span>
+              <span className="truncate text-xs">{data?.user.email}</span>
+            </div>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -102,13 +111,5 @@ export function UserMenu() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  ) : (
-    <Button
-      onClick={handleSinIn}
-      className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-    >
-      <LogOut className="size-4" />
-      <span className="ml-2">Sign in</span>
-    </Button>
   );
 }
