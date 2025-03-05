@@ -8,7 +8,6 @@
   "dependencies": {
     "tslib": "^2.3.0",
     "@wexelcode/types": "0.0.1",
-    "@wexelcode/utils": "0.0.1",
-    "axios": "^1.7.9"
+    "@wexelcode/utils": "0.0.1"
   }
 }
