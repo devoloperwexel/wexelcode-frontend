@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { GetUserInfo, RefreshTokens } from '@wexelcode/api';
+import { FederatedSignOut, GetUserInfo, RefreshTokens } from '@wexelcode/api';
 import {
   CustomAdapterUser,
   CustomToken,
@@ -19,6 +19,14 @@ const config: NextAuthConfig = {
   session: {
     strategy: 'jwt',
   },
+  events: {
+    signOut: async (message) => {
+      if ('token' in message) {
+        const customToken = message.token as CustomToken;
+        await FederatedSignOut(customToken);
+      }
+    },
+  },
   callbacks: {
     jwt: async ({ token, user, account }) => {
       let customToken = token as CustomToken;
@@ -30,7 +38,7 @@ const config: NextAuthConfig = {
         const expiresAt = currentTime + keycloakAccount.expires_in;
         const refreshTokenExpiresAt =
           currentTime + keycloakAccount.refresh_expires_in;
-
+        console.log('keycloakAccount', keycloakAccount);
         const userInfo = await GetUserInfo({
           accessToken: keycloakAccount.access_token!,
           userId: keycloakAccount.providerAccountId,
