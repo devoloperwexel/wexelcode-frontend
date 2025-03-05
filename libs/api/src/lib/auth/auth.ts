@@ -28,13 +28,12 @@ export const RefreshTokens = async (
     return data;
   } catch (error: any) {
     console.error('Error refreshing tokens:', error);
-    console.error('Error response:', error.response);
     return null;
   }
 };
 
 export const FederatedSignOut = async ({ idToken }: CustomToken) => {
-  const url = `${process.env['KEYCLOAK_ISSUER']}/protocol/openid-connect/logout?id_token_hint=${idToken}&post_logout_redirect_uri=/&client_id=${process.env['KEYCLOAK_ID']}`;
+  const url = `${process.env['AUTH_KEYCLOAK_ISSUER']}/protocol/openid-connect/logout?id_token_hint=${idToken}`;
 
   try {
     await axios.get(url);
