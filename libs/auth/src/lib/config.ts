@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { FederatedSignOut, GetUserInfo, RefreshTokens } from '@wexelcode/api';
 import {
   CustomAdapterUser,
   CustomToken,
@@ -7,6 +6,8 @@ import {
 } from '@wexelcode/types';
 import { NextAuthConfig } from 'next-auth';
 import KeycloakProvider from 'next-auth/providers/keycloak';
+
+import { FederatedSignOut, GetUserInfo, RefreshTokens } from './auth-api';
 
 const config: NextAuthConfig = {
   providers: [

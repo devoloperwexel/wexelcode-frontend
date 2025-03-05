@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react';
 
 import { auth } from './auth';
 
-export const getAccessToken = async (): Promise<string | null> => {
+const getTokens = async (): Promise<CustomToken | null> => {
   let session: CustomToken | null = null;
 
   // Check if running on the server-side
@@ -25,6 +25,17 @@ export const getAccessToken = async (): Promise<string | null> => {
     }
   }
 
-  // Return the access token if available, or null
+  return session;
+};
+
+export const getAccessToken = async (): Promise<string | null> => {
+  const session = await getTokens();
+
   return session?.accessToken ?? null;
+};
+
+export const getRefreshToken = async (): Promise<string | null> => {
+  const session = await getTokens();
+
+  return session?.refreshToken ?? null;
 };
