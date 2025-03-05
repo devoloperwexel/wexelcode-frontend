@@ -38,7 +38,7 @@ const config: NextAuthConfig = {
         const expiresAt = currentTime + keycloakAccount.expires_in;
         const refreshTokenExpiresAt =
           currentTime + keycloakAccount.refresh_expires_in;
-        console.log('keycloakAccount', keycloakAccount);
+
         const userInfo = await GetUserInfo({
           accessToken: keycloakAccount.access_token!,
           userId: keycloakAccount.providerAccountId,
