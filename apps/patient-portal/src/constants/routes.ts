@@ -1,10 +1,7 @@
 const Routes = {
-  home: {
-    url: '/',
-  },
-  doctors: {
-    url: '/doctors',
-  },
+  home: '/',
+  doctors: '/doctors',
+  account: '/account',
 };
 
 export default Routes;
