@@ -12,11 +12,13 @@ import {
 } from '@wexelcode/components';
 import { ChevronsUpDown, Cog, LogOut } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 export function UserMenu() {
+  const t = useTranslations('userMenu');
   const { data, status } = useSession();
 
   const handleSinIn = async () => {
@@ -40,8 +42,12 @@ export function UserMenu() {
 
   if (status === 'unauthenticated')
     return (
-      <Button className="bg-white text-black" onClick={handleSinIn}>
-        Sign in
+      <Button
+        variant="outline"
+        className="bg-transparent"
+        onClick={handleSinIn}
+      >
+        {t('signIn')}
       </Button>
     );
 
