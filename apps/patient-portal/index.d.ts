@@ -11,3 +11,9 @@ declare module 'next-auth' {
     user: CustomAdapterUser;
   }
 }
+
+declare module 'axios' {
+  export interface AxiosRequestConfig {
+    authenticated?: boolean;
+  }
+}
