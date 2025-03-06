@@ -17,15 +17,14 @@ export default function Navigation() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        {Object.entries(Routes).map(([key, route]) => {
-          return (
-            <NavigationMenuItem key={key}>
-              <Link className={navigationMenuTriggerStyle()} href={route.url}>
-                {t(key)}
-              </Link>
-            </NavigationMenuItem>
-          );
-        })}
+        <NavigationMenuItem>
+          <Link className={navigationMenuTriggerStyle()} href={Routes.home}>
+            {t('home')}
+          </Link>
+          <Link className={navigationMenuTriggerStyle()} href={Routes.doctors}>
+            {t('doctors')}
+          </Link>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
