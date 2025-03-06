@@ -25,7 +25,7 @@ interface DoctorCardProps {
 export function DoctorCard({ doctor, date }: DoctorCardProps) {
   const t = useTranslations('doctors.doctorListingPage');
 
-  let href = `${Routes.doctors.url}/${doctor.userId}`;
+  let href = `${Routes.doctors}/${doctor.userId}`;
 
   if (date) {
     href += `?date=${date.toISOString()}`;
