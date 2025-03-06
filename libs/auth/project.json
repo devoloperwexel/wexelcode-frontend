@@ -7,13 +7,13 @@
   "// targets": "to see all targets run: nx show project auth --web",
   "targets": {
     "build": {
-      "executor": "@nx/react:build",
+      "executor": "@nx/js:tsc",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
         "outputPath": "dist/libs/auth",
-        "main": "libs/auth/src/index.tsx",
+        "main": "libs/auth/src/index.ts",
         "tsConfig": "libs/auth/tsconfig.lib.json",
         "assets": [
           "libs/auth/*.md"

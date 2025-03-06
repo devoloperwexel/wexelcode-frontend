@@ -12,9 +12,9 @@ import { FederatedSignOut, GetUserInfo, RefreshTokens } from './auth-api';
 const config: NextAuthConfig = {
   providers: [
     KeycloakProvider({
-      clientId: process.env.AUTH_KEYCLOAK_ID,
-      clientSecret: process.env.AUTH_KEYCLOAK_SECRET,
-      issuer: process.env.AUTH_KEYCLOAK_ISSUER,
+      clientId: process.env['AUTH_KEYCLOAK_ID'],
+      clientSecret: process.env['AUTH_KEYCLOAK_SECRET'],
+      issuer: process.env['AUTH_KEYCLOAK_ISSUER'],
     }),
   ],
   session: {
@@ -92,7 +92,7 @@ const config: NextAuthConfig = {
       };
     },
     session: async ({ session, token }) => {
-      session.user = token.user as CustomAdapterUser;
+      session.user = token['user'] as CustomAdapterUser;
       return session;
     },
   },
