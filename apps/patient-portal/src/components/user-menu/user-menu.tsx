@@ -10,15 +10,11 @@ import {
   Skeleton,
   UserAvatar,
 } from '@wexelcode/components';
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from 'lucide-react';
+import { ChevronsUpDown, Cog, LogOut } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
+
+import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 
 export function UserMenu() {
   const { data, status } = useSession();
@@ -83,26 +79,14 @@ export function UserMenu() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Sparkles />
-            Upgrade to Pro
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BadgeCheck />
-            Account
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard />
-            Billing
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Bell />
-            Notifications
-          </DropdownMenuItem>
+          <Link href={Routes.account}>
+            <DropdownMenuItem>
+              <Cog />
+              Account Settings
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSinOut}>
