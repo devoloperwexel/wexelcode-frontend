@@ -1,7 +1,7 @@
 'use client';
 
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import { cn } from '@wexelcode/utils';
+import { cn, titleToColor } from '@wexelcode/utils';
 import * as React from 'react';
 
 const Avatar = React.forwardRef<
@@ -46,4 +46,24 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export { Avatar, AvatarFallback,AvatarImage };
+type UserAvatarProps = Omit<React.ComponentProps<typeof Avatar>, 'children'> & {
+  name: string;
+  profileUrl?: string;
+};
+
+const UserAvatar = ({ name, profileUrl, ...rest }: UserAvatarProps) => (
+  <Avatar {...rest}>
+    {profileUrl && <AvatarImage alt={name} src={profileUrl} />}
+    <AvatarFallback
+      className="rounded-lg"
+      style={{
+        backgroundColor: titleToColor(name),
+      }}
+    >
+      {name[0].toLocaleUpperCase()}
+    </AvatarFallback>
+  </Avatar>
+);
+UserAvatar.displayName = 'UserAvatar';
+
+export { Avatar, AvatarFallback, AvatarImage, UserAvatar };

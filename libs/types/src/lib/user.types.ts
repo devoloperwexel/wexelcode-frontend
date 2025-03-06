@@ -1,6 +1,7 @@
 export interface User {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
   email: string;
   profilePictureUrl: string;

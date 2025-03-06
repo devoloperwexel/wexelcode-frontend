@@ -1,7 +1,4 @@
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -10,34 +7,61 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  Skeleton,
+  UserAvatar,
 } from '@wexelcode/components';
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from 'lucide-react';
+import { ChevronsUpDown, Cog, LogOut } from 'lucide-react';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+
+import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 
 export function UserMenu() {
-  const user = {
-    name: 'John Doe',
-    email: 'johon@gmail.com',
-    avatar: 'https://ui.shadcn.com/avatars/shadcn.jpg',
+  const t = useTranslations('userMenu');
+  const { data, status } = useSession();
+
+  const handleSinIn = async () => {
+    await signIn('keycloak', { redirectTo: window.location.href });
   };
+
+  const handleSinOut = async () => {
+    await signOut({ redirect: false });
+  };
+
+  if (status === 'loading')
+    return (
+      <div className="flex space-x-2 items-center">
+        <Skeleton className="h-8 w-8 rounded-lg" />
+        <div className="flex flex-col space-y-1">
+          <Skeleton className="h-2 w-[150px]" />
+          <Skeleton className="h-2 w-[100px]" />
+        </div>
+      </div>
+    );
+
+  if (status === 'unauthenticated')
+    return (
+      <Button
+        variant="outline"
+        className="bg-transparent"
+        onClick={handleSinIn}
+      >
+        {t('signIn')}
+      </Button>
+    );
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-          <Avatar className="h-8 w-8 rounded-lg">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-          </Avatar>
+          <UserAvatar
+            name={data?.user.firstName ?? ''}
+            profileUrl={data?.user.firstName}
+          />
           <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">{user.name}</span>
-            <span className="truncate text-xs">{user.email}</span>
+            <span className="truncate font-semibold">{`${data?.user.firstName} ${data?.user.lastName}`}</span>
+            <span className="truncate text-xs">{data?.user.email}</span>
           </div>
           <ChevronsUpDown className="ml-auto size-4" />
         </Button>
@@ -50,40 +74,28 @@ export function UserMenu() {
       >
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-            </Avatar>
+            <UserAvatar
+              name={data?.user.firstName ?? ''}
+              profileUrl={data?.user.profilePictureUrl}
+            />
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">{user.name}</span>
-              <span className="truncate text-xs">{user.email}</span>
+              <span className="truncate font-semibold">{`${data?.user.firstName}`}</span>
+              <span className="truncate text-xs">{data?.user.email}</span>
             </div>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Sparkles />
-            Upgrade to Pro
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BadgeCheck />
-            Account
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard />
-            Billing
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Bell />
-            Notifications
-          </DropdownMenuItem>
+          <Link href={Routes.account}>
+            <DropdownMenuItem>
+              <Cog />
+              Account Settings
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleSinOut}>
           <LogOut />
           Log out
         </DropdownMenuItem>

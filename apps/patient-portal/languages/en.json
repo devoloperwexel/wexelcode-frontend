@@ -7,6 +7,9 @@
     "home": "Home",
     "doctors": "Doctors"
   },
+  "userMenu": {
+    "signIn": "Sign In"
+  },
   "pagination": {
     "previous": "Previous",
     "next": "Next"

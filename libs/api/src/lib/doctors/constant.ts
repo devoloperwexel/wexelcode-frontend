@@ -4,7 +4,7 @@ const API = {
     method: 'GET',
   },
   GET_BY_USER_ID: {
-    path: 'users/:userId/physios?includes=user',
+    path: 'users/:userId/physio?includes=user',
     method: 'GET',
   },
   GET_AVAILABILITY: {
