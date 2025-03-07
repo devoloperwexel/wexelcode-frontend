@@ -1,4 +1,4 @@
 export const QueryKeys = {
   doctors: 'DOCTORS',
-  questions: 'QUESTIONS',
+  questionnaire: 'QUESTIONNAIRE',
 };
