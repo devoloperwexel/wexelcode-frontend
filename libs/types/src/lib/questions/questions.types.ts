@@ -3,7 +3,7 @@ import { TranslatedField } from '../..';
 export interface Question {
   id: string;
   questionnaireId: string;
-  type: 'radio' | 'MULTIPLE_CHOICE' | 'text';
+  type: 'RADIO' | 'MULTIPLE_CHOICE' | 'TEXT';
   requiredQuestionId?: string;
   requiredAnswer?: string;
   requiredGenders: string[];
