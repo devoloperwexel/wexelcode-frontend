@@ -5,7 +5,7 @@ import { GetQuestionsRequest } from '@wexelcode/types';
 
 export const useGetQuestionnaire = (params: GetQuestionsRequest) => {
   return useQuery({
-    queryKey: [QueryKeys.questions, params.page, params.limit],
+    queryKey: [QueryKeys.questionnaire, params.page, params.limit],
     queryFn: async () => GetQuestionnaire(params),
   });
 };
