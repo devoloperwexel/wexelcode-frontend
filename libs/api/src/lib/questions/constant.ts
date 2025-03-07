@@ -1,5 +1,8 @@
 const API = {
-  GET_ALL: '/questions',
+  GET_ALL: {
+    path: '/Questionnaires',
+    method: 'GET',
+  },
 };
 
 export default API;

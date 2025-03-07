@@ -1,4 +1,4 @@
 import { PaginatedResponse } from '../..';
-import { Question } from '.';
+import { Questionnaire } from '.';
 
-export type GetQuestionsResponse = PaginatedResponse<Question>;
+export type GetQuestionnaireResponse = PaginatedResponse<Questionnaire>;

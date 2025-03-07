@@ -1,1 +1,1 @@
-export * from './useGetQuestions';
+export * from './useGetQuestionnaire';
