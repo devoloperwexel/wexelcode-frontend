@@ -7,12 +7,12 @@ import axios from 'axios';
 
 const axiosConfig = axios.create({
   baseURL: `${process.env['NEXT_PUBLIC_BASE_URL']}/api/v1`,
-  authenticated: true,
+  authenticated: false,
 });
 
-axiosConfig.interceptors.request.use((config) => {
+axiosConfig.interceptors.request.use(async (config) => {
   if (config.authenticated) {
-    const token = getAccessToken();
+    const token = await getAccessToken();
 
     if (!token) {
       // TODO: Redirect to login page
