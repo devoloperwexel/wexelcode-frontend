@@ -10,6 +10,7 @@ import KeycloakProvider from 'next-auth/providers/keycloak';
 import { FederatedSignOut, GetUserInfo, RefreshTokens } from './auth-api';
 
 const config: NextAuthConfig = {
+  trustHost: true,
   providers: [
     KeycloakProvider({
       clientId: process.env['AUTH_KEYCLOAK_ID'],
