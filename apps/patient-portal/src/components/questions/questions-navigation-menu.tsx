@@ -15,7 +15,7 @@ export default function QuestionsNavigationMenu({
   onSelectQuestionnaire,
 }: QuestionsNavigationMenuProps) {
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>Questionnaires</CardHeader>
       <CardContent className="flex flex-col space-y-2">
         {questionnaires.map((questionnaire) => (
