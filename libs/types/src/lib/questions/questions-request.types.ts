@@ -1,3 +1,7 @@
 import { BaseRequest } from '../..';
 
-export type GetQuestionsRequest = BaseRequest;
+export type GetQuestionnaireRequest = BaseRequest;
+
+export interface GetQuestionnaireByQuestionnaireIdRequest extends BaseRequest {
+  questionId: string;
+}
