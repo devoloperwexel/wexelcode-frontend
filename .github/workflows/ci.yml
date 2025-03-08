@@ -85,7 +85,6 @@ jobs:
         echo "AUTH_KEYCLOAK_SECRET=$AUTH_PHYSIO_KEYCLOAK_SECRET" >> apps/doctor-portal/.env
 
         echo "Generated .env files"
-        cat apps/patient-portal/.env
 
     - name: Build Affected Projects
       run: npx nx affected -t build --verbose
