@@ -77,16 +77,16 @@ jobs:
         echo "AUTH_KEYCLOAK_ID=$AUTH_PATIENT_KEYCLOAK_ID" >> apps/patient-portal/.env
         AUTH_PATIENT_KEYCLOAK_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/keycloak_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
         echo "AUTH_KEYCLOAK_SECRET=$AUTH_PATIENT_KEYCLOAK_SECRET" >> apps/patient-portal/.env
-        NEXTAUTH_PATIENT_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/next_auth_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-        echo "NEXTAUTH_SECRET=$NEXTAUTH_PATIENT_SECRET" >> apps/patient-portal/.env
+        AUTH_PATIENT_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/next_auth_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_SECRET=$AUTH_PATIENT_SECRET" >> apps/patient-portal/.env
 
         echo "Fetching physio parameters from AWS SSM..."
         AUTH_PHYSIO_KEYCLOAK_ID=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/keycloak_client_id" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
         echo "AUTH_KEYCLOAK_ID=$AUTH_PHYSIO_KEYCLOAK_ID" >> apps/doctor-portal/.env
         AUTH_PHYSIO_KEYCLOAK_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/keycloak_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
         echo "AUTH_KEYCLOAK_SECRET=$AUTH_PHYSIO_KEYCLOAK_SECRET" >> apps/doctor-portal/.env
-        NEXTAUTH_PHYSIO_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/next_auth_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-        echo "NEXTAUTH_SECRET=$NEXTAUTH_PHYSIO_SECRET" >> apps/doctor-portal/.env
+        AUTH_PHYSIO_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/next_auth_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_SECRET=$AUTH_PHYSIO_SECRET" >> apps/doctor-portal/.env
 
         echo "Generated .env files"
 
