@@ -16,9 +16,8 @@ interface QuestionFormProps {
 }
 
 export default function QuestionForm({ questionnaireId }: QuestionFormProps) {
-  console.log('QuestionForm', questionnaireId);
   const { isLoading, data } = useGetQuestionsByQuestionnaireId({
-    questionId: questionnaireId,
+    id: questionnaireId,
     page: 1,
     limit: 20,
   });
