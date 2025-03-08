@@ -1,13 +1,14 @@
 import {
+  GetQuestionnaireByQuestionnaireIdRequest,
+  GetQuestionnaireRequest,
   GetQuestionnaireResponse,
-  GetQuestionsRequest,
   GetQuestionsResponse,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
 import API from './constant';
 
-export const GetQuestionnaire = async (params: GetQuestionsRequest) => {
+export const GetQuestionnaire = async (params: GetQuestionnaireRequest) => {
   const response = await request<GetQuestionnaireResponse>(
     API.GET_ALL_QUESTIONNAIRES,
     null,
@@ -19,11 +20,14 @@ export const GetQuestionnaire = async (params: GetQuestionsRequest) => {
   return response?.data;
 };
 
-export const GetQuestionnaireByQuestionnaireId = async (id: string) => {
+export const GetQuestionnaireByQuestionnaireId = async (
+  params: GetQuestionnaireByQuestionnaireIdRequest
+) => {
   const response = await request<GetQuestionsResponse>(
     API.GET_QUESTIONS_BY_QUESTIONNAIRE_ID,
+    null,
     {
-      id,
+      params,
     }
   );
 
