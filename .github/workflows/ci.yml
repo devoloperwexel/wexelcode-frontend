@@ -83,8 +83,9 @@ jobs:
         echo "AUTH_KEYCLOAK_ID=$AUTH_PHYSIO_KEYCLOAK_ID" >> apps/doctor-portal/.env
         AUTH_PHYSIO_KEYCLOAK_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/keycloak_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
         echo "AUTH_KEYCLOAK_SECRET=$AUTH_PHYSIO_KEYCLOAK_SECRET" >> apps/doctor-portal/.env
-        
+
         echo "Generated .env files"
+        cat apps/patient-portal/.env
 
     - name: Build Affected Projects
       run: npx nx affected -t build --verbose
