@@ -1,10 +1,5 @@
-import {
-  BaseResponse,
-  CustomToken,
-  RefreshToken,
-  User,
-} from '@wexelcode/types';
-import axios from 'axios';
+import { CustomToken, RefreshToken, TokenResponse } from '@wexelcode/types';
+import axios, { AxiosResponse } from 'axios';
 
 export const RefreshTokens = async (
   refreshToken: string
@@ -42,25 +37,29 @@ export const FederatedSignOut = async ({ idToken }: CustomToken) => {
   }
 };
 
-export const GetUserInfo = async ({
-  accessToken,
-  userId,
-}: {
-  accessToken: string;
-  userId: string;
-}) => {
-  const url = `${process.env['NEXT_PUBLIC_BASE_URL']}/api/v1/users/${userId}`;
-
+/**
+ * Fetches an access token from Keycloak using client credentials.
+ * @returns The access token response from Keycloak.
+ */
+export const fetchAccessToken = async (): Promise<TokenResponse> => {
   try {
-    const { data } = await axios.get<BaseResponse<User>>(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+    const tokenUrl = `${process.env.AUTH_KEYCLOAK_ISSUER}/protocol/openid-connect/token`;
+    const tokenParams = new URLSearchParams({
+      client_id: process.env.AUTH_KEYCLOAK_ID ?? '', // Ensure environment variables are set
+      client_secret: process.env.AUTH_KEYCLOAK_SECRET ?? '',
+      grant_type: 'client_credentials',
     });
 
-    return data.data;
-  } catch (error: any) {
-    console.error('Error getting user info:', error);
-    return null;
+    // Post request to Keycloak for access token
+    const response: AxiosResponse<TokenResponse> = await axios.post(
+      tokenUrl,
+      tokenParams
+    );
+
+    // Return the access token
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching access token:', error);
+    throw new Error('Failed to retrieve access token');
   }
 };
