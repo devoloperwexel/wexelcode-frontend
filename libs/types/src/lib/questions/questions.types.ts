@@ -5,10 +5,11 @@ export interface Question {
   questionnaireId: string;
   type: 'RADIO' | 'MULTIPLE_CHOICE' | 'TEXT';
   requiredQuestionId?: string;
-  requiredAnswer?: string;
+  requiredAnswer?: TranslatedField;
   requiredGenders: string[];
   text: TranslatedField;
   options: TranslatedField[];
+  childQuestions?: Question[];
   tooltip?: TranslatedField;
 }
 
