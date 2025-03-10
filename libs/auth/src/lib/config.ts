@@ -5,11 +5,15 @@ import {
   KeycloakAccount,
 } from '@wexelcode/types';
 import { NextAuthConfig } from 'next-auth';
+import { Adapter } from 'next-auth/adapters';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 
-import { FederatedSignOut, GetUserInfo, RefreshTokens } from './auth-api';
+import AuthAdapter from './auth-adapter';
+import { FederatedSignOut, RefreshTokens } from './auth-api';
 
 const config: NextAuthConfig = {
+  trustHost: true,
+  adapter: AuthAdapter() as unknown as Adapter,
   providers: [
     KeycloakProvider({
       clientId: process.env['AUTH_KEYCLOAK_ID'],
@@ -40,28 +44,13 @@ const config: NextAuthConfig = {
         const refreshTokenExpiresAt =
           currentTime + keycloakAccount.refresh_expires_in;
 
-        const userInfo = await GetUserInfo({
-          accessToken: keycloakAccount.access_token!,
-          userId: keycloakAccount.providerAccountId,
-        });
-
-        if (!userInfo) {
-          return {
-            ...customToken,
-            error: 'GetUserInfoError',
-          };
-        }
-
         customToken = {
           accessToken: keycloakAccount.access_token!,
           refreshToken: keycloakAccount.refresh_token!,
           idToken: keycloakAccount.id_token!,
           expires: expiresAt,
           refreshTokenExpires: refreshTokenExpiresAt,
-          user: {
-            ...customUser,
-            ...userInfo,
-          },
+          user: customUser,
         };
       }
 
