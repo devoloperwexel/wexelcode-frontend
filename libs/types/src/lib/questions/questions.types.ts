@@ -14,7 +14,6 @@ export interface Question {
 
 export interface Questionnaire {
   id: string;
-  title: string;
   name: TranslatedField;
   questions?: Question[];
 }
