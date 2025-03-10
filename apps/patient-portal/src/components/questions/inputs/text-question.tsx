@@ -3,6 +3,8 @@ import { Question } from '@wexelcode/types';
 import { PenLineIcon } from 'lucide-react';
 import React from 'react';
 
+import QuestionTooltip from './tooltip';
+
 interface TextQuestionProps {
   question: Question;
   local: string;
@@ -23,6 +25,9 @@ export const TextQuestion: React.FC<TextQuestionProps> = ({
           <div className="mb-3 font-medium text-gray-800 flex items-center gap-2">
             <PenLineIcon className="w-4 h-4 text-gray-400" />
             {question.text[local]}
+            {question.tooltip && (
+              <QuestionTooltip tooltip={question.tooltip[local]} />
+            )}
           </div>
 
           <textarea

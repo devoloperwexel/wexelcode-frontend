@@ -3,6 +3,8 @@ import { Question } from '@wexelcode/types';
 import { CheckCircleIcon, CircleIcon } from 'lucide-react';
 import React from 'react';
 
+import QuestionTooltip from './tooltip';
+
 interface SingleSelectQuestionProps {
   question: Question;
   local: string;
@@ -25,11 +27,9 @@ export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
           <div className="p-4 border border-gray-200 rounded-lg bg-white hover:border-blue-200 transition-all duration-200">
             <div className="mb-3 font-medium text-gray-800 flex items-center gap-2">
               {question.text[local]}
-              {/* {question.tooltip && (
-          <Tooltip content={question.tooltip[language]}>
-            <HelpCircleIcon className="w-4 h-4 text-blue-500 cursor-help" />
-          </Tooltip>
-        )} */}
+              {question.tooltip && (
+                <QuestionTooltip tooltip={question.tooltip[local]} />
+              )}
             </div>
             <div className="space-y-3">
               {options.map((option, index) => {
