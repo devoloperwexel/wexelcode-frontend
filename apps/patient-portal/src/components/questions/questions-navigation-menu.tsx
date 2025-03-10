@@ -3,12 +3,14 @@ import { ClipboardListIcon } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 interface QuestionsNavigationMenuProps {
+  local: string;
   questionnaires: Questionnaire[];
   currentIndex: number;
   onSelect: (index: number) => void;
 }
 
 export default function QuestionsNavigationMenu({
+  local,
   currentIndex,
   questionnaires,
   onSelect,
@@ -63,7 +65,7 @@ export default function QuestionsNavigationMenu({
             role="tab"
           >
             <ClipboardListIcon className="w-4 h-4" />
-            {questionnaire.name['en']}
+            {questionnaire.name[local]}
           </button>
         ))}
       </div>

@@ -5,9 +5,13 @@ import React from 'react';
 
 interface TextQuestionProps {
   question: Question;
+  local: string;
 }
 
-export const TextQuestion: React.FC<TextQuestionProps> = ({ question }) => {
+export const TextQuestion: React.FC<TextQuestionProps> = ({
+  question,
+  local,
+}) => {
   return (
     <FormField
       name={question.id}
@@ -15,7 +19,7 @@ export const TextQuestion: React.FC<TextQuestionProps> = ({ question }) => {
         <div className="p-4 border border-gray-200 rounded-lg bg-white hover:border-blue-200 transition-all duration-200">
           <div className="mb-3 font-medium text-gray-800 flex items-center gap-2">
             <PenLineIcon className="w-4 h-4 text-gray-400" />
-            {question.text['en']}
+            {question.text[local]}
           </div>
           <textarea
             {...field}

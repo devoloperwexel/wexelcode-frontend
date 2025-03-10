@@ -62,7 +62,7 @@ export default function QuestionForm({
   return (
     <div className="animate-fadeIn">
       <h2 className="text-xl font-semibold text-blue-900 mb-6 flex items-center gap-2">
-        {questionnaire.name['en']}
+        {questionnaire.name[local]}
       </h2>
 
       <Form {...form}>

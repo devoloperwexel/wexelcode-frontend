@@ -5,12 +5,14 @@ import React from 'react';
 
 interface SingleSelectQuestionProps {
   question: Question;
+  local: string;
 }
 
 export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
   question,
+  local,
 }) => {
-  const options = question.options.map((option) => option['en']);
+  const options = question.options.map((option) => option[local]);
 
   return (
     <FormField
@@ -19,7 +21,7 @@ export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
         return (
           <div className="p-4 border border-gray-200 rounded-lg bg-white hover:border-blue-200 transition-all duration-200">
             <div className="mb-3 font-medium text-gray-800 flex items-center gap-2">
-              {question.text['en']}
+              {question.text[local]}
               {/* {question.tooltip && (
           <Tooltip content={question.tooltip[language]}>
             <HelpCircleIcon className="w-4 h-4 text-blue-500 cursor-help" />

@@ -26,6 +26,7 @@ export function QuestionnaireSection({
     <div className="bg-white rounded-lg shadow-lg transition-all duration-200">
       {questionnaires?.results && (
         <QuestionsNavigationMenu
+          local={local}
           questionnaires={questionnaires.results}
           currentIndex={currentCategoryIndex}
           onSelect={setCurrentCategoryIndex}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Question } from '@wexelcode/types';
-import { useForm, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import {
   MultipleSelectQuestion,
@@ -28,11 +28,11 @@ const ParentQuestionsFormInput: React.FC<QuestionFormInputProps> = ({
 
   switch (question.type) {
     case 'TEXT':
-      return <TextQuestion question={question} />;
+      return <TextQuestion question={question} local={local} />;
     case 'MULTIPLE_CHOICE':
-      return <MultipleSelectQuestion question={question} />;
+      return <MultipleSelectQuestion question={question} local={local} />;
     case 'RADIO':
-      return <SingleSelectQuestion question={question} />;
+      return <SingleSelectQuestion question={question} local={local} />;
     default:
       return null;
   }
