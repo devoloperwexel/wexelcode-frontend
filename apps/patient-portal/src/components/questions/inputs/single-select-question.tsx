@@ -1,4 +1,4 @@
-import { FormField } from '@wexelcode/components';
+import { FormField, FormMessage } from '@wexelcode/components';
 import { Question } from '@wexelcode/types';
 import { CheckCircleIcon, CircleIcon } from 'lucide-react';
 import React from 'react';
@@ -17,6 +17,9 @@ export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
   return (
     <FormField
       name={question.id}
+      rules={{
+        required: 'This field is required',
+      }}
       render={({ field }) => {
         return (
           <div className="p-4 border border-gray-200 rounded-lg bg-white hover:border-blue-200 transition-all duration-200">
@@ -56,6 +59,8 @@ export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
                 );
               })}
             </div>
+
+            <FormMessage />
           </div>
         );
       }}

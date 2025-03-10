@@ -1,4 +1,4 @@
-import { FormField, FormItem } from '@wexelcode/components';
+import { FormField, FormItem, FormMessage } from '@wexelcode/components';
 import { Question } from '@wexelcode/types';
 import { CheckSquareIcon, SquareIcon } from 'lucide-react';
 import React from 'react';
@@ -17,6 +17,9 @@ export const MultipleSelectQuestion: React.FC<MultipleSelectQuestionProps> = ({
   return (
     <FormField
       name={question.id}
+      rules={{
+        required: 'This field is required',
+      }}
       render={({ field }) => {
         const selectedValues = Array.isArray(field.value) ? field.value : [];
 
@@ -59,6 +62,8 @@ export const MultipleSelectQuestion: React.FC<MultipleSelectQuestionProps> = ({
                   );
                 })}
               </div>
+
+              <FormMessage />
             </div>
           </FormItem>
         );

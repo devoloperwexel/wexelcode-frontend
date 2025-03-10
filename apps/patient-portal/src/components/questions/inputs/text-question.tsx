@@ -1,4 +1,4 @@
-import { FormField } from '@wexelcode/components';
+import { FormField, FormMessage } from '@wexelcode/components';
 import { Question } from '@wexelcode/types';
 import { PenLineIcon } from 'lucide-react';
 import React from 'react';
@@ -15,12 +15,16 @@ export const TextQuestion: React.FC<TextQuestionProps> = ({
   return (
     <FormField
       name={question.id}
+      rules={{
+        required: 'This field is required',
+      }}
       render={({ field }) => (
         <div className="p-4 border border-gray-200 rounded-lg bg-white hover:border-blue-200 transition-all duration-200">
           <div className="mb-3 font-medium text-gray-800 flex items-center gap-2">
             <PenLineIcon className="w-4 h-4 text-gray-400" />
             {question.text[local]}
           </div>
+
           <textarea
             {...field}
             className="w-full p-3 border border-gray-300 rounded-md
@@ -29,6 +33,8 @@ export const TextQuestion: React.FC<TextQuestionProps> = ({
           placeholder:text-gray-400"
             rows={3}
           />
+
+          <FormMessage />
         </div>
       )}
     />
