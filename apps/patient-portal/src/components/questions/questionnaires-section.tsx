@@ -1,39 +1,34 @@
 'use client';
 
+import { Tabs, TabsList, TabsTrigger } from '@wexelcode/components';
 import { useGetQuestionnaire } from '@wexelcode/hooks';
-import { useEffect, useState } from 'react';
+import { ClipboardListIcon } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 import QuestionForm from './questions-form';
 import QuestionsNavigationMenu from './questions-navigation-menu';
 
 export function QuestionnaireSection() {
-  const [selectedQuestionnaireId, setSelectedQuestionnaireId] = useState<
-    string | undefined
-  >();
-
+  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const { data: questionnaires } = useGetQuestionnaire({
     page: 1,
     limit: 20,
   });
 
-  useEffect(() => {
-    if (questionnaires?.results.length) {
-      setSelectedQuestionnaireId(questionnaires.results[0].id);
-    }
-  }, [questionnaires]);
-
   return (
-    <div className="grid grid-cols-3 gap-4">
-      <div>
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-200">
+      {questionnaires?.results && (
         <QuestionsNavigationMenu
-          questionnaires={questionnaires?.results ?? []}
-          selectedQuestionnaireId={selectedQuestionnaireId}
-          onSelectQuestionnaire={setSelectedQuestionnaireId}
+          questionnaires={questionnaires.results}
+          currentIndex={currentCategoryIndex}
+          onSelect={setCurrentCategoryIndex}
         />
-      </div>
-      <div className="col-span-2">
-        {selectedQuestionnaireId && (
-          <QuestionForm questionnaireId={selectedQuestionnaireId} />
+      )}
+      <div className="p-4">
+        {questionnaires?.results && (
+          <QuestionForm
+            questionnaire={questionnaires.results[currentCategoryIndex]}
+          />
         )}
       </div>
     </div>
