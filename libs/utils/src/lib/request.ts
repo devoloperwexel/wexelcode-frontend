@@ -35,13 +35,16 @@ const errorHandling = async (error: any) => {
 };
 
 export const request = async <T>(
-  metadata: any,
+  _metadata: any,
   data: any,
   options: { params?: any; multipart?: boolean; isSecure?: boolean } = {
     multipart: false,
     isSecure: false,
   }
 ) => {
+  const payload = { ...data };
+  const metadata = { ..._metadata };
+
   const pathTokens = metadata.path.split(':');
 
   if (metadata.path.indexOf(':') !== 0) {
@@ -75,7 +78,8 @@ export const request = async <T>(
           ? 'multipart/form-data'
           : 'application/json',
       },
-      ...(['POST', 'PUT', 'PATCH', 'DELETE'].includes(metadata.method) && data),
+      ...(['POST', 'PUT', 'PATCH', 'DELETE'].includes(metadata.method) &&
+        payload),
     });
 
     return parseJSON<T>(response);

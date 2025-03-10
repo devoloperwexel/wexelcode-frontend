@@ -2,7 +2,7 @@ import { Account } from 'next-auth';
 import { AdapterUser } from 'next-auth/adapters';
 import { JWT } from 'next-auth/jwt';
 
-import { User } from '..';
+import { User } from '../..';
 
 export type CustomAdapterUser = User & AdapterUser;
 

@@ -1,4 +1,4 @@
-import { BaseRequest, BaseResponse, PaginatedResponse, User } from '..';
+import { BaseRequest, BaseResponse, PaginatedResponse, User } from '../..';
 
 export interface Doctor {
   id: string;

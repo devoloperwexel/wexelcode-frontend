@@ -4,6 +4,8 @@ import { CalendarPlus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import Routes from '../../constants/routes';
+import { useRouter } from '../../i18n/routing';
 import AppointmentsLoadingSkeleton from './appointments-loading-skeleton';
 import TimeSlotGuideItem from './time-slot-guide-item';
 import TimeSlotSelector from './time-slot-selector';
@@ -19,6 +21,8 @@ export function DoctorAppointmentsTab({
 }: DoctorAppointmentsTabProps) {
   const t = useTranslations('doctors.doctorPage');
 
+  const { push } = useRouter();
+
   const [date, setDate] = useState<Date>(initialDate);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<
     string | undefined
@@ -31,6 +35,10 @@ export function DoctorAppointmentsTab({
 
   const handleTimeSlotClick = (timeSlot: string) => {
     setSelectedTimeSlot(timeSlot);
+  };
+
+  const handleOnBookAppointment = () => {
+    push(Routes.appointments);
   };
 
   return (
@@ -73,7 +81,11 @@ export function DoctorAppointmentsTab({
         </div>
       </ScrollArea>
 
-      <Button className="w-full mt-auto" disabled={!selectedTimeSlot}>
+      <Button
+        className="w-full mt-auto"
+        disabled={!selectedTimeSlot}
+        onClick={handleOnBookAppointment}
+      >
         <CalendarPlus /> {t('bookAppointment')}
       </Button>
     </div>
