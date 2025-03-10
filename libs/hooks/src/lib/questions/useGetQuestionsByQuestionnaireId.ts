@@ -7,12 +7,7 @@ export const useGetQuestionsByQuestionnaireId = (
   params: GetQuestionnaireByQuestionnaireIdRequest
 ) => {
   return useQuery({
-    queryKey: [
-      QueryKeys.questionnaire,
-      params.questionId,
-      params.page,
-      params.limit,
-    ],
+    queryKey: [QueryKeys.questionnaire, params.id, params.page, params.limit],
     queryFn: async () => GetQuestionnaireByQuestionnaireId(params),
   });
 };
