@@ -1,36 +1,40 @@
 'use client';
 
-import {
-  Button,
-  Form,
-  FormExpandedMultiSelector,
-  FormExpandedSelector,
-  FormInputField,
-  Skeleton,
-} from '@wexelcode/components';
+import { Button, Form, Skeleton } from '@wexelcode/components';
 import { useGetQuestionsByQuestionnaireId } from '@wexelcode/hooks';
+import { Question, Questionnaire } from '@wexelcode/types';
 import { useForm } from 'react-hook-form';
 
+import { MultipleSelectQuestion, SingleSelectQuestion } from './inputs';
+import { TextQuestion } from './inputs/text-question';
+
 interface QuestionFormProps {
-  questionnaireId: string;
+  questionnaire: Questionnaire;
 }
 
-export default function QuestionForm({ questionnaireId }: QuestionFormProps) {
+export default function QuestionForm({ questionnaire }: QuestionFormProps) {
   const { isLoading, data } = useGetQuestionsByQuestionnaireId({
-    id: questionnaireId,
+    id: questionnaire.id,
     page: 1,
     limit: 20,
   });
 
-  const form = useForm({
-    defaultValues: {
-      name: 'Imasha Weerakoon',
-      nums: [],
-    },
-  });
+  const form = useForm();
 
-  const onSubmit = (data: any) => {
+  const handleSubmit = (data: any) => {
     console.log(data);
+  };
+  const renderQuestion = (question: Question) => {
+    switch (question.type) {
+      case 'TEXT':
+        return <TextQuestion question={question} />;
+      case 'MULTIPLE_CHOICE':
+        return <MultipleSelectQuestion question={question} />;
+      case 'RADIO':
+        return <SingleSelectQuestion question={question} />;
+      default:
+        return null;
+    }
   };
 
   if (isLoading) {
@@ -42,57 +46,20 @@ export default function QuestionForm({ questionnaireId }: QuestionFormProps) {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {data?.results.map((question, index) => {
-          const title = `${index + 1}. ${question.text['en']}`;
-
-          if (question.type === 'TEXT') {
-            return (
-              <div key={question.id}>
-                <FormInputField
-                  name={`question-${question.id}`}
-                  label={title}
-                  lines={3}
-                />
-              </div>
-            );
-          }
-          if (question.type === 'MULTIPLE_CHOICE') {
-            return (
-              <div key={question.id}>
-                <FormExpandedMultiSelector
-                  name={`question-${question.id}`}
-                  label={title}
-                  options={question.options.map((option) => ({
-                    label: option['en'],
-                    value: option['en'],
-                  }))}
-                />
-              </div>
-            );
-          }
-
-          if (question.type === 'RADIO') {
-            return (
-              <div key={question.id}>
-                <FormExpandedSelector
-                  name={`question-${question.id}`}
-                  label={title}
-                  options={question.options.map((option) => ({
-                    label: option['en'],
-                    value: option['en'],
-                  }))}
-                />
-              </div>
-            );
-          }
-        })}
-        <div className="flex space-x-4 justify-end">
-          <Button variant="outline">Back</Button>
-          <Button type="submit">Next</Button>
-        </div>
-      </form>
-    </Form>
+    <div className="animate-fadeIn">
+      <h2 className="text-xl font-semibold text-blue-900 mb-6 flex items-center gap-2">
+        {questionnaire.name['en']}
+      </h2>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+          {data?.results.map((question, index) => (
+            <div key={index}>{renderQuestion(question)}</div>
+          ))}
+          <div className="flex justify-end">
+            <Button size="lg">Submit</Button>
+          </div>
+        </form>
+      </Form>
+    </div>
   );
 }
