@@ -4,7 +4,7 @@ const API = {
     method: 'GET',
   },
   GET_QUESTIONS_BY_QUESTIONNAIRE_ID: {
-    path: 'questionnaires/:questionId/questions',
+    path: '/questionnaires/:id/questions',
     method: 'GET',
   },
 };
