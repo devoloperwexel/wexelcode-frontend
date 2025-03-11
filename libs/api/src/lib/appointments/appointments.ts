@@ -1,6 +1,6 @@
 import {
   CreateAppointmentRequest,
-  GetQuestionnaireResponse,
+  GetAppointmentResponse,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
@@ -10,7 +10,7 @@ export const CreateAppointment = async ({
   userId,
   ...data
 }: CreateAppointmentRequest) => {
-  const response = await request<GetQuestionnaireResponse>(
+  const response = await request<GetAppointmentResponse>(
     API.CREATE_APPOINTMENT,
     data,
     {
