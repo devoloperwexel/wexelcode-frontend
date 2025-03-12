@@ -59,6 +59,12 @@ export const request = async <T>(
         `${options.params[key]}`
       );
       delete options.params[key];
+    } else {
+      metadata.path = metadata.path.replace(
+        `:${token}`,
+        `${options.params[token]}`
+      );
+      delete options.params[token];
     }
   });
 
