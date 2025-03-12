@@ -1,5 +1,6 @@
 import {
   CreateAppointmentRequest,
+  GetAppointmentRequest,
   GetAppointmentResponse,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
@@ -17,6 +18,18 @@ export const CreateAppointment = async ({
       params: {
         userId,
       },
+    }
+  );
+
+  return response?.data;
+};
+
+export const GetAppointmentById = async (params: GetAppointmentRequest) => {
+  const response = await request<GetAppointmentResponse>(
+    API.GET_APPOINTMENT_BY_ID,
+    {},
+    {
+      params,
     }
   );
 
