@@ -1,19 +1,20 @@
 import { Card, CardContent, CardHeader, Text } from '@wexelcode/components';
-import { Appointment, Doctor } from '@wexelcode/types';
+import { Appointment } from '@wexelcode/types';
+import { dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
 
 interface AppointmentInfoCardProps {
-  appointment?: Appointment; // TODO: remove optional
+  appointment: Appointment;
 }
 
 export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'confirmed':
+  const getStatusColor = () => {
+    switch (appointment.status) {
+      case 'CONFIRMED':
         return 'bg-green-100 text-green-800';
-      case 'pending':
+      case 'PENDING':
         return 'bg-yellow-100 text-yellow-800';
-      case 'cancelled':
+      case 'CANCELLED':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
@@ -29,14 +30,19 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
             <CalendarIcon className="w-5 h-5 text-blue-600 mr-3" />
             <div>
               <Text variant="muted">Date</Text>
-              <Text weight="semibold">Monday, June 10, 2023</Text>
+              <Text weight="semibold">
+                {dateTimeFormat(appointment.appointmentTime, 'MMM DD, YYYY')}
+              </Text>
             </div>
           </div>
           <div className="flex items-center">
             <ClockIcon className="w-5 h-5 text-blue-600 mr-3" />
             <div>
               <Text variant="muted">Time</Text>
-              <Text weight="semibold">10:30 AM (30 minutes)</Text>
+              <Text weight="semibold">
+                {dateTimeFormat(appointment.appointmentTime, 'hh:mm A')} (30
+                minutes)
+              </Text>
             </div>
           </div>
           <div className="flex items-center">
@@ -50,11 +56,9 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
             <div>
               <Text variant="muted">Status</Text>
               <span
-                className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                  'pending'
-                )}`}
+                className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}
               >
-                Pending
+                {appointment.status}
               </span>
             </div>
           </div>
