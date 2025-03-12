@@ -8,6 +8,7 @@ import {
   DoctorInfoCard,
   MedicalScreeningInfoCard,
 } from '../../../../components/appointments';
+import { CheckoutCard } from '../../../../components/checkout';
 
 interface AppointmentDetailsPageProps {
   id: string;
@@ -25,14 +26,22 @@ export default function AppointmentDetailsPageContent({
   });
 
   return (
-    <div className="flex flex-col space-y-4">
-      {appointment?.physioUser && (
-        <DoctorInfoCard user={appointment.physioUser} />
-      )}
+    <div className="grid grid-cols-3 gap-6">
+      <div className="col-span-2  flex flex-col space-y-4">
+        {appointment?.physioUser && (
+          <DoctorInfoCard user={appointment.physioUser} />
+        )}
 
-      {appointment && <AppointmentInfoCard appointment={appointment} />}
+        {appointment && <AppointmentInfoCard appointment={appointment} />}
 
-      <MedicalScreeningInfoCard />
+        <MedicalScreeningInfoCard />
+      </div>
+
+      <div className="col-span-1">
+        <div className="sticky top-6">
+          <CheckoutCard />
+        </div>
+      </div>
     </div>
   );
 }
