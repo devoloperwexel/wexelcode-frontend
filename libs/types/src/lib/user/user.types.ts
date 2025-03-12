@@ -12,7 +12,7 @@ export interface User {
   mobile: string;
   zipCode: number;
   languages: string[];
-  gender: 'MALE' | 'FEMALE' | 'OTHER';
+  gender: 'MALE' | 'FEMALE';
   createdAt: string;
   updatedAt: string;
 }
