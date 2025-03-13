@@ -12,10 +12,16 @@ import React, { useEffect, useState } from 'react';
 import CheckoutLoading from './checkout-loading';
 
 interface CheckoutPageProps {
+  userId: string;
+  appointmentId: string;
   amount: number;
 }
 
-export default function CheckoutForm({ amount }: CheckoutPageProps) {
+export default function CheckoutForm({
+  amount,
+  userId,
+  appointmentId,
+}: CheckoutPageProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -28,11 +34,15 @@ export default function CheckoutForm({ amount }: CheckoutPageProps) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ amount: convertToSubCurrency(amount) }),
+      body: JSON.stringify({
+        amount: convertToSubCurrency(amount),
+        userId: userId,
+        appointmentId: appointmentId,
+      }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  }, [amount]);
+  }, [amount, userId, appointmentId]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,7 +64,7 @@ export default function CheckoutForm({ amount }: CheckoutPageProps) {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `http://www.localhost:3000/payment-success?amount=${amount}`,
+        return_url: `${window.location.href}/success`,
       },
     });
 
@@ -80,10 +90,9 @@ export default function CheckoutForm({ amount }: CheckoutPageProps) {
 
       {errorMessage && <Text variant="error">{errorMessage}</Text>}
 
-      <Button
-        className="w-full"
-        disabled={!stripe || loading}
-      >{`Pay $${amount}`}</Button>
+      <Button className="w-full" disabled={!stripe || loading}>
+        Pay &#8364;{amount}
+      </Button>
     </form>
   );
 }
