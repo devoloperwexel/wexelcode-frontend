@@ -39,7 +39,13 @@ export default function AppointmentDetailsPageContent({
 
       <div className="col-span-1">
         <div className="sticky top-6">
-          <CheckoutCard />
+          {data?.user && appointment?.status === 'PENDING' && (
+            <CheckoutCard
+              amount={49}
+              appointmentId={id}
+              userId={data?.user.id}
+            />
+          )}
         </div>
       </div>
     </div>
