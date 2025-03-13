@@ -4,9 +4,9 @@ import { convertToSubCurrency, getStripe } from '@wexelcode/utils';
 
 import CheckoutForm from './checkout-form';
 
-export function CheckoutCard() {
-  const amount = 49;
+type CheckoutCardProps = React.ComponentProps<typeof CheckoutForm>;
 
+export function CheckoutCard(props: CheckoutCardProps) {
   return (
     <Card>
       <CardHeader>Complete Appointment</CardHeader>
@@ -15,11 +15,11 @@ export function CheckoutCard() {
           stripe={getStripe()}
           options={{
             mode: 'payment',
-            amount: convertToSubCurrency(amount),
-            currency: 'usd',
+            amount: convertToSubCurrency(props.amount),
+            currency: 'eur',
           }}
         >
-          <CheckoutForm amount={amount} />
+          <CheckoutForm {...props} />
         </Elements>
       </CardContent>
     </Card>
