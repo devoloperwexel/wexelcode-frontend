@@ -32,7 +32,7 @@ export default function QuestionsNavigationMenu({
   }, [currentIndex]);
 
   return (
-    <div className="max-w-screen-lg">
+    <div className="max-w-screen-xl">
       <div className="w-full h-2">
         <div
           className="bg-blue-600 h-full transition-all duration-300 ease-in-out"
