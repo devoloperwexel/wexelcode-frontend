@@ -2,12 +2,15 @@ import { Card, CardContent, CardHeader, Text } from '@wexelcode/components';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface AppointmentInfoCardProps {
   appointment: Appointment;
 }
 
 export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
+  const t = useTranslations('appointments.appointmentCard');
+
   const getStatusColor = () => {
     switch (appointment.status) {
       case 'CONFIRMED':
@@ -23,13 +26,13 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
 
   return (
     <Card>
-      <CardHeader>Appointment Details</CardHeader>
+      <CardHeader>{t('title')}</CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center">
             <CalendarIcon className="w-5 h-5 text-blue-600 mr-3" />
             <div>
-              <Text variant="muted">Date</Text>
+              <Text variant="muted">{t('date')}</Text>
               <Text weight="semibold">
                 {dateTimeFormat(appointment.appointmentTime, 'MMM DD, YYYY')}
               </Text>
@@ -38,23 +41,23 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
           <div className="flex items-center">
             <ClockIcon className="w-5 h-5 text-blue-600 mr-3" />
             <div>
-              <Text variant="muted">Time</Text>
+              <Text variant="muted">{t('time')}</Text>
               <Text weight="semibold">
-                {dateTimeFormat(appointment.appointmentTime, 'hh:mm A')} (30
-                minutes)
+                {dateTimeFormat(appointment.appointmentTime, 'hh:mm A')} (30{' '}
+                {t('minutes')})
               </Text>
             </div>
           </div>
           <div className="flex items-center">
             <VideoIcon className="w-5 h-5 text-blue-600 mr-3" />
             <div>
-              <Text variant="muted">Appointment Type</Text>
-              <Text weight="semibold">Video Consultation</Text>
+              <Text variant="muted">{t('type')}</Text>
+              <Text weight="semibold">{t('video')}</Text>
             </div>
           </div>
           <div className="flex items-center">
             <div>
-              <Text variant="muted">Status</Text>
+              <Text variant="muted">{t('status')}</Text>
               <span
                 className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}
               >

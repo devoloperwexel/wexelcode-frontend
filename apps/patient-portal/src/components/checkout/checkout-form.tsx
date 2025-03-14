@@ -7,6 +7,7 @@ import {
 } from '@stripe/react-stripe-js';
 import { Button, Text } from '@wexelcode/components';
 import { convertToSubCurrency } from '@wexelcode/utils';
+import { useTranslations } from 'next-intl';
 import React, { useEffect, useState } from 'react';
 
 import CheckoutLoading from './checkout-loading';
@@ -22,6 +23,7 @@ export default function CheckoutForm({
   userId,
   appointmentId,
 }: CheckoutPageProps) {
+  const t = useTranslations('appointments.paymentCard');
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -91,7 +93,7 @@ export default function CheckoutForm({
       {errorMessage && <Text variant="error">{errorMessage}</Text>}
 
       <Button className="w-full" disabled={!stripe || loading}>
-        Pay &#8364;{amount}
+        {t('pay')} &#8364;{amount}
       </Button>
     </form>
   );

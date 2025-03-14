@@ -10,6 +10,7 @@ import {
 import { useGetDoctorByUserId } from '@wexelcode/hooks';
 import { User } from '@wexelcode/types';
 import { Award, Languages, User as UserIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { DoctorInfoLoadingSkeleton } from './loading-skeleton';
 
@@ -18,6 +19,7 @@ interface DoctorInfoCardProps {
 }
 
 export function DoctorInfoCard({ user }: DoctorInfoCardProps) {
+  const t = useTranslations('appointments.doctorInformationCard');
   const { data: doctor } = useGetDoctorByUserId(user.id);
 
   if (!doctor) {
@@ -26,7 +28,7 @@ export function DoctorInfoCard({ user }: DoctorInfoCardProps) {
 
   return (
     <Card>
-      <CardHeader>Doctor Information</CardHeader>
+      <CardHeader>{t('title')}</CardHeader>
 
       <CardContent className="grid grid-cols-2">
         <div className="flex items-center space-x-4">
@@ -47,23 +49,23 @@ export function DoctorInfoCard({ user }: DoctorInfoCardProps) {
           <div className="flex items-center">
             <UserIcon className="w-5 h-5 text-blue-600 mr-3" />
             <div>
-              <Text variant="muted">Gender</Text>
+              <Text variant="muted">{t('gender')}</Text>
               <Text weight="semibold">{user.gender}</Text>
             </div>
           </div>
           <div className="flex items-center">
             <Languages className="w-5 h-5 text-blue-600 mr-3" />
             <div>
-              <Text variant="muted">Languages</Text>
+              <Text variant="muted">{t('languages')}</Text>
               <Text weight="semibold">{user.languages.join(',')}</Text>
             </div>
           </div>
           <div className="flex items-center">
             <Award className="w-5 h-5 text-blue-600 mr-3" />
             <div>
-              <Text variant="muted">Experience</Text>
+              <Text variant="muted">{t('experience')}</Text>
               <Text weight="semibold">
-                {doctor.data?.totalYearsOfExperience} years
+                {doctor.data?.totalYearsOfExperience} {t('years')}
               </Text>
             </div>
           </div>
