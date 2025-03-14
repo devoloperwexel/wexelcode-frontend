@@ -41,7 +41,7 @@ export default function AppointmentDetailsPageContent({
         <div className="sticky top-6">
           {data?.user && appointment?.status === 'PENDING' && (
             <CheckoutCard
-              amount={49}
+              amount={20}
               appointmentId={id}
               userId={data?.user.id}
             />
