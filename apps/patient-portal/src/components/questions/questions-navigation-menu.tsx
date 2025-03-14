@@ -33,7 +33,7 @@ export default function QuestionsNavigationMenu({
 
   return (
     <div className="max-w-screen-lg">
-      <div className="w-full bg-gray-100 h-2">
+      <div className="w-full h-2">
         <div
           className="bg-blue-600 h-full transition-all duration-300 ease-in-out"
           style={{
@@ -44,7 +44,7 @@ export default function QuestionsNavigationMenu({
 
       <div
         ref={tabsContainerRef}
-        className="flex overflow-x-auto border-b border-gray-200 bg-gray-50 no-scrollbar"
+        className="flex overflow-x-auto border-b border-gray-200  no-scrollbar"
       >
         {questionnaires.map((questionnaire, index) => (
           <button
