@@ -7,6 +7,9 @@
     "home": "Startseite",
     "doctors": "Ärzte"
   },
+  "userMenu": {
+    "signIn": "Anmelden"
+  },
   "pagination": {
     "previous": "Zurück",
     "next": "Weiter"
