@@ -31,5 +31,33 @@
       "selected": "Selected",
       "unavailable": "Unavailable"
     }
+  },
+  "appointments": {
+    "doctorInformationCard": {
+      "title": "Doctor Information",
+      "experience": "Experience",
+      "gender": "Gender",
+      "languages": "Languages",
+      "years": "years"
+    },
+    "appointmentCard": {
+      "title": "Appointment Information",
+      "date": "Date",
+      "time": "Time",
+      "status": "Status",
+      "type": "Appointment Type",
+      "video": "Video Consultation",
+      "minutes": "minutes"
+    },
+    "medicalScreeningCard": {
+      "title": "Medical Screening Information",
+      "noScreening": "No screening information available",
+      "complete": "Complete screening questions"
+    },
+    "paymentCard": {
+      "title": "Payment Information",
+      "total": "Total",
+      "pay": "Pay"
+    }
   }
 }
