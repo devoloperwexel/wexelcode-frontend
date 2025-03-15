@@ -88,7 +88,7 @@ export default function DoctorPageContent({
             <TabsContent value="appointments">
               {response?.data.id && (
                 <DoctorAppointmentsTab
-                  doctorId={response?.data.id}
+                  doctor={response.data}
                   initialDate={initialDate}
                 />
               )}

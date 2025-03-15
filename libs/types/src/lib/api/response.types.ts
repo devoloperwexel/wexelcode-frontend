@@ -12,4 +12,9 @@ export interface PaginatedResult<T> {
   totalResult: number;
 }
 
+export interface Timestamps {
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type PaginatedResponse<T> = BaseResponse<PaginatedResult<T>>;

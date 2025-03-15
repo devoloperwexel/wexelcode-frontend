@@ -1,4 +1,5 @@
 export * from './lib/api';
+export * from './lib/appointments';
 export * from './lib/auth';
 export * from './lib/doctors';
 export * from './lib/language';

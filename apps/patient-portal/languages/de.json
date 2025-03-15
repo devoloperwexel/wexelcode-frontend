@@ -7,6 +7,9 @@
     "home": "Startseite",
     "doctors": "Ärzte"
   },
+  "userMenu": {
+    "signIn": "Anmelden"
+  },
   "pagination": {
     "previous": "Zurück",
     "next": "Weiter"
@@ -27,6 +30,34 @@
       "available": "Verfügbar",
       "selected": "Ausgewählt",
       "unavailable": "Nicht verfügbar"
+    }
+  },
+  "appointments": {
+    "doctorInformationCard": {
+      "title": "Arztinformationen",
+      "experience": "Erfahrung",
+      "gender": "Geschlecht",
+      "languages": "Sprachen",
+      "years": "Jahre"
+    },
+    "appointmentCard": {
+      "title": "Termininformationen",
+      "date": "Datum",
+      "time": "Uhrzeit",
+      "status": "Status",
+      "type": "Terminart",
+      "video": "Video-Konsultation",
+      "minutes": "Minuten"
+    },
+    "medicalScreeningCard": {
+      "title": "Medizinische Screening-Informationen",
+      "noScreening": "Keine Screening-Informationen verfügbar",
+      "complete": "Screening-Fragen ausfüllen"
+    },
+    "paymentCard": {
+      "title": "Zahlungsinformationen",
+      "total": "Gesamt",
+      "pay": "Bezahlen"
     }
   }
 }

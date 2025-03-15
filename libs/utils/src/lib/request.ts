@@ -36,13 +36,13 @@ const errorHandling = async (error: any) => {
 
 export const request = async <T>(
   _metadata: any,
-  data: any,
+  _data: any,
   options: { params?: any; multipart?: boolean; isSecure?: boolean } = {
     multipart: false,
     isSecure: false,
   }
 ) => {
-  const payload = { ...data };
+  const data = { ..._data };
   const metadata = { ..._metadata };
 
   const pathTokens = metadata.path.split(':');
@@ -59,6 +59,12 @@ export const request = async <T>(
         `${options.params[key]}`
       );
       delete options.params[key];
+    } else {
+      metadata.path = metadata.path.replace(
+        `:${token}`,
+        `${options.params[token]}`
+      );
+      delete options.params[token];
     }
   });
 
@@ -70,16 +76,14 @@ export const request = async <T>(
       paramsSerializer: {
         indexes: null,
       },
-      cache: 'no-cache',
-      redirect: 'follow',
-      referrer: 'no-referrer',
       headers: {
         'Content-Type': options.multipart
           ? 'multipart/form-data'
           : 'application/json',
       },
-      ...(['POST', 'PUT', 'PATCH', 'DELETE'].includes(metadata.method) &&
-        payload),
+      ...(['POST', 'PUT', 'PATCH', 'DELETE'].includes(metadata.method) && {
+        data: JSON.stringify(data),
+      }),
     });
 
     return parseJSON<T>(response);

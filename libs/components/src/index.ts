@@ -5,6 +5,7 @@ export * from './lib/calendar/calendar';
 export * from './lib/card/card';
 export * from './lib/collapsible/collapsible';
 export * from './lib/date-picker/date-picker';
+export * from './lib/dialog/dialog';
 export * from './lib/dropdown-menu/dropdown-menu';
 export * from './lib/form';
 export * from './lib/input/input';
