@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
-
 export async function POST(request: NextRequest) {
   try {
+    const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
+
     const { amount, appointmentId, userId } = await request.json();
 
     const paymentIntent = await stripe.paymentIntents.create({
