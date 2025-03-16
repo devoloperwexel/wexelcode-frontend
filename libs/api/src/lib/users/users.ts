@@ -1,4 +1,8 @@
-import { GetDoctorResponse } from '@wexelcode/types';
+import {
+  GetDoctorResponse,
+  GetUserResponse,
+  UpdateUserRequest,
+} from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
 import API from './constant';
@@ -6,6 +10,14 @@ import API from './constant';
 export const GetUserById = async (id: string) => {
   const response = await request<GetDoctorResponse>(API.GET_BY_ID, null, {
     params: { id },
+  });
+
+  return response;
+};
+
+export const UpdateUser = async ({ userId, ...data }: UpdateUserRequest) => {
+  const response = await request<GetUserResponse>(API.UPDATE, data, {
+    params: { userId },
   });
 
   return response;
