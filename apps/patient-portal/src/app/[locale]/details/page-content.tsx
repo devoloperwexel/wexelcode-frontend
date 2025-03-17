@@ -1,6 +1,5 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   Card,
@@ -16,29 +15,12 @@ import { cn } from '@wexelcode/utils';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import {
   DetailsReview,
   MedicalDetailsForm,
   PersonalDetailsForm,
 } from '../../../components/details';
-
-const formSchema = z.object({
-  birthDay: z.string().nonempty(),
-  gender: z.string().nonempty(),
-  address: z.string().nonempty(),
-  city: z.string().nonempty(),
-  country: z.string().nonempty(),
-  zipCode: z
-    .string()
-    .nonempty()
-    .regex(/^\d{5}$/),
-  languages: z.array(z.string().nonempty()),
-  occupation: z.string().nonempty(),
-  weight: z.string().nonempty(),
-  height: z.string().nonempty(),
-});
 
 export default function DetailsPageContent() {
   const t = useTranslations('profile.completeProfilePage');
@@ -54,11 +36,10 @@ export default function DetailsPageContent() {
       title: 'Review',
     },
   ];
+
   const [currentStep, setCurrentStep] = useState(0);
 
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-  });
+  const form = useForm();
 
   const onHandleButtonClick = async () => {
     const valid = await form.trigger();
