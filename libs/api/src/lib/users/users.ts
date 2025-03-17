@@ -15,9 +15,9 @@ export const GetUserById = async (id: string) => {
   return response;
 };
 
-export const UpdateUser = async ({ userId, ...data }: UpdateUserRequest) => {
+export const UpdateUser = async ({ id, ...data }: UpdateUserRequest) => {
   const response = await request<GetUserResponse>(API.UPDATE, data, {
-    params: { userId },
+    params: { userId: id },
   });
 
   return response;
