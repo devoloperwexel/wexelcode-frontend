@@ -1,10 +1,10 @@
 const API = {
   GET_BY_ID: {
-    path: '/users/:id',
+    path: '/users/:userId/patient',
     method: 'GET',
   },
   UPDATE: {
-    path: '/users/:userId',
+    path: '/users/:userId/patients/:patientId',
     method: 'PATCH',
   },
 };
