@@ -13,13 +13,15 @@ import {
 import { ChevronsUpDown, Cog, LogOut } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 
 import Routes from '../../constants/routes';
-import { Link } from '../../i18n/routing';
+import { Link, useRouter } from '../../i18n/routing';
 
 export function UserMenu() {
   const t = useTranslations('userMenu');
   const { data, status } = useSession();
+  const { push } = useRouter();
 
   const handleSinIn = async () => {
     await signIn('keycloak', { redirectTo: window.location.href });
@@ -28,6 +30,15 @@ export function UserMenu() {
   const handleSinOut = async () => {
     await signOut({ redirect: false });
   };
+
+  useEffect(() => {
+    // TODO: Need Refactor
+    if (status === 'authenticated') {
+      if (!data.user.address) {
+        push(`${Routes.profile.complete}/${data.user.id}`);
+      }
+    }
+  }, [data, status]);
 
   if (status === 'loading')
     return (
