@@ -1,21 +1,52 @@
-import {
-  FormDateInputField,
-  FormInputField,
-  FormSelectField,
-} from '@wexelcode/components';
+import { FormInputField, FormMultiSelectField } from '@wexelcode/components';
+import { useTranslations } from 'next-intl';
 
 export function MedicalDetailsForm() {
+  const t = useTranslations('profile.medicalDetailsForm');
+  const activities = [
+    {
+      label: 'Running',
+      value: 'Running',
+    },
+    {
+      label: 'Swimming',
+      value: 'Swimming',
+    },
+    {
+      label: 'Cycling',
+      value: 'Cycling',
+    },
+    {
+      label: 'Yoga',
+      value: 'Yoga',
+    },
+    {
+      label: 'Weightlifting',
+      value: 'Weightlifting',
+    },
+    {
+      label: 'Dancing',
+      value: 'Dancing',
+    },
+  ];
+
   return (
     <div className="space-y-4">
-      <h1>Medical Details Form</h1>
-
       <div>
-        <FormInputField label="Occupation" name="occupation" />
+        <FormInputField label={t('occupation')} name="occupation" />
       </div>
 
       <div className="grid grid-cols-2 gap-6">
-        <FormInputField label="Weight (kg)" name="weight" />
-        <FormInputField label="Height (cm)" name="height" />
+        <FormInputField label={t('weight')} name="weight" type="number" />
+        <FormInputField label={t('height')} name="height" type="number" />
+      </div>
+
+      <div>
+        <FormMultiSelectField
+          name="activities"
+          label={t('activities')}
+          options={activities}
+        />
       </div>
     </div>
   );
