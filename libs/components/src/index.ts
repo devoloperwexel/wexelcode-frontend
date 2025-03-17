@@ -11,6 +11,7 @@ export * from './lib/form';
 export * from './lib/input/input';
 export * from './lib/label/label';
 export * from './lib/local/local-switcher';
+export * from './lib/multi-select/multi-select';
 export * from './lib/navigation-menu/navigation-menu';
 export * from './lib/pagination/pagination';
 export * from './lib/popover/popover';
