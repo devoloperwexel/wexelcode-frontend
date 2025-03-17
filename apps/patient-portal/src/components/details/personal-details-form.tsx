@@ -1,5 +1,4 @@
 import {
-  FormDateInputField,
   FormInputField,
   FormMultiSelectField,
   FormSelectField,
@@ -38,23 +37,58 @@ export function PersonalDetailsForm() {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-6">
-        <FormInputField label={t('birthday')} name="birthDay" type="date" />
+        <FormInputField
+          label={t('birthday')}
+          name="birthDay"
+          type="date"
+          rules={{
+            required: true,
+          }}
+        />
 
         <FormSelectField
           label={t('gender')}
           name="gender"
           options={genderOptions}
+          rules={{
+            required: true,
+          }}
         />
       </div>
 
       <div>
-        <FormInputField label={t('address')} name="address" />
+        <FormInputField
+          label={t('address')}
+          name="address"
+          rules={{
+            required: true,
+          }}
+        />
       </div>
 
       <div className="grid grid-cols-3 gap-6">
-        <FormInputField label={t('city')} name="city" />
-        <FormInputField label={t('state')} name="country" />
-        <FormInputField label={t('zipCode')} name="zipCode" type="number" />
+        <FormInputField
+          label={t('city')}
+          name="city"
+          rules={{
+            required: true,
+          }}
+        />
+        <FormInputField
+          label={t('state')}
+          name="country"
+          rules={{
+            required: true,
+          }}
+        />
+        <FormInputField
+          label={t('zipCode')}
+          name="zipCode"
+          type="number"
+          rules={{
+            required: true,
+          }}
+        />
       </div>
 
       <div>
@@ -63,6 +97,9 @@ export function PersonalDetailsForm() {
           name="languages"
           options={languagesOptions}
           placeholder={t('selectLanguages')}
+          rules={{
+            required: true,
+          }}
         />
       </div>
     </div>
