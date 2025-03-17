@@ -8,8 +8,8 @@ export function DetailsReview() {
 
   return (
     <>
-      <div className="bg-gray-50 p-4 rounded-md">
-        <Text variant="h4" className="mb-2">
+      <div className="bg-gray-50 p-4  space-y-4 rounded-md">
+        <Text variant="h4" className="border-b pb-2">
           {t('completeProfilePage.personalDetails')}
         </Text>
 
@@ -39,8 +39,8 @@ export function DetailsReview() {
         </div>
       </div>
 
-      <div className="bg-gray-50 p-4 rounded-md">
-        <Text variant="h4" className="mb-2">
+      <div className="bg-gray-50 p-4 space-y-4 rounded-md">
+        <Text variant="h4" className="border-b pb-2">
           {t('completeProfilePage.medicalDetails')}
         </Text>
 
