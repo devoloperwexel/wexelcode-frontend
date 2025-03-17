@@ -15,6 +15,7 @@ type Props = Omit<React.ComponentProps<typeof FormField>, 'render'> & {
   placeholder?: string;
   description?: string;
   lines?: number;
+  type?: React.HTMLInputTypeAttribute;
 };
 
 const FormInputField = ({
@@ -22,6 +23,7 @@ const FormInputField = ({
   placeholder,
   description,
   lines = 1,
+  type,
   ...rest
 }: Props) => {
   return (
@@ -39,7 +41,7 @@ const FormInputField = ({
                 className="bg-white"
               />
             ) : (
-              <Input placeholder={placeholder} {...field} />
+              <Input placeholder={placeholder} {...field} type={type} />
             )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
