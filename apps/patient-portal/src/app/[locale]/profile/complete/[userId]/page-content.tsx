@@ -11,6 +11,7 @@ import {
   Stepper,
   Text,
 } from '@wexelcode/components';
+import { useGetPatientByUserId } from '@wexelcode/hooks';
 import { cn } from '@wexelcode/utils';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -20,10 +21,18 @@ import {
   DetailsReview,
   MedicalDetailsForm,
   PersonalDetailsForm,
-} from '../../../components/details';
+} from '../../../../../components/details';
 
-export default function DetailsPageContent() {
+interface DetailsPageContentProps {
+  userId: string;
+}
+
+export default function DetailsPageContent({
+  userId,
+}: DetailsPageContentProps) {
   const t = useTranslations('profile.completeProfilePage');
+
+  const { data } = useGetPatientByUserId(userId);
 
   const steps = [
     {
@@ -60,7 +69,7 @@ export default function DetailsPageContent() {
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
       </CardHeader>
-
+      {JSON.stringify(data)}
       <CardContent>
         <Form {...form}>
           <form
