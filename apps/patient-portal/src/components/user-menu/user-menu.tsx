@@ -98,7 +98,7 @@ export function UserMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={Routes.account}>
+          <Link href={Routes.profile.index}>
             <DropdownMenuItem>
               <Cog />
               Account Settings
