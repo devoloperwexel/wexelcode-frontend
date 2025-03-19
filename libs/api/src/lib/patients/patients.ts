@@ -1,4 +1,8 @@
-import { GetPatientRequest, UpdatePatientRequest } from '@wexelcode/types';
+import {
+  CreatePatientRequest,
+  GetPatientRequest,
+  UpdatePatientRequest,
+} from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
 import API from './constant';
@@ -8,10 +12,18 @@ export const GetPatientsByUserId = async (userId: string) => {
     params: { userId },
   });
 
-  return response;
+  return response?.data;
 };
 
-export const UpdatePatients = async ({
+export const CreatePatient = async ({ id, ...data }: CreatePatientRequest) => {
+  const response = await request<GetPatientRequest>(API.CREATE, data, {
+    params: { userId: id },
+  });
+
+  return response?.data;
+};
+
+export const UpdatePatient = async ({
   id,
   userId,
   ...data
@@ -20,5 +32,5 @@ export const UpdatePatients = async ({
     params: { patientId: id, userId },
   });
 
-  return response;
+  return response?.data;
 };

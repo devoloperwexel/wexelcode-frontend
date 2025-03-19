@@ -3,6 +3,10 @@ const API = {
     path: '/users/:userId/patient',
     method: 'GET',
   },
+  CREATE: {
+    path: '/users/:userId/patients',
+    method: 'POST',
+  },
   UPDATE: {
     path: '/users/:userId/patients/:patientId',
     method: 'PATCH',
