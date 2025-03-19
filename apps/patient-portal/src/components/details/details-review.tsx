@@ -31,6 +31,10 @@ export function DetailsReview() {
             <span className="font-medium ml-2">{getValues('zipCode')}</span>
           </Text>
           <Text>
+            {t('personalDetailsForm.gender')}:
+            <span className="font-medium ml-2">{getValues('gender')}</span>
+          </Text>
+          <Text>
             {t('personalDetailsForm.languages')}:
             <span className="font-medium ml-2">
               {getValues('languages').join(', ')}
