@@ -1,2 +1,2 @@
-export * from './useUpdatePatientProfile';
+export * from './useCompletePatientProfile';
 export * from './useUpdateUser';
