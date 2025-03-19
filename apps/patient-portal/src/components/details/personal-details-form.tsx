@@ -5,17 +5,23 @@ import {
 } from '@wexelcode/components';
 import { useTranslations } from 'next-intl';
 
-export function PersonalDetailsForm() {
+interface PersonalDetailsFormProps {
+  includeAllFields?: boolean;
+}
+
+export function PersonalDetailsForm({
+  includeAllFields,
+}: PersonalDetailsFormProps) {
   const t = useTranslations('profile.personalDetailsForm');
 
   const genderOptions = [
     {
       label: 'Male',
-      value: 'Male',
+      value: 'MALE',
     },
     {
       label: 'Female',
-      value: 'Female',
+      value: 'FEMALE',
     },
   ];
 
@@ -36,6 +42,26 @@ export function PersonalDetailsForm() {
 
   return (
     <div className="space-y-4">
+      {includeAllFields && (
+        <div className="grid grid-cols-2 gap-6">
+          <FormInputField
+            label={t('firstName')}
+            name="firstName"
+            rules={{
+              required: true,
+            }}
+          />
+
+          <FormInputField
+            label={t('lastName')}
+            name="lastName"
+            rules={{
+              required: true,
+            }}
+          />
+        </div>
+      )}
+
       <div className="grid grid-cols-2 gap-6">
         <FormInputField
           label={t('birthday')}
@@ -45,7 +71,7 @@ export function PersonalDetailsForm() {
             required: true,
           }}
         />
-
+        {/* TODO: default value not working */}
         <FormSelectField
           label={t('gender')}
           name="gender"
