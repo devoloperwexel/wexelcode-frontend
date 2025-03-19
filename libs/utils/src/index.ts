@@ -2,5 +2,6 @@ export * from './lib/cn';
 export * from './lib/colors';
 export * from './lib/currency-format';
 export * from './lib/date-time-format';
+export * from './lib/form';
 export * from './lib/get-stripejs';
 export * from './lib/request';
