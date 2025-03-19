@@ -11,7 +11,7 @@ import {
   Stepper,
   Text,
 } from '@wexelcode/components';
-import { useGetPatientByUserId } from '@wexelcode/hooks';
+import { useCompletePatientProfile } from '@wexelcode/hooks';
 import { cn } from '@wexelcode/utils';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -22,6 +22,8 @@ import {
   MedicalDetailsForm,
   PersonalDetailsForm,
 } from '../../../../../components/details';
+import Routes from '../../../../../constants/routes';
+import { useRouter } from '../../../../../i18n/routing';
 
 interface DetailsPageContentProps {
   userId: string;
@@ -32,7 +34,9 @@ export default function DetailsPageContent({
 }: DetailsPageContentProps) {
   const t = useTranslations('profile.completeProfilePage');
 
-  const { data } = useGetPatientByUserId(userId);
+  const { mutateAsync: complete } = useCompletePatientProfile();
+
+  const { replace } = useRouter();
 
   const steps = [
     {
@@ -58,7 +62,12 @@ export default function DetailsPageContent({
     }
 
     if (currentStep === steps.length - 1) {
-      console.log(form.getValues());
+      const data = form.getValues() as any; // TODO: Fix type
+      data.id = userId;
+
+      await complete(data);
+
+      replace(Routes.home);
     } else {
       setCurrentStep((prev) => prev + 1);
     }
@@ -69,7 +78,6 @@ export default function DetailsPageContent({
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
       </CardHeader>
-      {JSON.stringify(data)}
       <CardContent>
         <Form {...form}>
           <form

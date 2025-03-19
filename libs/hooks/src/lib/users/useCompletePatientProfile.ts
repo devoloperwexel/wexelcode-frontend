@@ -5,8 +5,7 @@ import { CreatePatientRequest, UpdateUserRequest } from '@wexelcode/types';
 export const useCompletePatientProfile = () => {
   return useMutation({
     mutationFn: async (request: UpdateUserRequest & CreatePatientRequest) => {
-      //  await UpdateUser(request);
-      console.log('request', request);
+      await UpdateUser(request);
       await CreatePatient(request);
     },
   });
