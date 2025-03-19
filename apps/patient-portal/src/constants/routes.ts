@@ -1,10 +1,9 @@
 const Routes = {
   home: '/',
   doctors: '/doctors',
-  account: '/account',
   appointments: '/appointments',
   profile: {
-    settings: '/profile/settings',
+    index: '/profile',
     complete: '/profile/complete',
   },
 };
