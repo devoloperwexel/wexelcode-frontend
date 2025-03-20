@@ -9,7 +9,9 @@ export const useUpdateUser = () => {
   return useMutation({
     mutationFn: async (request: UpdateUserRequest) => await UpdateUser(request),
     onSuccess: async (response) => {
-      await update(response?.data);
+      await update({
+        user: response?.data,
+      });
     },
   });
 };
