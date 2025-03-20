@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MultiSelect } from '../..';
+import { DropdownMultiSector } from '../..';
 import {
   FormDescription,
   FormField,
@@ -9,19 +9,16 @@ import {
   FormMessage,
 } from '.';
 
-type SelectOption = {
-  value: string;
-  label: string;
-};
+type Props = Omit<React.ComponentProps<typeof FormField>, 'render'> &
+  Omit<
+    React.ComponentProps<typeof DropdownMultiSector>,
+    'onChange' | 'value'
+  > & {
+    label?: string;
+    description?: string;
+  };
 
-type Props = Omit<React.ComponentProps<typeof FormField>, 'render'> & {
-  label?: string;
-  placeholder?: string;
-  description?: string;
-  options: SelectOption[];
-};
-
-const FormMultiSelectField = ({
+const FormMultiSelectorField = ({
   label,
   placeholder,
   description,
@@ -35,11 +32,11 @@ const FormMultiSelectField = ({
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
 
-          <MultiSelect
-            options={options.map((option) => option.label)}
-            selected={field.value}
-            onChange={field.onChange}
+          <DropdownMultiSector
+            options={options}
+            value={field.value}
             placeholder={placeholder}
+            onChange={field.onChange}
           />
 
           {description && <FormDescription>{description}</FormDescription>}
@@ -50,6 +47,6 @@ const FormMultiSelectField = ({
   );
 };
 
-FormMultiSelectField.displayName = 'FormMultiSelectField';
+FormMultiSelectorField.displayName = 'FormMultiSelectorField';
 
-export { FormMultiSelectField };
+export { FormMultiSelectorField };
