@@ -1,7 +1,7 @@
 import {
   FormInputField,
-  FormMultiSelectField,
-  FormSelectField,
+  FormMultiSelectorField,
+  FormSelectorField,
 } from '@wexelcode/components';
 import { useTranslations } from 'next-intl';
 
@@ -71,8 +71,7 @@ export function PersonalDetailsForm({
             required: true,
           }}
         />
-        {/* TODO: default value not working */}
-        <FormSelectField
+        <FormSelectorField
           label={t('gender')}
           name="gender"
           options={genderOptions}
@@ -118,7 +117,7 @@ export function PersonalDetailsForm({
       </div>
 
       <div>
-        <FormMultiSelectField
+        <FormMultiSelectorField
           label={t('languages')}
           name="languages"
           options={languagesOptions}
