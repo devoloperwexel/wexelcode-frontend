@@ -33,7 +33,7 @@ const config: NextAuthConfig = {
     },
   },
   callbacks: {
-    jwt: async ({ token, user, account }) => {
+    jwt: async ({ token, user, account, trigger, session }) => {
       let customToken = token as CustomToken;
       const customUser = user as CustomAdapterUser;
 
@@ -52,6 +52,10 @@ const config: NextAuthConfig = {
           refreshTokenExpires: refreshTokenExpiresAt,
           user: customUser,
         };
+      }
+
+      if (trigger === 'update') {
+        customToken.user = session.user as CustomAdapterUser;
       }
 
       if (Date.now() / 100 < customToken.expires) {
