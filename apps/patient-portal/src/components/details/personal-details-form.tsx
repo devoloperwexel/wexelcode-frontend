@@ -3,6 +3,7 @@ import {
   FormMultiSelectorField,
   FormSelectorField,
 } from '@wexelcode/components';
+import { GenderOptions, LanguageOptions } from '@wexelcode/constants';
 import { useTranslations } from 'next-intl';
 
 interface PersonalDetailsFormProps {
@@ -13,32 +14,17 @@ export function PersonalDetailsForm({
   includeAllFields,
 }: PersonalDetailsFormProps) {
   const t = useTranslations('profile.personalDetailsForm');
+  const tOptions = useTranslations('options');
 
-  const genderOptions = [
-    {
-      label: 'Male',
-      value: 'MALE',
-    },
-    {
-      label: 'Female',
-      value: 'FEMALE',
-    },
-  ];
+  const genderOptions = GenderOptions.map((option) => ({
+    label: tOptions(`gender.${option}`),
+    value: option,
+  }));
 
-  const languagesOptions = [
-    {
-      label: 'English',
-      value: 'English',
-    },
-    {
-      label: 'Spanish',
-      value: 'Spanish',
-    },
-    {
-      label: 'French',
-      value: 'French',
-    },
-  ];
+  const languagesOptions = LanguageOptions.map((option) => ({
+    label: tOptions(`language.${option}`),
+    value: option,
+  }));
 
   return (
     <div className="space-y-4">
@@ -121,7 +107,6 @@ export function PersonalDetailsForm({
           label={t('languages')}
           name="languages"
           options={languagesOptions}
-          placeholder={t('selectLanguages')}
           rules={{
             required: true,
           }}
