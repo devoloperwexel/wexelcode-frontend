@@ -1,4 +1,4 @@
-import { FormInputField, FormMultiSelectField } from '@wexelcode/components';
+import { FormInputField, FormMultiSelectorField } from '@wexelcode/components';
 import { useTranslations } from 'next-intl';
 
 export function MedicalDetailsForm() {
@@ -63,7 +63,7 @@ export function MedicalDetailsForm() {
       </div>
 
       <div>
-        <FormMultiSelectField
+        <FormMultiSelectorField
           name="activities"
           label={t('activities')}
           options={activities}
