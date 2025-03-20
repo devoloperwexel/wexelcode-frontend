@@ -1,35 +1,15 @@
 import { FormInputField, FormMultiSelectorField } from '@wexelcode/components';
+import { ActivityOptions } from '@wexelcode/constants';
 import { useTranslations } from 'next-intl';
 
 export function MedicalDetailsForm() {
   const t = useTranslations('profile.medicalDetailsForm');
+  const tOptions = useTranslations('options');
 
-  const activities = [
-    {
-      label: 'Running',
-      value: 'Running',
-    },
-    {
-      label: 'Swimming',
-      value: 'Swimming',
-    },
-    {
-      label: 'Cycling',
-      value: 'Cycling',
-    },
-    {
-      label: 'Yoga',
-      value: 'Yoga',
-    },
-    {
-      label: 'Weightlifting',
-      value: 'Weightlifting',
-    },
-    {
-      label: 'Dancing',
-      value: 'Dancing',
-    },
-  ];
+  const activities = ActivityOptions.map((option) => ({
+    label: tOptions(`activity.${option}`),
+    value: option,
+  }));
 
   return (
     <div className="space-y-4">
