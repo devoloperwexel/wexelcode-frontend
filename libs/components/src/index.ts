@@ -1,4 +1,5 @@
 export * from './lib/avatar/avatar';
+export * from './lib/badge/badge';
 export * from './lib/breadcrumb/breadcrumb';
 export * from './lib/button/button';
 export * from './lib/calendar/calendar';
@@ -7,6 +8,7 @@ export * from './lib/collapsible/collapsible';
 export * from './lib/date-picker/date-picker';
 export * from './lib/dialog/dialog';
 export * from './lib/dropdown-menu/dropdown-menu';
+export * from './lib/dropdown-selector/dropdown-selector';
 export * from './lib/form';
 export * from './lib/input/input';
 export * from './lib/label/label';
