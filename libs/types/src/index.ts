@@ -1,3 +1,4 @@
+export * from './lib/answers';
 export * from './lib/api';
 export * from './lib/appointments';
 export * from './lib/auth';
