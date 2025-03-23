@@ -4,4 +4,5 @@ export const QueryKeys = {
   appointments: 'APPOINTMENTS',
   patients: 'PATIENTS',
   users: 'USERS',
+  answers: 'ANSWERS',
 };
