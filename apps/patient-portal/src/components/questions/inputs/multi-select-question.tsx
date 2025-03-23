@@ -1,5 +1,5 @@
 import { FormField, FormItem, FormMessage } from '@wexelcode/components';
-import { Question } from '@wexelcode/types';
+import { Question, TranslatedField } from '@wexelcode/types';
 import { CheckSquareIcon, SquareIcon } from 'lucide-react';
 import React from 'react';
 
@@ -14,8 +14,6 @@ export const MultipleSelectQuestion: React.FC<MultipleSelectQuestionProps> = ({
   question,
   local,
 }) => {
-  const options = question.options.map((option) => option[local]);
-
   return (
     <FormField
       name={question.id}
@@ -25,11 +23,20 @@ export const MultipleSelectQuestion: React.FC<MultipleSelectQuestionProps> = ({
       render={({ field }) => {
         const selectedValues = Array.isArray(field.value) ? field.value : [];
 
-        const handleSelect = (value: string) => {
-          const newValues = selectedValues.includes(value)
-            ? selectedValues.filter((v) => v !== value)
-            : [...selectedValues, value];
-          field.onChange(newValues);
+        const handleSelect = (isSelected: boolean, value: TranslatedField) => {
+          if (isSelected) {
+            field.onChange(
+              selectedValues.filter((v) => v[local] !== value[local])
+            );
+          } else {
+            field.onChange([...selectedValues, value]);
+          }
+        };
+
+        const getIsSelected = (option: TranslatedField) => {
+          if (!option) return false;
+
+          return selectedValues.some((v) => v[local] === option[local]);
         };
 
         return (
@@ -43,14 +50,13 @@ export const MultipleSelectQuestion: React.FC<MultipleSelectQuestionProps> = ({
               </div>
 
               <div className="space-y-3">
-                {options.map((option, index) => {
-                  const optionValue = option;
-                  const isSelected = selectedValues.includes(optionValue);
+                {question.options.map((option, index) => {
+                  const isSelected = getIsSelected(option);
 
                   return (
                     <label
                       key={index}
-                      onClick={() => handleSelect(optionValue)}
+                      onClick={() => handleSelect(isSelected, option)}
                       className={`flex items-center cursor-pointer p-2 rounded-md transition-all duration-200 ${
                         isSelected ? 'bg-blue-50' : 'hover:bg-gray-50'
                       }`}
@@ -62,7 +68,9 @@ export const MultipleSelectQuestion: React.FC<MultipleSelectQuestionProps> = ({
                           <SquareIcon className="w-5 h-5 text-gray-400" />
                         )}
                       </div>
-                      <span className="ml-2 text-gray-700">{optionValue}</span>
+                      <span className="ml-2 text-gray-700">
+                        {option[local]}
+                      </span>
                     </label>
                   );
                 })}
