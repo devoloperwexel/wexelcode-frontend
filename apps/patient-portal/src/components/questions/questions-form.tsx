@@ -1,8 +1,14 @@
 'use client';
 
 import { Button, Form, Text } from '@wexelcode/components';
-import { useGetQuestionsByQuestionnaireId } from '@wexelcode/hooks';
+import {
+  useGetAnswers,
+  useGetQuestionsByQuestionnaireId,
+  useSaveAnswers,
+} from '@wexelcode/hooks';
 import { Questionnaire } from '@wexelcode/types';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import {
@@ -28,6 +34,8 @@ export default function QuestionForm({
   gender,
   onChangeIndex,
 }: QuestionFormProps) {
+  const { data: userData } = useSession();
+
   const { isLoading, data } = useGetQuestionsByQuestionnaireId({
     id: questionnaire.id,
     page: 1,
@@ -36,7 +44,14 @@ export default function QuestionForm({
     requiredQuestionId: 'null',
   });
 
+  const { data: answers } = useGetAnswers({
+    userId: userData?.user?.id,
+    questionnaireId: questionnaire.id,
+  });
+
   const form = useForm();
+
+  const { mutateAsync: save } = useSaveAnswers();
 
   const handleOnClickPrevious = () => {
     onChangeIndex(index - 1);
@@ -50,10 +65,19 @@ export default function QuestionForm({
     }
   };
 
-  const handleSubmit = (data: any) => {
-    console.log(data);
+  const handleSubmit = async (data: any) => {
+    if (!userData) return;
+    await save({ userId: userData.user?.id, ...data });
     handleOnClickNext();
   };
+
+  useEffect(() => {
+    if (answers) {
+      console.log('answers', answers);
+      form.reset(answers);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answers]);
 
   if (isLoading) {
     return <QuestionsLoading />;
