@@ -1,3 +1,4 @@
+export * from './lib/answers';
 export * from './lib/appointments';
 export * from './lib/doctors';
 export * from './lib/patients';
