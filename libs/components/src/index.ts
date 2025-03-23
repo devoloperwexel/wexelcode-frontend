@@ -17,6 +17,7 @@ export * from './lib/multi-select/multi-select';
 export * from './lib/navigation-menu/navigation-menu';
 export * from './lib/pagination/pagination';
 export * from './lib/popover/popover';
+export * from './lib/process-indicator/process-indicator';
 export * from './lib/radio-group/radio-group';
 export * from './lib/scroll-area/scroll-area';
 export * from './lib/select/select';
