@@ -9,7 +9,7 @@ export interface PaginatedResult<T> {
   page: number;
   limit: number;
   totalPages: number;
-  totalResult: number;
+  totalResults: number;
 }
 
 export interface Timestamps {
