@@ -2,7 +2,15 @@ import { FormInputField, FormMultiSelectorField } from '@wexelcode/components';
 import { ActivityOptions } from '@wexelcode/constants';
 import { useTranslations } from 'next-intl';
 
-export function MedicalDetailsForm() {
+import { QuestionnaireTrigger } from '../questions';
+
+interface MedicalDetailsFormProps {
+  includeScreening?: boolean;
+}
+
+export function MedicalDetailsForm({
+  includeScreening,
+}: MedicalDetailsFormProps) {
   const t = useTranslations('profile.medicalDetailsForm');
   const tOptions = useTranslations('options');
 
@@ -13,6 +21,9 @@ export function MedicalDetailsForm() {
 
   return (
     <div className="space-y-4">
+      {includeScreening && (
+        <QuestionnaireTrigger className="flex flex-col items-center justify-center" />
+      )}
       <div>
         <FormInputField
           label={t('occupation')}
