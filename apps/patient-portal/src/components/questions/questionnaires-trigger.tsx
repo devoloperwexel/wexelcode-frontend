@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogTrigger,
   ProgressIndicator,
+  Text,
 } from '@wexelcode/components';
 import { useGetAnswers } from '@wexelcode/hooks';
 import { ClipboardListIcon, Edit, PlusCircleIcon } from 'lucide-react';
@@ -39,7 +40,7 @@ export function QuestionnaireTrigger({
             <ClipboardListIcon className="w-12 h-12 mx-auto text-gray-400" />
             <p className="mt-2 text-gray-600">{t('noScreening')}</p>
             <DialogTrigger asChild>
-              <Button variant="ghost" className="text-blue-600 ">
+              <Button variant="ghost" className="text-primary">
                 <PlusCircleIcon className="w-5 h-5 mr-1" />
                 {t('complete')}
               </Button>
@@ -47,10 +48,15 @@ export function QuestionnaireTrigger({
           </>
         ) : (
           <>
-            <ProgressIndicator percentage={score} />
+            <ProgressIndicator percentage={score}>
+              <div className="flex flex-col justify-center text-center">
+                <Text>{score} %</Text>
+                <Text variant="muted">Score</Text>
+              </div>
+            </ProgressIndicator>
             <p className="text-sm text-gray-600">{t('result')}</p>
             <DialogTrigger asChild>
-              <Button variant="ghost" className="text-blue-600 ">
+              <Button variant="ghost" className="text-primary">
                 <Edit className="w-5 h-5 mr-1" />
                 {t('edit')}
               </Button>
