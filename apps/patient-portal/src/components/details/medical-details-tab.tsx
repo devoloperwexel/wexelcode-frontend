@@ -42,7 +42,7 @@ export function MedicalDetailsTab() {
         <Card>
           <CardHeader>Medical Details</CardHeader>
           <CardContent>
-            <MedicalDetailsForm />
+            <MedicalDetailsForm includeScreening />
           </CardContent>
           <CardFooter className="flex justify-end">
             <Button>Save</Button>
