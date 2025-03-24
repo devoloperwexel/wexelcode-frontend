@@ -3,7 +3,6 @@ import {
   FormMultiSelectorField,
   FormPhoneInputField,
   FormSelectorField,
-  UserAvatar,
 } from '@wexelcode/components';
 import { GenderOptions, LanguageOptions } from '@wexelcode/constants';
 import { useLocale, useTranslations } from 'next-intl';
