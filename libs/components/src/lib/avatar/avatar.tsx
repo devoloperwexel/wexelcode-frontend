@@ -4,6 +4,8 @@ import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { cn, titleToColor } from '@wexelcode/utils';
 import * as React from 'react';
 
+import { Skeleton } from '../../';
+
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
@@ -47,23 +49,38 @@ const AvatarFallback = React.forwardRef<
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 type UserAvatarProps = Omit<React.ComponentProps<typeof Avatar>, 'children'> & {
-  name: string;
+  name?: string;
   profileUrl?: string;
 };
 
-const UserAvatar = ({ name, profileUrl, ...rest }: UserAvatarProps) => (
-  <Avatar {...rest}>
-    {profileUrl && <AvatarImage alt={name} src={profileUrl} />}
-    <AvatarFallback
-      className="rounded-lg"
-      style={{
-        backgroundColor: titleToColor(name),
-      }}
-    >
-      {name[0].toLocaleUpperCase()}
-    </AvatarFallback>
-  </Avatar>
-);
+const UserAvatar = ({ name, profileUrl, ...rest }: UserAvatarProps) => {
+  if (!name) {
+    return (
+      <Avatar {...rest}>
+        <Skeleton className="w-full h-full rounded-full" />
+      </Avatar>
+    );
+  }
+
+  const fallBack = () => {
+    const [firstName, lastName] = name.split(' ');
+    return `${firstName[0]}${lastName ? lastName[0] : ''}`.toLocaleUpperCase();
+  };
+
+  return (
+    <Avatar {...rest}>
+      {profileUrl && <AvatarImage alt={name} src={profileUrl} />}
+      <AvatarFallback
+        className={rest.className}
+        style={{
+          backgroundColor: titleToColor(name),
+        }}
+      >
+        {fallBack()}
+      </AvatarFallback>
+    </Avatar>
+  );
+};
 UserAvatar.displayName = 'UserAvatar';
 
 export { Avatar, AvatarFallback, AvatarImage, UserAvatar };
