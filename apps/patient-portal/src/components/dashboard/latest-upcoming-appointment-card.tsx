@@ -9,11 +9,13 @@ import {
 } from '@wexelcode/components';
 import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
 import { dateTimeFormat } from '@wexelcode/utils';
-import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { CalendarIcon, CalendarX2, ClockIcon, VideoIcon } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
+import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
+import { NoDataBanner } from '../common';
 import { LoadingAppointmentCard } from './loading';
 
 export function LatestUpcomingAppointmentCard() {
@@ -26,24 +28,46 @@ export function LatestUpcomingAppointmentCard() {
     limit: 1,
     page: 1,
     includes: ['physio-user'],
-    // sortBy: 'updatedAt',
-    // sortOrder: 'desc',
+    sortBy: 'appointmentTime:asc',
   });
+
+  const getStatusColor = () => {
+    switch (appointment?.status) {
+      case 'CONFIRMED':
+        return 'bg-green-100 text-green-800';
+      case 'PENDING':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'CANCELLED':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-green-100 text-green-800';
+    }
+  };
 
   if (isLoading) {
     return <LoadingAppointmentCard />;
   }
 
-  if (response?.totalResult === 0) {
+  if (!response || response?.totalResults === 0) {
     return (
-      <Card>
+      <Card className="flex flex-col">
         <CardHeader>{t('title')}</CardHeader>
-        <CardContent className="flex items-center justify-center">
-          No upcoming appointments
+        <CardContent className="flex flex-grow items-center justify-center">
+          <NoDataBanner
+            message={t('noDataFound')}
+            icon={<CalendarX2 size={36} className="text-primary" />}
+          />
         </CardContent>
+        <CardFooter className="w-full">
+          <Link href={`${Routes.doctors}`} className="w-full">
+            <Button className="w-full">{t('bookAppointment')}</Button>
+          </Link>
+        </CardFooter>
       </Card>
     );
   }
+
+  const appointment = response?.results[0];
 
   return (
     <Card>
@@ -53,35 +77,58 @@ export function LatestUpcomingAppointmentCard() {
         <div className="flex space-x-4 ">
           <UserAvatar
             className="w-16 h-16"
-            name={`${response?.results[0].physioUser?.firstName} ${response?.results[0].physioUser?.lastName}`}
-            profileUrl={response?.results[0].physioUser?.profilePictureUrl}
+            name={`${appointment?.physioUser?.firstName} ${appointment?.physioUser?.lastName}`}
+            profileUrl={appointment?.physioUser?.profilePictureUrl}
           />
           <div className="flex flex-col justify-evenly">
             <Text variant="h3" weight="semibold">
-              {response?.results[0].physioUser?.firstName}{' '}
-              {response?.results[0].physioUser?.lastName}
+              {appointment?.physioUser?.firstName}{' '}
+              {appointment?.physioUser?.lastName}
             </Text>
-            <Text variant="muted">Cardiologist</Text>
+            <Text variant="muted">{t('physio')}</Text>
           </div>
         </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex items-center">
+            <CalendarIcon className="w-5 h-5 text-primary mr-3" />
+            <div>
+              <Text variant="muted">{t('date')}</Text>
+              <Text weight="semibold">
+                {appointment?.appointmentTime &&
+                  dateTimeFormat(appointment?.appointmentTime, 'MMM DD, YYYY')}
+              </Text>
+            </div>
+          </div>
 
-        <div className="flex items-center text-sm text-gray-700">
-          <CalendarIcon className="w-4 h-4 mr-1 text-primary flex-shrink-0" />
-          <span>
-            {response?.results[0].appointmentTime &&
-              dateTimeFormat(
-                response?.results[0].appointmentTime,
-                'MMM DD, YYYY'
-              )}
-          </span>
-        </div>
+          <div className="flex items-center">
+            <ClockIcon className="w-5 h-5 text-primary mr-3" />
+            <div>
+              <Text variant="muted">{t('time')}</Text>
+              <Text weight="semibold">
+                {appointment?.appointmentTime &&
+                  dateTimeFormat(appointment?.appointmentTime, 'hh:mm A')}{' '}
+                (30 {t('minutes')})
+              </Text>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <VideoIcon className="w-5 h-5 text-primary mr-3" />
+            <div>
+              <Text variant="muted">{t('type')}</Text>
+              <Text weight="semibold">{t('video')}</Text>
+            </div>
+          </div>
 
-        <div className="flex items-center text-sm text-gray-700">
-          <ClockIcon className="w-4 h-4 mr-1 text-primary flex-shrink-0" />
-          <span>
-            {response?.results[0].appointmentTime &&
-              dateTimeFormat(response?.results[0].appointmentTime, 'hh:mm A')}
-          </span>
+          <div className="flex items-center">
+            <div>
+              <Text variant="muted">{t('status')}</Text>
+              <span
+                className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}
+              >
+                {appointment?.status}
+              </span>
+            </div>
+          </div>
         </div>
       </CardContent>
 
@@ -97,7 +144,7 @@ export function LatestUpcomingAppointmentCard() {
             }}
           >
             <VideoIcon className="w-4 h-4 mr-2" />
-            Join Call
+            {t('joinVideoCall')}
           </Button>
         </Link>
       </CardFooter>
