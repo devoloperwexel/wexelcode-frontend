@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 
 interface ProgressIndicatorProps {
   percentage: number;
@@ -10,10 +10,10 @@ interface ProgressIndicatorProps {
 const ProgressIndicator = ({
   percentage,
   color = '#A51008',
-  label = 'Score',
   size = 160,
-}: ProgressIndicatorProps) => {
-  const radius = 70;
+  children,
+}: PropsWithChildren<ProgressIndicatorProps>) => {
+  const radius = (size * 0.7) / 2;
   const circumference = 2 * Math.PI * radius;
   const [offset, setOffset] = useState(circumference);
 
@@ -25,7 +25,7 @@ const ProgressIndicator = ({
   return (
     <div className="flex justify-center mb-6">
       <div className="relative">
-        <svg className="w-40 h-40" width={size} height={size}>
+        <svg width={size} height={size}>
           <circle
             className="text-gray-200"
             strokeWidth="10"
@@ -48,9 +48,8 @@ const ProgressIndicator = ({
             cy={size / 2}
           />
         </svg>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-          <span className="text-3xl font-bold">{percentage}%</span>
-          <p className="text-sm text-gray-600">{label}</p>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          {children}
         </div>
       </div>
     </div>
