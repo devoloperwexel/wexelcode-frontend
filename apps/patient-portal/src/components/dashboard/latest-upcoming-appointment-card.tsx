@@ -28,12 +28,12 @@ export function LatestUpcomingAppointmentCard() {
     limit: 1,
     page: 1,
     includes: ['physio-user'],
-    sortBy: 'appointmentTime:asc',
+    sortBy: 'appointmentTime:desc',
   });
 
   const getStatusColor = () => {
     switch (appointment?.status) {
-      case 'CONFIRMED':
+      case 'SUCCESS':
         return 'bg-green-100 text-green-800';
       case 'PENDING':
         return 'bg-yellow-100 text-yellow-800';
