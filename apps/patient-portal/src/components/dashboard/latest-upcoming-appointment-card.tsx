@@ -70,10 +70,10 @@ export function LatestUpcomingAppointmentCard() {
   const appointment = response?.results[0];
 
   return (
-    <Card>
+    <Card className="flex flex-col">
       <CardHeader>{t('title')}</CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="flex flex-col flex-grow space-y-4">
         <div className="flex space-x-4 ">
           <UserAvatar
             className="w-16 h-16"
