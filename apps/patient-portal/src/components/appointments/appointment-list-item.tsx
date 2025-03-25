@@ -13,7 +13,10 @@ export default function AppointmentListItem({
   appointment,
 }: AppointmentListItemProps) {
   const isUpcoming = dateTimeDiff(appointment.appointmentTime, new Date()) > 0;
-  const isJoinable = true;
+
+  const allowJoinBefore = 15 * 60 * 1000; // 15 minutes
+  const isJoinable =
+    dateTimeDiff(appointment.appointmentTime, new Date()) < allowJoinBefore;
 
   return (
     <Link href={`${Routes.appointments}/${appointment.id}`}>
@@ -33,7 +36,7 @@ export default function AppointmentListItem({
                 {appointment.physioUser?.lastName}
               </h3>
               {/* TODO: Change this to the actual profession */}
-              <p className="text-sm text-gray-500">Cardiologist</p>
+              <p className="text-sm text-gray-500">Physio</p>
             </div>
             {isUpcoming && (
               <Button
