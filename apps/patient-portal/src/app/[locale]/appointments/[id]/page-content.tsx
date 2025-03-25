@@ -36,7 +36,7 @@ export default function AppointmentDetailsPageContent({
 
         <MedicalScreeningInfoCard
           appointmentId={
-            appointment?.status === 'CONFIRMED' ? appointment.id : undefined
+            appointment?.status === 'SUCCESS' ? appointment.id : undefined
           }
         />
       </div>
