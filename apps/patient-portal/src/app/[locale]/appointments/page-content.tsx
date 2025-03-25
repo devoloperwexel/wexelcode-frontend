@@ -6,6 +6,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@wexelcode/components';
+import { dateTimeSubtract } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -14,7 +15,7 @@ import { AppointmentListView } from '../../../components/appointments/appointmen
 export default function AppointmentsPageContent() {
   const t = useTranslations('appointments.AppointmentsPage');
 
-  const now = new Date().toString();
+  const now = dateTimeSubtract(new Date(), 30, 'minutes').toString();
 
   return (
     <Tabs defaultValue="upcoming" className="max-w-3xl mx-auto h-full">
