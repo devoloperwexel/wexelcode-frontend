@@ -7,22 +7,25 @@ import {
   TabsTrigger,
 } from '@wexelcode/components';
 import { CalendarIcon, ClockIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { AppointmentListView } from '../../../components/appointments/appointment-list-view';
 
 export default function AppointmentsPageContent() {
+  const t = useTranslations('appointments.AppointmentsPage');
+
   const now = new Date().toString();
 
   return (
-    <Tabs defaultValue="upcoming" className="h-full">
+    <Tabs defaultValue="upcoming" className="max-w-3xl mx-auto h-full">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="upcoming">
           <CalendarIcon className="w-5 h-5 mr-2" />
-          Upcoming
+          {t('upcoming')}
         </TabsTrigger>
         <TabsTrigger value="history">
           <ClockIcon className="w-5 h-5 mr-2" />
-          History
+          {t('history')}
         </TabsTrigger>
       </TabsList>
       <TabsContent value="upcoming" className="py-2 h-[90%]">
