@@ -2,6 +2,7 @@ import { Pagination } from '@wexelcode/components';
 import { useGetAppointmentsByUserId, useQueryParams } from '@wexelcode/hooks';
 import { useSession } from 'next-auth/react';
 
+import { NoDataBanner } from '../common';
 import AppointmentListItem from './appointment-list-item';
 import { AppointmentListLoadingSkeleton } from './loading-skeleton';
 
@@ -33,6 +34,10 @@ export function AppointmentListView({
 
   return (
     <div className="flex flex-col justify-between space-y-4 h-full">
+      <NoDataBanner
+        visible={response?.totalResults === 0}
+        message="No Appointments Found"
+      />
       <div className="space-y-4">
         {response?.results?.map((appointment) => (
           <AppointmentListItem key={appointment.id} appointment={appointment} />
