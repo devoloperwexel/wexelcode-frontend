@@ -35,11 +35,5 @@ export const GetAnswers = async (params: GetAnswersRequest) => {
     params,
   });
 
-  const answers: Record<string, any> = {};
-
-  response?.data?.forEach((answer) => {
-    answers[answer.questionId] = answer.response;
-  });
-
-  return answers;
+  return response?.data;
 };

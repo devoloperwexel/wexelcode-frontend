@@ -1,8 +1,8 @@
-import { TranslatedField } from '../..';
+import { Timestamps, TranslatedField } from '../..';
 
 export type Answer = Record<string, any>;
 
-export interface SavedAnswer {
+export interface SavedAnswer extends Timestamps {
   id: string;
   userId: string;
   questionId: string;
