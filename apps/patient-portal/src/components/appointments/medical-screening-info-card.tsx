@@ -1,17 +1,15 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Dialog,
-  DialogTrigger,
-} from '@wexelcode/components';
-import { ClipboardListIcon, PlusCircleIcon } from 'lucide-react';
+import { Card, CardContent, CardHeader } from '@wexelcode/components';
 import { useTranslations } from 'next-intl';
 
-import { QuestionnaireDialog } from '../questions';
+import { QuestionnaireTrigger } from '../questions';
 
-export function MedicalScreeningInfoCard() {
+interface MedicalScreeningInfoCardProps {
+  appointmentId?: string;
+}
+
+export function MedicalScreeningInfoCard({
+  appointmentId,
+}: MedicalScreeningInfoCardProps) {
   const t = useTranslations('appointments.medicalScreeningCard');
 
   return (
@@ -19,19 +17,11 @@ export function MedicalScreeningInfoCard() {
       <CardHeader>{t('title')}</CardHeader>
 
       <CardContent>
-        <Dialog>
-          <div className="text-center py-6 border-2 border-dashed border-gray-200 rounded-lg">
-            <ClipboardListIcon className="w-12 h-12 mx-auto text-gray-400" />
-            <p className="mt-2 text-gray-600">{t('noScreening')}</p>
-            <DialogTrigger asChild>
-              <Button variant="ghost" className="text-blue-600 ">
-                <PlusCircleIcon className="w-5 h-5 mr-1" />
-                {t('complete')}
-              </Button>
-            </DialogTrigger>
-          </div>
-          <QuestionnaireDialog />
-        </Dialog>
+        <QuestionnaireTrigger
+          className="text-center py-6 border-2 border-dashed border-gray-200 rounded-lg"
+          appointmentId={appointmentId}
+          disabled
+        />
       </CardContent>
     </Card>
   );

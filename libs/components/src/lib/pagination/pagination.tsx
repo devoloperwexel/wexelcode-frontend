@@ -67,7 +67,7 @@ const Pagination = ({
         <PaginationNext
           title={t('next')}
           onClick={handleOnClickNext}
-          disabled={page === totalPages}
+          disabled={page === totalPages || totalPages === 0}
         />
       </PaginationContent>
     </nav>

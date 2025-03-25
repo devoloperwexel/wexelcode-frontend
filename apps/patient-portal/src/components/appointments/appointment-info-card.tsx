@@ -13,7 +13,7 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
 
   const getStatusColor = () => {
     switch (appointment.status) {
-      case 'CONFIRMED':
+      case 'SUCCESS':
         return 'bg-green-100 text-green-800';
       case 'PENDING':
         return 'bg-yellow-100 text-yellow-800';

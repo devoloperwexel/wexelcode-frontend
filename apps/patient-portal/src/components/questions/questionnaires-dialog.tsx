@@ -11,7 +11,15 @@ import { useState } from 'react';
 import QuestionForm from './questions-form';
 import QuestionsNavigationMenu from './questions-navigation-menu';
 
-export function QuestionnaireDialog() {
+interface QuestionnaireDialogProps {
+  appointmentId?: string;
+  disabled?: boolean;
+}
+
+export function QuestionnaireDialog({
+  appointmentId,
+  disabled,
+}: QuestionnaireDialogProps) {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
 
   const { data: questionnaires } = useGetQuestionnaire({
@@ -42,6 +50,8 @@ export function QuestionnaireDialog() {
             total={questionnaires.results.length}
             local={'en'}
             gender={'male'}
+            appointmentId={appointmentId}
+            disabled={disabled}
             onChangeIndex={setCurrentCategoryIndex}
           />
         )}

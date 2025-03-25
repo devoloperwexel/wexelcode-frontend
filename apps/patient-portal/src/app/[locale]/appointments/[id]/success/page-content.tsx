@@ -1,4 +1,10 @@
+'use client';
+
+import { Button } from '@wexelcode/components';
 import { CheckCircle } from 'lucide-react';
+
+import Routes from '../../../../../constants/routes';
+import { Link } from '../../../../../i18n/routing';
 
 export default function AppointmentSuccessPageContent() {
   return (
@@ -10,6 +16,11 @@ export default function AppointmentSuccessPageContent() {
           <p className="text-xl text-muted-foreground">
             Your appointment has been confirmed
           </p>
+          <div>
+            <Link href={Routes.appointments}>
+              <Button>Go to appointments</Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

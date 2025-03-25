@@ -71,3 +71,22 @@ export const AppointmentInfoLoadingSkeleton = () => {
     </Card>
   );
 };
+
+export const AppointmentListLoadingSkeleton = () => {
+  return (
+    <div className="space-y-4">
+      {Array.from({ length: 6 }, (_, index) => (
+        <div key={index}>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-16 w-16 rounded-full" />
+            <div className="flex flex-col space-y-2 w-4/5">
+              <Skeleton className="h-6 w-fll" />
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-4 w-60" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};

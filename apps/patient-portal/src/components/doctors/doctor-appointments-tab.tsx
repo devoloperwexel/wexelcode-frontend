@@ -6,6 +6,7 @@ import {
   useGetDoctorAvailability,
 } from '@wexelcode/hooks';
 import { Doctor } from '@wexelcode/types';
+import { dateTimeFormat } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -58,9 +59,10 @@ export function DoctorAppointmentsTab({
       userId: data?.user.id,
       physioUserId: doctor.userId,
       notes: '',
-      appointmentTime: `${
-        date.toISOString().split('T')[0]
-      } ${selectedTimeSlot}`,
+      appointmentTime: `${dateTimeFormat(
+        date,
+        'yyyy-MM-DD'
+      )} ${selectedTimeSlot}`,
     });
 
     push(`${Routes.appointments}/${response?.id}`);

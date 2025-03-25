@@ -1,8 +1,15 @@
 'use client';
 
 import { Button, Form, Text } from '@wexelcode/components';
-import { useGetQuestionsByQuestionnaireId } from '@wexelcode/hooks';
+import {
+  useGetAnswers,
+  useGetQuestionsByQuestionnaireId,
+  useSaveAnswers,
+} from '@wexelcode/hooks';
 import { Questionnaire } from '@wexelcode/types';
+import { extractAnswers } from '@wexelcode/utils';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import {
@@ -17,6 +24,8 @@ interface QuestionFormProps {
   total: number;
   local: string;
   gender: string;
+  disabled?: boolean;
+  appointmentId?: string;
   onChangeIndex: (page: number) => void;
 }
 
@@ -26,8 +35,12 @@ export default function QuestionForm({
   total,
   local,
   gender,
+  appointmentId,
+  disabled,
   onChangeIndex,
 }: QuestionFormProps) {
+  const { data: userData } = useSession();
+
   const { isLoading, data } = useGetQuestionsByQuestionnaireId({
     id: questionnaire.id,
     page: 1,
@@ -36,7 +49,16 @@ export default function QuestionForm({
     requiredQuestionId: 'null',
   });
 
-  const form = useForm();
+  const { data: answers } = useGetAnswers({
+    userId: userData?.user?.id,
+    appointmentId,
+  });
+
+  const form = useForm({
+    disabled: disabled,
+  });
+
+  const { mutateAsync: save } = useSaveAnswers();
 
   const handleOnClickPrevious = () => {
     onChangeIndex(index - 1);
@@ -50,10 +72,20 @@ export default function QuestionForm({
     }
   };
 
-  const handleSubmit = (data: any) => {
-    console.log(data);
+  const handleSubmit = async (data: any) => {
+    if (!userData) return;
+    if (!disabled) {
+      await save({ userId: userData.user?.id, ...data });
+    }
     handleOnClickNext();
   };
+
+  useEffect(() => {
+    if (answers) {
+      form.reset(extractAnswers(answers));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answers]);
 
   if (isLoading) {
     return <QuestionsLoading />;
@@ -92,7 +124,11 @@ export default function QuestionForm({
           ))}
 
           <div className="flex justify-between py-2">
-            <Button disabled={index === 0} onClick={handleOnClickPrevious}>
+            <Button
+              disabled={index === 0}
+              onClick={handleOnClickPrevious}
+              type="button"
+            >
               Previous
             </Button>
             <Text variant="muted">

@@ -5,7 +5,10 @@
   },
   "navigation": {
     "home": "Home",
-    "doctors": "Doctors"
+    "doctors": "Doctors",
+    "appointments": "Appointments",
+    "blog": "Blog",
+    "about": "About us"
   },
   "userMenu": {
     "signIn": "Sign In"
@@ -13,6 +16,23 @@
   "pagination": {
     "previous": "Previous",
     "next": "Next"
+  },
+  "options": {
+    "gender": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    },
+    "activity": {
+      "FOOTBALL": "Football",
+      "BASKETBALL": "Basketball",
+      "SKI": "Ski"
+    },
+    "language": {
+      "ENGLISH": "English",
+      "GERMAN": "German",
+      "FRENCH": "French",
+      "SPANISH": "Spanish"
+    }
   },
   "doctors": {
     "doctorListingPage": {
@@ -58,6 +78,71 @@
       "title": "Payment Information",
       "total": "Total",
       "pay": "Pay"
+    },
+    "AppointmentsPage": {
+      "upcoming": "Upcoming",
+      "history": "History",
+      "noDataFound": "No Appointments Found"
+    }
+  },
+  "profile": {
+    "personalDetailsForm": {
+      "birthday": "Birthday",
+      "gender": "Gender",
+      "address": "Address",
+      "city": "City",
+      "state": "Country",
+      "zipCode": "Zipcode",
+      "languages": "Languages",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "mobile": "Mobile"
+    },
+    "completeProfilePage": {
+      "title": "Complete Profile",
+      "submit": "Submit",
+      "next": "Next",
+      "back": "Back",
+      "reviewTitle": "Review Your Information",
+      "personalDetails": "Personal Details",
+      "medicalDetails": "Medical Details"
+    },
+    "medicalDetailsForm": {
+      "occupation": "Occupation",
+      "weight": "Weight (kg)",
+      "height": "Height (cm)",
+      "activities": "Activities"
+    }
+  },
+  "questionnaire": {
+    "trigger": {
+      "noScreening": "No screening information available",
+      "complete": "Complete screening questions",
+      "edit": "Edit screening questions",
+      "result": "Screening Result"
+    }
+  },
+  "dashboard": {
+    "latestUpcomingAppointmentCard": {
+      "title": "Latest Upcoming Appointment",
+      "minutes": "Minutes",
+      "type": "Type",
+      "video": "Video",
+      "time": "Time",
+      "date": "Date",
+      "status": "Status",
+      "noDataFound": "No upcoming Appointment",
+      "bookAppointment": "Book Appointment",
+      "joinVideoCall": "Join Call",
+      "physio": "Physio"
+    },
+    "screeningResultCard": {
+      "title": "Latest Screening Result",
+      "score": "Score",
+      "date": "Screening Date",
+      "result": "Result Status",
+      "startNew": "Start New Screening",
+      "noDataFound": "No screening Found"
     }
   }
 }

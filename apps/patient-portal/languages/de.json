@@ -5,7 +5,10 @@
   },
   "navigation": {
     "home": "Startseite",
-    "doctors": "Ärzte"
+    "doctors": "Ärzte",
+    "appointments": "Termine",
+    "blog": "Blog",
+    "about": "Über uns"
   },
   "userMenu": {
     "signIn": "Anmelden"
@@ -13,6 +16,23 @@
   "pagination": {
     "previous": "Zurück",
     "next": "Weiter"
+  },
+  "options": {
+    "gender": {
+      "MALE": "Männlich",
+      "FEMALE": "Weiblich"
+    },
+    "activity": {
+      "FOOTBALL": "Fußball",
+      "BASKETBALL": "Basketball",
+      "SKI": "Ski"
+    },
+    "language": {
+      "ENGLISH": "Englisch",
+      "GERMAN": "Deutsch",
+      "FRENCH": "Französisch",
+      "SPANISH": "Spanisch"
+    }
   },
   "doctors": {
     "doctorListingPage": {
@@ -26,7 +46,7 @@
       "languages": "Sprachen",
       "bookAppointment": "Termin buchen",
       "years": "Jahre",
-      "appointmentDate": "Termin Datum",
+      "appointmentDate": "Termindatum",
       "available": "Verfügbar",
       "selected": "Ausgewählt",
       "unavailable": "Nicht verfügbar"
@@ -46,18 +66,83 @@
       "time": "Uhrzeit",
       "status": "Status",
       "type": "Terminart",
-      "video": "Video-Konsultation",
+      "video": "Video-Beratung",
       "minutes": "Minuten"
     },
     "medicalScreeningCard": {
-      "title": "Medizinische Screening-Informationen",
-      "noScreening": "Keine Screening-Informationen verfügbar",
-      "complete": "Screening-Fragen ausfüllen"
+      "title": "Medizinische Untersuchung",
+      "noScreening": "Keine Untersuchungsinformationen verfügbar",
+      "complete": "Untersuchungsfragen ausfüllen"
     },
     "paymentCard": {
       "title": "Zahlungsinformationen",
       "total": "Gesamt",
       "pay": "Bezahlen"
+    },
+    "AppointmentsPage": {
+      "upcoming": "Bevorstehend",
+      "history": "Verlauf",
+      "noDataFound": "Keine Termine gefunden"
+    }
+  },
+  "profile": {
+    "personalDetailsForm": {
+      "birthday": "Geburtstag",
+      "gender": "Geschlecht",
+      "address": "Adresse",
+      "city": "Stadt",
+      "state": "Land",
+      "zipCode": "Postleitzahl",
+      "languages": "Sprachen",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "mobile": "Mobil"
+    },
+    "completeProfilePage": {
+      "title": "Profil vervollständigen",
+      "submit": "Absenden",
+      "next": "Weiter",
+      "back": "Zurück",
+      "reviewTitle": "Ihre Informationen überprüfen",
+      "personalDetails": "Persönliche Details",
+      "medicalDetails": "Medizinische Details"
+    },
+    "medicalDetailsForm": {
+      "occupation": "Beruf",
+      "weight": "Gewicht (kg)",
+      "height": "Größe (cm)",
+      "activities": "Aktivitäten"
+    }
+  },
+  "questionnaire": {
+    "trigger": {
+      "noScreening": "Keine Untersuchungsinformationen verfügbar",
+      "complete": "Untersuchungsfragen ausfüllen",
+      "edit": "Untersuchungsfragen bearbeiten",
+      "result": "Untersuchungsergebnis"
+    }
+  },
+  "dashboard": {
+    "latestUpcomingAppointmentCard": {
+      "title": "Nächster bevorstehender Termin",
+      "minutes": "Minuten",
+      "type": "Art",
+      "video": "Video",
+      "time": "Uhrzeit",
+      "date": "Datum",
+      "status": "Status",
+      "noDataFound": "Kein bevorstehender Termin",
+      "bookAppointment": "Termin buchen",
+      "joinVideoCall": "Anruf beitreten",
+      "physio": "Physiotherapie"
+    },
+    "screeningResultCard": {
+      "title": "Letztes Untersuchungsergebnis",
+      "score": "Punktzahl",
+      "date": "Untersuchungsdatum",
+      "result": "Ergebnisstatus",
+      "startNew": "Neue Untersuchung starten",
+      "noDataFound": "Keine Untersuchung gefunden"
     }
   }
 }

@@ -6,6 +6,6 @@ export interface Appointment extends Timestamps {
   patientUserId: string;
   notes: string;
   appointmentTime: string;
-  status: 'PENDING' | 'CONFIRMED' | 'CANCELLED'; // TODO: Need confirmation on the status
+  status: 'PENDING' | 'SUCCESS' | 'CANCELLED'; // TODO: Need confirmation on the status
   physioUser?: User;
 }

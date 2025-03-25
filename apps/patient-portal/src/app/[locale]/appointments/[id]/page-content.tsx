@@ -34,7 +34,11 @@ export default function AppointmentDetailsPageContent({
 
         {appointment && <AppointmentInfoCard appointment={appointment} />}
 
-        <MedicalScreeningInfoCard />
+        <MedicalScreeningInfoCard
+          appointmentId={
+            appointment?.status === 'SUCCESS' ? appointment.id : undefined
+          }
+        />
       </div>
 
       <div className="col-span-1">

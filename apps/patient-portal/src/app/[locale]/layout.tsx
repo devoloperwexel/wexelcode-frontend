@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
 import MainLayout from '../../layouts/main-layout';
+import { ProfileCompleteProvider } from '../../providers';
 import { routing } from './../../i18n/routing';
 
 export const metadata = {
@@ -38,7 +39,9 @@ export default async function LocaleLayout({
         <body>
           <QueryProvider>
             <NextIntlClientProvider messages={messages}>
-              <MainLayout>{children}</MainLayout>
+              <ProfileCompleteProvider>
+                <MainLayout>{children}</MainLayout>
+              </ProfileCompleteProvider>
             </NextIntlClientProvider>
           </QueryProvider>
         </body>

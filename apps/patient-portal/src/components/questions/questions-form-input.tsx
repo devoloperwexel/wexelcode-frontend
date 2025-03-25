@@ -47,7 +47,11 @@ const ChildQuestionsFormInput: React.FC<QuestionFormInputProps> = ({
 
   const requiredQuestionValue = watch(question.requiredQuestionId!);
 
-  if (requiredQuestionValue !== question.requiredAnswer![local]) {
+  if (!requiredQuestionValue) {
+    return null;
+  }
+
+  if (requiredQuestionValue[local] !== question.requiredAnswer![local]) {
     return null;
   }
 

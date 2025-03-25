@@ -14,8 +14,6 @@ export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
   question,
   local,
 }) => {
-  const options = question.options.map((option) => option[local]);
-
   return (
     <FormField
       name={question.id}
@@ -32,8 +30,11 @@ export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
               )}
             </div>
             <div className="space-y-3">
-              {options.map((option, index) => {
-                const isSelected = field.value === option;
+              {question.options.map((option, index) => {
+                const isSelected = field.value
+                  ? field.value[local] === option[local]
+                  : false;
+
                 return (
                   <label
                     key={index}
@@ -46,7 +47,14 @@ export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
                         type="radio"
                         className="sr-only"
                         {...field}
-                        value={option}
+                        value={option[local]}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          const answer = question.options.find(
+                            (option) => option[local] === value
+                          );
+                          field.onChange(answer);
+                        }}
                       />
                       {isSelected ? (
                         <CheckCircleIcon className="w-5 h-5 text-blue-600" />
@@ -54,7 +62,7 @@ export const SingleSelectQuestion: React.FC<SingleSelectQuestionProps> = ({
                         <CircleIcon className="w-5 h-5 text-gray-400" />
                       )}
                     </div>
-                    <span className="ml-2 text-gray-700">{option}</span>
+                    <span className="ml-2 text-gray-700">{option[local]}</span>
                   </label>
                 );
               })}

@@ -16,6 +16,7 @@ import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
+import { MyAvatar } from '../common';
 
 export function UserMenu() {
   const t = useTranslations('userMenu');
@@ -55,10 +56,7 @@ export function UserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-          <UserAvatar
-            name={data?.user.firstName ?? ''}
-            profileUrl={data?.user.firstName}
-          />
+          <MyAvatar />
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-semibold">{`${data?.user.firstName} ${data?.user.lastName}`}</span>
             <span className="truncate text-xs">{data?.user.email}</span>
@@ -87,7 +85,7 @@ export function UserMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={Routes.account}>
+          <Link href={Routes.profile.index}>
             <DropdownMenuItem>
               <Cog />
               Account Settings

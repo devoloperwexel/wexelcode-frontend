@@ -1,0 +1,118 @@
+import {
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  Dialog,
+  DialogTrigger,
+  ProgressIndicator,
+  Text,
+} from '@wexelcode/components';
+import { useGetAnswers } from '@wexelcode/hooks';
+import { dateTimeFormat, extractLastScreening } from '@wexelcode/utils';
+import {
+  ActivityIcon,
+  CalculatorIcon,
+  CheckCircleIcon,
+  FileX,
+} from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+
+import { NoDataBanner } from '../common';
+import { QuestionnaireDialog } from '../questions';
+import { LoadingAppointmentCard } from './loading';
+
+export function ScreeningResultCard() {
+  const t = useTranslations('dashboard.screeningResultCard');
+  const { data: userData } = useSession();
+
+  const { data: response, isLoading } = useGetAnswers({
+    userId: userData?.user.id,
+  });
+
+  const score = 80;
+
+  if (isLoading) {
+    return <LoadingAppointmentCard />;
+  }
+
+  if (!response || response.length === 0) {
+    return (
+      <Card className="flex flex-col">
+        <CardHeader>{t('title')}</CardHeader>
+        <CardContent className="flex flex-grow items-center justify-center">
+          <NoDataBanner
+            message={t('noDataFound')}
+            icon={<FileX size={36} className="text-primary" />}
+          />
+        </CardContent>
+        <CardFooter className="w-full">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="w-full">
+                {t('startNew')}
+              </Button>
+            </DialogTrigger>
+            <QuestionnaireDialog />
+          </Dialog>
+        </CardFooter>
+      </Card>
+    );
+  }
+
+  const lastScreening = extractLastScreening(response);
+
+  return (
+    <Card>
+      <CardHeader>{t('title')}</CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex flex-col items-center justify-start">
+          <ProgressIndicator percentage={score} size={140}>
+            <div className="flex flex-col justify-center text-center">
+              <Text>{score} %</Text>
+              <Text variant="muted">{t('score')}</Text>
+            </div>
+          </ProgressIndicator>
+        </div>
+
+        <div className="flex justify-between">
+          <div className="flex items-center space-x-2">
+            <CalculatorIcon className="w-5 h-5 text-primary" />
+            <Text>{t('date')}</Text>
+          </div>
+          {lastScreening?.createdAt && (
+            <Text variant="muted">
+              {dateTimeFormat(lastScreening.createdAt, 'MMMM DD, yyyy')}
+            </Text>
+          )}
+        </div>
+
+        <div className="flex justify-between">
+          <div className="flex items-center space-x-2">
+            <ActivityIcon className="w-5 h-5 text-primary" />
+            <Text>{t('result')}</Text>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircleIcon className="w-6 h-6 text-green-500" />
+            <Text variant="muted" className="!text-green-500">
+              Normal
+            </Text>
+          </div>
+        </div>
+      </CardContent>
+
+      <CardFooter className="w-full">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline" className="w-full">
+              {t('startNew')}
+            </Button>
+          </DialogTrigger>
+          <QuestionnaireDialog />
+        </Dialog>
+      </CardFooter>
+    </Card>
+  );
+}

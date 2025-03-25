@@ -4,11 +4,11 @@ import { Header } from '../components/header';
 
 export default function MainLayout({ children }: PropsWithChildren) {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <main className="w-full min-h-screen bg-gray-50">
       <Header />
-      <main className="grid grid-cols-7 h-[calc(100vh-4rem)] overflow-auto">
-        <div className="col-start-2 col-span-5 p-4 h-full ">{children}</div>
-      </main>
-    </div>
+      <div className="flex justify-center w-full h-[calc(100vh-4rem)] p-4 overflow-auto">
+        <div className="container max-w-6xl">{children}</div>
+      </div>
+    </main>
   );
 }
