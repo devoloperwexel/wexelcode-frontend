@@ -7,6 +7,7 @@ import {
   useSaveAnswers,
 } from '@wexelcode/hooks';
 import { Questionnaire } from '@wexelcode/types';
+import { extractAnswers } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -46,7 +47,6 @@ export default function QuestionForm({
 
   const { data: answers } = useGetAnswers({
     userId: userData?.user?.id,
-    questionnaireId: questionnaire.id,
   });
 
   const form = useForm();
@@ -73,8 +73,7 @@ export default function QuestionForm({
 
   useEffect(() => {
     if (answers) {
-      console.log('answers', answers);
-      form.reset(answers);
+      form.reset(extractAnswers(answers));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answers]);
