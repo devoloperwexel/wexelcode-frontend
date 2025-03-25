@@ -12,8 +12,9 @@ import { AppointmentListView } from '../../../components/appointments/appointmen
 
 export default function AppointmentsPageContent() {
   const now = new Date().toString();
+
   return (
-    <Tabs defaultValue="upcoming">
+    <Tabs defaultValue="upcoming" className="h-full">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="upcoming">
           <CalendarIcon className="w-5 h-5 mr-2" />
@@ -24,10 +25,10 @@ export default function AppointmentsPageContent() {
           History
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="upcoming">
+      <TabsContent value="upcoming" className="py-2 h-[90%]">
         <AppointmentListView startDate={now} />
       </TabsContent>
-      <TabsContent value="history">
+      <TabsContent value="history" className="py-2 h-[90%]">
         <AppointmentListView endDate={now} />
       </TabsContent>
     </Tabs>
