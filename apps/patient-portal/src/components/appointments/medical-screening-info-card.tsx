@@ -20,6 +20,7 @@ export function MedicalScreeningInfoCard({
         <QuestionnaireTrigger
           className="text-center py-6 border-2 border-dashed border-gray-200 rounded-lg"
           appointmentId={appointmentId}
+          disabled
         />
       </CardContent>
     </Card>
