@@ -1,6 +1,7 @@
 import { Pagination } from '@wexelcode/components';
 import { useGetAppointmentsByUserId, useQueryParams } from '@wexelcode/hooks';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 import { NoDataBanner } from '../common';
 import AppointmentListItem from './appointment-list-item';
@@ -15,6 +16,7 @@ export function AppointmentListView({
   startDate,
   endDate,
 }: AppointmentListViewProps) {
+  const t = useTranslations('appointments.AppointmentsPage');
   const { data: userData } = useSession();
 
   const queryParams = useQueryParams();
@@ -36,9 +38,9 @@ export function AppointmentListView({
     <div className="flex flex-col justify-between space-y-4 h-full">
       <NoDataBanner
         visible={response?.totalResults === 0}
-        message="No Appointments Found"
+        message={t('noDataFound')}
       />
-      <div className="space-y-4">
+      <div className="flex flex-col space-y-4">
         {response?.results?.map((appointment) => (
           <AppointmentListItem key={appointment.id} appointment={appointment} />
         ))}
