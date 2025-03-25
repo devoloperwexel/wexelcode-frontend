@@ -24,6 +24,8 @@ interface QuestionFormProps {
   total: number;
   local: string;
   gender: string;
+  disabled?: boolean;
+  appointmentId?: string;
   onChangeIndex: (page: number) => void;
 }
 
@@ -33,6 +35,8 @@ export default function QuestionForm({
   total,
   local,
   gender,
+  appointmentId,
+  disabled,
   onChangeIndex,
 }: QuestionFormProps) {
   const { data: userData } = useSession();
@@ -47,9 +51,12 @@ export default function QuestionForm({
 
   const { data: answers } = useGetAnswers({
     userId: userData?.user?.id,
+    appointmentId,
   });
 
-  const form = useForm();
+  const form = useForm({
+    disabled: disabled,
+  });
 
   const { mutateAsync: save } = useSaveAnswers();
 
@@ -67,7 +74,9 @@ export default function QuestionForm({
 
   const handleSubmit = async (data: any) => {
     if (!userData) return;
-    await save({ userId: userData.user?.id, ...data });
+    if (!disabled) {
+      await save({ userId: userData.user?.id, ...data });
+    }
     handleOnClickNext();
   };
 
@@ -115,7 +124,11 @@ export default function QuestionForm({
           ))}
 
           <div className="flex justify-between py-2">
-            <Button disabled={index === 0} onClick={handleOnClickPrevious}>
+            <Button
+              disabled={index === 0}
+              onClick={handleOnClickPrevious}
+              type="button"
+            >
               Previous
             </Button>
             <Text variant="muted">
