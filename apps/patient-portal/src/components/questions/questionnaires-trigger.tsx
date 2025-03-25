@@ -15,10 +15,12 @@ import { QuestionnaireDialog } from './questionnaires-dialog';
 interface QuestionnaireTriggerProps
   extends React.HTMLAttributes<HTMLDivElement> {
   appointmentId?: string;
+  disabled?: boolean;
 }
 
 export function QuestionnaireTrigger({
   appointmentId,
+  disabled,
   ...rest
 }: QuestionnaireTriggerProps) {
   const t = useTranslations('questionnaire.trigger');
@@ -64,7 +66,10 @@ export function QuestionnaireTrigger({
           </>
         )}
       </div>
-      <QuestionnaireDialog />
+      <QuestionnaireDialog
+        appointmentId={appointmentId}
+        disabled={!!appointmentId}
+      />
     </Dialog>
   );
 }
