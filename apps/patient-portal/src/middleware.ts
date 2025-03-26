@@ -18,9 +18,11 @@ export default async function middleware(request: NextRequest) {
 
   if (isProtectedRoute) {
     const token = await getToken({ req: request, secret });
+    const host = process.env?.['NEXTAUTH_URL'];
     if (!token) {
-      const signInUrl = new URL('/api/auth/signin', request.nextUrl.origin);
-      signInUrl.searchParams.set('callbackUrl', request.nextUrl.href);
+      const signInUrl = new URL('/api/auth/signin', host);
+      signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
+
       return NextResponse.redirect(signInUrl);
     }
   }
