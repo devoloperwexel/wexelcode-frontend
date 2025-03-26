@@ -88,6 +88,10 @@ const config: NextAuthConfig = {
       session.user = token['user'] as CustomAdapterUser;
       return session;
     },
+    authorized: async ({ auth }) => {
+      // Logged in users are authenticated, otherwise redirect to login page
+      return !!auth;
+    },
   },
 };
 
