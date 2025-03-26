@@ -4,7 +4,7 @@ import createMiddleware from 'next-intl/middleware';
 
 import { routing } from './i18n/routing';
 
-const protectedRoutesRegex = /^\/(en|ar)\/(profile|appointment)(\/.*)?$/;
+const protectedRoutesRegex = /^\/(en|ar)\/(profile|appointments)(\/.*)?$/;
 
 const intlMiddleware = createMiddleware(routing);
 const secret = process.env.NEXTAUTH_SECRET;
@@ -19,6 +19,9 @@ export default async function middleware(request: NextRequest) {
   if (isProtectedRoute) {
     const token = await getToken({ req: request, secret });
     const host = process.env?.['NEXTAUTH_URL'];
+    // For debug
+    console.log(token);
+
     if (!token) {
       const signInUrl = new URL('/api/auth/signin', host);
       signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
