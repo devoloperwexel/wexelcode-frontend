@@ -61,7 +61,9 @@ export default function AppointmentListItem({
             </div>
             <div className="flex items-center text-sm text-gray-700">
               <ClockIcon className="w-4 h-4 mr-1 text-gray-400 flex-shrink-0" />
-              <span>{dateTimeFormat(appointment.appointmentTime, 'H:HH')}</span>
+              <span>
+                {dateTimeFormat(appointment.appointmentTime, 'HH:MM')}
+              </span>
             </div>
           </div>
         </div>

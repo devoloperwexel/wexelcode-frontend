@@ -95,7 +95,7 @@ export function LatestUpcomingAppointmentCard() {
               <Text variant="muted">{t('date')}</Text>
               <Text weight="semibold">
                 {appointment?.appointmentTime &&
-                  dateTimeFormat(appointment?.appointmentTime, 'MMM DD, YYYY')}
+                  dateTimeFormat(appointment?.appointmentTime, 'Do MMMM, yyyy')}
               </Text>
             </div>
           </div>
@@ -106,7 +106,7 @@ export function LatestUpcomingAppointmentCard() {
               <Text variant="muted">{t('time')}</Text>
               <Text weight="semibold">
                 {appointment?.appointmentTime &&
-                  dateTimeFormat(appointment?.appointmentTime, 'hh:mm A')}{' '}
+                  dateTimeFormat(appointment?.appointmentTime, 'HH:MM')}{' '}
                 (30 {t('minutes')})
               </Text>
             </div>
