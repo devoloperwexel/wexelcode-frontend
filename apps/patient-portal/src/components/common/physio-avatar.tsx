@@ -1,27 +1,27 @@
 'use client';
 
 import { UserAvatar } from '@wexelcode/components';
-import { Doctor } from '@wexelcode/types';
+import { User } from '@wexelcode/types';
 import React from 'react';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 type Props = React.ComponentProps<typeof UserAvatar> & {
-  physio?: Doctor;
+  physioUser?: User;
 };
 
-export function PhysioAvatar({ physio, ...rest }: Props) {
-  if (!physio) {
+export function PhysioAvatar({ physioUser, ...rest }: Props) {
+  if (!physioUser) {
     return <UserAvatar {...rest} />;
   }
 
   return (
-    <Link href={`${Routes.doctors}/${physio.userId}`}>
+    <Link href={`${Routes.doctors}/${physioUser.id}`}>
       <UserAvatar
         {...rest}
-        name={`${physio.user.firstName} ${physio.user.lastName}`}
-        profileUrl={physio?.user.profilePictureUrl}
+        name={`${physioUser.firstName} ${physioUser.lastName}`}
+        profileUrl={physioUser.profilePictureUrl}
       />
     </Link>
   );

@@ -5,7 +5,6 @@ import {
   CardFooter,
   CardHeader,
   Text,
-  UserAvatar,
 } from '@wexelcode/components';
 import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
 import { dateTimeFormat } from '@wexelcode/utils';
@@ -15,7 +14,7 @@ import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
-import { NoDataBanner } from '../common';
+import { NoDataBanner, PhysioAvatar } from '../common';
 import { LoadingAppointmentCard } from './loading';
 
 export function LatestUpcomingAppointmentCard() {
@@ -75,10 +74,9 @@ export function LatestUpcomingAppointmentCard() {
 
       <CardContent className="flex flex-col flex-grow space-y-4">
         <div className="flex space-x-4 ">
-          <UserAvatar
+          <PhysioAvatar
             className="w-16 h-16"
-            name={`${appointment?.physioUser?.firstName} ${appointment?.physioUser?.lastName}`}
-            profileUrl={appointment?.physioUser?.profilePictureUrl}
+            physioUser={appointment?.physioUser}
           />
           <div className="flex flex-col justify-evenly">
             <Text variant="h3" weight="semibold">
