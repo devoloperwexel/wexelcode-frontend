@@ -42,7 +42,7 @@ export function QuestionnaireDialog({
         />
       )}
 
-      <div className="p-4 h-[calc(100vh-15rem)] overflow-y-auto">
+      <div className="h-[calc(100vh-15rem)]">
         {questionnaires?.results && (
           <QuestionForm
             questionnaire={questionnaires.results[currentCategoryIndex]}
