@@ -1,10 +1,13 @@
 import {
   FormInputField,
-  FormMultiSelectorField,
   FormPhoneInputField,
   FormSelectorField,
+  FormSmartMultiSelectorField,
+  FormSmartSelectorField,
 } from '@wexelcode/components';
-import { GenderOptions, LanguageOptions } from '@wexelcode/constants';
+import { GenderOptions } from '@wexelcode/constants';
+import { countries, languages } from 'country-data';
+import _ from 'lodash';
 import { useLocale, useTranslations } from 'next-intl';
 import de from 'react-phone-number-input/locale/de';
 
@@ -26,9 +29,20 @@ export function PersonalDetailsForm({
     value: option,
   }));
 
-  const languagesOptions = LanguageOptions.map((option) => ({
-    label: tOptions(`language.${option}`),
-    value: option,
+  const languagesOptions = _.unionBy(
+    languages.all,
+    (language) => language.alpha3
+  ).map((language) => ({
+    value: language.alpha3,
+    label: language.name,
+  }));
+
+  const countryOptions = _.unionBy(
+    countries.all,
+    (county) => county.alpha2
+  ).map((country) => ({
+    value: country.alpha2,
+    label: country.name,
   }));
 
   return (
@@ -106,9 +120,10 @@ export function PersonalDetailsForm({
             required: true,
           }}
         />
-        <FormInputField
+        <FormSmartSelectorField
           label={t('state')}
           name="country"
+          options={countryOptions}
           rules={{
             required: true,
           }}
@@ -124,7 +139,7 @@ export function PersonalDetailsForm({
       </div>
 
       <div>
-        <FormMultiSelectorField
+        <FormSmartMultiSelectorField
           label={t('languages')}
           name="languages"
           options={languagesOptions}
