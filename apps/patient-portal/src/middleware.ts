@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@wexelcode/auth';
+import { NextRequest, NextResponse } from 'next/server';
 
 export default auth(async function middleware(request: NextRequest) {
   // Your custom middleware logic goes here
