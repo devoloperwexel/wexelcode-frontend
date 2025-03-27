@@ -23,6 +23,8 @@ export * from './lib/process-indicator/process-indicator';
 export * from './lib/radio-group/radio-group';
 export * from './lib/scroll-area/scroll-area';
 export * from './lib/select/select';
+export * from './lib/select/smart-multi-select';
+export * from './lib/select/smart-select';
 export * from './lib/separator/separator';
 export * from './lib/sheet/sheet';
 export * from './lib/sidebar/sidebar';
