@@ -119,7 +119,8 @@
       "noScreening": "No screening information available",
       "complete": "Complete screening questions",
       "edit": "Edit screening questions",
-      "result": "Screening Result"
+      "result": "Screening Result",
+      "view": "View screening questions"
     }
   },
   "dashboard": {

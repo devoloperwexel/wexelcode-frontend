@@ -84,7 +84,7 @@ export function ScreeningResultCard() {
           </div>
           {lastScreening?.createdAt && (
             <Text variant="muted">
-              {dateTimeFormat(lastScreening.createdAt, 'MMMM DD, yyyy')}
+              {dateTimeFormat(lastScreening.createdAt, 'Do MMMM, yyyy')}
             </Text>
           )}
         </div>

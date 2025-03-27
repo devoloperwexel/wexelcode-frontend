@@ -119,7 +119,8 @@
       "noScreening": "Keine Untersuchungsinformationen verfügbar",
       "complete": "Untersuchungsfragen ausfüllen",
       "edit": "Untersuchungsfragen bearbeiten",
-      "result": "Untersuchungsergebnis"
+      "result": "Untersuchungsergebnis",
+      "view": "Untersuchungsfragen anzeigen"
     }
   },
   "dashboard": {
