@@ -1,10 +1,11 @@
-import { Button, UserAvatar } from '@wexelcode/components';
+import { Button } from '@wexelcode/components';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
+import { PhysioAvatar } from '../common';
 
 interface AppointmentListItemProps {
   appointment: Appointment;
@@ -22,10 +23,9 @@ export default function AppointmentListItem({
     <Link href={`${Routes.appointments}/${appointment.id}`}>
       <div className="flex items-center py-2 px-4 bg-white border shadow-sm rounded-lg">
         <div className="flex-shrink-0">
-          <UserAvatar
+          <PhysioAvatar
             className="w-16 h-16"
-            name={`${appointment.physioUser?.firstName} ${appointment.physioUser?.lastName}`}
-            profileUrl={appointment.physioUser?.profilePictureUrl}
+            physioUser={appointment.physioUser}
           />
         </div>
         <div className="ml-4 flex-grow">
