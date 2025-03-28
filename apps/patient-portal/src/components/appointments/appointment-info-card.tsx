@@ -43,7 +43,7 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
             <div>
               <Text variant="muted">{t('time')}</Text>
               <Text weight="semibold">
-                {dateTimeFormat(appointment.appointmentTime, 'HH:MM')} (30{' '}
+                {dateTimeFormat(appointment.appointmentTime, 'HH:mm')} (30{' '}
                 {t('minutes')})
               </Text>
             </div>
