@@ -11,7 +11,7 @@ export default function IndexPageContent() {
     <ProtectedVisible>
       <div className="grid grid-cols-2 gap-4">
         <ScreeningResultCard />
-        <LatestUpcomingAppointmentCard />
+        <LatestUpcomingAppointmentCard now={new Date()} />
       </div>
     </ProtectedVisible>
   );
