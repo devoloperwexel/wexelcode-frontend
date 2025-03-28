@@ -6,7 +6,7 @@ import {
   useGetDoctorAvailability,
 } from '@wexelcode/hooks';
 import { Doctor } from '@wexelcode/types';
-import { dateTimeFormat } from '@wexelcode/utils';
+import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -47,6 +47,11 @@ export function DoctorAppointmentsTab({
 
   const handleTimeSlotClick = (timeSlot: string) => {
     setSelectedTimeSlot(timeSlot);
+  };
+
+  const checkAvailability = (timeSlot: string) => {
+    const timeSlotDate = `${dateTimeFormat(date, 'yyyy-MM-DD')} ${timeSlot}`;
+    return dateTimeDiff(timeSlotDate, new Date()) > 0;
   };
 
   const handleOnBookAppointment = async () => {
@@ -99,7 +104,9 @@ export function DoctorAppointmentsTab({
                 key={index}
                 start={timeSlot.time[0]}
                 end={timeSlot.time[1]}
-                available={timeSlot.available}
+                available={
+                  timeSlot.available && checkAvailability(timeSlot.time[0])
+                }
                 isSelected={selectedTimeSlot === timeSlot.time[0]}
                 onSelect={handleTimeSlotClick}
               />
