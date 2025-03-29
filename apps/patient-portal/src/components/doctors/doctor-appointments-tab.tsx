@@ -6,7 +6,7 @@ import {
   useGetDoctorAvailability,
 } from '@wexelcode/hooks';
 import { Doctor } from '@wexelcode/types';
-import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
+import { dateTimeDiff, dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -60,14 +60,20 @@ export function DoctorAppointmentsTab({
       return;
     }
 
+    if (!selectedTimeSlot) return;
+
+    const [h, m] = selectedTimeSlot.split(':');
+
+    const appointmentTime = dateTimeSet(date, {
+      hour: parseInt(h),
+      minute: parseInt(m),
+    });
+
     const response = await createAppointment({
       userId: data?.user.id,
       physioUserId: doctor.userId,
       notes: '',
-      appointmentTime: `${dateTimeFormat(
-        date,
-        'yyyy-MM-DD'
-      )} ${selectedTimeSlot}`,
+      appointmentTime: appointmentTime.toISOString(),
     });
 
     push(`${Routes.appointments}/${response?.id}`);
