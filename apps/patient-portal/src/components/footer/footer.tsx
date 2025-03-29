@@ -7,6 +7,7 @@ import {
   Twitter,
 } from 'lucide-react';
 
+import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 export const Footer = () => {
@@ -52,7 +53,10 @@ export const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-300 hover:text-white">
+                <Link
+                  href={Routes.home}
+                  className="text-gray-300 hover:text-white"
+                >
                   Home
                 </Link>
               </li>
@@ -76,7 +80,7 @@ export const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/terms"
+                  href={Routes.terms}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Terms & Conditions
@@ -84,7 +88,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/imprint"
+                  href={Routes.imprint}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Imprint
@@ -92,7 +96,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/privacy"
+                  href={Routes.privacy}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Privacy Policy

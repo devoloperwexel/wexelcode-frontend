@@ -1,7 +1,10 @@
 const Routes = {
   home: '/',
   blog: '/blog',
-  about: '/about',
+  contact: '/contact',
+  terms: '/terms',
+  privacy: '/privacy',
+  imprint: '/imprint',
   doctors: '/doctors',
   appointments: '/appointments',
   profile: {

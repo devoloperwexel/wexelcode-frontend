@@ -38,10 +38,10 @@ export default function Navigation() {
         {t('blog')}
       </Link>
       <Link
-        href={Routes.about}
+        href={Routes.contact}
         className="text-gray-700 hover:text-primary font-medium"
       >
-        {t('about')}
+        {t('contact')}
       </Link>
     </div>
   );
