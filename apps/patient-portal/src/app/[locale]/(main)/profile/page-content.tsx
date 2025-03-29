@@ -14,7 +14,7 @@ import {
 
 export default function ProfilePageContent() {
   return (
-    <Tabs defaultValue="personal">
+    <Tabs defaultValue="personal" className="container max-w-3xl mx-auto">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="personal">Personal</TabsTrigger>
         <TabsTrigger value="medical">Medical</TabsTrigger>
