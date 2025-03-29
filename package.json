@@ -37,6 +37,7 @@
     "cmdk": "^1.1.1",
     "country-data": "^0.0.31",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.6.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.475.0",
     "moment": "^2.30.1",
