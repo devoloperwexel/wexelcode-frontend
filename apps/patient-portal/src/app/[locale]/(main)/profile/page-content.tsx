@@ -10,7 +10,7 @@ import {
 import {
   MedicalDetailsTab,
   PersonalDetailsTab,
-} from '../../../components/details';
+} from '../../../../components/details';
 
 export default function ProfilePageContent() {
   return (
