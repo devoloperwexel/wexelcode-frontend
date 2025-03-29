@@ -3,8 +3,8 @@
 import { Button } from '@wexelcode/components';
 import { CheckCircle } from 'lucide-react';
 
-import Routes from '../../../../../constants/routes';
-import { Link } from '../../../../../i18n/routing';
+import Routes from '../../../../../../constants/routes';
+import { Link } from '../../../../../../i18n/routing';
 
 export default function AppointmentSuccessPageContent() {
   return (

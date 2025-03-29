@@ -1,11 +1,5 @@
 'use client';
 
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from '@wexelcode/components';
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
@@ -16,31 +10,39 @@ export default function Navigation() {
   const t = useTranslations('navigation');
 
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <Link className={navigationMenuTriggerStyle()} href={Routes.home}>
-            {t('home')}
-          </Link>
-          <Link className={navigationMenuTriggerStyle()} href={Routes.doctors}>
-            {t('doctors')}
-          </Link>
-          <ProtectedVisible>
-            <Link
-              className={navigationMenuTriggerStyle()}
-              href={Routes.appointments}
-            >
-              {t('appointments')}
-            </Link>
-          </ProtectedVisible>
-          <Link className={navigationMenuTriggerStyle()} href={Routes.blog}>
-            {t('blog')}
-          </Link>
-          <Link className={navigationMenuTriggerStyle()} href={Routes.about}>
-            {t('about')}
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <div className="space-x-8">
+      <Link
+        href={Routes.home}
+        className="text-gray-700 hover:text-primary font-medium"
+      >
+        {t('home')}
+      </Link>
+      <Link
+        href={Routes.doctors}
+        className="text-gray-700 hover:text-primary font-medium"
+      >
+        {t('doctors')}
+      </Link>
+      <ProtectedVisible>
+        <Link
+          href={Routes.appointments}
+          className="text-gray-700 hover:text-primary font-medium"
+        >
+          {t('appointments')}
+        </Link>
+      </ProtectedVisible>
+      <Link
+        href={Routes.blog}
+        className="text-gray-700 hover:text-primary font-medium"
+      >
+        {t('blog')}
+      </Link>
+      <Link
+        href={Routes.contact}
+        className="text-gray-700 hover:text-primary font-medium"
+      >
+        {t('contact')}
+      </Link>
+    </div>
   );
 }

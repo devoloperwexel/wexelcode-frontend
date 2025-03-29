@@ -8,10 +8,12 @@
     "doctors": "Ärzte",
     "appointments": "Termine",
     "blog": "Blog",
-    "about": "Über uns"
+    "about": "Über uns",
+    "contact": "Kontakt"
   },
   "userMenu": {
-    "signIn": "Anmelden"
+    "login": "Login",
+    "register": "Register"
   },
   "pagination": {
     "previous": "Zurück",

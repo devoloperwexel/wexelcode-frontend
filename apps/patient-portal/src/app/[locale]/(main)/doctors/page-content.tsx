@@ -8,7 +8,7 @@ import { useState } from 'react';
 import {
   DoctorCard,
   DoctorsLoadingSkeleton,
-} from '../../../components/doctors';
+} from '../../../../components/doctors';
 
 export default function DoctorsPageContent() {
   const t = useTranslations('doctors.doctorListingPage');

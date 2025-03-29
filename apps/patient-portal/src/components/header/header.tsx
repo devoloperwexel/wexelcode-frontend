@@ -9,18 +9,20 @@ import Navigation from './navigation';
 
 export function Header() {
   return (
-    <header className="bg-primary text-white px-6 py-3 flex items-center justify-between sticky top-0 z-50">
-      <Link href="/" className="text-xl text-white font-bold">
-        Logo
-      </Link>
+    <nav className="bg-white shadow-sm py-4 sticky top-0 z-50">
+      <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
+        <div className="flex items-center">
+          <span className="text-xl font-bold text-primary">Wexelcode</span>
+        </div>
 
-      <Navigation />
+        <Navigation />
 
-      <div className="flex items-center space-x-4">
-        <LocalSwitcher locales={Locales} />
+        <div className="flex items-center space-x-4">
+          <LocalSwitcher locales={Locales} />
 
-        <UserMenu />
+          <UserMenu />
+        </div>
       </div>
-    </header>
+    </nav>
   );
 }

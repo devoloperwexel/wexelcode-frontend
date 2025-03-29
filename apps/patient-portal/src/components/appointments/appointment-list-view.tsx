@@ -1,8 +1,12 @@
-import { Pagination } from '@wexelcode/components';
+import { calenderIcon } from '@wexelcode/assets';
+import { Button, Pagination } from '@wexelcode/components';
 import { useGetAppointmentsByUserId, useQueryParams } from '@wexelcode/hooks';
+import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
+import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 import { NoDataBanner } from '../common';
 import AppointmentListItem from './appointment-list-item';
 import { AppointmentListLoadingSkeleton } from './loading-skeleton';
@@ -37,9 +41,17 @@ export function AppointmentListView({
   return (
     <div className="flex flex-col justify-between space-y-4 h-full">
       <NoDataBanner
+        className="min-h-[calc(100vh-24rem)]"
         visible={response?.totalResults === 0}
         message={t('noDataFound')}
+        icon={<Image src={calenderIcon} alt="No data" className="w-32" />}
+        footer={
+          <Link href={`${Routes.doctors}`} className="btn btn-primary">
+            <Button>{t('createAppointment')}</Button>
+          </Link>
+        }
       />
+
       <div className="flex flex-col space-y-4">
         {response?.results?.map((appointment) => (
           <AppointmentListItem key={appointment.id} appointment={appointment} />
