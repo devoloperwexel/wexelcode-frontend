@@ -41,7 +41,7 @@ export function AppointmentListView({
   return (
     <div className="flex flex-col justify-between space-y-4 h-full">
       <NoDataBanner
-        className="h-full"
+        className="min-h-[calc(100vh-24rem)]"
         visible={response?.totalResults === 0}
         message={t('noDataFound')}
         icon={<Image src={calenderIcon} alt="No data" className="w-32" />}
