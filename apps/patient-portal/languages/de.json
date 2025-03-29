@@ -11,7 +11,8 @@
     "about": "Über uns"
   },
   "userMenu": {
-    "signIn": "Anmelden"
+    "login": "Login",
+    "register": "Register"
   },
   "pagination": {
     "previous": "Zurück",
