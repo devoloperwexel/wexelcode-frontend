@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 
 import Routes from '../../constants/routes';
@@ -65,8 +67,9 @@ export const HeroSection = () => {
             className="md:w-1/2"
           >
             <img
-              src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-              alt="Physiotherapist helping patient"
+              loading="lazy"
+              src="https://uploadthingy.s3.us-west-1.amazonaws.com/e1CxM9xAw5z7JqhmgQjPNp/Flux_Dev_A_young_German_girl_with_long_curly_brown_hair_and_br_1.jpg"
+              alt="Patient having an online consultation with a physiotherapist"
               className="rounded-lg shadow-lg w-full h-auto object-cover"
             />
           </motion.div>
