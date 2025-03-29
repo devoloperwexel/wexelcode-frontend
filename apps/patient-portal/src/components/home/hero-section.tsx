@@ -1,7 +1,13 @@
 import { motion } from 'framer-motion';
-import React from 'react';
+
+import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 
 export const HeroSection = () => {
+  const handleOnRegister = () => {
+    // TODO: Implement registration logic
+  };
+
   return (
     <div className="bg-gradient-to-r from-[#fef2f2] to-white">
       <div className="container mx-auto px-4 md:px-6">
@@ -30,10 +36,15 @@ export const HeroSection = () => {
               physiotherapists.
             </p>
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
-              <button className="px-6 py-3 bg-[#a51008] text-white rounded-md font-medium hover:bg-[#8a0d07] transition duration-300">
-                Book an Appointment
-              </button>
-              <button className="px-6 py-3 border border-[#a51008] text-[#a51008] rounded-md font-medium hover:bg-[#fef2f2] transition duration-300">
+              <Link href={Routes.appointments}>
+                <button className="px-6 py-3 bg-primary text-white rounded-md font-medium hover:bg-primary transition duration-300">
+                  Book an Appointment
+                </button>
+              </Link>
+              <button
+                className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300"
+                onClick={handleOnRegister}
+              >
                 Register Now
               </button>
             </div>
