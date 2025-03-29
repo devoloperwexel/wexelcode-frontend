@@ -1,3 +1,5 @@
+'use client';
+
 import { calenderIcon } from '@wexelcode/assets';
 import {
   Button,
