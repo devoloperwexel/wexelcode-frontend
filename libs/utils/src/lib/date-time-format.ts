@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const dateTimeFormat = (date: string | Date, format: string) => {
-  return moment(date).utc().format(format);
+  return moment(date).local().format(format);
 };
 
 export const dateTimeDiff = (first: string | Date, second: string | Date) => {
@@ -22,4 +22,11 @@ export const dateTimeSubtract = (
   unit: moment.unitOfTime.DurationConstructor
 ) => {
   return moment(date).subtract(amount, unit).toDate();
+};
+
+export const dateTimeSet = (
+  date: string | Date,
+  object: moment.MomentSetObject
+) => {
+  return moment(date).set(object).toDate();
 };
