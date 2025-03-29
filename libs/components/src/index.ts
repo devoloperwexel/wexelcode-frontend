@@ -1,3 +1,4 @@
+export * from './lib/animation/animation-on-scroll';
 export * from './lib/avatar/avatar';
 export * from './lib/badge/badge';
 export * from './lib/breadcrumb/breadcrumb';
