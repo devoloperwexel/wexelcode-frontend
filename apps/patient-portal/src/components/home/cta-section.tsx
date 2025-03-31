@@ -23,7 +23,7 @@ export const CTASection = () => {
           physiotherapists are ready to help you achieve your wellness goals.
         </p>
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-          <Link href={Routes.appointments}>
+          <Link href={Routes.doctors}>
             <button className="px-8 py-3 bg-[#a51008] text-white rounded-md font-medium hover:bg-[#8a0d07] transition duration-300">
               Book an Appointment
             </button>

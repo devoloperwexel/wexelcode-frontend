@@ -86,7 +86,7 @@
       "upcoming": "Upcoming",
       "history": "History",
       "noDataFound": "No Appointments Found",
-      "createAppointment": "Book Appointment"
+      "createAppointment": "Book an Appointment"
     }
   },
   "profile": {
@@ -139,7 +139,7 @@
       "date": "Date",
       "status": "Status",
       "noDataFound": "No upcoming Appointment",
-      "bookAppointment": "Book Appointment",
+      "bookAppointment": "Book an Appointment",
       "joinVideoCall": "Join Call",
       "physio": "Physio"
     },
