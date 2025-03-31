@@ -1,6 +1,8 @@
 'use client';
 
+import { hero } from '@wexelcode/assets';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
@@ -29,7 +31,7 @@ export const HeroSection = () => {
             className="md:w-1/2 space-y-6 mt-8 md:mt-0 md:pr-8"
           >
             <h1 className="text-3xl md:text-5xl font-bold text-gray-800 leading-tight">
-              Experience Better Recovery with{' '}
+            Experience Optimal Health with{' '}
               <span className="text-[#a51008]">Wexelcode</span>
             </h1>
             <p className="text-lg text-gray-600">
@@ -38,7 +40,7 @@ export const HeroSection = () => {
               physiotherapists.
             </p>
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
-              <Link href={Routes.appointments}>
+              <Link href={Routes.doctors}>
                 <button className="px-6 py-3 bg-primary text-white rounded-md font-medium hover:bg-primary transition duration-300">
                   Book an Appointment
                 </button>
@@ -66,11 +68,12 @@ export const HeroSection = () => {
             }}
             className="md:w-1/2"
           >
-            <img
-              loading="lazy"
-              src="https://uploadthingy.s3.us-west-1.amazonaws.com/e1CxM9xAw5z7JqhmgQjPNp/Flux_Dev_A_young_German_girl_with_long_curly_brown_hair_and_br_1.jpg"
-              alt="Patient having an online consultation with a physiotherapist"
+            <Image
+              priority
+              src={hero}
+              alt="Patient having an online consultation with a Wexelcode"
               className="rounded-lg shadow-lg w-full h-auto object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </motion.div>
         </div>

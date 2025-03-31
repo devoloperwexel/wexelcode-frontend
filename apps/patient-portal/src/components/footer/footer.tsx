@@ -1,11 +1,8 @@
-import {
-  Facebook,
-  Instagram,
-  Mail,
-  MapPin,
-  Phone,
-  Twitter,
-} from 'lucide-react';
+"use client"
+
+import { logo } from '@wexelcode/assets';
+import { Instagram, Linkedin,Mail, MapPin, Phone } from 'lucide-react';
+import Image from 'next/image';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
@@ -16,10 +13,11 @@ export const Footer = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-1">
-            <img
-              src="https://uploadthingy.s3.us-west-1.amazonaws.com/wmgqKWJNkJH7R7hjgDA42r/logo.png"
+            <Image
+              src={logo}
               alt="Wexelcode Logo"
               className="h-16 mb-4"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <p className="text-gray-300 mb-4">
               Professional physiotherapy services tailored to your needs,
@@ -27,25 +25,20 @@ export const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <Link
-                href="#"
+                href="https://www.instagram.com/wexel_code"
                 aria-label="Instagram"
+                target="_blank"
                 className="text-gray-300 hover:text-white"
               >
                 <Instagram size={20} />
               </Link>
               <Link
-                href="#"
-                aria-label="Facebook"
+                href="https://www.linkedin.com/company/85636861"
+                aria-label="Linkedin"
+                target="_blank"
                 className="text-gray-300 hover:text-white"
               >
-                <Facebook size={20} />
-              </Link>
-              <Link
-                href="#"
-                aria-label="Twitter"
-                className="text-gray-300 hover:text-white"
-              >
-                <Twitter size={20} />
+                <Linkedin size={20} />
               </Link>
             </div>
           </div>
@@ -71,6 +64,14 @@ export const Footer = () => {
               <li>
                 <Link href="#faq" className="text-gray-300 hover:text-white">
                   FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-gray-300 hover:text-white"
+                >
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -109,11 +110,13 @@ export const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Phone size={18} className="mr-3 mt-1" />
-                <span>+1 (555) 123-4567</span>
+                <Link href="tel:+15551234567">+1 (555) 123-4567</Link>
               </li>
               <li className="flex items-start">
                 <Mail size={18} className="mr-3 mt-1" />
-                <span>info@physiohealth.com</span>
+                <Link href="mailto:info@physiohealth.com">
+                  info@physiohealth.com
+                </Link>
               </li>
               <li className="flex items-start">
                 <MapPin size={18} className="mr-3 mt-1" />
