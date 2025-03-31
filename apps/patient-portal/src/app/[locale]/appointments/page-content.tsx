@@ -18,23 +18,27 @@ export default function AppointmentsPageContent() {
   const now = dateTimeSubtract(new Date(), 30, 'minutes').toString();
 
   return (
-    <Tabs defaultValue="upcoming" className="container max-w-3xl mx-auto">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="upcoming">
-          <CalendarIcon className="w-5 h-5 mr-2" />
-          {t('upcoming')}
-        </TabsTrigger>
-        <TabsTrigger value="history">
-          <ClockIcon className="w-5 h-5 mr-2" />
-          {t('history')}
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent value="upcoming" className="py-2 h-[90%]">
-        <AppointmentListView startDate={now} />
-      </TabsContent>
-      <TabsContent value="history" className="py-2 h-[90%]">
-        <AppointmentListView endDate={now} />
-      </TabsContent>
-    </Tabs>
+    <div className="max-w-3xl h-full mx-auto py-4">
+      <Tabs defaultValue="upcoming">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="upcoming">
+            <CalendarIcon className="w-5 h-5 mr-2" />
+            {t('upcoming')}
+          </TabsTrigger>
+          <TabsTrigger value="history">
+            <ClockIcon className="w-5 h-5 mr-2" />
+            {t('history')}
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="upcoming">
+          <AppointmentListView startDate={now} />
+        </TabsContent>
+
+        <TabsContent value="history">
+          <AppointmentListView endDate={now} />
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }
