@@ -26,30 +26,32 @@ export default function AppointmentDetailsPageContent({
   });
 
   return (
-    <div className="grid grid-cols-3 gap-6">
-      <div className="col-span-2  flex flex-col space-y-4">
-        {appointment?.physioUser && (
-          <DoctorInfoCard user={appointment.physioUser} />
-        )}
-
-        {appointment && <AppointmentInfoCard appointment={appointment} />}
-
-        <MedicalScreeningInfoCard
-          appointmentId={
-            appointment?.status === 'SUCCESS' ? appointment.id : undefined
-          }
-        />
-      </div>
-
-      <div className="col-span-1">
-        <div className="sticky top-6">
-          {data?.user && appointment?.status === 'PENDING' && (
-            <CheckoutCard
-              amount={20}
-              appointmentId={id}
-              userId={data?.user.id}
-            />
+    <div className="max-w-6xl mx-auto py-4">
+      <div className="grid grid-cols-3 gap-6">
+        <div className="col-span-2  flex flex-col space-y-4">
+          {appointment?.physioUser && (
+            <DoctorInfoCard user={appointment.physioUser} />
           )}
+
+          {appointment && <AppointmentInfoCard appointment={appointment} />}
+
+          <MedicalScreeningInfoCard
+            appointmentId={
+              appointment?.status === 'SUCCESS' ? appointment.id : undefined
+            }
+          />
+        </div>
+
+        <div className="col-span-1">
+          <div className="sticky top-6">
+            {data?.user && appointment?.status === 'PENDING' && (
+              <CheckoutCard
+                amount={20}
+                appointmentId={id}
+                userId={data?.user.id}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
