@@ -34,12 +34,14 @@ export function AppointmentListView({
     includes: ['physio-user'],
   });
 
-  if (isLoading) {
-    return <AppointmentListLoadingSkeleton />;
-  }
-
   return (
-    <div className="flex flex-col justify-center space-y-4 h-fill">
+    <div className="flex flex-col space-y-4 h-fill">
+      {isLoading && (
+        <div className="flex-grow">
+          <AppointmentListLoadingSkeleton />
+        </div>
+      )}
+
       <NoDataBanner
         className="flex-grow"
         visible={response?.totalResults === 0}
@@ -52,11 +54,12 @@ export function AppointmentListView({
         }
       />
 
-      <div className="flex flex-col space-y-4">
+      <div className="flex-grow flex flex-col space-y-4">
         {response?.results?.map((appointment) => (
           <AppointmentListItem key={appointment.id} appointment={appointment} />
         ))}
       </div>
+
       <Pagination totalPages={response?.totalPages || 0} />
     </div>
   );
