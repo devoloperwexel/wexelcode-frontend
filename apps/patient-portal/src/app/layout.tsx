@@ -1,3 +1,5 @@
+import './app.css';
+
 import { ReactNode } from 'react';
 
 type Props = {
