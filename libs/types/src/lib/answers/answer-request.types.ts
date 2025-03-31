@@ -9,3 +9,8 @@ export interface GetAnswersRequest {
   appointmentId?: string;
   questionnaireId?: string;
 }
+
+export type GetAnswersSummaryRequest = Omit<
+  GetAnswersRequest,
+  'questionnaireId'
+>;
