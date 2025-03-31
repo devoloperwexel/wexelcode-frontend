@@ -1,7 +1,7 @@
+import { service } from '@wexelcode/assets';
 import { AnimateOnScroll } from '@wexelcode/components';
 import { Award, HeartHandshake, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
-import { service } from '@wexelcode/assets';
 import React from 'react';
 
 export const ServicesSection = () => {

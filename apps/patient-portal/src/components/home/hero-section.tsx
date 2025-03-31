@@ -1,11 +1,11 @@
 'use client';
 
+import { hero } from '@wexelcode/assets';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
-import Image from 'next/image';
-import { hero } from '@wexelcode/assets';
 
 export const HeroSection = () => {
   const handleOnRegister = () => {

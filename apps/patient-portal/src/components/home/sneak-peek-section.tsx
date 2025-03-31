@@ -1,7 +1,7 @@
+import { sneak } from '@wexelcode/assets';
 import { AnimateOnScroll } from '@wexelcode/components';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { sneak } from '@wexelcode/assets';
 
 export const SneakPeek = () => {
   const features = [

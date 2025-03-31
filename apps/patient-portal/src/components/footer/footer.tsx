@@ -1,11 +1,11 @@
 "use client"
 
-import { Instagram, Mail, MapPin, Phone, Linkedin } from 'lucide-react';
+import { logo } from '@wexelcode/assets';
+import { Instagram, Linkedin,Mail, MapPin, Phone } from 'lucide-react';
+import Image from 'next/image';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
-import Image from 'next/image';
-import { logo } from '@wexelcode/assets';
 
 export const Footer = () => {
   return (
