@@ -99,7 +99,8 @@
       "languages": "Sprachen",
       "firstName": "Vorname",
       "lastName": "Nachname",
-      "mobile": "Mobil"
+      "mobile": "Mobil",
+      "select": "Auswählen"
     },
     "completeProfilePage": {
       "title": "Profil vervollständigen",
@@ -114,7 +115,8 @@
       "occupation": "Beruf",
       "weight": "Gewicht (kg)",
       "height": "Größe (cm)",
-      "activities": "Aktivitäten"
+      "activities": "Aktivitäten",
+      "select": "Auswählen"
     }
   },
   "questionnaire": {

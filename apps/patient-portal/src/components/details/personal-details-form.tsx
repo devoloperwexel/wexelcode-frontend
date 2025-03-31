@@ -123,6 +123,7 @@ export function PersonalDetailsForm({
         <FormSmartSelectorField
           label={t('state')}
           name="country"
+          placeholder={t('select')}
           options={countryOptions}
           rules={{
             required: true,
@@ -142,6 +143,7 @@ export function PersonalDetailsForm({
         <FormSmartMultiSelectorField
           label={t('languages')}
           name="languages"
+          placeholder={t('select')}
           options={languagesOptions}
           rules={{
             required: true,
