@@ -9,7 +9,8 @@
     "appointments": "Termine",
     "blog": "Blog",
     "about": "Über uns",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "dashboard": "Armaturenbrett"
   },
   "userMenu": {
     "login": "Login",

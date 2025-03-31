@@ -9,7 +9,8 @@
     "appointments": "Appointments",
     "blog": "Blog",
     "about": "About us",
-    "contact": "Contact"
+    "contact": "Contact",
+    "dashboard": "Dashboard"
   },
   "userMenu": {
     "login": "Login",
