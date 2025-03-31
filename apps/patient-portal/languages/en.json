@@ -5,13 +5,15 @@
   },
   "navigation": {
     "home": "Home",
-    "doctors": "Doctors",
+    "doctors": "Physio",
     "appointments": "Appointments",
     "blog": "Blog",
-    "about": "About us"
+    "about": "About us",
+    "contact": "Contact"
   },
   "userMenu": {
-    "signIn": "Sign In"
+    "login": "Login",
+    "register": "Register"
   },
   "pagination": {
     "previous": "Previous",
@@ -82,7 +84,8 @@
     "AppointmentsPage": {
       "upcoming": "Upcoming",
       "history": "History",
-      "noDataFound": "No Appointments Found"
+      "noDataFound": "No Appointments Found",
+      "createAppointment": "Book Appointment"
     }
   },
   "profile": {
@@ -119,7 +122,8 @@
       "noScreening": "No screening information available",
       "complete": "Complete screening questions",
       "edit": "Edit screening questions",
-      "result": "Screening Result"
+      "result": "Screening Result",
+      "view": "View screening questions"
     }
   },
   "dashboard": {

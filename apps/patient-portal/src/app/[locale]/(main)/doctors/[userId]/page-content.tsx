@@ -21,7 +21,7 @@ import { useTranslations } from 'next-intl';
 import {
   DoctorAppointmentsTab,
   DoctorDetailsTitle,
-} from '../../../../components/doctors';
+} from '../../../../../components/doctors';
 
 interface DoctorPageContentProps {
   userId: string;

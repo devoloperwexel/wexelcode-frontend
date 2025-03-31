@@ -1,3 +1,6 @@
+'use client';
+
+import { calenderIcon } from '@wexelcode/assets';
 import {
   Button,
   Card,
@@ -5,20 +8,26 @@ import {
   CardFooter,
   CardHeader,
   Text,
-  UserAvatar,
 } from '@wexelcode/components';
 import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
 import { dateTimeFormat } from '@wexelcode/utils';
-import { CalendarIcon, CalendarX2, ClockIcon, VideoIcon } from 'lucide-react';
+import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
-import { NoDataBanner } from '../common';
+import { NoDataBanner, PhysioAvatar } from '../common';
 import { LoadingAppointmentCard } from './loading';
 
-export function LatestUpcomingAppointmentCard() {
+interface LatestUpcomingAppointmentCardProps {
+  now: Date;
+}
+
+export function LatestUpcomingAppointmentCard({
+  now,
+}: LatestUpcomingAppointmentCardProps) {
   const t = useTranslations('dashboard.latestUpcomingAppointmentCard');
 
   const { data: userData } = useSession();
@@ -29,6 +38,7 @@ export function LatestUpcomingAppointmentCard() {
     page: 1,
     includes: ['physio-user'],
     sortBy: 'appointmentTime:desc',
+    startDate: now.toISOString(),
   });
 
   const getStatusColor = () => {
@@ -50,12 +60,12 @@ export function LatestUpcomingAppointmentCard() {
 
   if (!response || response?.totalResults === 0) {
     return (
-      <Card className="flex flex-col">
+      <Card className="flex flex-col justify-between">
         <CardHeader>{t('title')}</CardHeader>
-        <CardContent className="flex flex-grow items-center justify-center">
+        <CardContent className="flex items-center justify-center">
           <NoDataBanner
             message={t('noDataFound')}
-            icon={<CalendarX2 size={36} className="text-primary" />}
+            icon={<Image src={calenderIcon} alt="No data" className="w-32" />}
           />
         </CardContent>
         <CardFooter className="w-full">
@@ -75,10 +85,9 @@ export function LatestUpcomingAppointmentCard() {
 
       <CardContent className="flex flex-col flex-grow space-y-4">
         <div className="flex space-x-4 ">
-          <UserAvatar
+          <PhysioAvatar
             className="w-16 h-16"
-            name={`${appointment?.physioUser?.firstName} ${appointment?.physioUser?.lastName}`}
-            profileUrl={appointment?.physioUser?.profilePictureUrl}
+            physioUser={appointment?.physioUser}
           />
           <div className="flex flex-col justify-evenly">
             <Text variant="h3" weight="semibold">
@@ -95,7 +104,7 @@ export function LatestUpcomingAppointmentCard() {
               <Text variant="muted">{t('date')}</Text>
               <Text weight="semibold">
                 {appointment?.appointmentTime &&
-                  dateTimeFormat(appointment?.appointmentTime, 'MMM DD, YYYY')}
+                  dateTimeFormat(appointment?.appointmentTime, 'Do MMMM, yyyy')}
               </Text>
             </div>
           </div>
@@ -106,7 +115,7 @@ export function LatestUpcomingAppointmentCard() {
               <Text variant="muted">{t('time')}</Text>
               <Text weight="semibold">
                 {appointment?.appointmentTime &&
-                  dateTimeFormat(appointment?.appointmentTime, 'hh:mm A')}{' '}
+                  dateTimeFormat(appointment?.appointmentTime, 'HH:MM')}{' '}
                 (30 {t('minutes')})
               </Text>
             </div>

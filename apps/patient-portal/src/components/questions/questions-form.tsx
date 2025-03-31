@@ -92,38 +92,43 @@ export default function QuestionForm({
   }
 
   return (
-    <div className="animate-fadeIn">
-      <h2 className="text-xl font-semibold text-blue-900 mb-6 flex items-center gap-2">
+    <div className="animate-fadeIn h-full pb-4">
+      <Text variant="large" weight="semibold">
         {questionnaire.name[local]}
-      </h2>
+      </Text>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          {data?.results.map((question, index) => (
-            <div key={index}>
-              <ParentQuestionsFormInput
-                question={question}
-                local={local}
-                gender={gender}
-              />
-              {question.childQuestions && (
-                <div className="pl-4">
-                  {question.childQuestions.map((childQuestion, index) => (
-                    <div key={index} className="pl-6 space-y-4 relative">
-                      <div className="absolute left-0 top-0 h-full w-0.5 bg-blue-100" />
-                      <ChildQuestionsFormInput
-                        question={childQuestion}
-                        local={local}
-                        gender={gender}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="flex flex-col justify-between h-full"
+        >
+          <div className="space-y-8 overflow-y-auto my-4">
+            {data?.results.map((question, index) => (
+              <div key={index}>
+                <ParentQuestionsFormInput
+                  question={question}
+                  local={local}
+                  gender={gender}
+                />
+                {question.childQuestions && (
+                  <div className="pl-4">
+                    {question.childQuestions.map((childQuestion, index) => (
+                      <div key={index} className="pl-6 space-y-4 relative">
+                        <div className="absolute left-0 top-0 h-full w-0.5 bg-blue-100" />
+                        <ChildQuestionsFormInput
+                          question={childQuestion}
+                          local={local}
+                          gender={gender}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
 
-          <div className="flex justify-between py-2">
+          <div className="flex justify-between pt-4 z-10 border-t">
             <Button
               disabled={index === 0}
               onClick={handleOnClickPrevious}

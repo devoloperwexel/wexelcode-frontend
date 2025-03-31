@@ -43,19 +43,18 @@ export function UserMenu() {
 
   if (status === 'unauthenticated')
     return (
-      <Button
-        variant="outline"
-        className="bg-transparent"
-        onClick={handleSinIn}
-      >
-        {t('signIn')}
-      </Button>
+      <div className="hidden md:flex space-x-4">
+        <Button variant={'secondary'} onClick={handleSinIn}>
+          {t('login')}
+        </Button>
+        <Button onClick={handleSinIn}>{t('register')}</Button>
+      </div>
     );
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+        <Button variant={'ghost'}>
           <MyAvatar />
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-semibold">{`${data?.user.firstName} ${data?.user.lastName}`}</span>

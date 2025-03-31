@@ -1,14 +1,14 @@
 import { PropsWithChildren } from 'react';
 
+import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 
 export default function MainLayout({ children }: PropsWithChildren) {
   return (
     <main className="w-full min-h-screen bg-gray-50">
       <Header />
-      <div className="flex justify-center w-full h-[calc(100vh-4rem)] p-4 overflow-auto">
-        <div className="container max-w-6xl">{children}</div>
-      </div>
+      {children}
+      <Footer />
     </main>
   );
 }

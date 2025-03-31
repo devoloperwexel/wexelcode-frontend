@@ -63,7 +63,7 @@ const LocalSwitcher = ({ locales }: LocalSwitcherProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+        <Button variant={'ghost'}>
           <LocalSwitcherItem
             language={currentLocaleItem.language}
             country={currentLocaleItem.country}

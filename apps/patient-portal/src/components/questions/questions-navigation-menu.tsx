@@ -35,7 +35,7 @@ export default function QuestionsNavigationMenu({
     <div className="max-w-screen-xl">
       <div className="w-full h-2">
         <div
-          className="bg-blue-600 h-full transition-all duration-300 ease-in-out"
+          className="bg-primary h-full transition-all duration-300 ease-in-out"
           style={{
             width: `${((currentIndex + 1) / questionnaires.length) * 100}%`,
           }}
@@ -57,7 +57,7 @@ export default function QuestionsNavigationMenu({
               flex items-center gap-2 flex-shrink-0
               ${
                 currentIndex === index
-                  ? 'text-blue-600 border-b-2 border-blue-600 bg-white'
+                  ? 'text-primary-600 border-b-2 border-primary bg-white'
                   : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
               }
             `}

@@ -8,10 +8,12 @@
     "doctors": "Ärzte",
     "appointments": "Termine",
     "blog": "Blog",
-    "about": "Über uns"
+    "about": "Über uns",
+    "contact": "Kontakt"
   },
   "userMenu": {
-    "signIn": "Anmelden"
+    "login": "Login",
+    "register": "Register"
   },
   "pagination": {
     "previous": "Zurück",
@@ -119,7 +121,8 @@
       "noScreening": "Keine Untersuchungsinformationen verfügbar",
       "complete": "Untersuchungsfragen ausfüllen",
       "edit": "Untersuchungsfragen bearbeiten",
-      "result": "Untersuchungsergebnis"
+      "result": "Untersuchungsergebnis",
+      "view": "Untersuchungsfragen anzeigen"
     }
   },
   "dashboard": {

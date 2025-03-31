@@ -7,8 +7,8 @@ import {
   AppointmentInfoCard,
   DoctorInfoCard,
   MedicalScreeningInfoCard,
-} from '../../../../components/appointments';
-import { CheckoutCard } from '../../../../components/checkout';
+} from '../../../../../components/appointments';
+import { CheckoutCard } from '../../../../../components/checkout';
 
 interface AppointmentDetailsPageProps {
   id: string;

@@ -6,7 +6,7 @@ import {
   useGetDoctorAvailability,
 } from '@wexelcode/hooks';
 import { Doctor } from '@wexelcode/types';
-import { dateTimeFormat } from '@wexelcode/utils';
+import { dateTimeDiff, dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -49,20 +49,31 @@ export function DoctorAppointmentsTab({
     setSelectedTimeSlot(timeSlot);
   };
 
+  const checkAvailability = (timeSlot: string) => {
+    const timeSlotDate = `${dateTimeFormat(date, 'yyyy-MM-DD')} ${timeSlot}`;
+    return dateTimeDiff(timeSlotDate, new Date()) > 0;
+  };
+
   const handleOnBookAppointment = async () => {
     if (status !== 'authenticated') {
       await signIn('keycloak', { redirectTo: window.location.href });
       return;
     }
 
+    if (!selectedTimeSlot) return;
+
+    const [h, m] = selectedTimeSlot.split(':');
+
+    const appointmentTime = dateTimeSet(date, {
+      hour: parseInt(h),
+      minute: parseInt(m),
+    });
+
     const response = await createAppointment({
       userId: data?.user.id,
       physioUserId: doctor.userId,
       notes: '',
-      appointmentTime: `${dateTimeFormat(
-        date,
-        'yyyy-MM-DD'
-      )} ${selectedTimeSlot}`,
+      appointmentTime: appointmentTime.toISOString(),
     });
 
     push(`${Routes.appointments}/${response?.id}`);
@@ -99,7 +110,9 @@ export function DoctorAppointmentsTab({
                 key={index}
                 start={timeSlot.time[0]}
                 end={timeSlot.time[1]}
-                available={timeSlot.available}
+                available={
+                  timeSlot.available && checkAvailability(timeSlot.time[0])
+                }
                 isSelected={selectedTimeSlot === timeSlot.time[0]}
                 onSelect={handleTimeSlotClick}
               />
