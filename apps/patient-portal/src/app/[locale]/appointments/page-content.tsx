@@ -10,7 +10,7 @@ import { dateTimeSubtract } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { AppointmentListView } from '../../../../components/appointments/appointment-list-view';
+import { AppointmentListView } from '../../../components/appointments/appointment-list-view';
 
 export default function AppointmentsPageContent() {
   const t = useTranslations('appointments.AppointmentsPage');
