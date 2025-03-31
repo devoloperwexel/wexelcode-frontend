@@ -57,6 +57,7 @@ export function MedicalDetailsForm({
         <FormMultiSelectorField
           name="activities"
           label={t('activities')}
+          placeholder={t('select')}
           options={activities}
         />
       </div>

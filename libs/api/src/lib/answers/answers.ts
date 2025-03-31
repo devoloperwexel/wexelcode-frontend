@@ -1,6 +1,8 @@
 import {
   GetAnswersRequest,
   GetAnswersResponse,
+  GetAnswersSummaryRequest,
+  GetAnswersSummeryResponse,
   SaveAnswersRequest,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
@@ -34,6 +36,16 @@ export const GetAnswers = async (params: GetAnswersRequest) => {
   const response = await request<GetAnswersResponse>(API.GET_ANSWERS, null, {
     params,
   });
+
+  return response?.data;
+};
+
+export const GetAnswersSummary = async (params: GetAnswersSummaryRequest) => {
+  const response = await request<GetAnswersSummeryResponse>(
+    API.GET_ANSWER_SUMMARY,
+    null,
+    { params }
+  );
 
   return response?.data;
 };

@@ -5,7 +5,7 @@ import {
   ProgressIndicator,
   Text,
 } from '@wexelcode/components';
-import { useGetAnswers } from '@wexelcode/hooks';
+import { useGetAnswersSummery } from '@wexelcode/hooks';
 import {
   ClipboardListIcon,
   Edit,
@@ -32,7 +32,7 @@ export function QuestionnaireTrigger({
 
   const { data: userData } = useSession();
 
-  const { data: response } = useGetAnswers({
+  const { data: response } = useGetAnswersSummery({
     userId: userData?.user.id,
     appointmentId,
   });
@@ -42,7 +42,7 @@ export function QuestionnaireTrigger({
   return (
     <Dialog>
       <div {...rest}>
-        {!response || response.length === 0 ? (
+        {!response || response.completedPercentage === 100 ? (
           <>
             <ClipboardListIcon className="w-12 h-12 mx-auto text-gray-400" />
             <p className="mt-2 text-gray-600">{t('noScreening')}</p>
@@ -57,7 +57,7 @@ export function QuestionnaireTrigger({
           <>
             <ProgressIndicator percentage={score}>
               <div className="flex flex-col justify-center text-center">
-                <Text>{score} %</Text>
+                <Text>{response.completedPercentage} %</Text>
                 <Text variant="muted">Score</Text>
               </div>
             </ProgressIndicator>

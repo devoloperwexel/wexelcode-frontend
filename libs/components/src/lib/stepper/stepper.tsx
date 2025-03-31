@@ -18,7 +18,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center ${
                 index <= currentStep
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-gray-200 text-gray-600'
               }`}
             >
@@ -29,7 +29,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
           {index < steps.length - 1 && (
             <div
               className={`h-1 w-12 mx-2 ${
-                index < currentStep ? 'bg-blue-600' : 'bg-gray-200'
+                index < currentStep ? 'bg-primary' : 'bg-gray-200'
               }`}
             ></div>
           )}

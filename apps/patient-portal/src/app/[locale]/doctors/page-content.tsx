@@ -8,7 +8,7 @@ import { useState } from 'react';
 import {
   DoctorCard,
   DoctorsLoadingSkeleton,
-} from '../../../../components/doctors';
+} from '../../../components/doctors';
 
 export default function DoctorsPageContent() {
   const t = useTranslations('doctors.doctorListingPage');
@@ -24,7 +24,7 @@ export default function DoctorsPageContent() {
   });
 
   return (
-    <div className="flex flex-col justify-between space-y-4 h-full">
+    <div className="flex flex-col justify-between space-y-4 h-fill">
       <div className="space-y-6">
         <div className="grid grid-cols-4 gap-4">
           <Input placeholder={t('searchTitle')} className="col-span-3" />

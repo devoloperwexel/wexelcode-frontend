@@ -1,4 +1,6 @@
 import { BaseResponse } from '../..';
-import { SavedAnswer } from '.';
+import { AnswerSummary, SavedAnswer } from '.';
 
 export type GetAnswersResponse = BaseResponse<SavedAnswer[]>;
+
+export type GetAnswersSummeryResponse = BaseResponse<AnswerSummary>;

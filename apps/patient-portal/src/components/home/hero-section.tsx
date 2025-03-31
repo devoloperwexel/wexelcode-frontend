@@ -3,11 +3,14 @@
 import { hero } from '@wexelcode/assets';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 export const HeroSection = () => {
+  const { status } = useSession();
+
   const handleOnRegister = () => {
     // TODO: Implement registration logic
   };
@@ -31,7 +34,7 @@ export const HeroSection = () => {
             className="md:w-1/2 space-y-6 mt-8 md:mt-0 md:pr-8"
           >
             <h1 className="text-3xl md:text-5xl font-bold text-gray-800 leading-tight">
-            Experience Optimal Health with{' '}
+              Experience Optimal Health with{' '}
               <span className="text-[#a51008]">Wexelcode</span>
             </h1>
             <p className="text-lg text-gray-600">
@@ -45,12 +48,20 @@ export const HeroSection = () => {
                   Book an Appointment
                 </button>
               </Link>
-              <button
-                className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300"
-                onClick={handleOnRegister}
-              >
-                Register Now
-              </button>
+              {status === 'authenticated' ? (
+                <Link href={Routes.dashboard}>
+                  <button className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300">
+                    Go to Dashboard
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300"
+                  onClick={handleOnRegister}
+                >
+                  Register Now
+                </button>
+              )}
             </div>
           </motion.div>
           <motion.div

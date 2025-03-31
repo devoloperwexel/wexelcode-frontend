@@ -34,14 +34,16 @@ export function AppointmentListView({
     includes: ['physio-user'],
   });
 
-  if (isLoading) {
-    return <AppointmentListLoadingSkeleton />;
-  }
-
   return (
-    <div className="flex flex-col justify-between space-y-4 h-full">
+    <div className="flex flex-col space-y-4 h-fill">
+      {isLoading && (
+        <div className="flex-grow">
+          <AppointmentListLoadingSkeleton />
+        </div>
+      )}
+
       <NoDataBanner
-        className="min-h-[calc(100vh-24rem)]"
+        className="flex-grow"
         visible={response?.totalResults === 0}
         message={t('noDataFound')}
         icon={<Image src={calenderIcon} alt="No data" className="w-32" />}
@@ -52,11 +54,12 @@ export function AppointmentListView({
         }
       />
 
-      <div className="flex flex-col space-y-4">
+      <div className="flex-grow flex flex-col space-y-4">
         {response?.results?.map((appointment) => (
           <AppointmentListItem key={appointment.id} appointment={appointment} />
         ))}
       </div>
+
       <Pagination totalPages={response?.totalPages || 0} />
     </div>
   );

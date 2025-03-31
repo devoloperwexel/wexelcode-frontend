@@ -5,4 +5,5 @@ export const QueryKeys = {
   patients: 'PATIENTS',
   users: 'USERS',
   answers: 'ANSWERS',
+  answersSummary: 'ANSWERS_SUMMARY',
 };

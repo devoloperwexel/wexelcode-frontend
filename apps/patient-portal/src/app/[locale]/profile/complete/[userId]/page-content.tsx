@@ -21,9 +21,9 @@ import {
   DetailsReview,
   MedicalDetailsForm,
   PersonalDetailsForm,
-} from '../../../../../../components/details';
-import Routes from '../../../../../../constants/routes';
-import { useRouter } from '../../../../../../i18n/routing';
+} from '../../../../../components/details';
+import Routes from '../../../../../constants/routes';
+import { useRouter } from '../../../../../i18n/routing';
 
 interface DetailsPageContentProps {
   userId: string;

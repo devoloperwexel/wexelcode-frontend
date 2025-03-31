@@ -11,7 +11,7 @@ import {
   ProgressIndicator,
   Text,
 } from '@wexelcode/components';
-import { useGetAnswers } from '@wexelcode/hooks';
+import { useGetAnswers, useGetAnswersSummery } from '@wexelcode/hooks';
 import { dateTimeFormat, extractLastScreening } from '@wexelcode/utils';
 import {
   ActivityIcon,
@@ -34,7 +34,9 @@ export function ScreeningResultCard() {
     userId: userData?.user.id,
   });
 
-  const score = 80;
+  const { data: summeryResponse } = useGetAnswersSummery({
+    userId: userData?.user.id,
+  });
 
   if (isLoading) {
     return <LoadingAppointmentCard />;
@@ -71,9 +73,12 @@ export function ScreeningResultCard() {
       <CardHeader>{t('title')}</CardHeader>
       <CardContent className="space-y-4">
         <div className="flex flex-col items-center justify-start">
-          <ProgressIndicator percentage={score} size={140}>
+          <ProgressIndicator
+            percentage={summeryResponse?.completedPercentage || 0}
+            size={140}
+          >
             <div className="flex flex-col justify-center text-center">
-              <Text>{score} %</Text>
+              <Text>{summeryResponse?.completedPercentage} %</Text>
               <Text variant="muted">{t('score')}</Text>
             </div>
           </ProgressIndicator>
@@ -99,7 +104,7 @@ export function ScreeningResultCard() {
           <div className="flex items-center space-x-2">
             <CheckCircleIcon className="w-6 h-6 text-green-500" />
             <Text variant="muted" className="!text-green-500">
-              Normal
+              {summeryResponse?.status}
             </Text>
           </div>
         </div>

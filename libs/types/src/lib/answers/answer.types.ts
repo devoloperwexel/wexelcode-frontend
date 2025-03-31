@@ -8,3 +8,8 @@ export interface SavedAnswer extends Timestamps {
   questionId: string;
   response: TranslatedField;
 }
+
+export interface AnswerSummary {
+  completedPercentage: number;
+  status: string;
+}

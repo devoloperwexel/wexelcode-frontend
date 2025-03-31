@@ -1,7 +1,13 @@
+'use client';
+
+import { useSession } from 'next-auth/react';
+
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 export const CTASection = () => {
+  const { status } = useSession();
+
   const handleOnRegister = () => {
     // TODO: Implement registration logic
   };
@@ -22,12 +28,20 @@ export const CTASection = () => {
               Book an Appointment
             </button>
           </Link>
-          <button
-            className="px-8 py-3 bg-transparent border-2 border-[#a51008] text-[#a51008] rounded-md font-medium hover:bg-[#fef2f2] transition duration-300"
-            onClick={handleOnRegister}
-          >
-            Register Now
-          </button>
+          {status === 'authenticated' ? (
+            <Link href={Routes.dashboard}>
+              <button className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300">
+                Go to Dashboard
+              </button>
+            </Link>
+          ) : (
+            <button
+              className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300"
+              onClick={handleOnRegister}
+            >
+              Register Now
+            </button>
+          )}
         </div>
       </div>
     </section>

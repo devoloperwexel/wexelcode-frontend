@@ -17,6 +17,14 @@ export default function Navigation() {
       >
         {t('home')}
       </Link>
+      <ProtectedVisible>
+        <Link
+          href={Routes.dashboard}
+          className="text-gray-700 hover:text-primary font-medium"
+        >
+          {t('dashboard')}
+        </Link>
+      </ProtectedVisible>
       <Link
         href={Routes.doctors}
         className="text-gray-700 hover:text-primary font-medium"

@@ -9,7 +9,8 @@
     "appointments": "Appointments",
     "blog": "Blog",
     "about": "About us",
-    "contact": "Contact"
+    "contact": "Contact",
+    "dashboard": "Dashboard"
   },
   "userMenu": {
     "login": "Login",
@@ -99,7 +100,8 @@
       "languages": "Languages",
       "firstName": "First Name",
       "lastName": "Last Name",
-      "mobile": "Mobile"
+      "mobile": "Mobile",
+      "select": "Select"
     },
     "completeProfilePage": {
       "title": "Complete Profile",
@@ -114,7 +116,8 @@
       "occupation": "Occupation",
       "weight": "Weight (kg)",
       "height": "Height (cm)",
-      "activities": "Activities"
+      "activities": "Activities",
+      "select": "Select"
     }
   },
   "questionnaire": {

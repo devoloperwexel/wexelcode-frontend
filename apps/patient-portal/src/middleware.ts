@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 export default auth(async function middleware(request: NextRequest) {
   // Your custom middleware logic goes here
   const { pathname } = request.nextUrl;
-  const protectedRoutesRegex = /^\/(en|ar)\/(profile|appointments)(\/.*)?$/;
+  const protectedRoutesRegex =
+    /^\/(en|ar)\/(profile|appointments|dashboard)(\/.*)?$/;
   const isProtectedRoute = protectedRoutesRegex.test(pathname);
 
   if (isProtectedRoute) {

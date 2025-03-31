@@ -7,6 +7,10 @@ const API = {
     path: '/users/:userId/answers',
     method: 'GET',
   },
+  GET_ANSWER_SUMMARY: {
+    path: '/users/:userId/answers/summary',
+    method: 'GET',
+  },
 };
 
 export default API;

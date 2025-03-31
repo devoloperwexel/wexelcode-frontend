@@ -33,3 +33,13 @@ export function LoadingAppointmentCard() {
     </Card>
   );
 }
+
+export function CalendarAppointmentLoading() {
+  return (
+    <div className="space-y-4">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <Skeleton key={index} className="w-full h-14" />
+      ))}
+    </div>
+  );
+}
