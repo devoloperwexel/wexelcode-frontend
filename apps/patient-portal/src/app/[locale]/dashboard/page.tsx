@@ -6,11 +6,13 @@ import {
 
 export default function Dashboard() {
   return (
-    <ProtectedVisible>
-      <div className="grid grid-cols-2 gap-4">
-        <ScreeningResultCard />
-        <LatestUpcomingAppointmentCard now={new Date()} />
-      </div>
-    </ProtectedVisible>
+    <div className="max-w-6xl mx-auto h-fill py-4 ">
+      <ProtectedVisible>
+        <div className="grid grid-cols-2 gap-4">
+          <ScreeningResultCard />
+          <LatestUpcomingAppointmentCard now={new Date()} />
+        </div>
+      </ProtectedVisible>
+    </div>
   );
 }
