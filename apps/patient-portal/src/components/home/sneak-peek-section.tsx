@@ -1,5 +1,7 @@
 import { AnimateOnScroll } from '@wexelcode/components';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { sneak } from '@wexelcode/assets';
 
 export const SneakPeek = () => {
   const features = [
@@ -57,10 +59,12 @@ export const SneakPeek = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <AnimateOnScroll className="md:w-1/2">
-            <img
-              src="https://uploadthingy.s3.us-west-1.amazonaws.com/xgFBS9bWeYj3ShsQhqASRo/DALL%C2%B7E_2025-03-29_17.27.31_-_A_modern_physiotherapy_clinic_with_some_advanced_technology._A_patient_is_receiving_therapy_using_a_smart_exercise_machine_with_digital_feedback._A_th.webp"
+            <Image
+              src={sneak}
+              loading="lazy"
               alt="Advanced physiotherapy technology with digital monitoring system"
               className="rounded-lg shadow-lg w-full object-cover h-[400px]"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </AnimateOnScroll>
           <div className="md:w-1/2">

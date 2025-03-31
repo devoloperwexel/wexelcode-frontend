@@ -1,5 +1,7 @@
 import { AnimateOnScroll } from '@wexelcode/components';
 import { Award, HeartHandshake, ThumbsUp } from 'lucide-react';
+import Image from 'next/image';
+import { service } from '@wexelcode/assets';
 import React from 'react';
 
 export const ServicesSection = () => {
@@ -61,10 +63,11 @@ export const ServicesSection = () => {
             </div>
           </AnimateOnScroll>
           <AnimateOnScroll className="md:w-1/2">
-            <img
-              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+            <Image
+              src={service}
               alt="Physiotherapist working with patient"
               className="rounded-lg shadow-lg w-full h-auto object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </AnimateOnScroll>
         </div>
