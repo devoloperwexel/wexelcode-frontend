@@ -1,13 +1,16 @@
-"use client"
+'use client';
 
 import { logo } from '@wexelcode/assets';
-import { Instagram, Linkedin,Mail, MapPin, Phone } from 'lucide-react';
+import { Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 export const Footer = () => {
+  const t = useTranslations('footer');
+
   return (
     <footer id="contact" className="bg-primary text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
@@ -19,10 +22,7 @@ export const Footer = () => {
               className="h-16 mb-4"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-            <p className="text-gray-300 mb-4">
-              Professional physiotherapy services tailored to your needs,
-              accessible from anywhere.
-            </p>
+            <p className="text-gray-300 mb-4">{t('description')}</p>
             <div className="flex space-x-4">
               <Link
                 href="https://www.instagram.com/wexel_code"
@@ -43,14 +43,14 @@ export const Footer = () => {
             </div>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4">{t('links.title')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link
                   href={Routes.home}
                   className="text-gray-300 hover:text-white"
                 >
-                  Home
+                  {t('links.home')}
                 </Link>
               </li>
               <li>
@@ -58,33 +58,33 @@ export const Footer = () => {
                   href="#how-it-works"
                   className="text-gray-300 hover:text-white"
                 >
-                  How It Works
+                  {t('links.howItWorks')}
                 </Link>
               </li>
               <li>
                 <Link href="#faq" className="text-gray-300 hover:text-white">
-                  FAQ
+                  {t('links.faq')}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href={Routes.contact}
                   className="text-gray-300 hover:text-white"
                 >
-                  Contact
+                  {t('links.contact')}
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Data & Privacy</h4>
+            <h4 className="text-lg font-semibold mb-4">{t('legal.title')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link
                   href={Routes.terms}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Terms & Conditions
+                  {t('legal.terms')}
                 </Link>
               </li>
               <li>
@@ -92,7 +92,7 @@ export const Footer = () => {
                   href={Routes.imprint}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Imprint
+                  {t('legal.imprint')}
                 </Link>
               </li>
               <li>
@@ -100,13 +100,13 @@ export const Footer = () => {
                   href={Routes.privacy}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Privacy Policy
+                  {t('legal.privacy')}
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
+            <h4 className="text-lg font-semibold mb-4">{t('contact.title')}</h4>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Phone size={18} className="mr-3 mt-1" />

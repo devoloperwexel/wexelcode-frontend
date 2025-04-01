@@ -5,16 +5,18 @@
   },
   "navigation": {
     "home": "Startseite",
-    "doctors": "Ärzte",
+    "doctors": "Physiotherapie",
     "appointments": "Termine",
     "blog": "Blog",
     "about": "Über uns",
     "contact": "Kontakt",
-    "dashboard": "Armaturenbrett"
+    "dashboard": "Dashboard"
   },
   "userMenu": {
-    "login": "Login",
-    "register": "Register"
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "settings": "Einstellungen",
+    "logout": "Abmelden"
   },
   "pagination": {
     "previous": "Zurück",
@@ -37,17 +39,158 @@
       "SPANISH": "Spanisch"
     }
   },
+  "footer": {
+    "description": "Professionelle Physiotherapie-Dienstleistungen, die auf Ihre Bedürfnisse zugeschnitten sind und von überall aus zugänglich sind.",
+    "links": {
+      "title": "Schnellzugriff",
+      "home": "Startseite",
+      "howItWorks": "So funktioniert's",
+      "faq": "FAQ",
+      "contact": "Kontakt"
+    },
+    "legal": {
+      "title": "Daten & Datenschutz",
+      "terms": "AGB",
+      "imprint": "Impressum",
+      "privacy": "Datenschutzerklärung"
+    },
+    "contact": {
+      "title": "Kontaktieren Sie uns"
+    }
+  },
+  "home": {
+    "heroSection": {
+      "title": "Erleben Sie optimale Gesundheit mit",
+      "description": "Professionelle Physiotherapie-Dienstleistungen, die auf Ihre Bedürfnisse zugeschnitten sind. Erhalten Sie personalisierte Behandlungspläne und fachkundige Betreuung von zertifizierten Physiotherapeuten.",
+      "bookAppointment": "Termin vereinbaren",
+      "goToDashboard": "Zum Dashboard",
+      "register": "Jetzt registrieren"
+    },
+    "howItWorksSection": {
+      "title": "So funktioniert's",
+      "description": "Unser einfacher dreistufiger Prozess macht den Zugang zu professioneller Physiotherapie einfacher denn je.",
+      "steps": {
+        "initialAssessment": {
+          "title": "Erstbewertung",
+          "description": "Füllen Sie unser umfassendes digitales Bewertungsformular aus, damit wir Ihren Zustand und Ihre Bedürfnisse verstehen können."
+        },
+        "virtualConsultation": {
+          "title": "Virtuelle Beratung",
+          "description": "Verbinden Sie sich über einen sicheren Videoanruf mit einem zertifizierten Physiotherapeuten für eine detaillierte Untersuchung."
+        },
+        "personalizedTreatment": {
+          "title": "Personalisierte Behandlung",
+          "description": "Erhalten Sie einen maßgeschneiderten Behandlungsplan, der speziell auf Ihre Genesungs- und Wellnessziele ausgerichtet ist."
+        }
+      }
+    },
+    "servicesSection": {
+      "title": "Wir machen den Unterschied",
+      "description": "Unser Engagement für Exzellenz verbindet wissenschaftliche Strenge mit persönlicher Betreuung und stellt sicher, dass Sie die höchste Qualität der Behandlung bequem von zu Hause aus erhalten.",
+      "benefits": {
+        "fairAndSimple": {
+          "title": "Fair und einfach",
+          "description": "Zahlen Sie nur, wenn unser Service für Sie geeignet ist"
+        },
+        "quality": {
+          "title": "Qualitätsbetreuung",
+          "description": "Zertifizierte Physiotherapie schnell und von zu Hause aus"
+        },
+        "personalized": {
+          "title": "Personalisierte Behandlung",
+          "description": "Wo fortschrittliche Technologie auf menschliches Mitgefühl trifft"
+        },
+        "rigorousScience": {
+          "title": "Strenge Wissenschaft",
+          "description": "Hält sich an den Goldstandard der medizinischen Untersuchung"
+        }
+      }
+    },
+    "testimonialsSection": {
+      "title": "Was unsere Patienten sagen",
+      "description": "Hören Sie von Menschen, die unsere personalisierten Physiotherapie-Dienstleistungen in Anspruch genommen haben."
+    },
+    "sneakPeekSection": {
+      "title": "Hier ist ein Vorgeschmack auf das, was entwickelt wird",
+      "features": {
+        "rightForYou": {
+          "title": "Zahlen Sie nur, wenn unser Service für Sie geeignet ist"
+        },
+        "wearableIntegrations": {
+          "title": "Wearable-Integrationen"
+        },
+        "aiAutomation": {
+          "title": "KI-Automatisierung"
+        },
+        "painLevelMonitoring": {
+          "title": "Schmerzlevel-Überwachung"
+        },
+        "personalizedPlan": {
+          "title": "Personalisierter Plan"
+        },
+        "smartExerciseRecommendations": {
+          "title": "Intelligente Trainingsempfehlungen"
+        },
+        "progressTrackingAnalysis": {
+          "title": "Fortschrittsverfolgung & Analyse"
+        },
+        "realTimeMonitoring": {
+          "title": "Echtzeit-Überwachung"
+        }
+      }
+    },
+    "blogSection": {
+      "title": "Erfahren Sie mehr in unserem Blog"
+    },
+    "faqSection": {
+      "title": "Häufig gestellte Fragen",
+      "description": "Finden Sie Antworten auf häufige Fragen zu unseren Physiotherapie-Dienstleistungen.",
+      "questions": {
+        "q1": {
+          "question": "Welche Beschwerden behandeln Sie?",
+          "answer": "Unsere Physiotherapeuten behandeln eine Vielzahl von Beschwerden, darunter Rückenschmerzen, Nackenschmerzen, Sportverletzungen, Rehabilitation nach Operationen, Arthritis und mehr. Wir bieten sowohl persönliche als auch virtuelle Beratungen an, um Ihre spezifischen Bedürfnisse zu adressieren."
+        },
+        "q2": {
+          "question": "Wie lange dauert eine typische Physiotherapie-Sitzung?",
+          "answer": "Erstberatungen dauern in der Regel 45-60 Minuten, während Folgebehandlungen normalerweise 30-45 Minuten dauern. Die genaue Dauer kann je nach Ihrem spezifischen Zustand und Behandlungsbedarf variieren."
+        },
+        "q3": {
+          "question": "Benötige ich eine Überweisung von einem Arzt?",
+          "answer": "Nein, Sie benötigen keine ärztliche Überweisung, um einen Termin bei unseren Physiotherapeuten zu vereinbaren. Einige Versicherungen verlangen jedoch möglicherweise eine Überweisung für die Kostenerstattung, daher empfehlen wir Ihnen, dies vorher mit Ihrer Versicherung zu klären."
+        },
+        "q4": {
+          "question": "Wie viele Sitzungen werde ich benötigen?",
+          "answer": "Die Anzahl der Sitzungen variiert je nach Ihrem Zustand, dessen Schweregrad und wie Ihr Körper auf die Behandlung reagiert. Nach Ihrer Erstbewertung wird Ihr Physiotherapeut einen empfohlenen Behandlungsplan mit einer geschätzten Anzahl von Sitzungen erstellen."
+        },
+        "q5": {
+          "question": "Akzeptieren Sie Versicherungen?",
+          "answer": "Ja, wir akzeptieren die meisten großen Versicherungspläne. Wir können Ihnen die notwendigen Unterlagen für die Einreichung bei Ihrer Versicherung zur Erstattung bereitstellen. Wir empfehlen Ihnen, Ihre Deckung vor dem ersten Termin zu überprüfen."
+        },
+        "q6": {
+          "question": "Was soll ich zu meinem Termin anziehen?",
+          "answer": "Bitte tragen Sie bequeme, lockere Kleidung, die einen einfachen Zugang zu dem zu behandelnden Bereich ermöglicht. Bei Problemen im unteren Körperbereich werden Shorts empfohlen, und bei Beschwerden im oberen Körperbereich ein Tanktop oder T-Shirt."
+        }
+      }
+    },
+    "ctaSection": {
+      "title": "Starten Sie noch heute Ihren Genesungsprozess",
+      "description": "Machen Sie den ersten Schritt zu besserer Gesundheit und Mobilität. Unsere erfahrenen Physiotherapeuten sind bereit, Ihnen dabei zu helfen, Ihre Wellness-Ziele zu erreichen.",
+      "bookAppointment": "Termin vereinbaren",
+      "register": "Jetzt registrieren",
+      "goToDashboard": "Zum Dashboard"
+    }
+  },
   "doctors": {
     "doctorListingPage": {
-      "searchTitle": "Ärzte suchen",
-      "bookAppointment": "Termin buchen"
+      "searchTitle": "Therapeuten suchen",
+      "bookAppointment": "Termin vereinbaren"
     },
     "doctorPage": {
       "appointments": "Termine",
       "experience": "Erfahrung",
       "gender": "Geschlecht",
       "languages": "Sprachen",
-      "bookAppointment": "Termin buchen",
+      "bookAppointment": "Termin vereinbaren",
       "years": "Jahre",
       "appointmentDate": "Termindatum",
       "available": "Verfügbar",
@@ -57,35 +200,36 @@
   },
   "appointments": {
     "doctorInformationCard": {
-      "title": "Arztinformationen",
+      "title": "Therapeuteninformation",
       "experience": "Erfahrung",
       "gender": "Geschlecht",
       "languages": "Sprachen",
       "years": "Jahre"
     },
     "appointmentCard": {
-      "title": "Termininformationen",
+      "title": "Termininformation",
       "date": "Datum",
       "time": "Uhrzeit",
       "status": "Status",
-      "type": "Terminart",
+      "type": "Termintyp",
       "video": "Video-Beratung",
       "minutes": "Minuten"
     },
     "medicalScreeningCard": {
-      "title": "Medizinische Untersuchung",
-      "noScreening": "Keine Untersuchungsinformationen verfügbar",
-      "complete": "Untersuchungsfragen ausfüllen"
+      "title": "Medizinische Screening-Information",
+      "noScreening": "Keine Screening-Information verfügbar",
+      "complete": "Screening-Fragen ausfüllen"
     },
     "paymentCard": {
-      "title": "Zahlungsinformationen",
+      "title": "Zahlungsinformation",
       "total": "Gesamt",
       "pay": "Bezahlen"
     },
-    "AppointmentsPage": {
+    "appointmentsPage": {
       "upcoming": "Bevorstehend",
       "history": "Verlauf",
-      "noDataFound": "Keine Termine gefunden"
+      "noDataFound": "Keine Termine gefunden",
+      "createAppointment": "Termin vereinbaren"
     }
   },
   "profile": {
@@ -107,9 +251,10 @@
       "submit": "Absenden",
       "next": "Weiter",
       "back": "Zurück",
-      "reviewTitle": "Ihre Informationen überprüfen",
-      "personalDetails": "Persönliche Details",
-      "medicalDetails": "Medizinische Details"
+      "reviewTitle": "Überprüfen Sie Ihre Informationen",
+      "personalDetails": "Persönliche Daten",
+      "medicalDetails": "Medizinische Daten",
+      "review": "Überprüfung"
     },
     "medicalDetailsForm": {
       "occupation": "Beruf",
@@ -117,38 +262,55 @@
       "height": "Größe (cm)",
       "activities": "Aktivitäten",
       "select": "Auswählen"
-    }
+    },
+    "personal": "Persönlich",
+    "medical": "Medizinisch",
+    "personalDetails": "Persönliche Daten",
+    "medicalDetails": "Medizinische Daten",
+    "save": "Speichern"
   },
   "questionnaire": {
+    "dialog": {
+      "title": "Medizinisches Screening",
+      "previous": "Zurück",
+      "finish": "Abschließen",
+      "next": "Weiter"
+    },
     "trigger": {
-      "noScreening": "Keine Untersuchungsinformationen verfügbar",
-      "complete": "Untersuchungsfragen ausfüllen",
-      "edit": "Untersuchungsfragen bearbeiten",
-      "result": "Untersuchungsergebnis",
-      "view": "Untersuchungsfragen anzeigen"
+      "noScreening": "Keine Screening-Information verfügbar",
+      "complete": "Screening-Fragen ausfüllen",
+      "edit": "Screening-Fragen bearbeiten",
+      "result": "Screening-Ergebnis",
+      "view": "Screening-Fragen anzeigen",
+      "score": "Punktzahl"
     }
   },
   "dashboard": {
     "latestUpcomingAppointmentCard": {
       "title": "Nächster bevorstehender Termin",
       "minutes": "Minuten",
-      "type": "Art",
+      "type": "Typ",
       "video": "Video",
       "time": "Uhrzeit",
       "date": "Datum",
       "status": "Status",
-      "noDataFound": "Kein bevorstehender Termin",
-      "bookAppointment": "Termin buchen",
+      "noDataFound": "Keine bevorstehenden Termine",
+      "bookAppointment": "Termin vereinbaren",
       "joinVideoCall": "Anruf beitreten",
-      "physio": "Physiotherapie"
+      "physio": "Physio"
     },
     "screeningResultCard": {
-      "title": "Letztes Untersuchungsergebnis",
+      "title": "Letztes Screening-Ergebnis",
       "score": "Punktzahl",
-      "date": "Untersuchungsdatum",
+      "date": "Screening-Datum",
       "result": "Ergebnisstatus",
-      "startNew": "Neue Untersuchung starten",
-      "noDataFound": "Keine Untersuchung gefunden"
+      "startNew": "Neues Screening starten",
+      "noDataFound": "Kein Screening gefunden"
+    },
+    "appointmentCalenderCard": {
+      "title": "Terminkalender",
+      "appointmentFor": "Termine für",
+      "noDataFound": "Keine Termine geplant für"
     }
   }
 }

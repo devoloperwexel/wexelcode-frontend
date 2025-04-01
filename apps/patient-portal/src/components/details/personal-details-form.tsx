@@ -5,9 +5,11 @@ import {
   FormSmartMultiSelectorField,
   FormSmartSelectorField,
 } from '@wexelcode/components';
-import { GenderOptions } from '@wexelcode/constants';
-import { countries, languages } from 'country-data';
-import _ from 'lodash';
+import {
+  CountriesOptions,
+  GenderOptions,
+  LanguageOptions,
+} from '@wexelcode/constants';
 import { useLocale, useTranslations } from 'next-intl';
 import de from 'react-phone-number-input/locale/de';
 
@@ -22,27 +24,21 @@ export function PersonalDetailsForm({
 }: PersonalDetailsFormProps) {
   const t = useTranslations('profile.personalDetailsForm');
   const tOptions = useTranslations('options');
-  const local = useLocale();
+  const local = useLocale() as 'en' | 'de';
 
   const genderOptions = GenderOptions.map((option) => ({
     label: tOptions(`gender.${option}`),
     value: option,
   }));
 
-  const languagesOptions = _.unionBy(
-    languages.all,
-    (language) => language.alpha3
-  ).map((language) => ({
-    value: language.alpha3,
-    label: language.name,
+  const languagesOptions = LanguageOptions.map((option) => ({
+    label: option.label[local],
+    value: option.value,
   }));
 
-  const countryOptions = _.unionBy(
-    countries.all,
-    (county) => county.alpha2
-  ).map((country) => ({
-    value: country.alpha2,
-    label: country.name,
+  const countryOptions = CountriesOptions.map((option) => ({
+    label: option.label[local],
+    value: option.value,
   }));
 
   return (

@@ -14,7 +14,9 @@
   },
   "userMenu": {
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "settings": "Settings",
+    "logout": "Logout"
   },
   "pagination": {
     "previous": "Previous",
@@ -35,6 +37,147 @@
       "GERMAN": "German",
       "FRENCH": "French",
       "SPANISH": "Spanish"
+    }
+  },
+  "footer": {
+    "description": "Professional physiotherapy services tailored to your needs, accessible from anywhere.",
+    "links": {
+      "title": "Quick Links",
+      "home": "Home",
+      "howItWorks": "How it works",
+      "faq": "FAQ",
+      "contact": "Contact"
+    },
+    "legal": {
+      "title": "Data & Privacy",
+      "terms": "Terms & Conditions",
+      "imprint": "Imprint",
+      "privacy": "Privacy Policy"
+    },
+    "contact": {
+      "title": "Contact Us"
+    }
+  },
+  "home": {
+    "heroSection": {
+      "title": "Experience Optimal Health with",
+      "description": "Professional physiotherapy services tailored to your needs. Get personalized treatment plans and expert care from certified physiotherapists.",
+      "bookAppointment": "Book an Appointment",
+      "goToDashboard": "Go to Dashboard",
+      "register": "Register Now"
+    },
+    "howItWorksSection": {
+      "title": "How It Works",
+      "description": "Our simple three-step process makes getting professional physiotherapy care easier than ever before.",
+      "steps": {
+        "initialAssessment": {
+          "title": "Initial Assessment",
+          "description": "Complete our comprehensive digital assessment form to help us understand your condition and needs."
+        },
+        "virtualConsultation": {
+          "title": "Virtual Consultation",
+          "description": "Connect with a certified physiotherapist through a secure video call for a detailed evaluation."
+        },
+        "personalizedTreatment": {
+          "title": "Personalized Treatment",
+          "description": "Receive a customized treatment plan designed specifically for your recovery and wellness goals."
+        }
+      }
+    },
+    "servicesSection": {
+      "title": "We Make a Difference",
+      "description": "Our commitment to excellence combines scientific rigor with personalized care, ensuring you receive the highest quality treatment from the comfort of your home.",
+      "benefits": {
+        "fairAndSimple": {
+          "title": "Fair and Simple",
+          "description": "Only pay if our service is right for you"
+        },
+        "quality": {
+          "title": "Quality Care",
+          "description": "Certified physiotherapy treatment quickly and from home"
+        },
+        "personalized": {
+          "title": "Personalized Treatment",
+          "description": "Where advanced technology meets human compassion"
+        },
+        "rigorousScience": {
+          "title": "Rigorous Science",
+          "description": "Adheres to the gold standard of medical screening"
+        }
+      }
+    },
+    "testimonialsSection": {
+      "title": "What Our Patients Say",
+      "description": "Hear from people who have experienced our personalized physiotherapy services."
+    },
+    "sneakPeekSection": {
+      "title": "Here's a sneak peek of what's being developed",
+      "features": {
+        "rightForYou": {
+          "title": "Only pay if our service is right for you"
+        },
+        "wearableIntegrations": {
+          "title": "Wearable integrations"
+        },
+        "aiAutomation": {
+          "title": "AI automation"
+        },
+        "painLevelMonitoring": {
+          "title": "Pain level monitoring"
+        },
+        "personalizedPlan": {
+          "title": "Personalized plan"
+        },
+        "smartExerciseRecommendations": {
+          "title": "Smart exercise recommendations"
+        },
+        "progressTrackingAnalysis": {
+          "title": "Progress tracking & analysis"
+        },
+        "realTimeMonitoring": {
+          "title": "Real-time monitoring"
+        }
+      }
+    },
+    "blogSection": {
+      "title": "Learn More on Our Blog"
+    },
+    "faqSection": {
+      "title": "Frequently Asked Questions",
+      "description": "Find answers to common questions about our physiotherapy services.",
+      "questions": {
+        "q1": {
+          "question": "What conditions do you treat?",
+          "answer": "Our physiotherapists treat a wide range of conditions including back pain, neck pain, sports injuries, post-surgical rehabilitation, arthritis, and more. We offer both in-person and virtual consultations to address your specific needs."
+        },
+        "q2": {
+          "question": "How long does a typical physiotherapy session last?",
+          "answer": "Initial consultations typically last 45-60 minutes, while follow-up sessions are usually 30-45 minutes. The exact duration may vary based on your specific condition and treatment requirements."
+        },
+        "q3": {
+          "question": "Do I need a referral from a doctor?",
+          "answer": "No, you don't need a doctor's referral to book an appointment with our physiotherapists. However, some insurance providers may require a referral for coverage, so we recommend checking with your insurance company first."
+        },
+        "q4": {
+          "question": "How many sessions will I need?",
+          "answer": "The number of sessions varies depending on your condition, its severity, and how your body responds to treatment. After your initial assessment, your physiotherapist will provide a recommended treatment plan with an estimated number of sessions."
+        },
+        "q5": {
+          "question": "Do you accept insurance?",
+          "answer": "Yes, we accept most major insurance plans. We can provide you with the necessary documentation to submit to your insurance provider for reimbursement. We recommend verifying your coverage before your first appointment."
+        },
+        "q6": {
+          "question": "What should I wear to my appointment?",
+          "answer": "Please wear comfortable, loose-fitting clothing that allows easy access to the area requiring treatment. For lower body issues, shorts are recommended, and for upper body concerns, a tank top or t-shirt is appropriate."
+        }
+      }
+    },
+    "ctaSection": {
+      "title": "Start Your Recovery Journey Today",
+      "description": "Take the first step towards better health and mobility. Our expert physiotherapists are ready to help you achieve your wellness goals.",
+      "bookAppointment": "Book an Appointment",
+      "register": "Register Now",
+      "goToDashboard": "Go to Dashboard"
     }
   },
   "doctors": {
@@ -82,7 +225,7 @@
       "total": "Total",
       "pay": "Pay"
     },
-    "AppointmentsPage": {
+    "appointmentsPage": {
       "upcoming": "Upcoming",
       "history": "History",
       "noDataFound": "No Appointments Found",
@@ -110,7 +253,8 @@
       "back": "Back",
       "reviewTitle": "Review Your Information",
       "personalDetails": "Personal Details",
-      "medicalDetails": "Medical Details"
+      "medicalDetails": "Medical Details",
+      "review": "Review"
     },
     "medicalDetailsForm": {
       "occupation": "Occupation",
@@ -118,15 +262,27 @@
       "height": "Height (cm)",
       "activities": "Activities",
       "select": "Select"
-    }
+    },
+    "personal": "Personal",
+    "medical": "Medical",
+    "personalDetails": "Personal Details",
+    "medicalDetails": "Medical Details",
+    "save": "Save"
   },
   "questionnaire": {
+    "dialog": {
+      "title": "Medical Screening",
+      "previous": "Previous",
+      "finish": "Finish",
+      "next": "Next"
+    },
     "trigger": {
       "noScreening": "No screening information available",
       "complete": "Complete screening questions",
       "edit": "Edit screening questions",
       "result": "Screening Result",
-      "view": "View screening questions"
+      "view": "View screening questions",
+      "score": "Score"
     }
   },
   "dashboard": {
@@ -150,6 +306,11 @@
       "result": "Result Status",
       "startNew": "Start New Screening",
       "noDataFound": "No screening Found"
+    },
+    "appointmentCalenderCard": {
+      "title": "Appointment Calendar",
+      "appointmentFor": "Appointments for",
+      "noDataFound": "No appointments scheduled for"
     }
   }
 }

@@ -6,6 +6,8 @@ import {
   DialogTitle,
 } from '@wexelcode/components';
 import { useGetQuestionnaire } from '@wexelcode/hooks';
+import { useSession } from 'next-auth/react';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import QuestionForm from './questions-form';
@@ -20,6 +22,11 @@ export function QuestionnaireDialog({
   appointmentId,
   disabled,
 }: QuestionnaireDialogProps) {
+  const t = useTranslations('questionnaire.dialog');
+  const local = useLocale();
+
+  const { data: userData } = useSession();
+
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
 
   const { data: questionnaires } = useGetQuestionnaire({
@@ -30,12 +37,12 @@ export function QuestionnaireDialog({
   return (
     <DialogContent className="max-w-fit">
       <DialogHeader>
-        <DialogTitle>Screening</DialogTitle>
+        <DialogTitle>{t('title')}</DialogTitle>
       </DialogHeader>
 
       {questionnaires?.results && (
         <QuestionsNavigationMenu
-          local={'en'}
+          local={local}
           questionnaires={questionnaires.results}
           currentIndex={currentCategoryIndex}
           onSelect={setCurrentCategoryIndex}
@@ -48,8 +55,8 @@ export function QuestionnaireDialog({
             questionnaire={questionnaires.results[currentCategoryIndex]}
             index={currentCategoryIndex}
             total={questionnaires.results.length}
-            local={'en'}
-            gender={'male'}
+            local={local}
+            gender={userData?.user.gender || 'male'}
             appointmentId={appointmentId}
             disabled={disabled}
             onChangeIndex={setCurrentCategoryIndex}

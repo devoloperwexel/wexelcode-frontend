@@ -1,31 +1,30 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { ActivitySquare, ClipboardList, Video } from 'lucide-react';
-import React, { Children } from 'react';
+import { useTranslations } from 'next-intl';
 
 export const HowItWorksSection = () => {
+  const t = useTranslations('home.howItWorksSection');
+
   const steps = [
     {
-      icon: <ClipboardList className="w-12 h-12 text-[#a51008]" />,
-      title: 'Initial Assessment',
-      description:
-        'Complete our comprehensive digital assessment form to help us understand your condition and needs.',
+      id: 'initialAssessment',
+      icon: <ClipboardList className="w-12 h-12 text-primary" />,
       number: 1,
     },
     {
-      icon: <Video className="w-12 h-12 text-[#a51008]" />,
-      title: 'Virtual Consultation',
-      description:
-        'Connect with a certified physiotherapist through a secure video call for a detailed evaluation.',
+      id: 'virtualConsultation',
+      icon: <Video className="w-12 h-12 text-primary" />,
       number: 2,
     },
     {
-      icon: <ActivitySquare className="w-12 h-12 text-[#a51008]" />,
-      title: 'Personalized Treatment',
-      description:
-        'Receive a customized treatment plan designed specifically for your recovery and wellness goals.',
+      id: 'personalizedTreatment',
+      icon: <ActivitySquare className="w-12 h-12 text-primary" />,
       number: 3,
     },
   ];
+
   const containerVariants = {
     initial: {
       opacity: 1,
@@ -38,6 +37,7 @@ export const HowItWorksSection = () => {
       },
     },
   };
+
   const itemVariants = {
     initial: {
       opacity: 0,
@@ -52,6 +52,7 @@ export const HowItWorksSection = () => {
       },
     },
   };
+
   return (
     <section id="how-it-works" className="py-16 bg-white">
       <div className="container mx-auto px-4 md:px-6">
@@ -70,11 +71,10 @@ export const HowItWorksSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            How It Works
+            {t('title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Our simple three-step process makes getting professional
-            physiotherapy care easier than ever before.
+            {t('description')}
           </p>
         </motion.div>
         <motion.div
@@ -127,9 +127,11 @@ export const HowItWorksSection = () => {
                 {step.icon}
               </motion.div>
               <h3 className="text-xl font-semibold text-gray-800 mb-3 text-center">
-                {step.title}
+                {t(`steps.${step.id}.title`)}
               </h3>
-              <p className="text-gray-600 text-center">{step.description}</p>
+              <p className="text-gray-600 text-center">
+                {t(`steps.${step.id}.description`)}
+              </p>
             </motion.div>
           ))}
         </motion.div>

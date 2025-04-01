@@ -9,6 +9,7 @@ import {
 import { Questionnaire } from '@wexelcode/types';
 import { extractAnswers } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -39,6 +40,8 @@ export default function QuestionForm({
   disabled,
   onChangeIndex,
 }: QuestionFormProps) {
+  const t = useTranslations('questionnaire.dialog');
+
   const { data: userData } = useSession();
 
   const { isLoading, data } = useGetQuestionsByQuestionnaireId({
@@ -134,12 +137,14 @@ export default function QuestionForm({
               onClick={handleOnClickPrevious}
               type="button"
             >
-              Previous
+              {t('previous')}
             </Button>
             <Text variant="muted">
               {index + 1} / {total}
             </Text>
-            <Button type="submit">{index === total ? 'Finish' : 'Next'}</Button>
+            <Button type="submit">
+              {index === total ? t('finish') : t('next')}
+            </Button>
           </div>
         </form>
       </Form>

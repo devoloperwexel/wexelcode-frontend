@@ -1,11 +1,16 @@
 import { auth } from '@wexelcode/auth';
 import { NextRequest, NextResponse } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
+
+import { routing } from './i18n/routing';
+
+const intlMiddleware = createMiddleware(routing);
 
 export default auth(async function middleware(request: NextRequest) {
   // Your custom middleware logic goes here
   const { pathname } = request.nextUrl;
   const protectedRoutesRegex =
-    /^\/(en|ar)\/(profile|appointments|dashboard)(\/.*)?$/;
+    /^\/(en|de)\/(profile|appointments|dashboard)(\/.*)?$/;
   const isProtectedRoute = protectedRoutesRegex.test(pathname);
 
   if (isProtectedRoute) {
@@ -18,6 +23,8 @@ export default auth(async function middleware(request: NextRequest) {
       return NextResponse.redirect(signInUrl);
     }
   }
+
+  return intlMiddleware(request);
 });
 
 // Match only internationalized pathnames
