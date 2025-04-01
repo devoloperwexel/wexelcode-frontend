@@ -20,7 +20,7 @@ export function AppointmentListView({
   startDate,
   endDate,
 }: AppointmentListViewProps) {
-  const t = useTranslations('appointments.AppointmentsPage');
+  const t = useTranslations('appointments.appointmentsPage');
   const { data: userData } = useSession();
 
   const queryParams = useQueryParams();

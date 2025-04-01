@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl';
 import { AppointmentListView } from '../../../components/appointments/appointment-list-view';
 
 export default function AppointmentsPageContent() {
-  const t = useTranslations('appointments.AppointmentsPage');
+  const t = useTranslations('appointments.appointmentsPage');
 
   const now = dateTimeSubtract(new Date(), 30, 'minutes').toString();
 

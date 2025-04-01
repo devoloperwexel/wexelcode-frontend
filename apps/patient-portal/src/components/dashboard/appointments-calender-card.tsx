@@ -5,6 +5,7 @@ import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
 import { dateTimeFormat } from '@wexelcode/utils';
 import { ClockIcon } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 
 import { NoDataBanner } from '../common';
@@ -12,6 +13,8 @@ import Calendar from './calender';
 import { CalendarAppointmentLoading } from './loading';
 
 export function AppointmentCalenderCard() {
+  const t = useTranslations('dashboard.appointmentCalenderCard');
+
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const { data: userData } = useSession();
 
@@ -44,7 +47,7 @@ export function AppointmentCalenderCard() {
 
   return (
     <Card>
-      <CardHeader>Appointment Calender</CardHeader>
+      <CardHeader>{t('title')}</CardHeader>
       <CardContent className="grid grid-cols-2">
         <div>
           <Calendar
@@ -57,7 +60,7 @@ export function AppointmentCalenderCard() {
 
         <div className="col-span-1 flex flex-col gap-4">
           <Text variant="h3">
-            Appointments for{' '}
+            {t('appointmentFor')}{' '}
             {dateTimeFormat(startDateOfSelectedMonth, 'MMMM yyyy')}
           </Text>
 
@@ -66,7 +69,7 @@ export function AppointmentCalenderCard() {
 
             {appointmentResponse?.totalResults === 0 && (
               <NoDataBanner
-                message={`No appointments scheduled for ${dateTimeFormat(
+                message={`${t('noDataFound')} ${dateTimeFormat(
                   startDateOfSelectedMonth,
                   'MMMM'
                 )}`}
