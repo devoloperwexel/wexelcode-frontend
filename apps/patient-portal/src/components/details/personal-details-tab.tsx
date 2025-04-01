@@ -11,12 +11,15 @@ import {
 import { useUpdateUser } from '@wexelcode/hooks';
 import { dateTimeFormat, getDirtyValues } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { PersonalDetailsForm } from './personal-details-form';
 
 export function PersonalDetailsTab() {
+  const t = useTranslations('profile');
+
   const form = useForm();
 
   const { data: userData } = useSession();
@@ -43,14 +46,14 @@ export function PersonalDetailsTab() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSave)}>
         <Card>
-          <CardHeader>Personal Details</CardHeader>
+          <CardHeader>{t('personalDetails')} </CardHeader>
 
           <CardContent>
             <PersonalDetailsForm includeAllFields />
           </CardContent>
 
           <CardFooter className="flex justify-end">
-            <Button disabled={!form.formState.isDirty}>Save</Button>
+            <Button disabled={!form.formState.isDirty}>{t('save')}</Button>
           </CardFooter>
         </Card>
       </form>
