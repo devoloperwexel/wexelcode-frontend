@@ -1,7 +1,10 @@
 import { AnimateOnScroll } from '@wexelcode/components';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export const BlogSection = () => {
+  const t = useTranslations('home.blogSection');
+
   const blogPosts = [
     {
       title: 'Autumn Is Hiking Season',
@@ -25,6 +28,7 @@ export const BlogSection = () => {
         'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1820&q=80',
     },
   ];
+
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -36,6 +40,7 @@ export const BlogSection = () => {
       },
     },
   };
+
   const cardVariants = {
     hidden: {
       opacity: 0,
@@ -51,12 +56,13 @@ export const BlogSection = () => {
       },
     }),
   };
+
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <AnimateOnScroll variants="fadeUp">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-            Learn More on Our Blog
+            {t('title')}
           </h2>
         </AnimateOnScroll>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
