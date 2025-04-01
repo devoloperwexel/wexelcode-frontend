@@ -1,6 +1,9 @@
 import { AnimateOnScroll } from '@wexelcode/components';
+import { useTranslations } from 'next-intl';
 
 export const TestimonialsSection = () => {
+  const t = useTranslations('home.testimonialsSection');
+
   const testimonials = [
     {
       quote:
@@ -27,16 +30,16 @@ export const TestimonialsSection = () => {
         'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80',
     },
   ];
+
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <AnimateOnScroll className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            What Our Patients Say
+            {t('title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Hear from people who have experienced our personalized physiotherapy
-            services.
+            {t('description')}
           </p>
         </AnimateOnScroll>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
