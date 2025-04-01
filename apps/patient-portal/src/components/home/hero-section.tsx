@@ -4,11 +4,14 @@ import { hero } from '@wexelcode/assets';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 export const HeroSection = () => {
+  const t = useTranslations('home.heroSection');
+
   const { status } = useSession();
 
   const handleOnRegister = () => {
@@ -34,24 +37,19 @@ export const HeroSection = () => {
             className="md:w-1/2 space-y-6 mt-8 md:mt-0 md:pr-8"
           >
             <h1 className="text-3xl md:text-5xl font-bold text-gray-800 leading-tight">
-              Experience Optimal Health with{' '}
-              <span className="text-[#a51008]">Wexelcode</span>
+              {t('title')} <span className="text-primary">Wexelcode</span>
             </h1>
-            <p className="text-lg text-gray-600">
-              Professional physiotherapy services tailored to your needs. Get
-              personalized treatment plans and expert care from certified
-              physiotherapists.
-            </p>
+            <p className="text-lg text-gray-600">{t('description')}</p>
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
               <Link href={Routes.doctors}>
                 <button className="px-6 py-3 bg-primary text-white rounded-md font-medium hover:bg-primary transition duration-300">
-                  Book an Appointment
+                  {t('bookAppointment')}
                 </button>
               </Link>
               {status === 'authenticated' ? (
                 <Link href={Routes.dashboard}>
                   <button className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300">
-                    Go to Dashboard
+                    {t('goToDashboard')}
                   </button>
                 </Link>
               ) : (
@@ -59,7 +57,7 @@ export const HeroSection = () => {
                   className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300"
                   onClick={handleOnRegister}
                 >
-                  Register Now
+                  {t('register')}
                 </button>
               )}
             </div>
