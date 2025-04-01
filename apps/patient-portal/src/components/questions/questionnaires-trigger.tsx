@@ -37,8 +37,6 @@ export function QuestionnaireTrigger({
     appointmentId,
   });
 
-  const score = 80;
-
   return (
     <Dialog>
       <div {...rest}>
@@ -55,10 +53,10 @@ export function QuestionnaireTrigger({
           </>
         ) : (
           <>
-            <ProgressIndicator percentage={score}>
+            <ProgressIndicator percentage={response.completedPercentage}>
               <div className="flex flex-col justify-center text-center">
                 <Text>{response.completedPercentage} %</Text>
-                <Text variant="muted">Score</Text>
+                <Text variant="muted">{t('score')}</Text>
               </div>
             </ProgressIndicator>
             <Text variant="muted" align="center">
