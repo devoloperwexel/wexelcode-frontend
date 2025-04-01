@@ -20,6 +20,7 @@ import { MyAvatar } from '../common';
 
 export function UserMenu() {
   const t = useTranslations('userMenu');
+
   const { data, status } = useSession();
 
   const handleSinIn = async () => {
@@ -87,14 +88,14 @@ export function UserMenu() {
           <Link href={Routes.profile.index}>
             <DropdownMenuItem>
               <Cog />
-              Account Settings
+              {t('settings')}
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSinOut}>
           <LogOut />
-          Log out
+          {t('logout')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
