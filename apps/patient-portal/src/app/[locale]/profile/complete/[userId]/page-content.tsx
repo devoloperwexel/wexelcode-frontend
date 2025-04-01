@@ -40,13 +40,13 @@ export default function DetailsPageContent({
 
   const steps = [
     {
-      title: 'Personal Details',
+      title: t('personalDetails'),
     },
     {
-      title: 'Medical Details',
+      title: t('medicalDetails'),
     },
     {
-      title: 'Review',
+      title: t('review'),
     },
   ];
 
