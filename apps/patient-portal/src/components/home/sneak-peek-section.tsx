@@ -2,34 +2,22 @@ import { sneak } from '@wexelcode/assets';
 import { AnimateOnScroll } from '@wexelcode/components';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export const SneakPeek = () => {
+  const t = useTranslations('home.sneakPeekSection');
+
   const features = [
-    {
-      title: 'Only pay if our service is right for you',
-    },
-    {
-      title: 'Wearable integrations',
-    },
-    {
-      title: 'AI automation',
-    },
-    {
-      title: 'Pain level monitoring',
-    },
-    {
-      title: 'Personalized plan',
-    },
-    {
-      title: 'Smart exercise recommendations',
-    },
-    {
-      title: 'Progress tracking & analysis',
-    },
-    {
-      title: 'Real-time monitoring',
-    },
+    'rightForYou',
+    'wearableIntegrations',
+    'aiAutomation',
+    'painLevelMonitoring',
+    'personalizedPlan',
+    'smartExerciseRecommendations',
+    'progressTrackingAnalysis',
+    'realTimeMonitoring',
   ];
+
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -41,6 +29,7 @@ export const SneakPeek = () => {
       },
     },
   };
+
   const itemVariants = {
     hidden: {
       opacity: 0,
@@ -54,6 +43,7 @@ export const SneakPeek = () => {
       },
     },
   };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6">
@@ -70,7 +60,7 @@ export const SneakPeek = () => {
           <div className="md:w-1/2">
             <AnimateOnScroll>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-                Here&apos;s a sneak peek of what&apos;s being developed
+                {t('title')}
               </h2>
               <motion.div
                 variants={containerVariants}
@@ -85,7 +75,9 @@ export const SneakPeek = () => {
                     className="flex items-center gap-3"
                   >
                     <div className="w-3 h-3 rounded-full bg-[#a51008] opacity-75"></div>
-                    <span className="text-gray-700">{feature.title}</span>
+                    <span className="text-gray-700">
+                      {t(`features.${feature}.title`)}
+                    </span>
                   </motion.div>
                 ))}
               </motion.div>
