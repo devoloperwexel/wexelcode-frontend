@@ -14,6 +14,7 @@ import { FederatedSignOut, RefreshTokens } from './auth-api';
 const config: NextAuthConfig = {
   trustHost: true,
   adapter: AuthAdapter() as unknown as Adapter,
+  secret: process.env['AUTH_SECRET'],
   providers: [
     KeycloakProvider({
       clientId: process.env['AUTH_KEYCLOAK_ID'],
@@ -88,14 +89,7 @@ const config: NextAuthConfig = {
       session.user = token['user'] as CustomAdapterUser;
       return session;
     },
-    authorized: async ({ auth, request: { nextUrl } }) => {
-      if (!auth) {
-        const { pathname } = nextUrl;
-        const host = process.env?.['NEXTAUTH_URL'];
-        const signInUrl = new URL('/api/auth/signin', host);
-        signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
-        return Response.redirect(signInUrl);
-      }
+    authorized: async ({ auth }) => {
       return !!auth;
     },
   },
