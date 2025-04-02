@@ -78,7 +78,16 @@ export default function QuestionForm({
   const handleSubmit = async (data: any) => {
     if (!userData) return;
     if (!disabled) {
-      await save({ userId: userData.user?.id, ...data });
+      console.log(data);
+
+      const filteredData = Object.fromEntries(
+        Object.entries(data).filter(
+          ([_, value]) => value !== null && value !== undefined
+        )
+      );
+      console.log(filteredData);
+
+      await save({ userId: userData.user?.id, ...filteredData });
     }
     handleOnClickNext();
   };
