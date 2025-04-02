@@ -28,6 +28,9 @@ export default async function middleware(request: NextRequest) {
       secret: process.env.NEXTAUTH_SECRET,
     });
 
+    console.log(token);
+    
+
     if (!token) {
       const signInUrl = new URL('/api/auth/signin', host);
       signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
