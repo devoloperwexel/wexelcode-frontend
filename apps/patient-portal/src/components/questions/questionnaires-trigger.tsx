@@ -40,7 +40,7 @@ export function QuestionnaireTrigger({
   return (
     <Dialog>
       <div {...rest}>
-        {!response || response.completedPercentage === 100 ? (
+        {!response || response.completedPercentage === 0 ? (
           <>
             <ClipboardListIcon className="w-12 h-12 mx-auto text-gray-400" />
             <p className="mt-2 text-gray-600">{t('noScreening')}</p>
