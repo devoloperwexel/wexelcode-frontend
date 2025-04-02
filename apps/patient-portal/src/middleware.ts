@@ -1,14 +1,9 @@
-import { auth } from '@wexelcode/auth';
 import { NextRequest } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 import { getToken } from 'next-auth/jwt';
 
 const intlMiddleware = createMiddleware(routing);
-
-// const authMiddleware = auth((request: NextRequest) => {
-//   return intlMiddleware(request);
-// });
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -21,9 +16,8 @@ export default async function middleware(request: NextRequest) {
     const session = await getToken({
       req: request,
       secret,
-      secureCookie: true,
+      secureCookie: process.env['NODE_ENV'] === 'production',
     });
-    console.log(session);
 
     if (!session) {
       const host = process.env?.['NEXTAUTH_URL'];
