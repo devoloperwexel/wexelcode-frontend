@@ -12,11 +12,11 @@ export default async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutesRegex.test(pathname);
 
   if (isProtectedRoute) {
-    const secret = process.env['AUTH_SECRET'];
+    const secret = process.env?.['AUTH_SECRET'];
     const session = await getToken({
       req: request,
       secret,
-      secureCookie: process.env['NODE_ENV'] === 'production',
+      secureCookie: process.env?.['NODE_ENV'] === 'production',
     });
 
     if (!session) {
