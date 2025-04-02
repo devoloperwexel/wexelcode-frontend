@@ -89,7 +89,13 @@ const config: NextAuthConfig = {
       return session;
     },
     authorized: async ({ auth, request: { nextUrl } }) => {
-      // Logged in users are authenticated, otherwise redirect to login page
+      if (!auth) {
+        const { pathname } = nextUrl;
+        const host = process.env?.['NEXTAUTH_URL'];
+        const signInUrl = new URL('/api/auth/signin', host);
+        signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
+        return Response.redirect(signInUrl);
+      }
       return !!auth;
     },
   },
