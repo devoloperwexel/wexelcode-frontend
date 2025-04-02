@@ -9,15 +9,16 @@ const intlMiddleware = createMiddleware(routing);
 const authMiddleware = auth((request: NextRequest) => {
   const { pathname } = request.nextUrl;
   const host = process.env?.['NEXTAUTH_URL'];
+  return intlMiddleware(request);
 
-  if ((request as any).auth) {
-    return intlMiddleware(request);
-  } else {
-    const signInUrl = new URL('/api/auth/signin', host);
-    signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
+  // if ((request as any).auth) {
+  //   return intlMiddleware(request);
+  // } else {
+  //   const signInUrl = new URL('/api/auth/signin', host);
+  //   signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
 
-    return NextResponse.redirect(signInUrl);
-  }
+  //   return NextResponse.redirect(signInUrl);
+  // }
 });
 
 export default function middleware(request: NextRequest) {
