@@ -18,3 +18,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
+        env:
+        - name: NEXTAUTH_URL
+          valueFrom:
+            configMapKeyRef:
+              name: wexel-patient-frontend-configmap
+              key: NEXTAUTH_URL

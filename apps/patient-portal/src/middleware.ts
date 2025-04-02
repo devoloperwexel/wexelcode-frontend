@@ -1,12 +1,12 @@
-import { auth } from '@wexelcode/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-
+import { getToken } from 'next-auth/jwt';
 import { routing } from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
-export default auth(async function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
+  // Apply internationalization middleware first
   const response = intlMiddleware(request);
 
   const { pathname } = request.nextUrl;
@@ -15,9 +15,20 @@ export default auth(async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutesRegex.test(pathname);
 
   if (isProtectedRoute) {
-    const host = process.env?.['NEXTAUTH_URL'];
+    const host = process.env.NEXTAUTH_URL;
 
-    if (!(request as any).auth) {
+    if (!host) {
+      console.error('NEXTAUTH_URL is not defined');
+      return NextResponse.error();
+    }
+
+    // Check authentication using auth middleware
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    if (!token) {
       const signInUrl = new URL('/api/auth/signin', host);
       signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
 
@@ -26,7 +37,7 @@ export default auth(async function middleware(request: NextRequest) {
   }
 
   return response;
-});
+}
 
 // Match only internationalized pathnames
 export const config = {
