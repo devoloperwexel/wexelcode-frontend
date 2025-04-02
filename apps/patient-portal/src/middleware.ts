@@ -1,46 +1,33 @@
+import { auth } from '@wexelcode/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-import { getToken } from 'next-auth/jwt';
+
 import { routing } from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
-export default async function middleware(request: NextRequest) {
-  // Apply internationalization middleware first
-  const response = intlMiddleware(request);
-
+export default auth(async function middleware(request: NextRequest) {
+  // Your custom middleware logic goes here
   const { pathname } = request.nextUrl;
   const protectedRoutesRegex =
     /^\/(en|de)\/(profile|appointments|dashboard)(\/.*)?$/;
   const isProtectedRoute = protectedRoutesRegex.test(pathname);
 
   if (isProtectedRoute) {
-    const host = process.env.NEXTAUTH_URL;
+    const host = process.env?.['NEXTAUTH_URL'];
 
-    if (!host) {
-      console.error('NEXTAUTH_URL is not defined');
-      return NextResponse.error();
-    }
-
-    // Check authentication using auth middleware
-    const token = await getToken({
-      req: request,
-      secret: process.env.NEXTAUTH_SECRET,
-    });
-
-    console.log(token);
-    
-
-    if (!token) {
+    if ((request as any).auth) {
+      return intlMiddleware(request);
+    } else {
       const signInUrl = new URL('/api/auth/signin', host);
       signInUrl.searchParams.set('callbackUrl', `${host}${pathname}`);
 
       return NextResponse.redirect(signInUrl);
     }
+  } else {
+    return intlMiddleware(request);
   }
-
-  return response;
-}
+});
 
 // Match only internationalized pathnames
 export const config = {
