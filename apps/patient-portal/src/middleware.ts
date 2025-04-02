@@ -7,7 +7,8 @@ import { routing } from './i18n/routing';
 const intlMiddleware = createMiddleware(routing);
 
 export default auth(async function middleware(request: NextRequest) {
-  // Your custom middleware logic goes here
+  const response = intlMiddleware(request);
+
   const { pathname } = request.nextUrl;
   const protectedRoutesRegex =
     /^\/(en|de)\/(profile|appointments|dashboard)(\/.*)?$/;
@@ -24,7 +25,7 @@ export default auth(async function middleware(request: NextRequest) {
     }
   }
 
-  return intlMiddleware(request);
+  return response;
 });
 
 // Match only internationalized pathnames
