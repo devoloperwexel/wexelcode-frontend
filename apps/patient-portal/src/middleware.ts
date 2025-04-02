@@ -18,7 +18,11 @@ export default async function middleware(request: NextRequest) {
 
   if (isProtectedRoute) {
     const secret = process.env['AUTH_SECRET'];
-    const session = await getToken({ req: request, secret });
+    const session = await getToken({
+      req: request,
+      secret,
+      secureCookie: true,
+    });
     console.log(session);
 
     if (!session) {
