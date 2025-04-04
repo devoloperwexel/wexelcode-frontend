@@ -24,7 +24,7 @@ export function UserMenu() {
   const { data, status } = useSession();
 
   const handleSinIn = async () => {
-    await signIn('keycloak', { redirectTo: Routes.dashboard });
+    await signIn('keycloak', { redirectTo: window.location.href });
   };
 
   const handleSinOut = async () => {
