@@ -1,29 +1,44 @@
 import { DashboardLayout } from '@wexelcode/layouts';
 import { ThemeProvider } from '@wexelcode/theme';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 
+import { LanguageSwitch } from '../components/intl';
 import { UserMenu } from '../components/user-menu';
-import { MainNavigationItems } from '../constants';
+import Languages from '../constants/languages';
+import DashboardNavigationItems from '../constants/navigation-items';
 
 export const metadata = {
   title: 'Wexelcode',
   description: 'Wexelcode Doctor Portal',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
+
+  const messages = await getMessages();
+
   return (
     <ThemeProvider>
-      <html lang="en">
+      <html lang={locale}>
         <body>
-          <DashboardLayout
-            navigationItems={MainNavigationItems}
-            userMenu={<UserMenu />}
-          >
-            {children}
-          </DashboardLayout>
+          <NextIntlClientProvider messages={messages}>
+            <DashboardLayout
+              items={DashboardNavigationItems}
+              actionComponent={
+                <div className="ml-auto flex items-center gap-2 px-4">
+                  <LanguageSwitch languages={Languages} />
+                  <UserMenu />
+                </div>
+              }
+            >
+              {children}
+            </DashboardLayout>
+          </NextIntlClientProvider>
         </body>
       </html>
     </ThemeProvider>
