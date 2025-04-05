@@ -16,7 +16,7 @@ export const Footer = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-1">
-            <Link href={'/'}>
+            <Link href={Routes.home}>
               <Image
                 src={logo}
                 alt="Wexelcode Logo"
@@ -57,14 +57,17 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/#how-it-works"
+                  href={`${Routes.home}/#how-it-works`}
                   className="text-gray-300 hover:text-white"
                 >
                   {t('links.howItWorks')}
                 </Link>
               </li>
               <li>
-                <Link href="/#faq" className="text-gray-300 hover:text-white">
+                <Link
+                  href={`${Routes.home}/#faq`}
+                  className="text-gray-300 hover:text-white"
+                >
                   {t('links.faq')}
                 </Link>
               </li>
