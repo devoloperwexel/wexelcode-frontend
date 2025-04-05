@@ -12,14 +12,14 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@wexelcode/components';
-import { NavigationItem } from '@wexelcode/types';
+import { DashboardNavigationItem } from '@wexelcode/types';
 import { ChevronRight } from 'lucide-react';
 
-interface NavMainProps {
-  items: NavigationItem[];
+interface NavigationMenuProps {
+  items: DashboardNavigationItem[];
 }
 
-export function NavMain({ items }: NavMainProps) {
+export default function NavigationMenu({ items }: NavigationMenuProps) {
   return (
     <SidebarGroup>
       <SidebarMenu>
@@ -33,7 +33,7 @@ export function NavMain({ items }: NavMainProps) {
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton tooltip={item.title}>
-                  {/* {item.icon && item.icon} */}
+                  {item.icon && item.icon}
                   <span>{item.title}</span>
                   <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </SidebarMenuButton>
