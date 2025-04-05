@@ -1,3 +1,4 @@
+import { AuthProvider } from '@wexelcode/auth';
 import { DashboardLayout } from '@wexelcode/layouts';
 import { ThemeProvider } from '@wexelcode/theme';
 import { NextIntlClientProvider } from 'next-intl';
@@ -23,24 +24,26 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <ThemeProvider>
-      <html lang={locale}>
-        <body>
-          <NextIntlClientProvider messages={messages}>
-            <DashboardLayout
-              items={DashboardNavigationItems}
-              actionComponent={
-                <div className="ml-auto flex items-center gap-2 px-4">
-                  <LanguageSwitch languages={Languages} />
-                  <UserMenu />
-                </div>
-              }
-            >
-              {children}
-            </DashboardLayout>
-          </NextIntlClientProvider>
-        </body>
-      </html>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <html lang={locale}>
+          <body>
+            <NextIntlClientProvider messages={messages}>
+              <DashboardLayout
+                items={DashboardNavigationItems}
+                actionComponent={
+                  <div className="ml-auto flex items-center gap-2 px-4">
+                    <LanguageSwitch languages={Languages} />
+                    <UserMenu />
+                  </div>
+                }
+              >
+                {children}
+              </DashboardLayout>
+            </NextIntlClientProvider>
+          </body>
+        </html>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
