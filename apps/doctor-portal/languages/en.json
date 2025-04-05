@@ -2,5 +2,11 @@
   "language": {
     "de": "DE",
     "en": "EN"
+  },
+  "userMenu": {
+    "login": "Login",
+    "register": "Register",
+    "settings": "Settings",
+    "logout": "Logout"
   }
 }
