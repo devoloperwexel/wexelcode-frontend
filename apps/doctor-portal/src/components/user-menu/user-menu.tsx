@@ -1,7 +1,7 @@
+'use client';
+
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -9,87 +9,84 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  SidebarMenuButton,
+  Skeleton,
+  UserAvatar,
 } from '@wexelcode/components';
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from 'lucide-react';
+import { ChevronsUpDown, Cog, Link, LogOut } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+
+import { MyAvatar } from '../common';
 
 export function UserMenu() {
-  const user = {
-    name: 'John Doe',
-    email: 'johon@gmail.com',
-    avatar: 'https://ui.shadcn.com/avatars/shadcn.jpg',
+  const t = useTranslations('userMenu');
+
+  const { data, status } = useSession();
+
+  const handleSinOut = async () => {
+    await signOut({ redirect: false });
   };
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <SidebarMenuButton
-          size="lg"
-          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-        >
-          <Avatar className="h-8 w-8 rounded-lg">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-          </Avatar>
-          <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">{user.name}</span>
-            <span className="truncate text-xs">{user.email}</span>
-          </div>
-          <ChevronsUpDown className="ml-auto size-4" />
-        </SidebarMenuButton>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-        side={'bottom'}
-        align="end"
-        sideOffset={4}
-      >
-        <DropdownMenuLabel className="p-0 font-normal">
-          <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-            </Avatar>
+
+  if (status === 'loading')
+    return (
+      <div className="flex space-x-2 items-center">
+        <Skeleton className="h-8 w-8 rounded-lg" />
+        <div className="flex flex-col space-y-1">
+          <Skeleton className="h-2 w-[150px]" />
+          <Skeleton className="h-2 w-[100px]" />
+        </div>
+      </div>
+    );
+
+  if (status === 'authenticated')
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant={'ghost'}>
+            <MyAvatar />
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">{user.name}</span>
-              <span className="truncate text-xs">{user.email}</span>
+              <span className="truncate font-semibold">{`${data?.user.firstName} ${data?.user.lastName}`}</span>
+              <span className="truncate text-xs">{data?.user.email}</span>
             </div>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Sparkles />
-            Upgrade to Pro
+            <ChevronsUpDown className="ml-auto size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+          side={'bottom'}
+          align="end"
+          sideOffset={4}
+        >
+          <DropdownMenuLabel className="p-0 font-normal">
+            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+              <UserAvatar
+                name={data?.user.firstName ?? ''}
+                profileUrl={data?.user.profilePictureUrl}
+              />
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-semibold">{`${data?.user.firstName}`}</span>
+                <span className="truncate text-xs">{data?.user.email}</span>
+              </div>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            {/* <Link href={Routes.profile.index}>
+            <DropdownMenuItem>
+              <Cog />
+              {t('settings')}
+            </DropdownMenuItem>
+          </Link> */}
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={handleSinOut}>
+            <LogOut />
+            {t('logout')}
           </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BadgeCheck />
-            Account
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard />
-            Billing
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Bell />
-            Notifications
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut />
-          Log out
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+
+  return null;
 }
