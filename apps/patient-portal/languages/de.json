@@ -274,7 +274,7 @@
     "dialog": {
       "title": "Medizinisches Screening",
       "previous": "Zurück",
-      "finish": "Abschließen",
+      "finish": "Abschließen & Weiter",
       "next": "Speichern & Weiter",
       "submitting": "Absenden"
     },
