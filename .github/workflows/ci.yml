@@ -67,6 +67,8 @@ jobs:
 
     - name: Fetch AWS SSM Parameters and Build .env
       run: |
+        branch_name="${GITHUB_REF##*/}"
+        echo "Using branch: $branch_name"
         echo "Fetching common parameters from AWS SSM..."
         NEXT_PUBLIC_BASE_URL=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/base_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
         echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/doctor-portal/.env
