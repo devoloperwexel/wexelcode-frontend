@@ -33,6 +33,10 @@ export const LinkProgressBar = () => {
     const mutationObserver = new MutationObserver(handleMutation);
     mutationObserver.observe(document, { childList: true, subtree: true });
 
+    if (!window) {
+      return mutationObserver.disconnect();
+    }
+
     window.history.pushState = new Proxy(window.history.pushState, {
       apply: (target, thisArg, argArray: PushStateInput) => {
         NProgress.done();
