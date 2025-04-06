@@ -267,7 +267,8 @@
     "medical": "Medizinisch",
     "personalDetails": "Persönliche Daten",
     "medicalDetails": "Medizinische Daten",
-    "save": "Speichern"
+    "save": "Speichern",
+    "submitting": "Absenden"
   },
   "questionnaire": {
     "dialog": {

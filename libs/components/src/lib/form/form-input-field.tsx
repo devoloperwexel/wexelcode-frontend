@@ -55,6 +55,7 @@ const FormInputField = ({
                 <Input
                   placeholder={placeholder}
                   {...field}
+                  className="capitalize"
                   type={type}
                   onChange={handleChange}
                 />

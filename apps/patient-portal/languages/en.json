@@ -267,7 +267,8 @@
     "medical": "Medical",
     "personalDetails": "Personal Details",
     "medicalDetails": "Medical Details",
-    "save": "Save"
+    "save": "Save",
+    "submitting": "Submitting"
   },
   "questionnaire": {
     "dialog": {
