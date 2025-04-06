@@ -45,7 +45,7 @@ export default function QuestionForm({
   const { data: userData } = useSession();
 
   const { isLoading, data } = useGetQuestionsByQuestionnaireId({
-    id: questionnaire.id,
+    id: questionnaire?.id,
     page: 1,
     limit: 20,
     includes: ['child-questions'],
@@ -78,14 +78,11 @@ export default function QuestionForm({
   const handleSubmit = async (data: any) => {
     if (!userData) return;
     if (!disabled) {
-      console.log(data);
-
       const filteredData = Object.fromEntries(
         Object.entries(data).filter(
           ([_, value]) => value !== null && value !== undefined
         )
       );
-      console.log(filteredData);
 
       await save({ userId: userData.user?.id, ...filteredData });
     }
