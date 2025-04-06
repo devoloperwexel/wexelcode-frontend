@@ -2,11 +2,12 @@
 
 import { logo } from '@wexelcode/assets';
 import { LocalSwitcher } from '@wexelcode/components';
-import { Link } from '../../i18n/routing';
+import Image from 'next/image';
+
 import Locales from '../../constants/locales';
+import { Link } from '../../i18n/routing';
 import { UserMenu } from '../user-menu';
 import Navigation from './navigation';
-import Image from 'next/image';
 
 export function Header() {
   return (

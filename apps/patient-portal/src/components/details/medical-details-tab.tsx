@@ -11,11 +11,11 @@ import {
 import { useGetPatientByUserId, useUpdatePatient } from '@wexelcode/hooks';
 import { getDirtyValues } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { MedicalDetailsForm } from './medical-details-form';
-import { useTranslations } from 'next-intl';
 
 export function MedicalDetailsTab() {
   const { data: userData } = useSession();
