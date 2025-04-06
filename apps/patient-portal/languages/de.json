@@ -274,7 +274,8 @@
       "title": "Medizinisches Screening",
       "previous": "Zurück",
       "finish": "Abschließen",
-      "next": "Weiter"
+      "next": "Speichern & Weiter",
+      "submitting": "Absenden"
     },
     "trigger": {
       "noScreening": "Keine Screening-Information verfügbar",

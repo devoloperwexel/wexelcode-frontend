@@ -274,7 +274,8 @@
       "title": "Medical Screening",
       "previous": "Previous",
       "finish": "Finish",
-      "next": "Next"
+      "next": "Save & Next",
+      "submitting": "Submitting"
     },
     "trigger": {
       "noScreening": "No screening information available",
