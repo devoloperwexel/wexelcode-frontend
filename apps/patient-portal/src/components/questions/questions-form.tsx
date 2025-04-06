@@ -60,7 +60,7 @@ export default function QuestionForm({
     disabled: disabled,
   });
 
-  const { mutateAsync: save } = useSaveAnswers();
+  const { mutateAsync: save, isPending } = useSaveAnswers();
 
   const handleOnClickPrevious = () => {
     onChangeIndex(index - 1);
@@ -147,8 +147,12 @@ export default function QuestionForm({
             <Text variant="muted">
               {index + 1} / {total}
             </Text>
-            <Button type="submit">
-              {index + 1 === total ? t('finish') : t('next')}
+            <Button type="submit" loading={isPending} disabled={isPending}>
+              {isPending
+                ? `${t('submitting')}...`
+                : index + 1 === total
+                ? t('finish')
+                : t('next')}
             </Button>
           </div>
         </form>
