@@ -18,7 +18,6 @@ import {
   ParentQuestionsFormInput,
 } from './questions-form-input';
 import QuestionsLoading from './questions-loading';
-
 interface QuestionFormProps {
   questionnaire: Questionnaire;
   index: number;
@@ -68,7 +67,7 @@ export default function QuestionForm({
   };
 
   const handleOnClickNext = () => {
-    if (index === total) {
+    if (index + 1 === total) {
       // TODO: Navigate to the back
     } else {
       onChangeIndex(index + 1);
@@ -103,7 +102,7 @@ export default function QuestionForm({
   return (
     <div className="animate-fadeIn h-full pb-4">
       <Text variant="large" weight="semibold">
-        {questionnaire.name[local]}
+        {questionnaire?.name[local]}
       </Text>
 
       <Form {...form}>
@@ -149,7 +148,7 @@ export default function QuestionForm({
               {index + 1} / {total}
             </Text>
             <Button type="submit">
-              {index === total ? t('finish') : t('next')}
+              {index + 1 === total ? t('finish') : t('next')}
             </Button>
           </div>
         </form>
