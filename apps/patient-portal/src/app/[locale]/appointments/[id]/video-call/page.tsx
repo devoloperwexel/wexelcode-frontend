@@ -2,6 +2,7 @@ import { GetZoomToken } from '@wexelcode/api';
 import { auth } from '@wexelcode/auth';
 import { notFound } from 'next/navigation';
 import React from 'react';
+
 import ZoomVideoCallPageView from './page-content';
 
 interface AppointmentDetailsPageProps {
@@ -24,7 +25,7 @@ const VideoCallPage = async ({ params }: AppointmentDetailsPageProps) => {
         token={zoomTokenResponse!.data.token}
       />
     );
-  } catch (e) {
+  } catch (_error) {
     notFound();
   }
 };

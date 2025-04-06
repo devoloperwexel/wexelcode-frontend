@@ -1,11 +1,13 @@
 'use client';
 
-import uitoolkit from '@zoom/videosdk-ui-toolkit';
 import '@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css';
-import Routes from 'apps/patient-portal/src/constants/routes';
-import { useRouter } from 'apps/patient-portal/src/i18n/routing';
+
+import uitoolkit from '@zoom/videosdk-ui-toolkit';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
+
+import { useRouter } from '../../../../../../src/i18n/routing';
+import Routes from '../../../../../constants/routes';
 
 type Props = {
   appointmentId: string;
