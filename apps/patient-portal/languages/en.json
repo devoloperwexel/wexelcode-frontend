@@ -274,7 +274,7 @@
     "dialog": {
       "title": "Medical Screening",
       "previous": "Previous",
-      "finish": "Finish",
+      "finish": "Save & Finish",
       "next": "Save & Next",
       "submitting": "Submitting"
     },
