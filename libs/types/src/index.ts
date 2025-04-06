@@ -8,3 +8,4 @@ export * from './lib/navigation';
 export * from './lib/patients';
 export * from './lib/questions';
 export * from './lib/user';
+export * from './lib/zoom';
