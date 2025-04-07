@@ -1,8 +1,10 @@
 import {
+  GetAllQuestionsRequest,
   GetQuestionnaireByQuestionnaireIdRequest,
   GetQuestionnaireRequest,
   GetQuestionnaireResponse,
   GetQuestionsResponse,
+  Questionnaire,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
@@ -32,4 +34,30 @@ export const GetQuestionnaireByQuestionnaireId = async (
   );
 
   return response?.data;
+};
+
+export const GetAllQuestions = async (params: GetAllQuestionsRequest) => {
+  const response = await request<GetQuestionsResponse>(
+    API.GET_ALL_QUESTIONS,
+    null,
+    {
+      params,
+    }
+  );
+
+  return response?.data.results.reduce<Questionnaire[]>((acc, question) => {
+    const questionnaireIndex = acc.findIndex(
+      (q) => q.id === question.questionnaireId
+    );
+
+    if (questionnaireIndex === -1 && question.questionnaire) {
+      const questionnaire = question.questionnaire;
+      questionnaire.questions = [question];
+      acc.push(questionnaire);
+    } else {
+      acc[questionnaireIndex].questions?.push(question);
+    }
+
+    return acc;
+  }, []);
 };
