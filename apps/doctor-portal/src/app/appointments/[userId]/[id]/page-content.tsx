@@ -8,8 +8,8 @@ import {
 import {
   AppointmentOverviewTab,
   AppointmentPatientTab,
+  AppointmentScreeningTab,
 } from '../../../../components/appointments';
-import { AppointmentScreeningTab } from '../../../../components/appointments/screening-tab';
 
 interface AppointmentDetailsPageProps {
   userId: string;
