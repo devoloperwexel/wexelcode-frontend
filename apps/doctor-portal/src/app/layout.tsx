@@ -1,5 +1,6 @@
 import { AuthProvider } from '@wexelcode/auth';
 import { DashboardLayout } from '@wexelcode/layouts';
+import { QueryProvider } from '@wexelcode/react-query';
 import { ThemeProvider } from '@wexelcode/theme';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
@@ -28,19 +29,21 @@ export default async function RootLayout({
       <ThemeProvider>
         <html lang={locale}>
           <body>
-            <NextIntlClientProvider messages={messages}>
-              <DashboardLayout
-                items={DashboardNavigationItems}
-                actionComponent={
-                  <div className="ml-auto flex items-center gap-2 px-4">
-                    <LanguageSwitch languages={Languages} />
-                    <UserMenu />
-                  </div>
-                }
-              >
-                {children}
-              </DashboardLayout>
-            </NextIntlClientProvider>
+            <QueryProvider>
+              <NextIntlClientProvider messages={messages}>
+                <DashboardLayout
+                  items={DashboardNavigationItems}
+                  actionComponent={
+                    <div className="ml-auto flex items-center gap-2 px-4">
+                      <LanguageSwitch languages={Languages} />
+                      <UserMenu />
+                    </div>
+                  }
+                >
+                  {children}
+                </DashboardLayout>
+              </NextIntlClientProvider>
+            </QueryProvider>
           </body>
         </html>
       </ThemeProvider>
