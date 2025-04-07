@@ -26,6 +26,7 @@ const VideoCallPage = async ({ params }: AppointmentDetailsPageProps) => {
       />
     );
   } catch (_error) {
+    // redirect 404 page
     notFound();
   }
 };
