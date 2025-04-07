@@ -147,7 +147,11 @@ export default function QuestionForm({
             <Text variant="muted">
               {index + 1} / {total}
             </Text>
-            <Button type="submit" loading={isPending} disabled={isPending}>
+            <Button
+              type="submit"
+              loading={isPending}
+              disabled={isPending || !form.formState.isDirty}
+            >
               {isPending
                 ? `${t('submitting')}...`
                 : index + 1 === total

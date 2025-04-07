@@ -32,30 +32,28 @@ const DropdownSelector: React.FC<DropdownSelectorProps> = ({
   const selectedOption = options.find((option) => option.value === value);
 
   return (
-    <div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild className="w-full">
-          <Button
-            variant="outline"
-            className="w-full flex items-center justify-between"
-          >
-            <div className="text-sm font-normal">
-              {selectedOption ? selectedOption.label : placeholder}
-            </div>
-            <ChevronDown className="h-4 w-4 opacity-50" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-100" align="start">
-          <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
-            {options.map((option) => (
-              <DropdownMenuRadioItem key={option.value} value={option.value}>
-                {option.label}
-              </DropdownMenuRadioItem>
-            ))}
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild className="w-full">
+        <Button
+          variant="outline"
+          className="w-full flex items-center justify-between"
+        >
+          <div className="text-sm font-normal">
+            {selectedOption ? selectedOption.label : placeholder}
+          </div>
+          <ChevronDown className="h-4 w-4 opacity-50" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-100" align="start">
+        <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
+          {options.map((option) => (
+            <DropdownMenuRadioItem key={option.value} value={option.value}>
+              {option.label}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

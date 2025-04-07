@@ -3,6 +3,7 @@ import { TranslatedField } from '../..';
 export interface Question {
   id: string;
   questionnaireId: string;
+  questionnaire?: Questionnaire;
   type: 'RADIO' | 'MULTIPLE_CHOICE' | 'TEXT';
   requiredQuestionId?: string;
   requiredAnswer?: TranslatedField;

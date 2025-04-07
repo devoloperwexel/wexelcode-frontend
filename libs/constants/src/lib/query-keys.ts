@@ -1,6 +1,7 @@
 export const QueryKeys = {
   doctors: 'DOCTORS',
   questionnaire: 'QUESTIONNAIRE',
+  questions: 'QUESTIONS',
   appointments: 'APPOINTMENTS',
   patients: 'PATIENTS',
   users: 'USERS',

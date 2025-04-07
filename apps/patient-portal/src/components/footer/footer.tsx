@@ -6,11 +6,17 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
-import { Link } from '../../i18n/routing';
+import { Link, usePathname } from '../../i18n/routing';
 
 export const Footer = () => {
   const t = useTranslations('footer');
-
+  const pathname = usePathname();
+  const hideLayout = /^\/appointments\/[0-9a-fA-F-]+\/video-call$/.test(
+    pathname
+  );
+  if (hideLayout) {
+    return <></>;
+  }
   return (
     <footer id="contact" className="bg-primary text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">

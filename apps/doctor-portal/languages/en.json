@@ -1,0 +1,46 @@
+{
+  "language": {
+    "de": "DE",
+    "en": "EN"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "userMenu": {
+    "login": "Login",
+    "register": "Register",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "appointments": {
+    "overviewTab": {
+      "title": "Appointment Information",
+      "date": "Date",
+      "time": "Time",
+      "status": "Status",
+      "type": "Appointment Type",
+      "video": "Video Consultation",
+      "minutes": "minutes"
+    },
+    "patientTab": {
+      "title": "Patient Information",
+      "personalDetails": "Personal Details",
+      "medicalDetails": "Medical Details",
+      "birthday": "Birthday",
+      "gender": "Gender",
+      "address": "Address",
+      "city": "City",
+      "state": "Country",
+      "zipCode": "Zipcode",
+      "languages": "Languages",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "mobile": "Mobile",
+      "occupation": "Occupation",
+      "weight": "Weight (kg)",
+      "height": "Height (cm)",
+      "activities": "Activities"
+    }
+  }
+}

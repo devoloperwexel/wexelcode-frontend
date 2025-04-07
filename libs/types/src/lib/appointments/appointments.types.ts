@@ -8,4 +8,5 @@ export interface Appointment extends Timestamps {
   appointmentTime: string;
   status: 'PENDING' | 'SUCCESS' | 'CANCELLED'; // TODO: Need confirmation on the status
   physioUser?: User;
+  patientUser?: User;
 }

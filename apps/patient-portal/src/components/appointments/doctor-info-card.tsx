@@ -28,7 +28,7 @@ export function DoctorInfoCard({ user }: DoctorInfoCardProps) {
       <CardContent className="grid grid-cols-2">
         <div className="flex items-center space-x-4">
           <PhysioAvatar className="h-[80px] w-[80px]" physioUser={user} />
-          <div className="flex flex-col space-y-1 uppercase">
+          <div className="flex flex-col space-y-1">
             <Text variant="large" weight="bold">
               {user.firstName} {user.lastName}
             </Text>

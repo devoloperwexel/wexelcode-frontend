@@ -6,26 +6,59 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   Separator,
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
   SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarProvider,
+  SidebarRail,
   SidebarTrigger,
 } from '@wexelcode/components';
+import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 
-import { AppSidebar } from './components/app-sidebar';
+import NavigationMenu from './components/navigation-menu';
 
-interface DashboardLayoutProps extends React.ComponentProps<typeof AppSidebar> {
-  userMenu: React.ReactNode;
+interface DashboardLayoutProps
+  extends React.ComponentProps<typeof NavigationMenu> {
+  actionComponent: React.ReactNode;
 }
 
 export function DashboardLayout({
   children,
-  userMenu,
+  actionComponent,
+  items,
   ...rest
 }: PropsWithChildren<DashboardLayoutProps>) {
   return (
     <SidebarProvider>
-      <AppSidebar {...rest} />
+      <Sidebar collapsible="icon" {...rest}>
+        <SidebarHeader>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton size="lg" asChild>
+                <Link href="/">
+                  <div className="flex flex-col gap-0.5 leading-none">
+                    <span className="text-xl font-bold text-primary">
+                      Wexelcode
+                    </span>
+                    <span className="">Doctor Portal</span>
+                  </div>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarHeader>
+        <SidebarContent>
+          <NavigationMenu items={items} />
+        </SidebarContent>
+        <SidebarFooter>{/* <NavUser user={data.user} /> */}</SidebarFooter>
+        <SidebarRail />
+      </Sidebar>
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b">
           <div className="flex items-center gap-2 px-4">
@@ -45,9 +78,10 @@ export function DashboardLayout({
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <div className="ml-auto px-3">{userMenu}</div>
+
+          {actionComponent}
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+        <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

@@ -2,13 +2,21 @@
 
 import { logo } from '@wexelcode/assets';
 import { LocalSwitcher } from '@wexelcode/components';
-import { Link } from '../../i18n/routing';
-import Locales from '../../constants/locales';
-import { UserMenu } from '../user-menu';
-import Navigation from './navigation';
 import Image from 'next/image';
 
+import Locales from '../../constants/locales';
+import { Link, usePathname } from '../../i18n/routing';
+import { UserMenu } from '../user-menu';
+import Navigation from './navigation';
+
 export function Header() {
+  const pathname = usePathname();
+  const hideLayout = /^\/appointments\/[0-9a-fA-F-]+\/video-call$/.test(
+    pathname
+  );
+  if (hideLayout) {
+    return <></>;
+  }
   return (
     <nav className="bg-white shadow-sm py-4 sticky top-0 z-50">
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
