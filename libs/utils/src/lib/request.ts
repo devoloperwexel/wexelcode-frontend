@@ -21,19 +21,6 @@ const parseJSON = <T>(response: AxiosResponse<T, any>) => {
   return response.data;
 };
 
-/**
- * Checks if a network request came back fine, and throws an error if not
- *
- * @param  {object} response   A response from a network request
- *
- * @return {object|undefined} Returns either the response, or throws an error
- */
-const errorHandling = async (error: any) => {
-  const errorResponse = new ResponseError(error);
-  errorResponse.message = error?.response?.data;
-  throw errorResponse;
-};
-
 export const request = async <T>(
   _metadata: any,
   _data: any,
@@ -89,6 +76,6 @@ export const request = async <T>(
     return parseJSON<T>(response);
   } catch (error) {
     console.log(error);
-    return errorHandling(error);
+    throw error;
   }
 };

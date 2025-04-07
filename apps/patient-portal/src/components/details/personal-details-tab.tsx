@@ -24,7 +24,7 @@ export function PersonalDetailsTab() {
 
   const { data: userData } = useSession();
 
-  const { mutate: update } = useUpdateUser();
+  const { mutate: update, isPending } = useUpdateUser();
 
   useEffect(() => {
     if (!userData?.user) return;
@@ -53,7 +53,12 @@ export function PersonalDetailsTab() {
           </CardContent>
 
           <CardFooter className="flex justify-end">
-            <Button disabled={!form.formState.isDirty}>{t('save')}</Button>
+            <Button
+              disabled={!form.formState.isDirty || isPending}
+              loading={isPending}
+            >
+              {isPending ? `${t('submitting')}...` : t('save')}
+            </Button>
           </CardFooter>
         </Card>
       </form>

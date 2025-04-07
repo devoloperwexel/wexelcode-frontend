@@ -3,10 +3,12 @@ name: Wexel Patient & Physio Frontend Build, Push ECR & Deploy
 on:
   push:
     branches:
-      - dev
-      - staging
-      - main
+    - dev
+    - qa
+    - staging
+    - main
   pull_request:
+
 
 permissions:
   actions: read
@@ -18,22 +20,22 @@ jobs:
     name: 'Run Linting 🔍'
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
 
-      - run: npm install -g pnpm
-      - run: pnpm install --frozen-lockfile
+    - run: npm install -g pnpm
+    - run: pnpm install --frozen-lockfile
 
-      - name: Run Lint
-        run: pnpm run lint
+    - name: Run Lint
+      run: pnpm run lint
 
-      - name: Run build
-        run: pnpm nx run-many -t build
+    - name: Run build
+      run: pnpm nx run-many -t build
 
   build-and-push:
     runs-on: ubuntu-latest
@@ -42,107 +44,110 @@ jobs:
     outputs:
       affected_apps: ${{ steps.affected.outputs.apps }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
 
-      - run: npm install -g pnpm
-      - run: pnpm install --frozen-lockfile
+    - run: npm install -g pnpm
+    - run: pnpm install --frozen-lockfile
 
-      # Nx Affected logic
-      - name: Sets the base and head SHAs for the nx affected commands in CI
-        uses: nrwl/nx-set-shas@v4
+    # Nx Affected logic
+    - name: Sets the base and head SHAs for the nx affected commands in CI
+      uses: nrwl/nx-set-shas@v4
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Fetch AWS SSM Parameters and Build .env
-        run: |
-          echo "Fetching common parameters from AWS SSM..."
-          NEXT_PUBLIC_BASE_URL=$(aws ssm get-parameter --name "/wexel/dev/frontend/base_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/doctor-portal/.env
-          echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/patient-portal/.env
-          AUTH_KEYCLOAK_ISSUER=$(aws ssm get-parameter --name "/wexel/dev/frontend/keycloak_issuer" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "AUTH_KEYCLOAK_ISSUER=$AUTH_KEYCLOAK_ISSUER" >> apps/doctor-portal/.env
-          echo "AUTH_KEYCLOAK_ISSUER=$AUTH_KEYCLOAK_ISSUER" >> apps/patient-portal/.env
+    - name: Fetch AWS SSM Parameters and Build .env
+      run: |
+        branch_name="${GITHUB_REF##*/}"
+        echo "Using branch: $branch_name"
 
-          echo "Fetching patient parameters from AWS SSM..."
-          AUTH_PATIENT_KEYCLOAK_ID=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/keycloak_client_id" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "AUTH_KEYCLOAK_ID=$AUTH_PATIENT_KEYCLOAK_ID" >> apps/patient-portal/.env
-          AUTH_PATIENT_KEYCLOAK_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/keycloak_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "AUTH_KEYCLOAK_SECRET=$AUTH_PATIENT_KEYCLOAK_SECRET" >> apps/patient-portal/.env
-          AUTH_PATIENT_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/next_auth_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "AUTH_SECRET=$AUTH_PATIENT_SECRET" >> apps/patient-portal/.env
-          AUTH_PATIENT_URL=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/next_auth_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "NEXTAUTH_URL=$AUTH_PATIENT_URL" >> apps/patient-portal/.env
-          STRIPE_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/stripe_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "STRIPE_CLIENT_SECRET=$STRIPE_SECRET" >> apps/patient-portal/.env
-          STRIPE_PUBLISHABLE_KEY=$(aws ssm get-parameter --name "/wexel/dev/frontend/patient/stripe_publisher_key" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY" >> apps/patient-portal/.env
+        echo "Fetching common parameters from AWS SSM..."
+        NEXT_PUBLIC_BASE_URL=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/base_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/doctor-portal/.env
+        echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> apps/patient-portal/.env
 
+        echo "Fetching patient parameters from AWS SSM..."
+        AUTH_KEYCLOAK_ISSUER=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/patient/keycloak_issuer" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_KEYCLOAK_ISSUER=$AUTH_KEYCLOAK_ISSUER" >> apps/patient-portal/.env
+        AUTH_PATIENT_KEYCLOAK_ID=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/patient/keycloak_client_id" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_KEYCLOAK_ID=$AUTH_PATIENT_KEYCLOAK_ID" >> apps/patient-portal/.env
+        AUTH_PATIENT_KEYCLOAK_SECRET=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/patient/keycloak_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_KEYCLOAK_SECRET=$AUTH_PATIENT_KEYCLOAK_SECRET" >> apps/patient-portal/.env
+        AUTH_PATIENT_SECRET=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/patient/next_auth_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_SECRET=$AUTH_PATIENT_SECRET" >> apps/patient-portal/.env
+        AUTH_PATIENT_URL=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/patient/next_auth_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "NEXTAUTH_URL=$AUTH_PATIENT_URL" >> apps/patient-portal/.env
+        STRIPE_SECRET=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/patient/stripe_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "STRIPE_CLIENT_SECRET=$STRIPE_SECRET" >> apps/patient-portal/.env
+        STRIPE_PUBLISHABLE_KEY=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/patient/stripe_publisher_key" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY" >> apps/patient-portal/.env
 
-          echo "Fetching physio parameters from AWS SSM..."
-          AUTH_PHYSIO_KEYCLOAK_ID=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/keycloak_client_id" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "AUTH_KEYCLOAK_ID=$AUTH_PHYSIO_KEYCLOAK_ID" >> apps/doctor-portal/.env
-          AUTH_PHYSIO_KEYCLOAK_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/keycloak_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "AUTH_KEYCLOAK_SECRET=$AUTH_PHYSIO_KEYCLOAK_SECRET" >> apps/doctor-portal/.env
-          AUTH_PHYSIO_SECRET=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/next_auth_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "AUTH_SECRET=$AUTH_PHYSIO_SECRET" >> apps/doctor-portal/.env
-          AUTH_PHYSIO_URL=$(aws ssm get-parameter --name "/wexel/dev/frontend/physio/next_auth_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
-          echo "NEXTAUTH_URL=$AUTH_PHYSIO_URL" >> apps/doctor-portal/.env
+        echo "Fetching physio parameters from AWS SSM..."
+        AUTH_KEYCLOAK_ISSUER=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/physio/keycloak_issuer" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_KEYCLOAK_ISSUER=$AUTH_KEYCLOAK_ISSUER" >> apps/doctor-portal/.env
+        AUTH_PHYSIO_KEYCLOAK_ID=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/physio/keycloak_client_id" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_KEYCLOAK_ID=$AUTH_PHYSIO_KEYCLOAK_ID" >> apps/doctor-portal/.env
+        AUTH_PHYSIO_KEYCLOAK_SECRET=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/physio/keycloak_client_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_KEYCLOAK_SECRET=$AUTH_PHYSIO_KEYCLOAK_SECRET" >> apps/doctor-portal/.env
+        AUTH_PHYSIO_SECRET=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/physio/next_auth_secret" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "AUTH_SECRET=$AUTH_PHYSIO_SECRET" >> apps/doctor-portal/.env
+        AUTH_PHYSIO_URL=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/physio/next_auth_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
+        echo "NEXTAUTH_URL=$AUTH_PHYSIO_URL" >> apps/doctor-portal/.env
 
-          echo "Generated .env files"
+        echo "Generated .env files"
 
-      - name: Build Affected Projects
-        run: npx nx affected -t build --verbose
+    - name: Build Affected Projects
+      run: npx nx affected -t build --verbose
 
-      - name: Get Affected Projects
-        id: affected
-        run: |
-          APPS=$(npx nx show projects --affected | tr '\n' ' ')
-          echo "apps=$APPS" >> $GITHUB_OUTPUT
-          echo "Affected projects: $APPS"
+    - name: Get Affected Projects
+      id: affected
+      run: |
+        APPS=$(npx nx show projects --affected | tr '\n' ' ')
+        echo "apps=$APPS" >> $GITHUB_OUTPUT
+        echo "Affected projects: $APPS"
 
-      - name: Login to Amazon ECR
-        if: contains(steps.affected.outputs.apps, 'patient-portal') || contains(steps.affected.outputs.apps, 'physio-portal')
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+    - name: Login to Amazon ECR
+      if: contains(steps.affected.outputs.apps, 'patient-portal') || contains(steps.affected.outputs.apps, 'physio-portal')
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build & Push Patient Portal Docker Image
-        if: contains(steps.affected.outputs.apps, 'patient-portal')
-        id: patient-image
-        env:
-          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.run_number }}
-        run: |
-          cd apps/patient-portal
-          echo "Building Patient Portal Docker Image..."
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY/patient:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY/patient:$IMAGE_TAG
-          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+    - name: Build & Push Patient Portal Docker Image
+      if: contains(steps.affected.outputs.apps, 'patient-portal')
+      id: patient-image
+      env:
+        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+        ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        IMAGE_TAG: ${{ github.run_number }}
+      run: |
+        cd apps/patient-portal
+        echo "Building Patient Portal Docker Image..."
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY/patient:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY/patient:$IMAGE_TAG
+        echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-      - name: Build & Push Physio Portal Docker Image
-        if: contains(steps.affected.outputs.apps, 'doctor-portal')
-        id: physio-image
-        env:
-          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.run_number }}
-        run: |
-          cd apps/doctor-portal
-          echo "Building Physio Portal Docker Image..."
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY/physio:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY/physio:$IMAGE_TAG
-          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+    - name: Build & Push Physio Portal Docker Image
+      if: contains(steps.affected.outputs.apps, 'doctor-portal')
+      id: physio-image
+      env:
+        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+        ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        IMAGE_TAG: ${{ github.run_number }}
+      run: |
+        cd apps/doctor-portal
+        echo "Building Physio Portal Docker Image..."
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY/physio:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY/physio:$IMAGE_TAG
+        echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
   deploy-dev:
     runs-on: ubuntu-latest
@@ -152,45 +157,93 @@ jobs:
     env:
       APPS: ${{ needs.build-and-push.outputs.affected_apps }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Sets the base and head SHAs for the nx affected commands in CI
-        uses: nrwl/nx-set-shas@v4
+    - name: Sets the base and head SHAs for the nx affected commands in CI
+      uses: nrwl/nx-set-shas@v4
 
-      - name: Configure AWS Credentials
-        if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
+    - name: Configure AWS Credentials
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Update kubeconfig
-        if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
-        run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+    - name: Update kubeconfig
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
 
-      - name: Deploy Patient Portal to Dev
-        if: contains(env.APPS, 'patient-portal')
-        run: |
-          cd apps/patient-portal
-          echo "Deploying to Dev"
-          sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
-          sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
-          kubectl apply -f ./manifests/deployment.yaml -n dev
-          kubectl apply -f ./manifests/service.yaml -n dev
-          echo "Patient Portal Deployment to Dev completed successfully! 🔥"
+    - name: Deploy Patient Portal to Dev
+      if: contains(env.APPS, 'patient-portal')
+      run: |
+        cd apps/patient-portal
+        echo "Deploying to Dev"
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n dev
+        kubectl apply -f ./manifests/service.yaml -n dev
+        echo "Patient Portal Deployment to Dev completed successfully! 🔥"
 
-      - name: Deploy Physio Portal to Dev
-        if: contains(env.APPS, 'doctor-portal')
-        run: |
-          cd apps/doctor-portal
-          echo "Deploying to Dev..."
-          sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
-          sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
-          kubectl apply -f ./manifests/deployment.yaml -n dev
-          kubectl apply -f ./manifests/service.yaml -n dev
-          echo "Physio Portal Deployment to Dev completed successfully! 🔥"
+    - name: Deploy Physio Portal to Dev
+      if: contains(env.APPS, 'doctor-portal')
+      run: |
+        cd apps/doctor-portal
+        echo "Deploying to Dev..."
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n dev
+        kubectl apply -f ./manifests/service.yaml -n dev
+        echo "Physio Portal Deployment to Dev completed successfully! 🔥"
+
+  deploy-qa:
+    runs-on: ubuntu-latest
+    name: 'Deploy to QA Environment 🚀'
+    if: github.ref == 'refs/heads/qa'
+    needs: build-and-push
+    env:
+      APPS: ${{ needs.build-and-push.outputs.affected_apps }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Sets the base and head SHAs for the nx affected commands in CI
+      uses: nrwl/nx-set-shas@v4
+
+    - name: Configure AWS Credentials
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Update kubeconfig
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+
+    - name: Deploy Patient Portal to QA
+      if: contains(env.APPS, 'patient-portal')
+      run: |
+        cd apps/patient-portal
+        echo "Deploying to QA"
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n qa
+        kubectl apply -f ./manifests/service.yaml -n qa
+        echo "Patient Portal Deployment to Dev completed successfully! 🔥"
+
+    - name: Deploy Physio Portal to QA
+      if: contains(env.APPS, 'doctor-portal')
+      run: |
+        cd apps/doctor-portal
+        echo "Deploying to QA..."
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n qa
+        kubectl apply -f ./manifests/service.yaml -n qa
+        echo "Physio Portal Deployment to QA completed successfully! 🔥"
 
   deploy-staging:
     runs-on: ubuntu-latest
@@ -200,45 +253,45 @@ jobs:
     env:
       APPS: ${{ needs.build-and-push.outputs.affected_apps }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Sets the base and head SHAs for the nx affected commands in CI
-        uses: nrwl/nx-set-shas@v4
+    - name: Sets the base and head SHAs for the nx affected commands in CI
+      uses: nrwl/nx-set-shas@v4
 
-      - name: Configure AWS Credentials
-        if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
+    - name: Configure AWS Credentials
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Update kubeconfig
-        if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
-        run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+    - name: Update kubeconfig
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
 
-      - name: Deploy Patient Portal to Staging
-        if: contains(env.APPS, 'patient-portal')
-        run: |
-          cd apps/patient-portal
-          echo "Deploying to Staging"
-          sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
-          sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
-          kubectl apply -f ./manifests/deployment.yaml -n staging
-          kubectl apply -f ./manifests/service.yaml -n staging
-          echo "Patient Portal Deployment to Staging completed successfully! 🔥"
+    - name: Deploy Patient Portal to Staging
+      if: contains(env.APPS, 'patient-portal')
+      run: |
+        cd apps/patient-portal
+        echo "Deploying to Staging"
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n staging
+        kubectl apply -f ./manifests/service.yaml -n staging
+        echo "Patient Portal Deployment to Staging completed successfully! 🔥"
 
-      - name: Deploy Physio Portal to Staging
-        if: contains(env.APPS, 'doctor-portal')
-        run: |
-          cd apps/doctor-portal
-          echo "Deploying to Staging..."
-          sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
-          sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
-          kubectl apply -f ./manifests/deployment.yaml -n staging
-          kubectl apply -f ./manifests/service.yaml -n staging
-          echo "Physio Portal Deployment to Staging completed successfully! 🔥"
+    - name: Deploy Physio Portal to Staging
+      if: contains(env.APPS, 'doctor-portal')
+      run: |
+        cd apps/doctor-portal
+        echo "Deploying to Staging..."
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n staging
+        kubectl apply -f ./manifests/service.yaml -n staging
+        echo "Physio Portal Deployment to Staging completed successfully! 🔥"
 
   deploy-prod:
     runs-on: ubuntu-latest
@@ -248,42 +301,42 @@ jobs:
     env:
       APPS: ${{ needs.build-and-push.outputs.affected_apps }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Sets the base and head SHAs for the nx affected commands in CI
-        uses: nrwl/nx-set-shas@v4
+    - name: Sets the base and head SHAs for the nx affected commands in CI
+      uses: nrwl/nx-set-shas@v4
 
-      - name: Configure AWS Credentials
-        if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
+    - name: Configure AWS Credentials
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Update kubeconfig
-        if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
-        run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+    - name: Update kubeconfig
+      if: contains(env.APPS, 'patient-portal') || contains(env.APPS, 'physio-portal')
+      run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
 
-      - name: Deploy Patient Portal to Prod
-        if: contains(env.APPS, 'patient-portal')
-        run: |
-          cd apps/patient-portal
-          echo "Deploying to Prod"
-          sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
-          sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
-          kubectl apply -f ./manifests/deployment.yaml -n prod
-          kubectl apply -f ./manifests/service.yaml -n prod
-          echo "Patient Portal Deployment to Production completed successfully! 🔥"
+    - name: Deploy Patient Portal to Prod
+      if: contains(env.APPS, 'patient-portal')
+      run: |
+        cd apps/patient-portal
+        echo "Deploying to Prod"
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/patient|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n prod
+        kubectl apply -f ./manifests/service.yaml -n prod
+        echo "Patient Portal Deployment to Production completed successfully! 🔥"
 
-      - name: Deploy Physio Portal to Prod
-        if: contains(env.APPS, 'doctor-portal')
-        run: |
-          cd apps/doctor-portal
-          echo "Deploying to Prod..."
-          sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
-          sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
-          kubectl apply -f ./manifests/deployment.yaml -n prod
-          kubectl apply -f ./manifests/service.yaml -n prod
-          echo "Physio Portal Deployment to Production completed successfully! 🔥"
+    - name: Deploy Physio Portal to Prod
+      if: contains(env.APPS, 'doctor-portal')
+      run: |
+        cd apps/doctor-portal
+        echo "Deploying to Prod..."
+        sed -i "s|<IMAGE>|${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}/physio|g" ./manifests/deployment.yaml
+        sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
+        kubectl apply -f ./manifests/deployment.yaml -n prod
+        kubectl apply -f ./manifests/service.yaml -n prod
+        echo "Physio Portal Deployment to Production completed successfully! 🔥"

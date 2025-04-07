@@ -267,14 +267,16 @@
     "medical": "Medizinisch",
     "personalDetails": "Persönliche Daten",
     "medicalDetails": "Medizinische Daten",
-    "save": "Speichern"
+    "save": "Speichern",
+    "submitting": "Absenden"
   },
   "questionnaire": {
     "dialog": {
       "title": "Medizinisches Screening",
       "previous": "Zurück",
-      "finish": "Abschließen",
-      "next": "Weiter"
+      "finish": "Speichern & Abschließen",
+      "next": "Speichern & Weiter",
+      "submitting": "Absenden"
     },
     "trigger": {
       "noScreening": "Keine Screening-Information verfügbar",

@@ -267,14 +267,16 @@
     "medical": "Medical",
     "personalDetails": "Personal Details",
     "medicalDetails": "Medical Details",
-    "save": "Save"
+    "save": "Save",
+    "submitting": "Submitting"
   },
   "questionnaire": {
     "dialog": {
       "title": "Medical Screening",
       "previous": "Previous",
-      "finish": "Finish",
-      "next": "Next"
+      "finish": "Save & Finish",
+      "next": "Save & Next",
+      "submitting": "Submitting"
     },
     "trigger": {
       "noScreening": "No screening information available",

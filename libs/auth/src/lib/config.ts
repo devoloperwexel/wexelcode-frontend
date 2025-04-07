@@ -24,6 +24,7 @@ const config: NextAuthConfig = {
   ],
   session: {
     strategy: 'jwt',
+    maxAge: 30 * 60,
   },
   events: {
     signOut: async (message) => {

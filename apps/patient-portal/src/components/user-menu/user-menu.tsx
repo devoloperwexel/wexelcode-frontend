@@ -58,7 +58,7 @@ export function UserMenu() {
         <Button variant={'ghost'}>
           <MyAvatar />
           <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">{`${data?.user.firstName} ${data?.user.lastName}`}</span>
+            <span className="truncate font-semibold capitalize">{`${data?.user.firstName} ${data?.user.lastName}`}</span>
             <span className="truncate text-xs">{data?.user.email}</span>
           </div>
           <ChevronsUpDown className="ml-auto size-4" />
@@ -77,7 +77,7 @@ export function UserMenu() {
               profileUrl={data?.user.profilePictureUrl}
             />
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">{`${data?.user.firstName}`}</span>
+              <span className="truncate font-semibold capitalize">{`${data?.user.firstName}`}</span>
               <span className="truncate text-xs">{data?.user.email}</span>
             </div>
           </div>

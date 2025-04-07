@@ -11,6 +11,7 @@ import {
 import { useGetPatientByUserId, useUpdatePatient } from '@wexelcode/hooks';
 import { getDirtyValues } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -23,7 +24,8 @@ export function MedicalDetailsTab() {
 
   const form = useForm();
 
-  const { mutate: update } = useUpdatePatient();
+  const { mutate: update, isPending } = useUpdatePatient();
+  const t = useTranslations('profile');
 
   useEffect(() => {
     form.reset(patientData);
@@ -45,7 +47,12 @@ export function MedicalDetailsTab() {
             <MedicalDetailsForm includeScreening />
           </CardContent>
           <CardFooter className="flex justify-end">
-            <Button>Save</Button>
+            <Button
+              loading={isPending}
+              disabled={!form.formState.isDirty || isPending}
+            >
+              {isPending ? `${t('submitting')}...` : t('save')}
+            </Button>
           </CardFooter>
         </Card>
       </form>

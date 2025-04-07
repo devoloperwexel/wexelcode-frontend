@@ -18,7 +18,6 @@ import {
   ParentQuestionsFormInput,
 } from './questions-form-input';
 import QuestionsLoading from './questions-loading';
-
 interface QuestionFormProps {
   questionnaire: Questionnaire;
   index: number;
@@ -45,7 +44,7 @@ export default function QuestionForm({
   const { data: userData } = useSession();
 
   const { isLoading, data } = useGetQuestionsByQuestionnaireId({
-    id: questionnaire.id,
+    id: questionnaire?.id,
     page: 1,
     limit: 20,
     includes: ['child-questions'],
@@ -61,14 +60,14 @@ export default function QuestionForm({
     disabled: disabled,
   });
 
-  const { mutateAsync: save } = useSaveAnswers();
+  const { mutateAsync: save, isPending } = useSaveAnswers();
 
   const handleOnClickPrevious = () => {
     onChangeIndex(index - 1);
   };
 
   const handleOnClickNext = () => {
-    if (index === total) {
+    if (index + 1 === total) {
       // TODO: Navigate to the back
     } else {
       onChangeIndex(index + 1);
@@ -78,14 +77,11 @@ export default function QuestionForm({
   const handleSubmit = async (data: any) => {
     if (!userData) return;
     if (!disabled) {
-      console.log(data);
-
       const filteredData = Object.fromEntries(
         Object.entries(data).filter(
           ([_, value]) => value !== null && value !== undefined
         )
       );
-      console.log(filteredData);
 
       await save({ userId: userData.user?.id, ...filteredData });
     }
@@ -106,7 +102,7 @@ export default function QuestionForm({
   return (
     <div className="animate-fadeIn h-full pb-4">
       <Text variant="large" weight="semibold">
-        {questionnaire.name[local]}
+        {questionnaire?.name[local]}
       </Text>
 
       <Form {...form}>
@@ -151,8 +147,16 @@ export default function QuestionForm({
             <Text variant="muted">
               {index + 1} / {total}
             </Text>
-            <Button type="submit">
-              {index === total ? t('finish') : t('next')}
+            <Button
+              type="submit"
+              loading={isPending}
+              disabled={isPending || !form.formState.isDirty}
+            >
+              {isPending
+                ? `${t('submitting')}...`
+                : index + 1 === total
+                ? t('finish')
+                : t('next')}
             </Button>
           </div>
         </form>

@@ -1,18 +1,34 @@
 'use client';
 
+import { logo } from '@wexelcode/assets';
 import { LocalSwitcher } from '@wexelcode/components';
-import Link from 'next/link';
+import Image from 'next/image';
 
 import Locales from '../../constants/locales';
+import { Link, usePathname } from '../../i18n/routing';
 import { UserMenu } from '../user-menu';
 import Navigation from './navigation';
 
 export function Header() {
+  const pathname = usePathname();
+  const hideLayout = /^\/appointments\/[0-9a-fA-F-]+\/video-call$/.test(
+    pathname
+  );
+  if (hideLayout) {
+    return <></>;
+  }
   return (
     <nav className="bg-white shadow-sm py-4 sticky top-0 z-50">
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         <div className="flex items-center">
-          <span className="text-xl font-bold text-primary">Wexelcode</span>
+          <Link href={'/'}>
+            <Image
+              src={logo}
+              alt="Wexelcode Logo"
+              className="h-12 w-auto"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </Link>
         </div>
 
         <Navigation />
