@@ -11,18 +11,6 @@ const DashboardNavigationItems: DashboardNavigationItem[] = [
     title: 'Appointments',
     url: '/appointments',
     icon: <CalendarCheck />,
-    items: [
-      {
-        title: 'Upcoming',
-        url: '/appointments/upcoming',
-        icon: <CalendarCheck />,
-      },
-      {
-        title: 'Past',
-        url: '/appointments/past',
-        icon: <CalendarCheck />,
-      },
-    ],
   },
 ];
 
