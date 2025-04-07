@@ -51,3 +51,15 @@ export const GetAppointmentsByUserId = async (
 
   return response?.data;
 };
+
+export const GetAllAppointments = async (params: GetAppointmentsRequest) => {
+  const response = await request<GetAppointmentsResponse>(
+    API.GET_ALL_APPOINTMENTS,
+    null,
+    {
+      params,
+    }
+  );
+
+  return response?.data;
+};

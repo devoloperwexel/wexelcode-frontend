@@ -1,7 +1,7 @@
-export interface NavigationItem {
+export interface DashboardNavigationItem {
   title: string;
   url: string;
-  //icon?: React.ReactNode;
+  icon?: React.ReactNode;
   isActive?: boolean;
-  items?: Array<NavigationItem>;
+  items?: Array<DashboardNavigationItem>;
 }

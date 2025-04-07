@@ -1,6 +1,6 @@
 const API = {
   GET_BY_ID: {
-    path: '/users/:userId/patient',
+    path: '/users/:userId/patient?includes=user',
     method: 'GET',
   },
   CREATE: {

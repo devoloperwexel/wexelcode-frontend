@@ -3,6 +3,10 @@ const API = {
     path: 'user/:userId/appointments',
     method: 'POST',
   },
+  GET_ALL_APPOINTMENTS: {
+    path: 'appointments',
+    method: 'GET',
+  },
   GET_APPOINTMENT_BY_ID: {
     path: 'user/:userId/appointments/:appointmentId',
     method: 'GET',
