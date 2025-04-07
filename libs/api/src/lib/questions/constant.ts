@@ -7,6 +7,10 @@ const API = {
     path: '/questionnaires/:id/questions',
     method: 'GET',
   },
+  GET_ALL_QUESTIONS: {
+    path: '/questions',
+    method: 'GET',
+  },
 };
 
 export default API;
