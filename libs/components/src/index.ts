@@ -1,3 +1,4 @@
+export * from './lib/accordion/accordion';
 export * from './lib/animation/animation-on-scroll';
 export * from './lib/avatar/avatar';
 export * from './lib/badge/badge';
@@ -7,6 +8,7 @@ export * from './lib/calendar/calendar';
 export * from './lib/card/card';
 export * from './lib/collapsible/collapsible';
 export * from './lib/command/command';
+export * from './lib/data-table';
 export * from './lib/date-picker/date-picker';
 export * from './lib/dialog/dialog';
 export * from './lib/dropdown-menu/dropdown-menu';
