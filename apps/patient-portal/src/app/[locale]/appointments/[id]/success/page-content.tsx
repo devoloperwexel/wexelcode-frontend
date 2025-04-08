@@ -5,20 +5,22 @@ import { CheckCircle } from 'lucide-react';
 
 import Routes from '../../../../../constants/routes';
 import { Link } from '../../../../../i18n/routing';
+import { useTranslations } from 'next-intl';
 
 export default function AppointmentSuccessPageContent() {
+  const t = useTranslations('appointments.paymentSuccess');
   return (
     <div className="h-fill flex flex-col items-center justify-center h-full space-y-6">
       <div className="text-center space-y-6 animate-[fade-in_0.5s_ease-out]">
         <CheckCircle className="w-24 h-24 text-green-500 mx-auto" />
         <div className="space-y-2">
-          <h1 className="text-4xl font-semibold text-foreground">Success!</h1>
-          <p className="text-xl text-muted-foreground">
-            Your appointment has been confirmed
-          </p>
+          <h1 className="text-4xl font-semibold text-foreground">
+            {t('success')}
+          </h1>
+          <p className="text-xl text-muted-foreground">{t('message')}</p>
           <div>
             <Link href={Routes.appointments}>
-              <Button>Go to appointments</Button>
+              <Button>{t('goToAppointment')}</Button>
             </Link>
           </div>
         </div>
