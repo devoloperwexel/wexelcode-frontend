@@ -22,19 +22,18 @@ import {
   DoctorAppointmentsTab,
   DoctorDetailsTitle,
 } from '../../../../components/doctors';
+import { GetDoctorResponse } from '@wexelcode/types';
 
 interface DoctorPageContentProps {
-  userId: string;
   initialDate: Date;
+  doctor: GetDoctorResponse;
 }
 
 export default function DoctorPageContent({
-  userId,
   initialDate,
+  doctor,
 }: DoctorPageContentProps) {
   const t = useTranslations('doctors.doctorPage');
-
-  const { data: response } = useGetDoctorByUserId(userId);
 
   return (
     <div className="grid grid-cols-3 gap-4 h-full">
@@ -42,33 +41,33 @@ export default function DoctorPageContent({
         <CardHeader className="flex items-center">
           <Avatar className="h-[120px] w-[120px]">
             <AvatarImage
-              src={response?.data.user.profilePictureUrl}
-              alt={`${response?.data.user.firstName} ${response?.data.user.lastName}`}
+              src={doctor?.data.user.profilePictureUrl}
+              alt={`${doctor?.data.user.firstName} ${doctor?.data.user.lastName}`}
             />
             <AvatarFallback>
-              {response?.data.user.firstName[0].toUpperCase()}
+              {doctor?.data.user.firstName[0].toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <CardTitle>
-            {response?.data.user.firstName} {response?.data.user.lastName}
+            {doctor?.data.user.firstName} {doctor?.data.user.lastName}
           </CardTitle>
-          <CardDescription>{response?.data.specialty}</CardDescription>
+          <CardDescription>{doctor?.data.specialty}</CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-2">
-          <Text>{response?.data.description}</Text>
+          <Text>{doctor?.data.description}</Text>
           <div className="space-y-4">
             <DoctorDetailsTitle
               title={t('gender')}
-              detail={response?.data.user.gender}
+              detail={doctor?.data.user.gender}
             />
             <DoctorDetailsTitle
               title={t('experience')}
-              detail={`${response?.data.totalYearsOfExperience} ${t('years')}`}
+              detail={`${doctor?.data.totalYearsOfExperience} ${t('years')}`}
             />
             <DoctorDetailsTitle
               title={t('languages')}
-              detail={response?.data.user.languages
+              detail={doctor?.data.user.languages
                 .map((language) => language)
                 .join(', ')}
             />
@@ -86,15 +85,15 @@ export default function DoctorPageContent({
               <TabsTrigger value="experience">{t('experience')}</TabsTrigger>
             </TabsList>
             <TabsContent value="appointments">
-              {response?.data.id && (
+              {doctor?.data.id && (
                 <DoctorAppointmentsTab
-                  doctor={response.data}
+                  doctor={doctor.data}
                   initialDate={initialDate}
                 />
               )}
             </TabsContent>
             <TabsContent value="experience">
-              <Text>{response?.data.description}</Text>
+              <Text>{doctor?.data.description}</Text>
             </TabsContent>
           </Tabs>
         </CardContent>
