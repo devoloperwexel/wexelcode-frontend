@@ -1,10 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogTrigger,
-  ProgressIndicator,
-  Text,
-} from '@wexelcode/components';
+import { Button, Dialog, ProgressIndicator, Text } from '@wexelcode/components';
 import { useGetAnswersSummery } from '@wexelcode/hooks';
 import {
   ClipboardListIcon,
@@ -15,6 +9,7 @@ import {
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
+import { useScreeningDialogStore } from '../../app/store';
 import { QuestionnaireDialog } from './questionnaires-dialog';
 
 interface QuestionnaireTriggerProps
@@ -37,19 +32,24 @@ export function QuestionnaireTrigger({
     appointmentId,
   });
 
+  const { isOpen, openDialog } = useScreeningDialogStore();
+
   return (
-    <Dialog>
+    <Dialog open={isOpen}>
       <div {...rest}>
         {!response || response.completedPercentage === 0 ? (
           <>
             <ClipboardListIcon className="w-12 h-12 mx-auto text-gray-400" />
             <p className="mt-2 text-gray-600">{t('noScreening')}</p>
-            <DialogTrigger asChild>
-              <Button variant="ghost" className="text-primary">
-                <PlusCircleIcon className="w-5 h-5 mr-1" />
-                {t('complete')}
-              </Button>
-            </DialogTrigger>
+
+            <Button
+              variant="ghost"
+              className="text-primary"
+              onClick={openDialog}
+            >
+              <PlusCircleIcon className="w-5 h-5 mr-1" />
+              {t('complete')}
+            </Button>
           </>
         ) : (
           <>
@@ -62,21 +62,24 @@ export function QuestionnaireTrigger({
             <Text variant="muted" align="center">
               {t('result')}
             </Text>
-            <DialogTrigger asChild>
-              <Button variant="ghost" className="text-primary text-md">
-                {disabled ? (
-                  <>
-                    <FileCheck className="w-5 h-5" />
-                    {t('view')}{' '}
-                  </>
-                ) : (
-                  <>
-                    <Edit className="w-5 h-5" />
-                    {t('edit')}
-                  </>
-                )}
-              </Button>
-            </DialogTrigger>
+
+            <Button
+              variant="ghost"
+              className="text-primary text-md"
+              onClick={openDialog}
+            >
+              {disabled ? (
+                <>
+                  <FileCheck className="w-5 h-5" />
+                  {t('view')}{' '}
+                </>
+              ) : (
+                <>
+                  <Edit className="w-5 h-5" />
+                  {t('edit')}
+                </>
+              )}
+            </Button>
           </>
         )}
       </div>

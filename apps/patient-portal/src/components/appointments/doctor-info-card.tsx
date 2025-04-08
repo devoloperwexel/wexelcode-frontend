@@ -6,10 +6,10 @@ import { User } from '@wexelcode/types';
 import { Award, Languages, User as UserIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 import { PhysioAvatar } from '../common';
 import { DoctorInfoLoadingSkeleton } from './loading-skeleton';
-import { Link } from '../../i18n/routing';
-import Routes from '../../constants/routes';
 
 interface DoctorInfoCardProps {
   user: User;

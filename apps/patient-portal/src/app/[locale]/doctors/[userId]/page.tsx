@@ -5,10 +5,10 @@ import {
 } from '@tanstack/react-query';
 import { GetDoctorByUserId } from '@wexelcode/api';
 import { QueryKeys } from '@wexelcode/constants';
+import { GetDoctorResponse } from '@wexelcode/types';
+import { notFound } from 'next/navigation';
 
 import DoctorPageContent from './page-content';
-import { notFound } from 'next/navigation';
-import { GetDoctorResponse } from '@wexelcode/types';
 
 interface DoctorPageProps {
   params: Promise<{

@@ -2,10 +2,10 @@
 
 import { Button } from '@wexelcode/components';
 import { CheckCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import Routes from '../../../../../constants/routes';
 import { Link } from '../../../../../i18n/routing';
-import { useTranslations } from 'next-intl';
 
 export default function AppointmentSuccessPageContent() {
   const t = useTranslations('appointments.paymentSuccess');

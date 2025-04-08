@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useScreeningDialogStore } from '../../app/store';
 import {
   ChildQuestionsFormInput,
   ParentQuestionsFormInput,
@@ -43,6 +44,8 @@ export default function QuestionForm({
 
   const { data: userData } = useSession();
 
+  const { closeDialog } = useScreeningDialogStore();
+
   const { isLoading, data } = useGetQuestionsByQuestionnaireId({
     id: questionnaire?.id,
     page: 1,
@@ -68,7 +71,7 @@ export default function QuestionForm({
 
   const handleOnClickNext = () => {
     if (index + 1 === total) {
-      // TODO: Navigate to the back
+      closeDialog();
     } else {
       onChangeIndex(index + 1);
     }
@@ -104,7 +107,6 @@ export default function QuestionForm({
       <Text variant="large" weight="semibold">
         {questionnaire?.name[local]}
       </Text>
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
