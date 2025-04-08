@@ -16,13 +16,13 @@ import {
   Text,
 } from '@wexelcode/components';
 import { useGetDoctorByUserId } from '@wexelcode/hooks';
+import { GetDoctorResponse } from '@wexelcode/types';
 import { useTranslations } from 'next-intl';
 
 import {
   DoctorAppointmentsTab,
   DoctorDetailsTitle,
 } from '../../../../components/doctors';
-import { GetDoctorResponse } from '@wexelcode/types';
 
 interface DoctorPageContentProps {
   initialDate: Date;
