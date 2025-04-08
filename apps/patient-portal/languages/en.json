@@ -230,6 +230,11 @@
       "history": "History",
       "noDataFound": "No Appointments Found",
       "createAppointment": "Book an Appointment"
+    },
+    "paymentSuccess": {
+      "success": "Success!",
+      "message": "Your appointment has been confirmed",
+      "goToAppointment": "Go to Appointments"
     }
   },
   "profile": {
