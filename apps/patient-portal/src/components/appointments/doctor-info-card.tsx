@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl';
 
 import { PhysioAvatar } from '../common';
 import { DoctorInfoLoadingSkeleton } from './loading-skeleton';
+import { Link } from '../../i18n/routing';
+import Routes from '../../constants/routes';
 
 interface DoctorInfoCardProps {
   user: User;
@@ -29,11 +31,16 @@ export function DoctorInfoCard({ user }: DoctorInfoCardProps) {
         <div className="flex items-center space-x-4">
           <PhysioAvatar className="h-[80px] w-[80px]" physioUser={user} />
           <div className="flex flex-col space-y-1">
-            <Text variant="large" weight="bold">
-              {user.firstName} {user.lastName}
-            </Text>
+            <Link href={`${Routes.doctors}/${user.id}`}>
+              <Text variant="large" weight="bold">
+                {user.firstName} {user.lastName}
+              </Text>
+            </Link>
+
             <Text className="text-primary">{doctor.data?.specialty}</Text>
-            <Text variant="muted">{doctor.data?.description}</Text>
+            <Text variant="muted" className=" line-clamp-4">
+              {doctor.data?.description}
+            </Text>
           </div>
         </div>
         <div className="flex flex-col space-y-2">
