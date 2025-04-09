@@ -200,7 +200,7 @@
   },
   "appointments": {
     "doctorInformationCard": {
-      "title": "Doctor Information",
+      "title": "Physio Information",
       "experience": "Experience",
       "gender": "Gender",
       "languages": "Languages",
