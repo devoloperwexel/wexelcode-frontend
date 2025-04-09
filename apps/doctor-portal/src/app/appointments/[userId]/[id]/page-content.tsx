@@ -1,14 +1,17 @@
+'use client';
+
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from '@wexelcode/components';
+import { useTranslations } from 'next-intl';
 
 import {
   AppointmentOverviewTab,
-  AppointmentPatientTab,
   AppointmentScreeningTab,
+  AppointmentTreatmentTab,
 } from '../../../../components/appointments';
 
 interface AppointmentDetailsPageProps {
@@ -20,25 +23,27 @@ export default function AppointmentDetailPageContent({
   userId,
   id,
 }: AppointmentDetailsPageProps) {
+  const t = useTranslations('appointments.detailsPage');
+
   return (
     <div className="flex flex-col justify-start space-y-2 h-full">
       <Tabs defaultValue="overview">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="patient">Patient</TabsTrigger>
-          <TabsTrigger value="screen">Screening</TabsTrigger>
+          <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
+          <TabsTrigger value="screen">{t('screening')}</TabsTrigger>
+          <TabsTrigger value="treatment">{t('treatment')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
-          <AppointmentOverviewTab id={id} userId={userId} />
-        </TabsContent>
-
-        <TabsContent value="patient">
-          <AppointmentPatientTab userId={userId} />
+          <AppointmentOverviewTab appointmentId={id} patientId={userId} />
         </TabsContent>
 
         <TabsContent value="screen">
-          <AppointmentScreeningTab userId={userId} id={id} />
+          <AppointmentScreeningTab appointmentId={id} patientId={userId} />
+        </TabsContent>
+
+        <TabsContent value="treatment">
+          <AppointmentTreatmentTab appointmentId={id} patientId={userId} />
         </TabsContent>
       </Tabs>
     </div>

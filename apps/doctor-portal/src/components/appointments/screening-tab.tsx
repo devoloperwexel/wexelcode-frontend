@@ -1,23 +1,19 @@
 'use client';
 
-import { Card, CardContent, CardHeader } from '@wexelcode/components';
+import { Card, CardContent } from '@wexelcode/components';
+import React from 'react';
 
 import { MedicalScreeningView } from '../medical-screening';
 
-interface AppointmentScreeningTabProps {
-  id: string;
-  userId: string;
-}
+type AppointmentScreeningTabProps = React.ComponentProps<
+  typeof MedicalScreeningView
+>;
 
-export function AppointmentScreeningTab({
-  id,
-  userId,
-}: AppointmentScreeningTabProps) {
+export function AppointmentScreeningTab(props: AppointmentScreeningTabProps) {
   return (
     <Card>
-      <CardHeader>Medical Screening</CardHeader>
       <CardContent>
-        <MedicalScreeningView />
+        <MedicalScreeningView {...props} />
       </CardContent>
     </Card>
   );

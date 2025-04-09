@@ -23,22 +23,22 @@ import Routes from '../../constants/routes';
 import PatientDetailItem from './patient-detail-item';
 
 interface AppointmentOverviewTabProps {
-  id: string;
-  userId: string;
+  appointmentId: string;
+  patientId: string;
 }
 
 export function AppointmentOverviewTab({
-  id,
-  userId,
+  appointmentId,
+  patientId,
 }: AppointmentOverviewTabProps) {
-  const t = useTranslations('appointments.overviewTab');
+  const t = useTranslations('appointments.detailsPage.overviewTab');
 
   const { data: appointmentsResponse, isLoading } = useGetAppointmentById({
-    userId,
-    appointmentId: id,
+    userId: patientId,
+    appointmentId: appointmentId,
   });
 
-  const { data: patientResponse } = useGetPatientByUserId(userId);
+  const { data: patientResponse } = useGetPatientByUserId(patientId);
 
   const appointmentStatus = appointmentsResponse
     ? getAppointmentStatus(appointmentsResponse?.appointmentTime)
