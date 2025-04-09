@@ -2,11 +2,11 @@ import { Button } from '@wexelcode/components';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 import { PhysioAvatar } from '../common';
-import { useTranslations } from 'next-intl';
 
 interface AppointmentListItemProps {
   appointment: Appointment;

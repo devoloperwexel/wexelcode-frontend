@@ -1,5 +1,7 @@
 'use client';
 
+import { Appointment } from '@wexelcode/types';
+import { dateTimeDiff } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
 
 import {
@@ -7,10 +9,8 @@ import {
   DoctorInfoCard,
   MedicalScreeningInfoCard,
 } from '../../../../components/appointments';
+import AppointmentVideoCallCard from '../../../../components/appointments/appointment-video-call-card';
 import { CheckoutCard } from '../../../../components/checkout';
-import AppointmentVideoCallCard from 'apps/patient-portal/src/components/appointments/appointment-video-call-card';
-import { dateTimeDiff } from '@wexelcode/utils';
-import { Appointment } from '@wexelcode/types';
 
 interface AppointmentDetailsPageProps {
   id: string;

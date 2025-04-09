@@ -4,6 +4,7 @@ import { Button } from '@wexelcode/components';
 import { dateTimeDiff } from '@wexelcode/utils';
 import { VideoIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 

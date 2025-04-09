@@ -8,11 +8,11 @@ import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 
+import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 import { NoDataBanner } from '../common';
 import Calendar from './calender';
 import { CalendarAppointmentLoading } from './loading';
-import { Link } from '../../i18n/routing';
-import Routes from '../../constants/routes';
 
 export function AppointmentCalenderCard() {
   const t = useTranslations('dashboard.appointmentCalenderCard');
@@ -80,11 +80,11 @@ export function AppointmentCalenderCard() {
 
             {appointmentResponse?.results?.map((appointment) => {
               return (
-                <Link href={`${Routes.appointments}/${appointment.id}`}>
-                  <div
-                    key={appointment.id}
-                    className="flex items-center gap-2 bg-gray-50 p-4 rounded-lg"
-                  >
+                <Link
+                  href={`${Routes.appointments}/${appointment.id}`}
+                  key={appointment.id}
+                >
+                  <div className="flex items-center gap-2 bg-gray-50 p-4 rounded-lg">
                     <div className="flex items-center gap-2">
                       <div className="flex flex-col justify-center items-center border w-12 h-12">
                         <div className="flex justify-center bg-border w-full">

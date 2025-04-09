@@ -1,10 +1,11 @@
 import { QueryClient } from '@tanstack/react-query';
-import AppointmentDetailsPageContent from './page-content';
-import { QueryKeys } from '@wexelcode/constants';
 import { GetAppointmentById } from '@wexelcode/api';
 import { auth } from '@wexelcode/auth';
-import { notFound } from 'next/navigation';
+import { QueryKeys } from '@wexelcode/constants';
 import { Appointment } from '@wexelcode/types';
+import { notFound } from 'next/navigation';
+
+import AppointmentDetailsPageContent from './page-content';
 
 interface AppointmentDetailsPageProps {
   params: Promise<{
