@@ -15,7 +15,6 @@ import {
   TabsTrigger,
   Text,
 } from '@wexelcode/components';
-import { useGetDoctorByUserId } from '@wexelcode/hooks';
 import { GetDoctorResponse } from '@wexelcode/types';
 import { useTranslations } from 'next-intl';
 

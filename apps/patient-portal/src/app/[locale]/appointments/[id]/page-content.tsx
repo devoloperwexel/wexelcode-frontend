@@ -1,6 +1,5 @@
 'use client';
 
-import { useGetAppointmentById } from '@wexelcode/hooks';
 import { useSession } from 'next-auth/react';
 
 import {
@@ -9,22 +8,24 @@ import {
   MedicalScreeningInfoCard,
 } from '../../../../components/appointments';
 import { CheckoutCard } from '../../../../components/checkout';
+import AppointmentVideoCallCard from 'apps/patient-portal/src/components/appointments/appointment-video-call-card';
+import { dateTimeDiff } from '@wexelcode/utils';
+import { Appointment } from '@wexelcode/types';
 
 interface AppointmentDetailsPageProps {
   id: string;
+  appointment: Appointment;
 }
 
 export default function AppointmentDetailsPageContent({
   id,
+  appointment,
 }: AppointmentDetailsPageProps) {
   const { data } = useSession();
-
-  const { data: appointment } = useGetAppointmentById({
-    userId: data?.user?.id,
-    appointmentId: id,
-    includes: ['physio-user'],
-  });
-
+  const now = new Date();
+  const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
+  const isUpcoming =
+    dateTimeDiff(appointment.appointmentTime, thirtyMinutesAgo) > 0;
   return (
     <div className="max-w-6xl mx-auto py-4">
       <div className="grid grid-cols-3 gap-6">
@@ -44,12 +45,20 @@ export default function AppointmentDetailsPageContent({
 
         <div className="col-span-1">
           <div className="sticky top-6">
-            {data?.user && appointment?.status === 'PENDING' && (
+            {data?.user && appointment?.status === 'PENDING' ? (
               <CheckoutCard
                 amount={20}
                 appointmentId={id}
                 userId={data?.user.id}
               />
+            ) : (
+              appointment?.status === 'SUCCESS' &&
+              isUpcoming && (
+                <AppointmentVideoCallCard
+                  appointmentId={appointment.id}
+                  appointmentTime={appointment.appointmentTime}
+                />
+              )
             )}
           </div>
         </div>

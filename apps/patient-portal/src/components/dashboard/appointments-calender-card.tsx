@@ -11,6 +11,8 @@ import { useMemo, useState } from 'react';
 import { NoDataBanner } from '../common';
 import Calendar from './calender';
 import { CalendarAppointmentLoading } from './loading';
+import { Link } from '../../i18n/routing';
+import Routes from '../../constants/routes';
 
 export function AppointmentCalenderCard() {
   const t = useTranslations('dashboard.appointmentCalenderCard');
@@ -78,34 +80,36 @@ export function AppointmentCalenderCard() {
 
             {appointmentResponse?.results?.map((appointment) => {
               return (
-                <div
-                  key={appointment.id}
-                  className="flex items-center gap-2 bg-gray-50 p-4 rounded-lg"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="flex flex-col justify-center items-center border w-12 h-12">
-                      <div className="flex justify-center bg-border w-full">
-                        {dateTimeFormat(appointment.appointmentTime, 'dd')}
+                <Link href={`${Routes.appointments}/${appointment.id}`}>
+                  <div
+                    key={appointment.id}
+                    className="flex items-center gap-2 bg-gray-50 p-4 rounded-lg"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="flex flex-col justify-center items-center border w-12 h-12">
+                        <div className="flex justify-center bg-border w-full">
+                          {dateTimeFormat(appointment.appointmentTime, 'dd')}
+                        </div>
+                        <Text>
+                          {dateTimeFormat(appointment.appointmentTime, 'D')}
+                        </Text>
                       </div>
-                      <Text>
-                        {dateTimeFormat(appointment.appointmentTime, 'D')}
+                    </div>
+                    <div className="flex-grow flex flex-col">
+                      <Text variant="large" weight="semibold">
+                        {appointment.physioUser?.firstName}{' '}
+                        {appointment.physioUser?.lastName}
                       </Text>
+                      <Text variant="muted">Physiotherapist</Text>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-700">
+                      <ClockIcon className="w-4 h-4 mr-1 text-gray-400 flex-shrink-0" />
+                      <span>
+                        {dateTimeFormat(appointment.appointmentTime, 'HH:mm')}
+                      </span>
                     </div>
                   </div>
-                  <div className="flex-grow flex flex-col">
-                    <Text variant="large" weight="semibold">
-                      {appointment.physioUser?.firstName}{' '}
-                      {appointment.physioUser?.lastName}
-                    </Text>
-                    <Text variant="muted">Physiotherapist</Text>
-                  </div>
-                  <div className="flex items-center text-sm text-gray-700">
-                    <ClockIcon className="w-4 h-4 mr-1 text-gray-400 flex-shrink-0" />
-                    <span>
-                      {dateTimeFormat(appointment.appointmentTime, 'HH:mm')}
-                    </span>
-                  </div>
-                </div>
+                </Link>
               );
             })}
           </div>
