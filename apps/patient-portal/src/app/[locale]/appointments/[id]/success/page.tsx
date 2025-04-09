@@ -1,7 +1,8 @@
-import { auth } from '@wexelcode/auth';
-import AppointmentSuccessPageContent from './page-content';
 import { GetAppointmentById } from '@wexelcode/api';
+import { auth } from '@wexelcode/auth';
 import { notFound } from 'next/navigation';
+
+import AppointmentSuccessPageContent from './page-content';
 
 interface AppointmentSuccessPageProps {
   params: Promise<{

@@ -6,16 +6,12 @@ import uitoolkit from '@zoom/videosdk-ui-toolkit';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
-import { useRouter } from '../../../../../../src/i18n/routing';
-import Routes from '../../../../../constants/routes';
-
 type Props = {
   appointmentId: string;
   token: string;
 };
 
 function ZoomVideoCallPageView({ appointmentId, token }: Readonly<Props>) {
-  const router = useRouter();
   const { data } = useSession();
   let sessionContainer: HTMLDivElement | null = null;
 
@@ -49,7 +45,7 @@ function ZoomVideoCallPageView({ appointmentId, token }: Readonly<Props>) {
 
   const sessionClosed = () => {
     sessionContainer && uitoolkit.closeSession(sessionContainer);
-    router.push(`${Routes.appointments}/${appointmentId}`);
+    window.location.href = window.location.pathname.replace('video-call', '');
   };
 
   useEffect(() => {

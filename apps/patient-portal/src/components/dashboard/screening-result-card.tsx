@@ -7,7 +7,6 @@ import {
   CardFooter,
   CardHeader,
   Dialog,
-  DialogTrigger,
   ProgressIndicator,
   Text,
 } from '@wexelcode/components';
@@ -22,6 +21,7 @@ import {
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
+import { useScreeningDialogStore } from '../../app/store';
 import { NoDataBanner } from '../common';
 import { QuestionnaireDialog } from '../questions';
 import { LoadingAppointmentCard } from './loading';
@@ -29,6 +29,8 @@ import { LoadingAppointmentCard } from './loading';
 export function ScreeningResultCard() {
   const t = useTranslations('dashboard.screeningResultCard');
   const { data: userData } = useSession();
+
+  const { isOpen, openDialog } = useScreeningDialogStore();
 
   const { data: response, isLoading } = useGetAnswers({
     userId: userData?.user.id,
@@ -53,12 +55,10 @@ export function ScreeningResultCard() {
           />
         </CardContent>
         <CardFooter className="w-full">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="w-full">
-                {t('startNew')}
-              </Button>
-            </DialogTrigger>
+          <Dialog open={isOpen}>
+            <Button variant="outline" className="w-full" onClick={openDialog}>
+              {t('startNew')}
+            </Button>
             <QuestionnaireDialog />
           </Dialog>
         </CardFooter>
@@ -111,12 +111,11 @@ export function ScreeningResultCard() {
       </CardContent>
 
       <CardFooter className="w-full">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" className="w-full">
-              {t('startNew')}
-            </Button>
-          </DialogTrigger>
+        <Dialog open={isOpen}>
+          <Button variant="outline" className="w-full" onClick={openDialog}>
+            {t('startNew')}
+          </Button>
+
           <QuestionnaireDialog />
         </Dialog>
       </CardFooter>

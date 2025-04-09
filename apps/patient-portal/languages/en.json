@@ -213,7 +213,8 @@
       "status": "Status",
       "type": "Appointment Type",
       "video": "Video Consultation",
-      "minutes": "minutes"
+      "minutes": "minutes",
+      "joinVideoCall": "Join Call"
     },
     "medicalScreeningCard": {
       "title": "Medical Screening Information",
@@ -235,6 +236,15 @@
       "success": "Success!",
       "message": "Your appointment has been confirmed",
       "goToAppointment": "Go to Appointments"
+    },
+    "videoCallCard": {
+      "title": "Before Joining Your Call",
+      "ensureInternet": "Ensure you have a stable internet connection",
+      "joinCallFromQuiet": "Join the call from a quiet, well-lit environment",
+      "testCamera": "Test your camera and microphone before joining",
+      "beReady": "Be ready 5 minutes before the scheduled time",
+      "buttonEnableMessage": "Button will be enabled 5 minutes before appointment",
+      "joinVideoCall": "Join Call"
     }
   },
   "profile": {

@@ -10,7 +10,7 @@ import {
   Text,
 } from '@wexelcode/components';
 import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
-import { dateTimeFormat } from '@wexelcode/utils';
+import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
@@ -78,6 +78,9 @@ export function LatestUpcomingAppointmentCard({
   }
 
   const appointment = response?.results[0];
+  const allowJoinBefore = 5 * 60 * 1000; // 5 minutes
+  const isJoinable =
+    dateTimeDiff(appointment?.appointmentTime, new Date()) < allowJoinBefore;
 
   return (
     <Card className="flex flex-col">
@@ -90,11 +93,13 @@ export function LatestUpcomingAppointmentCard({
             physioUser={appointment?.physioUser}
           />
           <div className="flex flex-col justify-evenly">
-            <Text variant="h3" weight="semibold">
-              {appointment?.physioUser?.firstName}{' '}
-              {appointment?.physioUser?.lastName}
-            </Text>
-            <Text variant="muted">{t('physio')}</Text>
+            <Link href={`${Routes.doctors}/${appointment?.physioUser?.id}`}>
+              <Text variant="h3" weight="semibold">
+                {appointment?.physioUser?.firstName}{' '}
+                {appointment?.physioUser?.lastName}
+              </Text>
+              <Text variant="muted">{t('physio')}</Text>
+            </Link>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -142,20 +147,22 @@ export function LatestUpcomingAppointmentCard({
       </CardContent>
 
       <CardFooter className="w-full">
-        <Link
-          href={`/appointments/${response?.results[0].id}`}
-          className="w-full"
-        >
-          <Button
+        {isJoinable ? (
+          <Link
+            href={`/appointments/${response?.results[0].id}/video-call`}
             className="w-full"
-            onClick={() => {
-              console.log('Join video call');
-            }}
           >
+            <Button className="w-full">
+              <VideoIcon className="w-4 h-4 mr-2" />
+              {t('joinVideoCall')}
+            </Button>
+          </Link>
+        ) : (
+          <Button className="w-full" disabled>
             <VideoIcon className="w-4 h-4 mr-2" />
             {t('joinVideoCall')}
           </Button>
-        </Link>
+        )}
       </CardFooter>
     </Card>
   );

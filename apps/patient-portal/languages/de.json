@@ -213,7 +213,8 @@
       "status": "Status",
       "type": "Termintyp",
       "video": "Video-Beratung",
-      "minutes": "Minuten"
+      "minutes": "Minuten",
+      "joinVideoCall": "Anruf beitreten"
     },
     "medicalScreeningCard": {
       "title": "Medizinische Screening-Information",
@@ -235,6 +236,15 @@
       "success": "Erfolg!",
       "message": "Ihr Termin wurde bestätigt",
       "goToAppointment": "Gehe zu Termine"
+    },
+    "videoCallCard": {
+      "title": "Bevor Sie Ihrem Anruf beitreten",
+      "ensureInternet": "Stellen Sie sicher, dass Sie eine stabile Internetverbindung haben",
+      "joinCallFromQuiet": "Treten Sie dem Anruf aus einer ruhigen, gut beleuchteten Umgebung bei",
+      "testCamera": "Testen Sie Ihre Kamera und Ihr Mikrofon vor dem Beitritt",
+      "beReady": "Seien Sie 5 Minuten vor der geplanten Zeit bereit",
+      "buttonEnableMessage": "Die Schaltfläche wird 5 Minuten vor dem Termin aktiviert",
+      "joinVideoCall": "Dem Anruf beitreten"
     }
   },
   "profile": {
