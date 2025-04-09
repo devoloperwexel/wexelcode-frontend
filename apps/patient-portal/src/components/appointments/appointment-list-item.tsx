@@ -2,6 +2,7 @@ import { Button } from '@wexelcode/components';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
@@ -13,9 +14,10 @@ interface AppointmentListItemProps {
 export default function AppointmentListItem({
   appointment,
 }: AppointmentListItemProps) {
+  const t = useTranslations('appointments.appointmentCard');
   const isUpcoming = dateTimeDiff(appointment.appointmentTime, new Date()) > 0;
 
-  const allowJoinBefore = 15 * 60 * 1000; // 15 minutes
+  const allowJoinBefore = 5 * 60 * 1000; // 5 minutes
   const isJoinable =
     dateTimeDiff(appointment.appointmentTime, new Date()) < allowJoinBefore;
 
@@ -38,19 +40,22 @@ export default function AppointmentListItem({
               {/* TODO: Change this to the actual profession */}
               <p className="text-sm text-gray-500">Physio</p>
             </div>
-            {isUpcoming && (
-              <Button
-                disabled={!isJoinable}
-                onClick={() => {
-                  if (isJoinable) {
-                    console.log('Join video call');
-                  }
-                }}
-              >
-                <VideoIcon className="w-4 h-4 mr-2" />
-                Join Call
-              </Button>
-            )}
+            {isUpcoming &&
+              (isJoinable ? (
+                <Link
+                  href={`${Routes.appointments}/${appointment.id}/video-call`}
+                >
+                  <Button disabled={!isJoinable}>
+                    <VideoIcon className="w-4 h-4 mr-2" />
+                    {t('joinVideoCall')}
+                  </Button>
+                </Link>
+              ) : (
+                <Button disabled>
+                  <VideoIcon className="w-4 h-4 mr-2" />
+                  {t('joinVideoCall')}
+                </Button>
+              ))}
           </div>
           <div className="grid grid-cols-2 sm:w-[320px]">
             <div className="flex items-center text-sm text-gray-700">
