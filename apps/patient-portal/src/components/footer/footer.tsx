@@ -93,6 +93,7 @@ export const Footer = () => {
               <li>
                 <Link
                   href={Routes.terms}
+                  prefetch={false}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   {t('legal.terms')}
@@ -101,6 +102,7 @@ export const Footer = () => {
               <li>
                 <Link
                   href={Routes.imprint}
+                  prefetch={false}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   {t('legal.imprint')}
@@ -109,6 +111,7 @@ export const Footer = () => {
               <li>
                 <Link
                   href={Routes.privacy}
+                  prefetch={false}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   {t('legal.privacy')}
@@ -121,11 +124,13 @@ export const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Phone size={18} className="mr-3 mt-1" />
-                <Link href="tel:+4981413538433">+49 8141 3538 433</Link>
+                <Link href="tel:+4981413538433" prefetch={false}>
+                  +49 8141 3538 433
+                </Link>
               </li>
               <li className="flex items-start">
                 <Mail size={18} className="mr-3 mt-1" />
-                <Link href="mailto:contact@wexelcode.de">
+                <Link href="mailto:contact@wexelcode.de" prefetch={false}>
                   contact@wexelcode.de
                 </Link>
               </li>
