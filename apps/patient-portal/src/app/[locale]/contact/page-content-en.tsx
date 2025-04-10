@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import React from 'react';
 import { Clock, Mail, MapPin, Phone, Printer } from 'lucide-react';
+
 const ContactEnPageContent = () => {
   return (
     <motion.main
