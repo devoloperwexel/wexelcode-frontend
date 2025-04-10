@@ -13,8 +13,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@wexelcode/components';
-import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+
+import { setUserLocale } from '../../services/locale';
 
 interface LanguageItem {
   language: string;
@@ -44,11 +45,10 @@ const LanguageSwitchItem = ({ language, country }: LanguageItem) => {
 };
 
 const LanguageSwitch = ({ languages }: LocalSwitcherProps) => {
-  const router = useRouter();
   const activeLocale = useLocale();
 
   const changeLanguage = (newLocale: string) => {
-    // TODO: Add a function to change the language in the app
+    setUserLocale(newLocale);
   };
 
   const activeLocalItem =
