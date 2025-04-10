@@ -19,8 +19,8 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
-import { StatusBadge } from '.';
 import PatientDetailItem from './patient-detail-item';
+import { AppointmentStatusBadge } from './status-badge';
 
 interface AppointmentOverviewTabProps {
   appointmentId: string;
@@ -91,7 +91,7 @@ export function AppointmentOverviewTab({
               <div className="flex items-center">
                 <div>
                   <Text variant="muted">{t('status')}</Text>
-                  <StatusBadge
+                  <AppointmentStatusBadge
                     datetime={appointmentsResponse?.appointmentTime}
                   />
                 </div>
