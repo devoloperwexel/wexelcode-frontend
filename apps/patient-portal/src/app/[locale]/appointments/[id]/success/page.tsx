@@ -12,11 +12,14 @@ export default async function AppointmentSuccessPage({
   searchParams,
 }: AppointmentSuccessPageProps) {
   const paymentIntent = (await searchParams)?.payment_intent;
+  console.log(paymentIntent);
+
   if (!paymentIntent) {
     notFound();
   }
   try {
     const intent = await stripe.checkout.paymentIntents.retrieve(paymentIntent);
+    console.log(intent);
 
     if (intent.payment_status !== 'succeeded') {
       notFound();
