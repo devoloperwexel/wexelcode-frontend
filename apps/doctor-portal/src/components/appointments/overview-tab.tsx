@@ -10,7 +10,6 @@ import {
 } from '@wexelcode/components';
 import { useGetAppointmentById, useGetPatientByUserId } from '@wexelcode/hooks';
 import {
-  cn,
   dateTimeDiff,
   dateTimeFormat,
   getAppointmentStatus,
@@ -20,6 +19,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
+import { StatusBadge } from '.';
 import PatientDetailItem from './patient-detail-item';
 
 interface AppointmentOverviewTabProps {
@@ -91,16 +91,9 @@ export function AppointmentOverviewTab({
               <div className="flex items-center">
                 <div>
                   <Text variant="muted">{t('status')}</Text>
-                  <span
-                    className={cn(
-                      'inline-block px-3 py-1 rounded-full text-xs font-medium',
-                      appointmentStatus === 'past'
-                        ? 'text-yellow-700 bg-yellow-300'
-                        : 'text-green-700 bg-green-300'
-                    )}
-                  >
-                    {appointmentStatus && t(appointmentStatus)}
-                  </span>
+                  <StatusBadge
+                    datetime={appointmentsResponse?.appointmentTime}
+                  />
                 </div>
               </div>
             </div>
