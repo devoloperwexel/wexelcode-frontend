@@ -1,6 +1,6 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Printer, Clock, MapPin } from 'lucide-react';
+import { Clock, Mail, MapPin, Phone, Printer } from 'lucide-react';
+
 const ContactDePageContent = () => {
   return (
     <motion.main
