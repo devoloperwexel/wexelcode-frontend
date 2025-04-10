@@ -38,6 +38,7 @@ export function AppointmentsTable() {
     limit: 10,
     physioUserId: userData?.user.id,
     includes: ['patient-user'],
+    sortBy: 'appointmentTime:desc',
     startDate,
     endDate,
   });

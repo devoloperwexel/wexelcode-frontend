@@ -35,6 +35,7 @@ export default function AppointmentsPageContent() {
     includes: ['patient-user'],
     startDate: queryParams.getString('status') === 'upcoming' ? now : undefined,
     endDate: queryParams.getString('status') === 'past' ? now : undefined,
+    sortBy: 'appointmentTime:desc',
   });
 
   return (
