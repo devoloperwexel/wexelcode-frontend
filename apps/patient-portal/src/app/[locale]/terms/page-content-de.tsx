@@ -40,22 +40,22 @@ const TermsDePageContent = () => {
             </h2>
             <div className="space-y-4 text-gray-600">
               <p>
-                Anbieter der Wexelcode App und der darüber angebotenen Services
-                (im Folgenden auch "App") ist die Wexelcode GmbH, Maisacher Str.
-                118, 82256 Fürstenfeldbruck (im Folgenden auch „Wexelcode",
-                „wir", "uns").
+                {` Anbieter der Wexelcode App und der darüber angebotenen Services
+                (im Folgenden auch 'App') ist die Wexelcode GmbH, Maisacher Str.
+                118, 82256 Fürstenfeldbruck (im Folgenden auch „Wexelcode',
+                „wir', 'uns').`}
               </p>
               <p>
-                Diese Nutzungsbedingungen gelten für die Nutzung der App und
+                {`Diese Nutzungsbedingungen gelten für die Nutzung der App und
                 alle unmittelbar und mittelbar von Wexelcode im Zusammenhang mit
                 der Nutzung der Wexelcode App über das Internet, jegliche Art
                 von mobilen Anwendungen und mobilen Endgeräten sowie per E-Mail
-                angebotenen Dienstleistungen (Services).
+                angebotenen Dienstleistungen (Services).`}
               </p>
               <p>
-                Mit der Installation und Gebrauch der Software bestätigt der
+                {`Mit der Installation und Gebrauch der Software bestätigt der
                 Nutzer, dass er diese Nutzungsbedingungen gelesen und verstanden
-                hat, ihnen zustimmt und sie verbindlich anerkennt.
+                hat, ihnen zustimmt und sie verbindlich anerkennt.`}
               </p>
             </div>
           </section>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale } from 'next-intl';
+
 import TermsDePageContent from './page-content-de';
 import TermsEnPageContent from './page-content-en';
 

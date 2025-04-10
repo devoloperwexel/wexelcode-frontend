@@ -147,7 +147,7 @@ const PrivacyDePageContent = () => {
                 </Link>
               </p>
               <p>
-                Vertreten durch: Andreas Sextl und Patrick Meister ("wir", uns")
+                {`Vertreten durch: Andreas Sextl und Patrick Meister ("wir", uns")`}
               </p>
               <p>
                 Unseren Datenschutzbeauftragten erreichen Sie unter
