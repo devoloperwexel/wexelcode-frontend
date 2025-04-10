@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
+import Routes from '../../constants/routes';
 import { AppointmentStatusBadge } from '../appointments';
 
 interface PatientAppointmentsTabProps {
@@ -50,6 +51,11 @@ export function PatientAppointmentsTab({
       <div className="flex-grow">
         <DataTable
           data={appointmentsResponse?.results ?? []}
+          onRowClick={(row) => {
+            router.push(
+              `${Routes.appointments}/${row.patientUserId}/${row.id}`
+            );
+          }}
           columns={[
             {
               accessorKey: 'time',
