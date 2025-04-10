@@ -1,8 +1,9 @@
 'use client';
 
-import { DataTable, Text, UserAvatar } from '@wexelcode/components';
+import { Button, DataTable, Text, UserAvatar } from '@wexelcode/components';
 import { useGetAllAppointments } from '@wexelcode/hooks';
 import { dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -42,8 +43,9 @@ export function AppointmentsTable() {
   });
 
   return (
-    <div className="flex flex-col bg-white shadow-md rounded-lg p-4 space-y-4">
+    <div className="flex flex-col  bg-white shadow-md rounded-lg p-4 space-y-4">
       <Text variant="h4">{t('title')}</Text>
+
       <DataTable
         data={appointmentsResponse?.results || []}
         onRowClick={(row) => {
@@ -96,6 +98,12 @@ export function AppointmentsTable() {
           },
         ]}
       />
+
+      <Link href={Routes.appointments} className="w-full">
+        <Button variant="link" className="w-full">
+          {t('viewAll')}
+        </Button>
+      </Link>
     </div>
   );
 }
