@@ -9,7 +9,7 @@ import { Doctor } from '@wexelcode/types';
 import { dateTimeDiff, dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Routes from '../../constants/routes';
@@ -28,7 +28,7 @@ export function DoctorAppointmentsTab({
   initialDate,
 }: DoctorAppointmentsTabProps) {
   const t = useTranslations('doctors.doctorPage');
-
+  const locale = useLocale();
   const { status, data } = useSession();
 
   const { push } = useRouter();
@@ -86,6 +86,7 @@ export function DoctorAppointmentsTab({
         <div className="w-1/4">
           <DatePicker
             initialDate={initialDate}
+            local={locale}
             onSelect={(date) => {
               if (!date) return;
               setDate(date);

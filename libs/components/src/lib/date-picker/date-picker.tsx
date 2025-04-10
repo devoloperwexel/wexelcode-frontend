@@ -2,8 +2,10 @@
 
 import { cn } from '@wexelcode/utils';
 import { format } from 'date-fns';
+import { de, enGB } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
-import * as React from 'react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import {
   Button,
@@ -15,11 +17,17 @@ import {
 
 interface DatePickerProps {
   initialDate?: Date;
+  local?: string;
   onSelect?: (date?: Date) => void;
 }
 
-export function DatePicker({ initialDate, onSelect }: DatePickerProps) {
-  const [date, setDate] = React.useState<Date | undefined>(initialDate);
+export function DatePicker({
+  initialDate,
+  onSelect,
+  local = 'en',
+}: DatePickerProps) {
+  const [date, setDate] = useState<Date | undefined>(initialDate);
+  const t = useTranslations('datePicker');
 
   return (
     <Popover>
@@ -32,13 +40,18 @@ export function DatePicker({ initialDate, onSelect }: DatePickerProps) {
           )}
         >
           <CalendarIcon />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
+          {date ? (
+            format(date, 'PPP', { locale: local === 'de' ? de : enGB })
+          ) : (
+            <span>{t('pickDate')}</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           selected={date}
+          local={local}
           onSelect={(date) => {
             setDate(date);
             onSelect?.(date);

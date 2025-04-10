@@ -368,5 +368,8 @@
         "sat": "Sa"
       }
     }
+  },
+  "datePicker": {
+    "pickDate": "Wählen Sie ein Datum"
   }
 }
