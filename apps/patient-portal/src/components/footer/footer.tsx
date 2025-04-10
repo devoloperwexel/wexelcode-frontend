@@ -138,7 +138,7 @@ export const Footer = () => {
         </div>
         <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
           <p>
-            &copy; {new Date().getFullYear()} Wexelcode. All rights reserved.
+            &copy; {new Date().getFullYear()} Wexelcode. {t('allRight')}
           </p>
         </div>
       </div>

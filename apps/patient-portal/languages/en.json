@@ -41,6 +41,7 @@
   },
   "footer": {
     "description": "Professional physiotherapy services tailored to your needs, accessible from anywhere.",
+    "allRight": "All rights reserved.",
     "links": {
       "title": "Quick Links",
       "home": "Home",
