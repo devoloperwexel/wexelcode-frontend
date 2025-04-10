@@ -8,7 +8,7 @@ import CheckoutForm from './checkout-form';
 type CheckoutCardProps = React.ComponentProps<typeof CheckoutForm>;
 
 export function CheckoutCard(props: CheckoutCardProps) {
-  const t = useTranslations('appointments.appointmentCard');
+  const t = useTranslations('appointments.paymentCard');
   const localeValue = useLocale();
   return (
     <Card>
