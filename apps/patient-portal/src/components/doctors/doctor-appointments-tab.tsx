@@ -78,6 +78,9 @@ export function DoctorAppointmentsTab({
 
     push(`${Routes.appointments}/${response?.id}`);
   };
+  const now = new Date();
+  const sixMonthsLater = new Date(now);
+  sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
 
   return (
     <div className="flex flex-col space-y-4">
@@ -87,6 +90,8 @@ export function DoctorAppointmentsTab({
           <DatePicker
             initialDate={initialDate}
             local={locale}
+            startDate={new Date()}
+            toDate={sixMonthsLater}
             onSelect={(date) => {
               if (!date) return;
               setDate(date);

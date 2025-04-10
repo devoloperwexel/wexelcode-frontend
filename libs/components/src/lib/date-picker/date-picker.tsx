@@ -18,6 +18,8 @@ import {
 interface DatePickerProps {
   initialDate?: Date;
   local?: string;
+  startDate?: Date;
+  toDate?: Date;
   onSelect?: (date?: Date) => void;
 }
 
@@ -25,6 +27,8 @@ export function DatePicker({
   initialDate,
   onSelect,
   local = 'en',
+  startDate,
+  toDate,
 }: DatePickerProps) {
   const [date, setDate] = useState<Date | undefined>(initialDate);
   const t = useTranslations('datePicker');
@@ -52,6 +56,8 @@ export function DatePicker({
           mode="single"
           selected={date}
           local={local}
+          startDate={startDate}
+          toDate={toDate}
           onSelect={(date) => {
             setDate(date);
             onSelect?.(date);
