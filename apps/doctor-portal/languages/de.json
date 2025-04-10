@@ -2,5 +2,122 @@
   "language": {
     "de": "DE",
     "en": "EN"
+  },
+  "pagination": {
+    "previous": "Zurück",
+    "next": "Weiter"
+  },
+  "userMenu": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "settings": "Einstellungen",
+    "logout": "Abmelden"
+  },
+  "dashboard": {
+    "appointmentsCard": {
+      "title": "Heutige Termine"
+    },
+    "patientsCard": {
+      "title": "Gesamtanzahl Patienten"
+    },
+    "nextAppointmentCard": {
+      "title": "Nächster Termin",
+      "datetime": "{date} um {time}",
+      "joinVideo": "Videoanruf beitreten",
+      "noData": "Keine bevorstehenden Termine"
+    },
+    "appointmentsTable": {
+      "title": "Heutige Termine",
+      "viewAll": "Alle Termine anzeigen"
+    }
+  },
+  "appointments": {
+    "status": {
+      "all": "Alle",
+      "upcoming": "Bevorstehend",
+      "past": "Vergangen"
+    },
+    "table": {
+      "header": {
+        "patient": "Patient",
+        "date": "Datum",
+        "time": "Uhrzeit",
+        "status": "Status"
+      }
+    },
+    "detailsPage": {
+      "overview": "Übersicht",
+      "screening": "Medizinisches Screening",
+      "treatment": "Behandlung",
+      "overviewTab": {
+        "title": "Termininformationen",
+        "personalDetails": "Persönliche Angaben",
+        "medicalDetails": "Medizinische Angaben",
+        "upcoming": "Bevorstehend",
+        "past": "Vergangen",
+        "buttonEnableMessage": "Der Button wird 5 Minuten vor dem Termin aktiviert",
+        "joinVideoCall": "Videoanruf beitreten",
+        "date": "Datum",
+        "time": "Uhrzeit",
+        "status": "Status",
+        "type": "Terminart",
+        "video": "Videoberatung",
+        "minutes": "Minuten",
+        "birthday": "Geburtstag",
+        "gender": "Geschlecht",
+        "address": "Adresse",
+        "city": "Stadt",
+        "state": "Land",
+        "zipCode": "Postleitzahl",
+        "languages": "Sprachen",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "mobile": "Handy",
+        "occupation": "Beruf",
+        "weight": "Gewicht (kg)",
+        "height": "Größe (cm)",
+        "activities": "Aktivitäten",
+        "patient": "Patient"
+      }
+    }
+  },
+  "patients": {
+    "gender": {
+      "MALE": "Männlich",
+      "FEMALE": "Weiblich"
+    },
+    "years": "Jahre",
+    "table": {
+      "header": {
+        "patient": "Patient",
+        "age": "Alter",
+        "gender": "Geschlecht"
+      }
+    },
+    "detailsPage": {
+      "tabs": {
+        "overview": {
+          "title": "Übersicht"
+        },
+        "screening": {
+          "title": "Medizinisches Screening"
+        },
+        "appointments": {
+          "title": "Termine",
+          "status": {
+            "all": "Alle",
+            "upcoming": "Bevorstehend",
+            "past": "Vergangen"
+          },
+          "table": {
+            "columns": {
+              "date": "Datum",
+              "time": "Uhrzeit",
+              "status": "Status"
+            }
+          }
+        }
+      }
+    }
   }
 }
