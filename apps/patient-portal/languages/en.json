@@ -181,6 +181,19 @@
       "goToDashboard": "Go to Dashboard"
     }
   },
+  "contact": {
+    "contactUs": "Contact Us",
+    "sendYourConcerns": "Please send us your concerns preferably by email to:",
+    "email": "Email",
+    "telephone": "Telephone",
+    "fax": "Fax",
+    "address": "Address",
+    "businessHours": "Business Hours",
+    "mondayFriday": "Monday - Friday",
+    "saturdaySundayCloses": "Saturday - Sunday: Closed",
+    "importantNote": "Important Note",
+    "message": "For the fastest response, we recommend contacting us via email. Our team typically responds within 24 business hours. For urgent matters, please call us directly during business hours."
+  },
   "doctors": {
     "doctorListingPage": {
       "searchTitle": "Search Doctors",

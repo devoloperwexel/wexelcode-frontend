@@ -181,6 +181,19 @@
       "goToDashboard": "Zum Dashboard"
     }
   },
+  "contact": {
+    "contactUs": "Kontaktieren Sie uns",
+    "sendYourConcerns": "Bitte senden Sie uns Ihre Anliegen vorzugsweise per E-Mail an:",
+    "email": "E-Mail",
+    "telephone": "Telefon",
+    "fax": "Fax",
+    "address": "Adresse",
+    "businessHours": "Geschäftszeiten",
+    "mondayFriday": "Montag - Freitag",
+    "saturdaySundayCloses": "Samstag - Sonntag: Geschlossen",
+    "importantNote": "Wichtiger Hinweis",
+    "message": "Für eine schnellstmögliche Antwort empfehlen wir, uns per E-Mail zu kontaktieren. Unser Team antwortet in der Regel innerhalb von 24 Geschäftsstunden. In dringenden Fällen rufen Sie uns bitte während der Geschäftszeiten direkt an."
+  },
   "doctors": {
     "doctorListingPage": {
       "searchTitle": "Therapeuten suchen",
