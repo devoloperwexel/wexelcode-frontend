@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+
 import AppointmentSuccessPageContent from './page-content';
 
 interface AppointmentSuccessPageProps {
