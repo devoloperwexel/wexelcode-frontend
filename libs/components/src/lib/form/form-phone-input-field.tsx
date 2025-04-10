@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Input, PhoneInput, Textarea } from '../../';
+import { PhoneInput } from '../../';
 import {
   FormControl,
   FormDescription,

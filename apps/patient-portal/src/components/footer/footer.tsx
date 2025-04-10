@@ -121,24 +121,24 @@ export const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Phone size={18} className="mr-3 mt-1" />
-                <Link href="tel:+15551234567">+1 (555) 123-4567</Link>
+                <Link href="tel:+4981413538433">+49 8141 3538 433</Link>
               </li>
               <li className="flex items-start">
                 <Mail size={18} className="mr-3 mt-1" />
-                <Link href="mailto:info@physiohealth.com">
-                  info@physiohealth.com
+                <Link href="mailto:contact@wexelcode.de">
+                  contact@wexelcode.de
                 </Link>
               </li>
               <li className="flex items-start">
                 <MapPin size={18} className="mr-3 mt-1" />
-                <span>123 Wellness Street, Health City, HC 10001</span>
+                <span>Maisacher Straße 118 82256 Fürstenfeldbruck Germany</span>
               </li>
             </ul>
           </div>
         </div>
         <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
           <p>
-            &copy; {new Date().getFullYear()} Wexelcode. All rights reserved.
+            &copy; {new Date().getFullYear()} Wexelcode. {t('allRight')}
           </p>
         </div>
       </div>

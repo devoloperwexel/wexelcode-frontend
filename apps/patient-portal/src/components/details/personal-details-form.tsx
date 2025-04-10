@@ -90,7 +90,7 @@ export function PersonalDetailsForm({
 
       <div className="grid grid-cols-2 gap-6">
         <FormPhoneInputField
-          defaultCountry="GE"
+          defaultCountry="DE"
           labels={local === 'de' ? de : undefined}
           name="mobile"
           label={t('mobile')}

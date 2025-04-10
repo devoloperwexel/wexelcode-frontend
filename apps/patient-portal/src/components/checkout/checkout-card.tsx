@@ -1,14 +1,15 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { Card, CardContent, CardHeader } from '@wexelcode/components';
 import { convertToSubCurrency, getStripe } from '@wexelcode/utils';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import CheckoutForm from './checkout-form';
 
 type CheckoutCardProps = React.ComponentProps<typeof CheckoutForm>;
 
 export function CheckoutCard(props: CheckoutCardProps) {
-  const t = useTranslations('appointments.appointmentCard');
+  const t = useTranslations('appointments.paymentCard');
+  const localeValue = useLocale();
   return (
     <Card>
       <CardHeader>{t('title')}</CardHeader>
@@ -19,6 +20,7 @@ export function CheckoutCard(props: CheckoutCardProps) {
             mode: 'payment',
             amount: convertToSubCurrency(props.amount),
             currency: 'eur',
+            locale: localeValue === 'de' ? 'de' : 'en',
           }}
         >
           <CheckoutForm {...props} />
