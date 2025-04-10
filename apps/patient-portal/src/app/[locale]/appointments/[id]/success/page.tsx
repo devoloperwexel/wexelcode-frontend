@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import AppointmentSuccessPageContent from './page-content';
 
 interface AppointmentSuccessPageProps {
-  searchParams: { session_id?: string };
+  searchParams: Promise<{ session_id?: string }>;
 }
 
 const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
@@ -11,7 +11,7 @@ const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
 export default async function AppointmentSuccessPage({
   searchParams,
 }: AppointmentSuccessPageProps) {
-  const sessionId = searchParams.session_id;
+  const sessionId = (await searchParams)?.session_id;
   if (!sessionId) {
     notFound();
   }
