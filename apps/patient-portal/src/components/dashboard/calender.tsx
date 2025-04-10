@@ -1,4 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 
 interface CalendarProps {
@@ -15,23 +16,31 @@ const Calendar: React.FC<CalendarProps> = ({
   onMonthChange,
 }) => {
   const [currentMonth, setCurrentMonth] = useState<Date>(initialDate);
-
+  const t = useTranslations('dashboard.calendar');
   const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    t?.('months.january'),
+    t?.('months.february'),
+    t?.('months.march'),
+    t?.('months.april'),
+    t?.('months.may'),
+    t?.('months.june'),
+    t?.('months.july'),
+    t?.('months.august'),
+    t?.('months.september'),
+    t?.('months.october'),
+    t?.('months.november'),
+    t?.('months.december'),
   ];
 
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayNames = [
+    t?.('days.sun'),
+    t?.('days.mon'),
+    t?.('days.tue'),
+    t?.('days.wed'),
+    t?.('days.thu'),
+    t?.('days.fri'),
+    t?.('days.sat'),
+  ];
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
