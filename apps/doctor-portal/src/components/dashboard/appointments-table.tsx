@@ -2,7 +2,7 @@
 
 import { DataTable, Text, UserAvatar } from '@wexelcode/components';
 import { useGetAllAppointments } from '@wexelcode/hooks';
-import { dateTimeFormat } from '@wexelcode/utils';
+import { dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -10,13 +10,25 @@ import { useTranslations } from 'next-intl';
 import Routes from '../../constants/routes';
 import { AppointmentStatusBadge } from '../appointments';
 
-//const now = new Date().toISOString();
+const now = new Date();
 
 export function AppointmentsTable() {
   const t = useTranslations('dashboard.appointmentsTable');
   const tAppointments = useTranslations('appointments');
 
   const { data: userData } = useSession();
+
+  const startDate = dateTimeSet(now, {
+    hour: 0,
+    minute: 0,
+    second: 0,
+  }).toISOString();
+
+  const endDate = dateTimeSet(now, {
+    hour: 23,
+    minute: 59,
+    second: 59,
+  }).toISOString();
 
   const router = useRouter();
 
@@ -25,6 +37,8 @@ export function AppointmentsTable() {
     limit: 10,
     physioUserId: userData?.user.id,
     includes: ['patient-user'],
+    startDate,
+    endDate,
   });
 
   return (
