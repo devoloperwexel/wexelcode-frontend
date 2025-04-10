@@ -1,4 +1,5 @@
 export * from './lib/answers-format';
+export * from './lib/appointments-helper';
 export * from './lib/cn';
 export * from './lib/colors';
 export * from './lib/currency-format';

@@ -5,11 +5,11 @@ import React from 'react';
 
 import { MedicalScreeningView } from '../medical-screening';
 
-type AppointmentScreeningTabProps = React.ComponentProps<
+type PatientScreeningTabProps = React.ComponentProps<
   typeof MedicalScreeningView
 >;
 
-export function AppointmentScreeningTab(props: AppointmentScreeningTabProps) {
+export function PatientScreeningTab(props: PatientScreeningTabProps) {
   return (
     <Card>
       <CardContent>

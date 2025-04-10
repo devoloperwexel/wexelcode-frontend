@@ -13,34 +13,111 @@
     "settings": "Settings",
     "logout": "Logout"
   },
-  "appointments": {
-    "overviewTab": {
-      "title": "Appointment Information",
-      "date": "Date",
-      "time": "Time",
-      "status": "Status",
-      "type": "Appointment Type",
-      "video": "Video Consultation",
-      "minutes": "minutes"
+  "dashboard": {
+    "appointmentsCard": {
+      "title": "Appointments Today"
     },
-    "patientTab": {
-      "title": "Patient Information",
-      "personalDetails": "Personal Details",
-      "medicalDetails": "Medical Details",
-      "birthday": "Birthday",
-      "gender": "Gender",
-      "address": "Address",
-      "city": "City",
-      "state": "Country",
-      "zipCode": "Zipcode",
-      "languages": "Languages",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "mobile": "Mobile",
-      "occupation": "Occupation",
-      "weight": "Weight (kg)",
-      "height": "Height (cm)",
-      "activities": "Activities"
+    "patientsCard": {
+      "title": "Total Patients"
+    },
+    "nextAppointmentCard": {
+      "title": "Next Appointment",
+      "datetime": "{date} at {time}",
+      "joinVideo": "Join Video Call",
+      "noData": "No upcoming appointments"
+    },
+    "appointmentsTable": {
+      "title": "Today's Appointments",
+      "viewAll": "View All Appointments"
+    }
+  },
+  "appointments": {
+    "status": {
+      "all": "All",
+      "upcoming": "Upcoming",
+      "past": "Past"
+    },
+    "table": {
+      "header": {
+        "patient": "Patient",
+        "date": "Date",
+        "time": "Time",
+        "status": "Status"
+      }
+    },
+    "detailsPage": {
+      "overview": "Overview",
+      "screening": "Medical Screening",
+      "treatment": "Treatment",
+      "overviewTab": {
+        "title": "Appointment Information",
+        "personalDetails": "Personal Details",
+        "medicalDetails": "Medical Details",
+        "upcoming": "Upcoming",
+        "past": "Past",
+        "buttonEnableMessage": "Button will be enabled 5 minutes before appointment",
+        "joinVideoCall": "Join Video Call",
+        "date": "Date",
+        "time": "Time",
+        "status": "Status",
+        "type": "Appointment Type",
+        "video": "Video Consultation",
+        "minutes": "minutes",
+        "birthday": "Birthday",
+        "gender": "Gender",
+        "address": "Address",
+        "city": "City",
+        "state": "Country",
+        "zipCode": "Zipcode",
+        "languages": "Languages",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "mobile": "Mobile",
+        "occupation": "Occupation",
+        "weight": "Weight (kg)",
+        "height": "Height (cm)",
+        "activities": "Activities",
+        "patient": "Patient"
+      }
+    }
+  },
+  "patients": {
+    "gender": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    },
+    "years": "years",
+    "table": {
+      "header": {
+        "patient": "Patient",
+        "age": "Age",
+        "gender": "Gender"
+      }
+    },
+    "detailsPage": {
+      "tabs": {
+        "overview": {
+          "title": "Overview"
+        },
+        "screening": {
+          "title": "Medical Screening"
+        },
+        "appointments": {
+          "title": "Appointments",
+          "status": {
+            "all": "All",
+            "upcoming": "Upcoming",
+            "past": "Past"
+          },
+          "table": {
+            "columns": {
+              "date": "Date",
+              "time": "Time",
+              "status": "Status"
+            }
+          }
+        }
+      }
     }
   }
 }

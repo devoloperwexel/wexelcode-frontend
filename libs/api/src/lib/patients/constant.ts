@@ -11,6 +11,10 @@ const API = {
     path: '/users/:userId/patients/:patientId',
     method: 'PATCH',
   },
+  GET_ALL: {
+    path: '/patients',
+    method: 'GET',
+  },
 };
 
 export default API;
