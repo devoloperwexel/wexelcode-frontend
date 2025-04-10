@@ -1,11 +1,13 @@
 import { cn, getAppointmentStatus } from '@wexelcode/utils';
 import { useTranslations } from 'next-intl';
 
-interface StatusBadgeProps {
+interface AppointmentStatusBadgeProps {
   datetime: string;
 }
 
-export function StatusBadge({ datetime }: StatusBadgeProps) {
+export function AppointmentStatusBadge({
+  datetime,
+}: AppointmentStatusBadgeProps) {
   const t = useTranslations('appointments');
 
   const status = getAppointmentStatus(datetime);
