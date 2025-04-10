@@ -33,7 +33,7 @@ export function NextAppointmentCard() {
     <div>
       <div className="flex flex-col bg-white shadow-md rounded-lg p-4 space-y-4">
         <div className="flex justify-between items-center">
-          <h4>{t('title')}</h4>
+          <Text variant="h4">{t('title')}</Text>
         </div>
         {appointmentsResponse?.results.length ? (
           <>
