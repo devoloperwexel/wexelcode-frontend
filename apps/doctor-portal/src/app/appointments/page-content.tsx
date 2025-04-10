@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-import { StatusBadge } from '../../components/appointments';
+import { AppointmentStatusBadge } from '../../components/appointments';
 import Routes from '../../constants/routes';
 
 const now = dateTimeSubtract(new Date(), 30, 'minutes').toISOString();
@@ -102,7 +102,9 @@ export default function AppointmentsPageContent() {
               header: t('table.header.status'),
               cell: ({ row }) => {
                 const data = row.original;
-                return <StatusBadge datetime={data.appointmentTime} />;
+                return (
+                  <AppointmentStatusBadge datetime={data.appointmentTime} />
+                );
               },
             },
           ]}
