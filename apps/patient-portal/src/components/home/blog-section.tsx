@@ -1,44 +1,68 @@
 import { AnimateOnScroll } from '@wexelcode/components';
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+
+import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 
 export const BlogSection = () => {
   const t = useTranslations('home.blogSection');
+  const local = useLocale();
 
-  const blogPosts = [
-    {
-      title: 'Autumn Is Hiking Season',
-      description:
-        'Autumn is here, marking the peak of the hiking season. Hiking has long been a popular leisure activity among young and old alike and continues to be a growing trend.',
-      image:
-        'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
-    },
-    {
-      title: 'Modern Physiotherapy',
-      description:
-        'Physiotherapy has evolved significantly over the past decades and has become an essential part of healthcare today.',
-      image:
-        'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-    },
-    {
-      title: 'Back Pain',
-      description:
-        'Have any of you ever experienced back pain without a clear cause? It appears suddenly and can disrupt our daily lives—whether at work, at home, or during leisure activities.',
-      image:
-        'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1820&q=80',
-    },
-  ];
-
-  const containerVariants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
+  //TODO: Backend API integration for blogs
+  const blogPosts = {
+    en: [
+      {
+        title: 'Autumn Is Hiking Season',
+        href: '/hiking',
+        description:
+          'Autumn is here, marking the peak of the hiking season. Hiking has long been a popular leisure activity among young and old alike and continues to be a growing trend.',
+        image:
+          'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
       },
-    },
+      {
+        title: 'Modern Physiotherapy',
+        href: '/modern-physiotherapy',
+        description:
+          'Physiotherapy has evolved significantly over the past decades and has become an essential part of healthcare today.',
+        image:
+          'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+      },
+      {
+        title: 'Back Pain',
+        href: '/back-pain',
+        description:
+          'Have any of you ever experienced back pain without a clear cause? It appears suddenly and can disrupt our daily lives—whether at work, at home, or during leisure activities.',
+        image:
+          'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1820&q=80',
+      },
+    ],
+    de: [
+      {
+        title: 'Herbst ist Wandersaison',
+        href: '/hiking',
+        description:
+          'Der Herbst ist da und markiert den Höhepunkt der Wandersaison. Wandern ist seit langem eine beliebte Freizeitbeschäftigung bei Jung und Alt und erfreut sich weiterhin wachsender Beliebtheit.',
+        image:
+          'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
+      },
+      {
+        title: 'Moderne Physiotherapie',
+        href: '/modern-physiotherapy',
+        description:
+          'Die Physiotherapie hat sich in den letzten Jahrzehnten enorm weiterentwickelt und ist heute ein unverzichtbarer Bestandteil des Gesundheitswesens.',
+        image:
+          'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+      },
+      {
+        title: 'Rückenschmerzen',
+        href: '/back-pain',
+        description:
+          'Wer von euch hatte schon einmal Rückenschmerzen ohne klare Ursache? Sie treten plötzlich auf und beeinträchtigen unseren Alltag, sei es bei der Arbeit, im Haushalt oder in der Freizeit.',
+        image:
+          'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1820&q=80',
+      },
+    ],
   };
 
   const cardVariants = {
@@ -66,7 +90,7 @@ export const BlogSection = () => {
           </h2>
         </AnimateOnScroll>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
+          {blogPosts[local as keyof typeof blogPosts].map((post, index) => (
             <motion.div
               key={index}
               custom={index}
@@ -105,9 +129,11 @@ export const BlogSection = () => {
                     x: 5,
                   }}
                   href="#"
-                  className="inline-flex items-center text-[#a51008] font-medium hover:text-[#8a0d07] transition duration-300"
+                  className="inline-flex items-center text-primary font-medium hover:text-[#8a0d07] transition duration-300"
                 >
-                  Learn More
+                  <Link href={`${Routes.blog}${post.href}`}>
+                    {t('learnMore')}
+                  </Link>
                   <motion.span
                     className="ml-1"
                     initial={{

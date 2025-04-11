@@ -11,7 +11,7 @@ import {
 } from '@wexelcode/components';
 import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
-import { CalendarIcon, ClockIcon, VideoIcon, Info } from 'lucide-react';
+import { CalendarIcon, ClockIcon, Info,VideoIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
