@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import AppointmentSuccessPageContent from './page-content';
 
 interface AppointmentSuccessPageProps {
-  searchParams: Promise<{ payment_intent?: string }>;
+  searchParams: Promise<{ payment_intent?: string; redirect_status: string }>;
 }
 
 const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
@@ -11,17 +11,19 @@ const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
 export default async function AppointmentSuccessPage({
   searchParams,
 }: AppointmentSuccessPageProps) {
-  const paymentIntent = (await searchParams)?.payment_intent;
-  console.log(paymentIntent);
+  const queryParm = await searchParams;
+  const paymentIntent = queryParm?.payment_intent;
+  const status = queryParm?.redirect_status;
+  console.log(paymentIntent, status);
 
   if (!paymentIntent) {
     notFound();
   }
   try {
-    const intent = await stripe.checkout.paymentIntents.retrieve(paymentIntent);
+    const intent = await stripe.paymentIntents.retrieve(paymentIntent);
     console.log(intent);
 
-    if (intent.payment_status !== 'succeeded') {
+    if (intent.status !== 'succeeded') {
       notFound();
     }
 
