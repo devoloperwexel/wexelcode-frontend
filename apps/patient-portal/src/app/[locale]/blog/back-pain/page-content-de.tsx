@@ -21,7 +21,7 @@ const BackPainBlogDe = () => {
       <header className="relative w-full overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://ucarecdn.com/82eb540a-1a02-4a53-9e3a-4b217fc284cd/-/preview/1000x1000"
+            src="https://ucarecdn.com/82eb540a-1a02-4a53-9e3a-4b217fc284cd/Gemini_Generated_Image_nvmu45nvmu45nvmu.avif"
             alt="Medical background"
             className="w-full h-full object-cover"
           />

@@ -19,11 +19,11 @@ const BackPainBlogEn = () => {
       <header className="relative w-full overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://ucarecdn.com/82eb540a-1a02-4a53-9e3a-4b217fc284cd/-/preview/1000x1000"
+            src="https://ucarecdn.com/82eb540a-1a02-4a53-9e3a-4b217fc284cd/Gemini_Generated_Image_nvmu45nvmu45nvmu.avif"
             alt="Medical background"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-primary bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-primary bg-opacity-40"></div>
         </div>
         <div className="container mx-auto px-4 py-20 md:py-28 relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fadeIn text-white">
@@ -191,7 +191,5 @@ const BackPainBlogEn = () => {
     </div>
   );
 };
-
-
 
 export default BackPainBlogEn;
