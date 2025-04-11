@@ -9,5 +9,7 @@ export const useGetDoctorAvailability = (
   return useQuery({
     queryKey: [QueryKeys.doctors, request.id, request.date],
     queryFn: async () => GetDoctorAvailability(request),
+    staleTime: 0,
+    gcTime:0
   });
 };
