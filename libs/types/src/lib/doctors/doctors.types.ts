@@ -9,14 +9,9 @@ export interface Doctor {
   totalYearsOfExperience: number;
 }
 
-export interface TimeSlot {
-  time: string[];
-  available: boolean;
-}
-
 export interface DoctorAvailability {
   date: string;
-  timeSlots: TimeSlot[];
+  appointmentTimes: Date[];
 }
 
 export interface GetDoctorAvailabilityRequest {

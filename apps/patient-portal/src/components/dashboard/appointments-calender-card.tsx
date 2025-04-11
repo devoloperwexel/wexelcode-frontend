@@ -15,7 +15,7 @@ import Calendar from './calender';
 import { CalendarAppointmentLoading } from './loading';
 
 export function AppointmentCalenderCard() {
-  const t = useTranslations('dashboard.appointmentCalenderCard');
+  const t = useTranslations('dashboard');
 
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const { data: userData } = useSession();
@@ -49,7 +49,7 @@ export function AppointmentCalenderCard() {
 
   return (
     <Card>
-      <CardHeader>{t('title')}</CardHeader>
+      <CardHeader>{t('appointmentCalenderCard.title')}</CardHeader>
       <CardContent className="grid grid-cols-2">
         <div>
           <Calendar
@@ -62,7 +62,7 @@ export function AppointmentCalenderCard() {
 
         <div className="col-span-1 flex flex-col gap-4">
           <Text variant="h3">
-            {t('appointmentFor')}{' '}
+            {t('appointmentCalenderCard.appointmentFor')}{' '}
             {dateTimeFormat(startDateOfSelectedMonth, 'MMMM yyyy')}
           </Text>
 
@@ -71,10 +71,9 @@ export function AppointmentCalenderCard() {
 
             {appointmentResponse?.totalResults === 0 && (
               <NoDataBanner
-                message={`${t('noDataFound')} ${dateTimeFormat(
-                  startDateOfSelectedMonth,
-                  'MMMM'
-                )}`}
+                message={`${t(
+                  'appointmentCalenderCard.noDataFound'
+                )} ${dateTimeFormat(startDateOfSelectedMonth, 'MMMM')}`}
               />
             )}
 
@@ -88,7 +87,12 @@ export function AppointmentCalenderCard() {
                     <div className="flex items-center gap-2">
                       <div className="flex flex-col justify-center items-center border w-12 h-12">
                         <div className="flex justify-center bg-border w-full">
-                          {dateTimeFormat(appointment.appointmentTime, 'dd')}
+                          {t(
+                            `calendar.days.${dateTimeFormat(
+                              appointment.appointmentTime,
+                              'ddd'
+                            ).toLowerCase()}`
+                          )}
                         </div>
                         <Text>
                           {dateTimeFormat(appointment.appointmentTime, 'D')}

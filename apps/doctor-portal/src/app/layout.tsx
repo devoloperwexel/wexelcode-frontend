@@ -6,9 +6,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 
 import { LanguageSwitch } from '../components/intl';
+import { DashboardNavigationItems } from '../components/navigation';
 import { UserMenu } from '../components/user-menu';
 import Languages from '../constants/languages';
-import DashboardNavigationItems from '../constants/navigation-items';
 
 export const metadata = {
   title: 'Wexelcode',

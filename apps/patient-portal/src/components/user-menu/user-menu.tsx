@@ -12,7 +12,7 @@ import {
 } from '@wexelcode/components';
 import { ChevronsUpDown, Cog, LogOut } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
@@ -20,15 +20,16 @@ import { MyAvatar } from '../common';
 
 export function UserMenu() {
   const t = useTranslations('userMenu');
+  const local = useLocale();
 
   const { data, status } = useSession();
 
   const handleSinIn = async () => {
-    await signIn('keycloak', { redirectTo: window.location.href });
+    await signIn('keycloak', { redirectTo: `/${local}${Routes.dashboard}` });
   };
 
   const handleSinOut = async () => {
-    await signOut({ redirect: false });
+    await signOut({ redirectTo: Routes.home });
   };
 
   if (status === 'loading')

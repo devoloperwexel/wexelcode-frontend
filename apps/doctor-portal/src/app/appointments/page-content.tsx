@@ -9,13 +9,19 @@ import {
   UserAvatar,
 } from '@wexelcode/components';
 import { useGetAllAppointments, useQueryParams } from '@wexelcode/hooks';
-import { dateTimeFormat } from '@wexelcode/utils';
+import { dateTimeFormat, dateTimeSubtract } from '@wexelcode/utils';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
+import { AppointmentStatusBadge } from '../../components/appointments';
 import Routes from '../../constants/routes';
 
+const now = dateTimeSubtract(new Date(), 30, 'minutes').toISOString();
+
 export default function AppointmentsPageContent() {
+  const t = useTranslations('appointments');
+
   const { data: userData } = useSession();
 
   const router = useRouter();
@@ -27,6 +33,9 @@ export default function AppointmentsPageContent() {
     limit: queryParams.getInt('limit') || 10,
     physioUserId: userData?.user.id,
     includes: ['patient-user'],
+    startDate: queryParams.getString('status') === 'upcoming' ? now : undefined,
+    endDate: queryParams.getString('status') === 'past' ? now : undefined,
+    sortBy: 'appointmentTime:desc',
   });
 
   return (
@@ -37,22 +46,12 @@ export default function AppointmentsPageContent() {
         </div>
         <div className="w-1/4">
           <DropdownSelector
-            options={[
-              {
-                label: 'All',
-                value: 'all',
-              },
-              {
-                label: 'Upcoming',
-                value: 'upcoming',
-              },
-              {
-                label: 'Past',
-                value: 'past',
-              },
-            ]}
-            value="all"
-            onChange={(value) => console.log(value)}
+            options={['all', 'upcoming', 'past'].map((opt) => ({
+              label: t(`status.${opt}`),
+              value: opt,
+            }))}
+            value={queryParams.getString('status') || 'all'}
+            onChange={(value) => queryParams.set('status', value)}
           />
         </div>
       </div>
@@ -66,8 +65,7 @@ export default function AppointmentsPageContent() {
           columns={[
             {
               accessorKey: 'id',
-              header: 'Patient',
-
+              header: t('table.header.patient'),
               cell: ({ row }) => {
                 const data = row.original.patientUser;
                 return (
@@ -80,7 +78,7 @@ export default function AppointmentsPageContent() {
             },
             {
               accessorKey: 'date',
-              header: 'Date ',
+              header: t('table.header.date'),
               cell: ({ row }) => {
                 const data = row.original;
                 return (
@@ -92,7 +90,7 @@ export default function AppointmentsPageContent() {
             },
             {
               accessorKey: 'Time',
-              header: 'Time ',
+              header: t('table.header.time'),
               cell: ({ row }) => {
                 const data = row.original;
                 return (
@@ -101,13 +99,12 @@ export default function AppointmentsPageContent() {
               },
             },
             {
-              accessorKey: 'actions',
-              header: 'Actions',
+              accessorKey: 'status',
+              header: t('table.header.status'),
               cell: ({ row }) => {
+                const data = row.original;
                 return (
-                  <div className="flex items-center space-x-2">
-                    <Text>Actions</Text>
-                  </div>
+                  <AppointmentStatusBadge datetime={data.appointmentTime} />
                 );
               },
             },

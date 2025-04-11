@@ -24,6 +24,11 @@ export const useQueryParams = () => {
     push(`?${params.toString()}`);
   };
 
+  const getString = (key: string) => {
+    const value = searchParams.get(key);
+    return value || undefined;
+  };
+
   const getInt = (key: string) => {
     const value = searchParams.get(key);
     return value ? parseInt(value) : undefined;
@@ -34,10 +39,17 @@ export const useQueryParams = () => {
     return value ? parseFloat(value) : undefined;
   };
 
+  const remove = (key: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete(key);
+    push(`?${params.toString()}`);
+  };
+
   return {
-    getString: searchParams.get,
+    getString,
     getInt,
     getFloat,
     set,
+    remove,
   };
 };

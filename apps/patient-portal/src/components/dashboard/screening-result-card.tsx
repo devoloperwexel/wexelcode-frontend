@@ -78,8 +78,9 @@ export function ScreeningResultCard() {
             size={140}
           >
             <div className="flex flex-col justify-center text-center">
-              <Text>{summeryResponse?.completedPercentage} %</Text>
-              <Text variant="muted">{t('score')}</Text>
+              <Text weight="semibold">
+                {summeryResponse?.completedPercentage} %
+              </Text>
             </div>
           </ProgressIndicator>
         </div>

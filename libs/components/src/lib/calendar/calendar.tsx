@@ -1,23 +1,34 @@
 'use client';
 
 import { cn } from '@wexelcode/utils';
+import { de, enGB } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
 
 import { buttonVariants } from '../..';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = {
+  local?: string;
+  startDate?: Date;
+  toDate?: Date;
+} & React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  local = 'en',
+  startDate,
+  toDate,
   ...props
 }: CalendarProps) {
   return (
     <DayPicker
+      locale={local === 'de' ? de : enGB}
       showOutsideDays={showOutsideDays}
+      fromDate={startDate}
+      toDate={toDate}
       className={cn('p-3', className)}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',

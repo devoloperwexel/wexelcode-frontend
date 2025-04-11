@@ -36,7 +36,7 @@ export default function AppointmentsPageContent() {
         </TabsContent>
 
         <TabsContent value="history">
-          <AppointmentListView endDate={now} />
+          <AppointmentListView endDate={now} sort="desc" />
         </TabsContent>
       </Tabs>
     </div>

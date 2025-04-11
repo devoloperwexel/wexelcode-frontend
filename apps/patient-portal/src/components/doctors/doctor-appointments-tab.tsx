@@ -6,10 +6,10 @@ import {
   useGetDoctorAvailability,
 } from '@wexelcode/hooks';
 import { Doctor } from '@wexelcode/types';
-import { dateTimeDiff, dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
+import { dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Routes from '../../constants/routes';
@@ -17,6 +17,28 @@ import { useRouter } from '../../i18n/routing';
 import AppointmentsLoadingSkeleton from './appointments-loading-skeleton';
 import TimeSlotGuideItem from './time-slot-guide-item';
 import TimeSlotSelector from './time-slot-selector';
+
+const AVAILABLE_TIME_SLOT = [
+  { time: ['06:00', '06:30'], available: true },
+  { time: ['07:00', '07:30'], available: true },
+  { time: ['08:00', '08:30'], available: true },
+  { time: ['09:00', '09:30'], available: true },
+  { time: ['10:00', '10:30'], available: true },
+  { time: ['11:00', '11:30'], available: true },
+  { time: ['12:00', '12:30'], available: true },
+  { time: ['13:00', '13:30'], available: true },
+  { time: ['14:00', '14:30'], available: true },
+  { time: ['15:00', '15:30'], available: true },
+  { time: ['16:00', '16:30'], available: true },
+  { time: ['17:00', '17:30'], available: true },
+  { time: ['18:00', '18:30'], available: true },
+  { time: ['19:00', '19:30'], available: true },
+  { time: ['20:00', '20:30'], available: true },
+  { time: ['21:00', '21:30'], available: true },
+  { time: ['22:00', '22:30'], available: true },
+];
+
+const APPOINTMENT_TIME = 30;
 
 interface DoctorAppointmentsTabProps {
   doctor: Doctor;
@@ -28,10 +50,40 @@ export function DoctorAppointmentsTab({
   initialDate,
 }: DoctorAppointmentsTabProps) {
   const t = useTranslations('doctors.doctorPage');
-
+  const locale = useLocale();
   const { status, data } = useSession();
 
   const { push } = useRouter();
+
+  const markUnavailableSlots = (appointments: Date[], dateStr: string) => {
+    // Convert appointments to local time ranges
+    const localAppointments = appointments.map((iso) => {
+      const start = new Date(iso);
+      const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000); // add appointment duration
+      return { start, end };
+    });
+
+    return AVAILABLE_TIME_SLOT.map((slot) => {
+      const [startStr, endStr] = slot.time;
+
+      const start = new Date(`${dateStr}T${startStr}:00`);
+      const end = new Date(`${dateStr}T${endStr}:00`);
+      if (start < new Date()) {
+        return {
+          ...slot,
+          available: false,
+        };
+      }
+      const isOverlapping = localAppointments.some((app) => {
+        return app.start < end && app.end > start;
+      });
+
+      return {
+        ...slot,
+        available: !isOverlapping,
+      };
+    });
+  };
 
   const [date, setDate] = useState<Date>(initialDate);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<
@@ -40,18 +92,13 @@ export function DoctorAppointmentsTab({
 
   const { data: response, isLoading } = useGetDoctorAvailability({
     id: doctor.id,
-    date: date.toISOString(),
+    date: date.toDateString(),
   });
 
   const { mutateAsync: createAppointment } = useCreateAppointment();
 
   const handleTimeSlotClick = (timeSlot: string) => {
     setSelectedTimeSlot(timeSlot);
-  };
-
-  const checkAvailability = (timeSlot: string) => {
-    const timeSlotDate = `${dateTimeFormat(date, 'yyyy-MM-DD')} ${timeSlot}`;
-    return dateTimeDiff(timeSlotDate, new Date()) > 0;
   };
 
   const handleOnBookAppointment = async () => {
@@ -78,6 +125,9 @@ export function DoctorAppointmentsTab({
 
     push(`${Routes.appointments}/${response?.id}`);
   };
+  const now = new Date();
+  const sixMonthsLater = new Date(now);
+  sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
 
   return (
     <div className="flex flex-col space-y-4">
@@ -86,6 +136,9 @@ export function DoctorAppointmentsTab({
         <div className="w-1/4">
           <DatePicker
             initialDate={initialDate}
+            local={locale}
+            startDate={new Date()}
+            toDate={sixMonthsLater}
             onSelect={(date) => {
               if (!date) return;
               setDate(date);
@@ -102,17 +155,18 @@ export function DoctorAppointmentsTab({
 
       <ScrollArea className="flex-grow">
         <div className="grid grid-cols-3 gap-4">
-          {isLoading ? (
+          {isLoading || !response?.data?.appointmentTimes ? (
             <AppointmentsLoadingSkeleton />
           ) : (
-            response?.data.timeSlots.map((timeSlot, index) => (
+            markUnavailableSlots(
+              response?.data.appointmentTimes,
+              dateTimeFormat(date, 'YYYY-MM-DD')
+            ).map((timeSlot, index) => (
               <TimeSlotSelector
                 key={index}
                 start={timeSlot.time[0]}
                 end={timeSlot.time[1]}
-                available={
-                  timeSlot.available && checkAvailability(timeSlot.time[0])
-                }
+                available={timeSlot.available}
                 isSelected={selectedTimeSlot === timeSlot.time[0]}
                 onSelect={handleTimeSlotClick}
               />

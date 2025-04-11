@@ -249,7 +249,7 @@
     "paymentSuccess": {
       "success": "Success!",
       "message": "Your appointment has been confirmed",
-      "goToAppointment": "Go to Appointments"
+      "goToAppointment": "Go to the Appointment"
     },
     "videoCallCard": {
       "title": "Before Joining Your Call",
@@ -342,6 +342,34 @@
       "title": "Appointment Calendar",
       "appointmentFor": "Appointments for",
       "noDataFound": "No appointments scheduled for"
+    },
+    "calendar": {
+      "months": {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      },
+      "days": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      }
     }
+  },
+  "datePicker": {
+    "pickDate": "Pick a date"
   }
 }

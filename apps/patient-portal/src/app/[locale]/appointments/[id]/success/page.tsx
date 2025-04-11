@@ -1,5 +1,3 @@
-import { GetAppointmentById } from '@wexelcode/api';
-import { auth } from '@wexelcode/auth';
 import { notFound } from 'next/navigation';
 
 import AppointmentSuccessPageContent from './page-content';
@@ -8,25 +6,30 @@ interface AppointmentSuccessPageProps {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{ payment_intent?: string; redirect_status: string }>;
 }
 
+const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
+
 export default async function AppointmentSuccessPage({
+  searchParams,
   params,
 }: AppointmentSuccessPageProps) {
-  const [paramsData, session] = await Promise.all([params, auth()]);
-  const { id } = paramsData;
+  const queryParm = await searchParams;
+  const paymentIntent = queryParm?.payment_intent;
+  const status = queryParm?.redirect_status;
 
+  if (!paymentIntent || status !== 'succeeded') {
+    notFound();
+  }
   try {
-    const appointment = await GetAppointmentById({
-      userId: session?.user?.id,
-      appointmentId: id,
-    });
+    const intent = await stripe.paymentIntents.retrieve(paymentIntent);
 
-    if (appointment?.status !== 'SUCCESS') {
+    if (intent.status !== 'succeeded') {
       notFound();
     }
 
-    return <AppointmentSuccessPageContent />;
+    return <AppointmentSuccessPageContent appointmentId={(await params).id} />;
   } catch (_error) {
     notFound();
   }
