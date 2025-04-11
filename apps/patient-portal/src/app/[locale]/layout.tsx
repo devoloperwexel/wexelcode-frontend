@@ -5,10 +5,11 @@ import { QueryProvider } from '@wexelcode/react-query';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import NextTopLoader from 'nextjs-toploader';
+
 import MainLayout from '../../layouts/main-layout';
 import { ProfileCompleteProvider } from '../../providers';
 import { routing } from './../../i18n/routing';
-import NextTopLoader from 'nextjs-toploader';
 
 export const metadata = {
   title: 'WexelCode',
