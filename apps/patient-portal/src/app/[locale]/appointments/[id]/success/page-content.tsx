@@ -7,7 +7,13 @@ import { useTranslations } from 'next-intl';
 import Routes from '../../../../../constants/routes';
 import { Link } from '../../../../../i18n/routing';
 
-export default function AppointmentSuccessPageContent() {
+interface Props {
+  appointmentId: string;
+}
+
+export default function AppointmentSuccessPageContent({
+  appointmentId,
+}: Props) {
   const t = useTranslations('appointments.paymentSuccess');
   return (
     <div className="h-fill flex flex-col items-center justify-center h-full space-y-6">
@@ -19,7 +25,7 @@ export default function AppointmentSuccessPageContent() {
           </h1>
           <p className="text-xl text-muted-foreground">{t('message')}</p>
           <div>
-            <Link href={Routes.appointments}>
+            <Link href={`${Routes.appointments}/${appointmentId}`}>
               <Button>{t('goToAppointment')}</Button>
             </Link>
           </div>
