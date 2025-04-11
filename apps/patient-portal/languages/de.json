@@ -107,10 +107,6 @@
         }
       }
     },
-    "testimonialsSection": {
-      "title": "Was unsere Patienten sagen",
-      "description": "Hören Sie von Menschen, die unsere personalisierten Physiotherapie-Dienstleistungen in Anspruch genommen haben."
-    },
     "sneakPeekSection": {
       "title": "Hier ist ein Vorgeschmack auf das, was entwickelt wird",
       "features": {
@@ -141,7 +137,8 @@
       }
     },
     "blogSection": {
-      "title": "Erfahren Sie mehr in unserem Blog"
+      "title": "Erfahren Sie mehr in unserem Blog",
+      "learnMore": "Mehr erfahren"
     },
     "faqSection": {
       "title": "Häufig gestellte Fragen",
