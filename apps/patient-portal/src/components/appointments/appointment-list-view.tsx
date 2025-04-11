@@ -14,11 +14,13 @@ import { AppointmentListLoadingSkeleton } from './loading-skeleton';
 interface AppointmentListViewProps {
   startDate?: string;
   endDate?: string;
+  sort?: 'asc' | 'desc';
 }
 
 export function AppointmentListView({
   startDate,
   endDate,
+  sort = 'asc',
 }: AppointmentListViewProps) {
   const t = useTranslations('appointments.appointmentsPage');
   const { data: userData } = useSession();
@@ -27,11 +29,12 @@ export function AppointmentListView({
 
   const { data: response, isLoading } = useGetAppointmentsByUserId({
     page: queryParams.getInt('page') || 1,
-    limit: queryParams.getInt('limit') || 10,
+    limit: queryParams.getInt('limit') || 8,
     userId: userData?.user?.id,
     startDate,
     endDate,
     includes: ['physio-user'],
+    sortBy: `appointmentTime:${sort}`,
   });
 
   return (
