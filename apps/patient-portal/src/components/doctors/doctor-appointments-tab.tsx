@@ -92,7 +92,7 @@ export function DoctorAppointmentsTab({
 
   const { data: response, isLoading } = useGetDoctorAvailability({
     id: doctor.id,
-    date: date.toISOString(),
+    date: date.toDateString(),
   });
 
   const { mutateAsync: createAppointment } = useCreateAppointment();
