@@ -11,7 +11,7 @@ import {
 } from '@wexelcode/components';
 import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
-import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { CalendarIcon, ClockIcon, VideoIcon, Info } from 'lucide-react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -102,14 +102,17 @@ export function LatestUpcomingAppointmentCard({
             </Link>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 mt-1">
           <div className="flex items-center">
             <CalendarIcon className="w-5 h-5 text-primary mr-3" />
             <div>
               <Text variant="muted">{t('date')}</Text>
               <Text weight="semibold">
                 {appointment?.appointmentTime &&
-                  dateTimeFormat(appointment?.appointmentTime, 'Do MMMM, yyyy')}
+                  dateTimeFormat(
+                    appointment?.appointmentTime,
+                    'DD, MMMM, yyyy'
+                  )}
               </Text>
             </div>
           </div>
@@ -120,7 +123,7 @@ export function LatestUpcomingAppointmentCard({
               <Text variant="muted">{t('time')}</Text>
               <Text weight="semibold">
                 {appointment?.appointmentTime &&
-                  dateTimeFormat(appointment?.appointmentTime, 'HH:MM')}{' '}
+                  dateTimeFormat(appointment?.appointmentTime, 'HH:mm')}{' '}
                 (30 {t('minutes')})
               </Text>
             </div>
@@ -134,6 +137,7 @@ export function LatestUpcomingAppointmentCard({
           </div>
 
           <div className="flex items-center">
+            <Info className="w-5 h-5 text-primary mr-3" />
             <div>
               <Text variant="muted">{t('status')}</Text>
               <span
