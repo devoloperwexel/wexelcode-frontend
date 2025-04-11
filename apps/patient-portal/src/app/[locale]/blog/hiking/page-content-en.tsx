@@ -238,9 +238,9 @@ const HikingBlogEn = () => {
                     Route Planning
                   </h3>
                   <p className="text-sm">
-                    Choose a route suitable for your fitness level. Don't
+                    {`Choose a route suitable for your fitness level. Don't
                     overexert yourself, especially on your first hikes. Check
-                    the length and difficulty of the trail beforehand.
+                    the length and difficulty of the trail beforehand.`}
                   </p>
                 </div>
               </div>
@@ -293,8 +293,8 @@ const HikingBlogEn = () => {
                     Sun Protection
                   </h3>
                   <p className="text-sm">
-                    Don't forget sunscreen, a hat, and sunglasses—UV radiation
-                    is stronger at higher altitudes.
+                    {`Don't forget sunscreen, a hat, and sunglasses—UV radiation
+                    is stronger at higher altitudes.`}
                   </p>
                 </div>
               </div>
@@ -407,9 +407,9 @@ const HikingBlogEn = () => {
                 well-being, and reduces stress.
               </p>
               <p className="mb-4">
-                To fully enjoy these positive effects, it's crucial to be
+                {`To fully enjoy these positive effects, it's crucial to be
                 well-prepared and pay attention to proper equipment and personal
-                limits.
+                limits.`}
               </p>
               <p className="font-medium text-primary">Enjoy your next hike!</p>
             </div>
