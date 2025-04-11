@@ -43,6 +43,7 @@ export default async function LocaleLayout({
             color="#A51008"
             speed={300}
             showForHashAnchor={false}
+            showSpinner={false}
           />
           <QueryProvider>
             <NextIntlClientProvider messages={messages}>
