@@ -7,7 +7,7 @@ const HikingBlogEn = () => {
           className="w-full h-[50vh] bg-cover bg-center relative"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80')",
+              "url('https://ucarecdn.com/52346ad2-3adb-43c1-9247-fd701431fa40/photo14544965224887a8e488e8606.avif')",
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/70" />
