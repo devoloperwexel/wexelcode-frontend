@@ -69,7 +69,7 @@ const PhysiotherapyBlogEn = () => {
               <p className="text-gray-700">
                 {title === 'Holistic Approach' ? (
                   <span>
-                    One of the core aspects of modern physiotherapy is its
+                    {`  One of the core aspects of modern physiotherapy is its
                     holistic approach. This means that the physiotherapist takes
                     the entire body and the patient's lifestyle into account
                     during treatment. It's not just about addressing specific
@@ -77,11 +77,11 @@ const PhysiotherapyBlogEn = () => {
                     factors that may worsen or promote the problem. The goal is
                     to improve the functionality of the entire musculoskeletal
                     system in the long term rather than just alleviating a
-                    single symptom.
+                    single symptom.`}
                   </span>
                 ) : title === 'Individual Therapy Plan' ? (
                   <span>
-                    Lying down and having your pain and symptoms massaged away
+                    {`Lying down and having your pain and symptoms massaged away
                     simply doesn't work. Modern physiotherapy places great
                     importance on creating an individual therapy plan. Every
                     treatment starts with a personal assessment, including a
@@ -90,29 +90,29 @@ const PhysiotherapyBlogEn = () => {
                     and develop a customized therapy plan. This approach makes
                     modern physiotherapy particularly effective since the
                     patient is not treated according to a rigid scheme but
-                    receives therapy tailored to their specific needs.
+                    receives therapy tailored to their specific needs.`}
                   </span>
                 ) : title === 'Evidence-Based Practice' ? (
                   <span>
-                    A modern physiotherapist develops their treatment methods
+                    {` A modern physiotherapist develops their treatment methods
                     based on current scientific research and proven clinical
                     experience. To stay up to date with the latest research, it
                     is essential to regularly read and analyze studies, often
                     using professional journals and online platforms. The
                     challenge lies in applying scientific findings to an
                     individual patient's situation. Here, the therapist's
-                    experience and professional judgment play an essential role.
+                    experience and professional judgment play an essential role.`}
                   </span>
                 ) : title === 'Prevention and Health Promotion' ? (
                   <span>
-                    Prevention is becoming increasingly important in modern
+                    {`Prevention is becoming increasingly important in modern
                     physiotherapy. The therapy doesn't just focus on addressing
                     existing problems but also aims to prevent future injuries
                     or illnesses. This benefits the patient in everyday life,
                     sports, and work. Physiotherapists also help increase
                     general physical activity, thereby reducing the risk of
                     chronic conditions such as back pain, cardiovascular
-                    diseases, or joint problems.
+                    diseases, or joint problems.`}
                   </span>
                 ) : title === 'Interdisciplinary Collaboration' ? (
                   <span>

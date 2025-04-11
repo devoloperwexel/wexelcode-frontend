@@ -10,6 +10,7 @@ import {
   Scale,
   UserX,
 } from 'lucide-react';
+
 import { RiskFactorCard } from './risk-factor-card';
 
 const BackPainBlogEn = () => {
@@ -175,14 +176,14 @@ const BackPainBlogEn = () => {
                 Movement and Strengthening Exercises
               </h3>
               <p className="text-gray-700 leading-relaxed">
-                It is important to stay active—start with small, slow movements
+                {`It is important to stay active—start with small, slow movements
                 and try to resume your usual activities. Long periods of rest
                 are not beneficial and can even worsen the pain, lead to greater
                 functional limitations, and delay recovery. In the long term,
                 training is essential. The World Health Organization (WHO)
                 recommends 150 minutes of exercise per week. There are no "best"
                 back exercises—the key is to start and enjoy the activity to
-                keep your motivation high.
+                keep your motivation high.`}
               </p>
             </div>
           </section>

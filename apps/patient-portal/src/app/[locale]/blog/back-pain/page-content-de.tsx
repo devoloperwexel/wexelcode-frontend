@@ -3,16 +3,17 @@ import {
   Activity,
   AlertCircle,
   ArrowRight,
+  Brain,
+  Briefcase,
   Clock,
+  Dumbbell,
   Heart,
   HelpCircle,
   Scale,
-  UserX,
-  Dumbbell,
-  Brain,
   Target,
-  Briefcase,
+  UserX,
 } from 'lucide-react';
+
 import { RiskFactorCard } from './risk-factor-card';
 const BackPainBlogDe = () => {
   return (
