@@ -1,8 +1,9 @@
 import { AnimateOnScroll } from '@wexelcode/components';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
-import { Link } from '../../i18n/routing';
+
 import Routes from '../../constants/routes';
+import { Link } from '../../i18n/routing';
 
 export const BlogSection = () => {
   const t = useTranslations('home.blogSection');
