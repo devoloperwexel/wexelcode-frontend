@@ -249,7 +249,7 @@
     "paymentSuccess": {
       "success": "Erfolg!",
       "message": "Ihr Termin wurde bestätigt",
-      "goToAppointment": "Gehe zu Termine"
+      "goToAppointment": "Zum Termin"
     },
     "videoCallCard": {
       "title": "Bevor Sie Ihrem Anruf beitreten",
