@@ -26,7 +26,7 @@ const BackPainBlogDe = () => {
             alt="Medical background"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-primary bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#a51008] to-[#a51008]/30"></div>
         </div>
         <div className="container mx-auto px-4 py-20 md:py-28 relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fadeIn text-white">

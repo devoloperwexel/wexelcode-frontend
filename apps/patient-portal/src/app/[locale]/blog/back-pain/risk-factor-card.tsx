@@ -12,9 +12,9 @@ export const RiskFactorCard = ({
   description,
 }: RiskFactorCardProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 border-t-4 border-[#a51008]">
+    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 border-t-4 border-primary">
       <div className="flex items-center mb-4">
-        <div className="bg-red-50 p-3 rounded-full text-[#a51008] mr-4">
+        <div className="bg-red-50 p-3 rounded-full text-primary mr-4">
           {icon}
         </div>
         <h3 className="text-xl font-semibold text-gray-800">{title}</h3>

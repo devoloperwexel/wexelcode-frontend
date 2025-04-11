@@ -1,6 +1,8 @@
 import { AnimateOnScroll } from '@wexelcode/components';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '../../i18n/routing';
+import Routes from '../../constants/routes';
 
 export const BlogSection = () => {
   const t = useTranslations('home.blogSection');
@@ -11,6 +13,7 @@ export const BlogSection = () => {
     en: [
       {
         title: 'Autumn Is Hiking Season',
+        href: '/hiking',
         description:
           'Autumn is here, marking the peak of the hiking season. Hiking has long been a popular leisure activity among young and old alike and continues to be a growing trend.',
         image:
@@ -18,6 +21,7 @@ export const BlogSection = () => {
       },
       {
         title: 'Modern Physiotherapy',
+        href: '/modern-physiotherapy',
         description:
           'Physiotherapy has evolved significantly over the past decades and has become an essential part of healthcare today.',
         image:
@@ -25,6 +29,7 @@ export const BlogSection = () => {
       },
       {
         title: 'Back Pain',
+        href: '/back-pain',
         description:
           'Have any of you ever experienced back pain without a clear cause? It appears suddenly and can disrupt our daily lives—whether at work, at home, or during leisure activities.',
         image:
@@ -34,6 +39,7 @@ export const BlogSection = () => {
     de: [
       {
         title: 'Herbst ist Wandersaison',
+        href: '/hiking',
         description:
           'Der Herbst ist da und markiert den Höhepunkt der Wandersaison. Wandern ist seit langem eine beliebte Freizeitbeschäftigung bei Jung und Alt und erfreut sich weiterhin wachsender Beliebtheit.',
         image:
@@ -41,6 +47,7 @@ export const BlogSection = () => {
       },
       {
         title: 'Moderne Physiotherapie',
+        href: '/modern-physiotherapy',
         description:
           'Die Physiotherapie hat sich in den letzten Jahrzehnten enorm weiterentwickelt und ist heute ein unverzichtbarer Bestandteil des Gesundheitswesens.',
         image:
@@ -48,6 +55,7 @@ export const BlogSection = () => {
       },
       {
         title: 'Rückenschmerzen',
+        href: '/back-pain',
         description:
           'Wer von euch hatte schon einmal Rückenschmerzen ohne klare Ursache? Sie treten plötzlich auf und beeinträchtigen unseren Alltag, sei es bei der Arbeit, im Haushalt oder in der Freizeit.',
         image:
@@ -122,7 +130,9 @@ export const BlogSection = () => {
                   href="#"
                   className="inline-flex items-center text-primary font-medium hover:text-[#8a0d07] transition duration-300"
                 >
-                  {t('learnMore')}
+                  <Link href={`${Routes.blog}${post.href}`}>
+                    {t('learnMore')}
+                  </Link>
                   <motion.span
                     className="ml-1"
                     initial={{
