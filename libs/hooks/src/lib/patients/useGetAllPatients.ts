@@ -8,6 +8,7 @@ export const useGetAllPatients = (request: GetAllPatientsRequest) => {
     queryKey: [
       QueryKeys.patients,
       request.physioUserId,
+      request.name,
       request.limit,
       request.page,
     ],
