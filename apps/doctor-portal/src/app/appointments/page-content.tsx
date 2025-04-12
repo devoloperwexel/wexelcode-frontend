@@ -10,6 +10,7 @@ import {
 } from '@wexelcode/components';
 import { useGetAllAppointments, useQueryParams } from '@wexelcode/hooks';
 import { dateTimeFormat, dateTimeSubtract } from '@wexelcode/utils';
+import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -36,13 +37,23 @@ export default function AppointmentsPageContent() {
     startDate: queryParams.getString('status') === 'upcoming' ? now : undefined,
     endDate: queryParams.getString('status') === 'past' ? now : undefined,
     sortBy: 'appointmentTime:desc',
+    name: queryParams.getString('search'),
   });
+
+  const handleOnSearch = (search: string) => {
+    debounce(() => {
+      queryParams.set('search', search);
+    }, 500)();
+  };
 
   return (
     <div className="flex flex-col justify-start space-y-2 h-full">
       <div className="flex items-center justify-between">
         <div className="w-1/2">
-          <Input placeholder="Search" />
+          <Input
+            placeholder="Search"
+            onChange={(e) => handleOnSearch(e.target.value)}
+          />
         </div>
         <div className="w-1/4">
           <DropdownSelector
