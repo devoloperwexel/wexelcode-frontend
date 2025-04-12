@@ -26,7 +26,7 @@ export default function AppointmentDetailPageContent({
   const t = useTranslations('appointments.detailsPage');
 
   return (
-    <div className="flex flex-col justify-start space-y-2 h-full">
+    <div className="container max-w-4xl mx-auto flex flex-col justify-start space-y-2 h-full">
       <Tabs defaultValue="overview">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
