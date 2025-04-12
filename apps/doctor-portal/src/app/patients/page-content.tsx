@@ -9,6 +9,7 @@ import {
 } from '@wexelcode/components';
 import { useGetAllPatients, useQueryParams } from '@wexelcode/hooks';
 import { dateTimeDiff } from '@wexelcode/utils';
+import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -29,13 +30,24 @@ export default function PatientPageContent() {
     limit: queryParams.getInt('limit') || 10,
     physioUserId: userData?.user.id,
     includes: ['user'],
+    name: queryParams.getString('search'),
   });
+
+  const handleOnSearch = (search: string) => {
+    debounce(() => {
+      queryParams.set('search', search);
+    }, 500)();
+  };
 
   return (
     <div className="flex flex-col justify-start space-y-2 h-full">
       <div className="flex items-center justify-between">
         <div className="w-1/2">
-          <Input placeholder="Search" />
+          <Input
+            placeholder="Search"
+            value={queryParams.getString('search')}
+            onChange={(e) => handleOnSearch(e.target.value)}
+          />
         </div>
       </div>
 
