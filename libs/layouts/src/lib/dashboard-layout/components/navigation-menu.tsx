@@ -11,19 +11,30 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  Text,
 } from '@wexelcode/components';
 import { DashboardNavigationItem } from '@wexelcode/types';
+import { cn } from '@wexelcode/utils';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface NavigationMenuProps {
   items: DashboardNavigationItem[];
 }
 
 export default function NavigationMenu({ items }: NavigationMenuProps) {
+  const path = usePathname();
+
+  const isActive = (url: string) => {
+    console.log('url', url);
+    console.log('path', path);
+    return path === url || path.startsWith(url + '/');
+  };
+
   return (
     <SidebarGroup>
-      <SidebarMenu>
+      <SidebarMenu className="space-y-2">
         {items.map((item) => (
           <Collapsible
             key={item.title}
@@ -36,7 +47,7 @@ export default function NavigationMenu({ items }: NavigationMenuProps) {
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton tooltip={item.title}>
                     {item.icon && item.icon}
-                    <span>{item.title}</span>
+                    <Text variant="large">{item.title}</Text>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
@@ -56,10 +67,14 @@ export default function NavigationMenu({ items }: NavigationMenuProps) {
               </SidebarMenuItem>
             ) : (
               <SidebarMenuItem className="group/collapsible">
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive(item.url)}
+                  className={cn(isActive(item.url) && 'bg-primary-foreground')}
+                >
                   <Link href={item.url}>
                     {item.icon && item.icon}
-                    <span>{item.title}</span>
+                    <Text variant="large">{item.title}</Text>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
