@@ -83,8 +83,7 @@ const BackPainBlogEn = () => {
               Around 85% of all back pain cases are non-specific back pain,
               which usually resolves within a few days to weeks. Unfortunately,
               it can recur and, in rare cases, become chronic if appropriate
-              measures for relief and prevention are not taken.{' '}
-              <span className="text-sm text-gray-500">[cite: 4]</span>
+              measures for relief and prevention are not taken.
             </p>
             <p className="mb-6 text-gray-700 leading-relaxed">
               In this post, you will learn more about non-specific back pain,
