@@ -26,11 +26,7 @@ interface NavigationMenuProps {
 export default function NavigationMenu({ items }: NavigationMenuProps) {
   const path = usePathname();
 
-  const isActive = (url: string) => {
-    console.log('url', url);
-    console.log('path', path);
-    return path === url || path.startsWith(url + '/');
-  };
+  const isActive = (url: string) => path === url || path.startsWith(url + '/');
 
   return (
     <SidebarGroup>
