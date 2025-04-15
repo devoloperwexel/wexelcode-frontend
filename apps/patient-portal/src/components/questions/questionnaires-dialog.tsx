@@ -12,6 +12,7 @@ import { useState } from 'react';
 
 import QuestionForm from './questions-form';
 import QuestionsNavigationMenu from './questions-navigation-menu';
+import { useScreeningDialogStore } from '../../app/store';
 
 interface QuestionnaireDialogProps {
   appointmentId?: string;
@@ -25,6 +26,8 @@ export function QuestionnaireDialog({
   const t = useTranslations('questionnaire.dialog');
   const local = useLocale();
 
+  const { closeDialog } = useScreeningDialogStore();
+
   const { data: userData } = useSession();
 
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
@@ -35,7 +38,7 @@ export function QuestionnaireDialog({
   });
 
   return (
-    <DialogContent className="max-w-fit">
+    <DialogContent className="max-w-fit" onClick={closeDialog}>
       <DialogHeader>
         <DialogTitle>{t('title')}</DialogTitle>
       </DialogHeader>
