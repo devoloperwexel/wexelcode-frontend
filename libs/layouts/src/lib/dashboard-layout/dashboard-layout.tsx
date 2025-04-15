@@ -1,5 +1,6 @@
 'use client';
 
+import { logo } from '@wexelcode/assets';
 import {
   Separator,
   Sidebar,
@@ -14,6 +15,7 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from '@wexelcode/components';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PropsWithChildren } from 'react';
@@ -47,14 +49,18 @@ export function DashboardLayout({
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild>
+              <SidebarMenuButton
+                size="lg"
+                asChild
+                className=" mb-4 h-16"
+              >
                 <Link href="/">
-                  <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="text-xl font-bold text-primary">
-                      Wexelcode
-                    </span>
-                    <span className="">Doctor Portal</span>
-                  </div>
+                  <Image
+                    src={logo}
+                    alt="Wexelcode Physio"
+                    className="h-18 w-30 mb-4"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
