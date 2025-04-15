@@ -9,7 +9,7 @@ interface AppointmentSuccessPageProps {
   searchParams: Promise<{ payment_intent?: string; redirect_status: string }>;
 }
 
-const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
+const stripe = require('stripe')(process.env?.STRIPE_CLIENT_SECRET ?? '');
 
 export default async function AppointmentSuccessPage({
   searchParams,
