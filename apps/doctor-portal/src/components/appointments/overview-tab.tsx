@@ -15,6 +15,7 @@ import { useTranslations } from 'next-intl';
 import { JoinNowButton } from './join-now-button';
 import PatientDetailItem from './patient-detail-item';
 import { AppointmentStatusBadge } from './status-badge';
+import { useRouter } from 'next/navigation';
 
 interface AppointmentOverviewTabProps {
   appointmentId: string;
@@ -26,6 +27,9 @@ export function AppointmentOverviewTab({
   patientId,
 }: AppointmentOverviewTabProps) {
   const t = useTranslations('appointments.detailsPage.overviewTab');
+
+  const router = useRouter();
+  const handleVideoJoin = () => router.push('/video-call');
 
   const { data: appointmentsResponse, isLoading } = useGetAppointmentById({
     userId: patientId,
@@ -89,7 +93,11 @@ export function AppointmentOverviewTab({
 
           {appointmentStatus === 'upcoming' && (
             <CardFooter className="border-t p-2">
-              <JoinNowButton appointment={appointmentsResponse} size="lg" />
+              <JoinNowButton
+                onClick={handleVideoJoin}
+                appointment={appointmentsResponse}
+                size="lg"
+              />
             </CardFooter>
           )}
         </Card>

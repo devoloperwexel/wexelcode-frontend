@@ -1,10 +1,6 @@
+'use client';
+
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
   Separator,
   Sidebar,
   SidebarContent,
@@ -19,6 +15,7 @@ import {
   SidebarTrigger,
 } from '@wexelcode/components';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
 import NavigationMenu from './components/navigation-menu';
@@ -34,6 +31,16 @@ export function DashboardLayout({
   items,
   ...rest
 }: PropsWithChildren<DashboardLayoutProps>) {
+  const pathname = usePathname();
+  const hideLayout =
+    /^\/appointments\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/video-call$/.test(
+      pathname
+    );
+
+  if (hideLayout) {
+    // return zoom video component
+    return <div>{children}</div>;
+  }
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon" {...rest}>
