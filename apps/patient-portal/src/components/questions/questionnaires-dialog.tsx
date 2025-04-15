@@ -10,9 +10,9 @@ import { useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { useScreeningDialogStore } from '../../app/store';
 import QuestionForm from './questions-form';
 import QuestionsNavigationMenu from './questions-navigation-menu';
-import { useScreeningDialogStore } from '../../app/store';
 
 interface QuestionnaireDialogProps {
   appointmentId?: string;
