@@ -12,10 +12,11 @@ import {
   Skeleton,
   UserAvatar,
 } from '@wexelcode/components';
-import { ChevronsUpDown, Cog, Link, LogOut } from 'lucide-react';
+import { ChevronsUpDown, LogOut } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
+import Routes from '../../constants/routes';
 import { MyAvatar } from '../common';
 
 export function UserMenu() {
@@ -24,7 +25,7 @@ export function UserMenu() {
   const { data, status } = useSession();
 
   const handleSinOut = async () => {
-    await signOut({ redirect: false });
+    await signOut({ redirectTo: Routes.home });
   };
 
   if (status === 'loading')

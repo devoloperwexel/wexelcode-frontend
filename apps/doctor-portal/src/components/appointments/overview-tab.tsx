@@ -10,6 +10,7 @@ import {
 import { useGetAppointmentById, useGetPatientByUserId } from '@wexelcode/hooks';
 import { dateTimeFormat, getAppointmentStatus } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { JoinNowButton } from './join-now-button';
@@ -26,6 +27,9 @@ export function AppointmentOverviewTab({
   patientId,
 }: AppointmentOverviewTabProps) {
   const t = useTranslations('appointments.detailsPage.overviewTab');
+
+  const router = useRouter();
+  const handleVideoJoin = () => router.push('/video-call');
 
   const { data: appointmentsResponse, isLoading } = useGetAppointmentById({
     userId: patientId,
@@ -89,7 +93,11 @@ export function AppointmentOverviewTab({
 
           {appointmentStatus === 'upcoming' && (
             <CardFooter className="border-t p-2">
-              <JoinNowButton appointment={appointmentsResponse} size="lg" />
+              <JoinNowButton
+                onClick={handleVideoJoin}
+                appointment={appointmentsResponse}
+                size="lg"
+              />
             </CardFooter>
           )}
         </Card>
@@ -110,6 +118,7 @@ export function AppointmentOverviewTab({
                   <Text
                     variant="large"
                     weight="semibold"
+                    className=' capitalize'
                   >{`${patientResponse.user.firstName} ${patientResponse.user.lastName}`}</Text>
                   <Text variant="muted">{t('patient')}</Text>
                 </div>

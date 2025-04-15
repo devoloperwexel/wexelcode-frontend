@@ -66,7 +66,7 @@ export default function NavigationMenu({ items }: NavigationMenuProps) {
                 <SidebarMenuButton
                   asChild
                   isActive={isActive(item.url)}
-                  className={cn(isActive(item.url) && 'bg-primary-foreground')}
+                  className={cn(isActive(item.url) && 'bg-primary/20')}
                 >
                   <Link href={item.url}>
                     {item.icon && item.icon}
