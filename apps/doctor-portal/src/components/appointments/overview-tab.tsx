@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Button,
   Card,
   CardContent,
   CardFooter,
@@ -9,16 +8,12 @@ import {
   UserAvatar,
 } from '@wexelcode/components';
 import { useGetAppointmentById, useGetPatientByUserId } from '@wexelcode/hooks';
-import {
-  dateTimeDiff,
-  dateTimeFormat,
-  getAppointmentStatus,
-} from '@wexelcode/utils';
+import { dateTimeFormat, getAppointmentStatus } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import Routes from '../../constants/routes';
+import { JoinNowButton } from './join-now-button';
 import PatientDetailItem from './patient-detail-item';
 import { AppointmentStatusBadge } from './status-badge';
 
@@ -33,6 +28,9 @@ export function AppointmentOverviewTab({
 }: AppointmentOverviewTabProps) {
   const t = useTranslations('appointments.detailsPage.overviewTab');
 
+  const router = useRouter();
+  const handleVideoJoin = () => router.push('/video-call');
+
   const { data: appointmentsResponse, isLoading } = useGetAppointmentById({
     userId: patientId,
     appointmentId: appointmentId,
@@ -44,18 +42,12 @@ export function AppointmentOverviewTab({
     ? getAppointmentStatus(appointmentsResponse?.appointmentTime)
     : undefined;
 
-  const allowJoinBefore = 5 * 60 * 1000; // 5 minutes
-  const isJoinable = appointmentsResponse
-    ? dateTimeDiff(appointmentsResponse.appointmentTime, new Date()) <
-      allowJoinBefore
-    : false;
-
   return (
-    <div className="space-y-4">
-      <Card>
-        <CardContent className="space-y-6 py-4">
-          {appointmentsResponse && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="space-y-6">
+      {appointmentsResponse && (
+        <Card>
+          <CardContent className="space-y-6 py-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-center">
                 <CalendarIcon className="w-5 h-5 text-primary mr-3" />
                 <div>
@@ -97,35 +89,19 @@ export function AppointmentOverviewTab({
                 </div>
               </div>
             </div>
+          </CardContent>
+
+          {appointmentStatus === 'upcoming' && (
+            <CardFooter className="border-t p-2">
+              <JoinNowButton
+                onClick={handleVideoJoin}
+                appointment={appointmentsResponse}
+                size="lg"
+              />
+            </CardFooter>
           )}
-        </CardContent>
-
-        {appointmentStatus === 'upcoming' && (
-          <CardFooter className="border-t p-2">
-            {isJoinable ? (
-              <Link
-                href={`${Routes.appointments}/${appointmentsResponse?.id}/video-call`}
-              >
-                <Button className="w-full min-h-12">
-                  <VideoIcon className="w-12 h-12" />
-                  {t('joinVideoCall')}
-                </Button>
-              </Link>
-            ) : (
-              <Button className="w-full min-h-12" disabled>
-                <VideoIcon className="w-12 h-12" />
-                {t('joinVideoCall')}
-              </Button>
-            )}
-
-            {!isJoinable && (
-              <p className=" text-xs text-gray-600 text-center mt-2">
-                {t('buttonEnableMessage')}
-              </p>
-            )}
-          </CardFooter>
-        )}
-      </Card>
+        </Card>
+      )}
 
       <Card>
         <CardContent className="space-y-6 py-4">
@@ -142,13 +118,16 @@ export function AppointmentOverviewTab({
                   <Text
                     variant="large"
                     weight="semibold"
+                    className=' capitalize'
                   >{`${patientResponse.user.firstName} ${patientResponse.user.lastName}`}</Text>
                   <Text variant="muted">{t('patient')}</Text>
                 </div>
               </div>
 
               <div className="py-2 border-b">
-                <Text variant="h4">{t('personalDetails')}</Text>
+                <Text variant="h4" weight="semibold">
+                  {t('personalDetails')}
+                </Text>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -182,7 +161,9 @@ export function AppointmentOverviewTab({
               </div>
 
               <div className="py-2 border-b">
-                <Text variant="h4">{t('medicalDetails')}</Text>
+                <Text variant="h4" weight="semibold">
+                  {t('medicalDetails')}
+                </Text>
               </div>
 
               <div className="grid grid-cols-2 gap-4">

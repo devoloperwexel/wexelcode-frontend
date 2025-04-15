@@ -12,7 +12,7 @@ export default function PatientDetailItem({
   return (
     <div className="flex flex-col">
       <Text variant="muted">{label}:</Text>
-      <Text>{value}</Text>
+      <Text className="capitalize">{value}</Text>
     </div>
   );
 }

@@ -1,16 +1,16 @@
 'use client';
 
 import { calenderIcon } from '@wexelcode/assets';
-import { Button, Text, UserAvatar } from '@wexelcode/components';
+import { Text, UserAvatar } from '@wexelcode/components';
 import { useGetAllAppointments } from '@wexelcode/hooks';
 import { dateTimeFormat } from '@wexelcode/utils';
-import { VideoIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
+import { JoinNowButton } from '../appointments';
 import { NoDataBanner } from '../common';
 
 const now = new Date();
@@ -60,10 +60,10 @@ export function NextAppointmentCard() {
             <Link
               href={`${Routes.appointments}/${appointmentsResponse.results[0]?.id}/video-call`}
             >
-              <Button className="w-full">
-                <VideoIcon className="w-12 h-12" />
-                {t('joinVideo')}
-              </Button>
+              <JoinNowButton
+                appointment={appointmentsResponse.results[0]}
+                className="w-full"
+              />
             </Link>
           </>
         ) : (

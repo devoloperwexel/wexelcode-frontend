@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Run Linting 🔍'
     if: github.event_name == 'pull_request'
+    env:
+      STRIPE_CLIENT_SECRET: sk_test_test
     steps:
     - uses: actions/checkout@v4
       with:
