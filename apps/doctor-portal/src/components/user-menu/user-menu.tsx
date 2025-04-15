@@ -16,8 +16,8 @@ import { ChevronsUpDown, LogOut } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-import { MyAvatar } from '../common';
 import Routes from '../../constants/routes';
+import { MyAvatar } from '../common';
 
 export function UserMenu() {
   const t = useTranslations('userMenu');

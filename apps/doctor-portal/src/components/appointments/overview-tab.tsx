@@ -10,12 +10,12 @@ import {
 import { useGetAppointmentById, useGetPatientByUserId } from '@wexelcode/hooks';
 import { dateTimeFormat, getAppointmentStatus } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { JoinNowButton } from './join-now-button';
 import PatientDetailItem from './patient-detail-item';
 import { AppointmentStatusBadge } from './status-badge';
-import { useRouter } from 'next/navigation';
 
 interface AppointmentOverviewTabProps {
   appointmentId: string;
