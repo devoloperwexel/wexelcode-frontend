@@ -8,6 +8,7 @@ export const useGetAllAppointments = (request: GetAppointmentsRequest) => {
     queryKey: [
       QueryKeys.appointments,
       request.physioUserId,
+      request.name,
       request.startDate,
       request.endDate,
       request.limit,

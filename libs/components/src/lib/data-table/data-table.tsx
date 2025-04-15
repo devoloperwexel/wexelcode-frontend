@@ -6,6 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { cn } from '@wexelcode/utils';
 
 import {
   Table,
@@ -58,6 +59,7 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
+                className={cn(onRowClick && 'cursor-pointer')}
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
                 onClick={() => {
