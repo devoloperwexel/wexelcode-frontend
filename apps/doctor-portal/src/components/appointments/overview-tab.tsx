@@ -118,6 +118,7 @@ export function AppointmentOverviewTab({
                   <Text
                     variant="large"
                     weight="semibold"
+                    className=' capitalize'
                   >{`${patientResponse.user.firstName} ${patientResponse.user.lastName}`}</Text>
                   <Text variant="muted">{t('patient')}</Text>
                 </div>
