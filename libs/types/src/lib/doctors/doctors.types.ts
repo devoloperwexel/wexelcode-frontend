@@ -26,3 +26,5 @@ export type GetPaginatedDoctorsResponse = PaginatedResponse<Doctor>;
 export type GetDoctorResponse = BaseResponse<Doctor>;
 
 export type GetDoctorsAvailabilityResponse = BaseResponse<DoctorAvailability>;
+
+export type UpdateDoctorRequest = Partial<Doctor>;

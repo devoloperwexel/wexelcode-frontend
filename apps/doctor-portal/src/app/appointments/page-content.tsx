@@ -16,6 +16,7 @@ import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
 import { AppointmentStatusBadge } from '../../components/appointments';
+import { BreadcrumbPage } from '../../components/navigation';
 import Routes from '../../constants/routes';
 
 const now = dateTimeSubtract(new Date(), 30, 'minutes').toISOString();
@@ -47,7 +48,14 @@ export default function AppointmentsPageContent() {
   };
 
   return (
-    <div className="flex flex-col justify-start space-y-2 h-full">
+    <BreadcrumbPage
+      breadcrumbs={[
+        {
+          labelKey: 'appointments',
+        },
+      ]}
+      className="flex flex-col justify-start space-y-2 h-full"
+    >
       <div className="flex items-center justify-between">
         <div className="w-1/2">
           <Input
@@ -124,6 +132,6 @@ export default function AppointmentsPageContent() {
       </div>
 
       <Pagination totalPages={appointmentsResponse?.totalPages || 0} />
-    </div>
+    </BreadcrumbPage>
   );
 }

@@ -13,6 +13,18 @@
     "settings": "Settings",
     "logout": "Logout"
   },
+  "routs": {
+    "home": "Home",
+    "appointments": "Appointments",
+    "patients": "Patients",
+    "settings": "Settings"
+  },
+  "options": {
+    "gender": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    }
+  },
   "dashboard": {
     "appointmentsCard": {
       "title": "Appointments Today"
@@ -30,6 +42,11 @@
       "title": "Today's Appointments",
       "viewAll": "View All Appointments"
     }
+  },
+  "screening": {
+    "score": "Score",
+    "date": "Screening Date",
+    "result": "Result Status"
   },
   "appointments": {
     "status": {
@@ -116,6 +133,34 @@
               "status": "Status"
             }
           }
+        }
+      }
+    }
+  },
+  "settings": {
+    "settingsPage": {
+      "tabs": {
+        "account": {
+          "title": "Account",
+          "birthday": "Birthday",
+          "gender": "Gender",
+          "address": "Address",
+          "city": "City",
+          "state": "Country",
+          "zipCode": "Zipcode",
+          "languages": "Languages",
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "mobile": "Mobile",
+          "select": "Select",
+          "save": "Save"
+        },
+        "professional": {
+          "title": "Professional",
+          "specialty": "Specialty",
+          "description": "Description",
+          "totalYearsOfExperience": "Total Years of Experience",
+          "save": "Save"
         }
       }
     }

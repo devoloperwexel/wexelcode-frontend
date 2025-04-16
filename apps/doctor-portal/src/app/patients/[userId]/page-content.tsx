@@ -6,13 +6,16 @@ import {
   TabsList,
   TabsTrigger,
 } from '@wexelcode/components';
+import { useGetPatientByUserId } from '@wexelcode/hooks';
 import { useTranslations } from 'next-intl';
 
+import { BreadcrumbPage } from '../../../components/navigation';
 import {
   PatientAppointmentsTab,
   PatientOverviewTab,
   PatientScreeningTab,
 } from '../../../components/patients';
+import Routes from '../../../constants/routes';
 
 interface PatientDetailsPageContentProps {
   userId: string;
@@ -23,8 +26,22 @@ export default function PatientDetailsPageContent({
 }: PatientDetailsPageContentProps) {
   const t = useTranslations('patients.detailsPage');
 
+  const { data: patientResponse } = useGetPatientByUserId(userId);
+
   return (
-    <div className="container max-w-4xl mx-auto flex flex-col justify-start space-y-2 h-full">
+    <BreadcrumbPage
+      breadcrumbs={[
+        {
+          labelKey: 'patients',
+          path: Routes.patients,
+        },
+        {
+          label:
+            `${patientResponse?.user.firstName} ${patientResponse?.user.lastName}`.toUpperCase(),
+        },
+      ]}
+      className="container max-w-4xl mx-auto flex flex-col justify-start space-y-2 h-full"
+    >
       <Tabs defaultValue="overview">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="overview">{t('tabs.overview.title')}</TabsTrigger>
@@ -46,6 +63,6 @@ export default function PatientDetailsPageContent({
           <PatientAppointmentsTab patientId={userId} />
         </TabsContent>
       </Tabs>
-    </div>
+    </BreadcrumbPage>
   );
 }
