@@ -12,7 +12,8 @@ import {
   Skeleton,
   UserAvatar,
 } from '@wexelcode/components';
-import { ChevronsUpDown, LogOut } from 'lucide-react';
+import { ChevronsUpDown, Cog, LogOut } from 'lucide-react';
+import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
@@ -73,12 +74,12 @@ export function UserMenu() {
           <DropdownMenuSeparator />
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            {/* <Link href={Routes.profile.index}>
-            <DropdownMenuItem>
-              <Cog />
-              {t('settings')}
-            </DropdownMenuItem>
-          </Link> */}
+            <Link href={Routes.settings}>
+              <DropdownMenuItem>
+                <Cog />
+                {t('settings')}
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleSinOut}>
