@@ -43,6 +43,11 @@
       "viewAll": "View All Appointments"
     }
   },
+  "screening": {
+    "score": "Score",
+    "date": "Screening Date",
+    "result": "Result Status"
+  },
   "appointments": {
     "status": {
       "all": "All",

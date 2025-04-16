@@ -43,6 +43,11 @@
       "viewAll": "Alle Termine anzeigen"
     }
   },
+  "screening": {
+    "score": "Punktzahl",
+    "date": "Screening-Datum",
+    "result": "Ergebnisstatus"
+  },
   "appointments": {
     "status": {
       "all": "Alle",
