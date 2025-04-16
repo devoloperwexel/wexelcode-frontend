@@ -6,6 +6,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@wexelcode/components';
+import { useGetPatientByUserId } from '@wexelcode/hooks';
 import { useTranslations } from 'next-intl';
 
 import {
@@ -13,6 +14,8 @@ import {
   AppointmentScreeningTab,
   AppointmentTreatmentTab,
 } from '../../../../components/appointments';
+import { BreadcrumbPage } from '../../../../components/navigation';
+import Routes from '../../../../constants/routes';
 
 interface AppointmentDetailsPageProps {
   userId: string;
@@ -25,8 +28,21 @@ export default function AppointmentDetailPageContent({
 }: AppointmentDetailsPageProps) {
   const t = useTranslations('appointments.detailsPage');
 
+  const { data: patientResponse } = useGetPatientByUserId(userId);
+
   return (
-    <div className="container max-w-4xl mx-auto flex flex-col justify-start space-y-2 h-full">
+    <BreadcrumbPage
+      breadcrumbs={[
+        {
+          labelKey: 'appointments',
+          path: Routes.appointments,
+        },
+        {
+          label: patientResponse?.user.firstName,
+        },
+      ]}
+      className="container max-w-4xl mx-auto flex flex-col justify-start space-y-2 h-full"
+    >
       <Tabs defaultValue="overview">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
@@ -46,6 +62,6 @@ export default function AppointmentDetailPageContent({
           <AppointmentTreatmentTab appointmentId={id} patientId={userId} />
         </TabsContent>
       </Tabs>
-    </div>
+    </BreadcrumbPage>
   );
 }
