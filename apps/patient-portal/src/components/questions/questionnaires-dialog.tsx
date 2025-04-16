@@ -38,7 +38,7 @@ export function QuestionnaireDialog({
   });
 
   return (
-    <DialogContent className="max-w-fit" onClick={closeDialog}>
+    <DialogContent className="max-w-fit" onClose={closeDialog}>
       <DialogHeader>
         <DialogTitle>{t('title')}</DialogTitle>
       </DialogHeader>
