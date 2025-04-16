@@ -7,17 +7,42 @@ import {
   CardFooter,
   Form,
   FormInputField,
+  FormSelectorField,
+  FormSmartMultiSelectorField,
+  FormSmartSelectorField,
   UserAvatar,
 } from '@wexelcode/components';
+import {
+  CountriesOptions,
+  GenderOptions,
+  LanguageOptions,
+} from '@wexelcode/constants';
 import { useUpdateUser } from '@wexelcode/hooks';
-import { getDirtyValues } from '@wexelcode/utils';
+import { dateTimeFormat, getDirtyValues } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 export function AccountDetailsTab() {
   const t = useTranslations('settings.settingsPage.tabs.account');
+  const tOptions = useTranslations('options');
+  const local = useLocale() as 'en' | 'de';
+
+  const genderOptions = GenderOptions.map((option) => ({
+    label: tOptions(`gender.${option}`),
+    value: option,
+  }));
+
+  const languagesOptions = LanguageOptions.map((option) => ({
+    label: option.label[local],
+    value: option.value,
+  }));
+
+  const countryOptions = CountriesOptions.map((option) => ({
+    label: option.label[local],
+    value: option.value,
+  }));
 
   const { data: userData } = useSession();
 
@@ -27,9 +52,9 @@ export function AccountDetailsTab() {
 
   useEffect(() => {
     if (!userData?.user) return;
-
     form.reset({
       ...userData?.user,
+      birthDay: dateTimeFormat(userData?.user.birthDay, 'yyyy-MM-DD'),
     });
   }, [userData, form]);
 
@@ -66,6 +91,65 @@ export function AccountDetailsTab() {
                 required: true,
               }}
             />
+            <FormInputField
+              label={t('birthday')}
+              name="birthDay"
+              type="date"
+              rules={{
+                required: true,
+              }}
+            />
+            <FormSelectorField
+              label={t('gender')}
+              name="gender"
+              options={genderOptions}
+              rules={{
+                required: true,
+              }}
+            />
+            <FormInputField
+              label={t('address')}
+              name="address"
+              rules={{
+                required: true,
+              }}
+            />
+            <FormInputField
+              label={t('city')}
+              name="city"
+              rules={{
+                required: true,
+              }}
+            />
+            <FormSmartSelectorField
+              label={t('state')}
+              name="country"
+              placeholder={t('select')}
+              options={countryOptions}
+              rules={{
+                required: true,
+              }}
+            />
+            <FormInputField
+              label={t('zipCode')}
+              name="zipCode"
+              type="number"
+              rules={{
+                required: true,
+              }}
+            />
+
+            <div className="col-span-2">
+              <FormSmartMultiSelectorField
+                label={t('languages')}
+                name="languages"
+                placeholder={t('select')}
+                options={languagesOptions}
+                rules={{
+                  required: true,
+                }}
+              />
+            </div>
           </form>
         </Form>
       </CardContent>
