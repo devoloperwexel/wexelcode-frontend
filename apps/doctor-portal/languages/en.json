@@ -119,5 +119,24 @@
         }
       }
     }
+  },
+  "settings": {
+    "settingsPage": {
+      "tabs": {
+        "account": {
+          "title": "Account",
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "save": "Save"
+        },
+        "professional": {
+          "title": "Professional",
+          "specialty": "Specialty",
+          "description": "Description",
+          "totalYearsOfExperience": "Total Years of Experience",
+          "save": "Save"
+        }
+      }
+    }
   }
 }
