@@ -13,6 +13,12 @@
     "settings": "Settings",
     "logout": "Logout"
   },
+  "routs": {
+    "home": "Home",
+    "appointments": "Appointments",
+    "patients": "Patients",
+    "settings": "Settings"
+  },
   "dashboard": {
     "appointmentsCard": {
       "title": "Appointments Today"
