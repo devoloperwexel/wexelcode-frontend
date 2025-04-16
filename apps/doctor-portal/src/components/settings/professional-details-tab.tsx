@@ -50,6 +50,7 @@ export function ProfessionalDetailsTab() {
         <Form {...form}>
           <form className="grid grid-cols-2 gap-6">
             <FormInputField
+              disabled
               label={t('specialty')}
               name="specialty"
               rules={{
