@@ -24,11 +24,13 @@ import NavigationMenu from './components/navigation-menu';
 
 interface DashboardLayoutProps
   extends React.ComponentProps<typeof NavigationMenu> {
+  breadcrumbsComponent?: React.ReactNode;
   actionComponent: React.ReactNode;
 }
 
 export function DashboardLayout({
   children,
+  breadcrumbsComponent,
   actionComponent,
   items,
   ...rest
@@ -49,11 +51,7 @@ export function DashboardLayout({
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton
-                size="lg"
-                asChild
-                className=" mb-4 h-16"
-              >
+              <SidebarMenuButton size="lg" asChild className=" mb-4 h-16">
                 <Link href="/">
                   <Image
                     src={logo}
@@ -77,19 +75,7 @@ export function DashboardLayout({
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            {/* <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb> */}
+            {breadcrumbsComponent}
           </div>
 
           {actionComponent}
