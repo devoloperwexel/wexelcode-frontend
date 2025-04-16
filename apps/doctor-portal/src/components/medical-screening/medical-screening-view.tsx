@@ -5,15 +5,19 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  ProgressIndicator,
   Text,
 } from '@wexelcode/components';
 import {
   useGetAllQuestions,
   useGetAnswers,
+  useGetAnswersSummery,
   useGetPatientByUserId,
 } from '@wexelcode/hooks';
 import { Question } from '@wexelcode/types';
-import { useLocale } from 'next-intl';
+import { dateTimeFormat, extractLastScreening } from '@wexelcode/utils';
+import { ActivityIcon, CalculatorIcon, CheckCircleIcon } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface MedicalScreeningViewProps {
   appointmentId?: string;
@@ -24,6 +28,8 @@ export function MedicalScreeningView({
   patientId,
   appointmentId,
 }: MedicalScreeningViewProps) {
+  const t = useTranslations('screening');
+
   const local = useLocale();
 
   const { data: questionsResponse, isLoading } = useGetAllQuestions({
@@ -55,6 +61,13 @@ export function MedicalScreeningView({
     return renderParentQuestion(question);
   };
 
+  const { data: summeryResponse } = useGetAnswersSummery({
+    userId: patientId,
+    appointmentId,
+  });
+
+  const lastScreening = extractLastScreening(answersResponse || []);
+
   const renderParentQuestion = (question: Question) => {
     if (
       question.requiredGenders.length > 0 &&
@@ -74,7 +87,49 @@ export function MedicalScreeningView({
   };
 
   return (
-    <div>
+    <div className="p-4">
+      {summeryResponse && (
+        <div className="space-y-4 pb-4 mb-4 p-4">
+          <div className="flex flex-col items-center justify-start">
+            <ProgressIndicator
+              percentage={summeryResponse?.completedPercentage || 0}
+              size={120}
+            >
+              <div className="flex flex-col justify-center text-center">
+                <Text weight="semibold">
+                  {summeryResponse?.completedPercentage} %
+                </Text>
+              </div>
+            </ProgressIndicator>
+          </div>
+
+          <div className="flex justify-between">
+            <div className="flex items-center space-x-2">
+              <CalculatorIcon className="w-5 h-5 text-primary" />
+              <Text>{t('date')}</Text>
+            </div>
+            {lastScreening?.createdAt && (
+              <Text variant="muted">
+                {dateTimeFormat(lastScreening.createdAt, 'Do MMMM, yyyy')}
+              </Text>
+            )}
+          </div>
+
+          <div className="flex justify-between">
+            <div className="flex items-center space-x-2">
+              <ActivityIcon className="w-5 h-5 text-primary" />
+              <Text>{t('result')}</Text>
+            </div>
+            <div className="flex items-center space-x-2">
+              <CheckCircleIcon className="w-6 h-6 text-green-500" />
+              <Text variant="muted" className="!text-green-500">
+                {summeryResponse?.status}
+              </Text>
+            </div>
+          </div>
+        </div>
+      )}
+
       {questionsResponse &&
         questionsResponse.map((questionnaire) => (
           <Accordion key={questionnaire.id} type="single" collapsible>

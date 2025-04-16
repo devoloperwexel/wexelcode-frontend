@@ -7,7 +7,10 @@ import { getLocale, getMessages } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
 
 import { LanguageSwitch } from '../components/intl';
-import { DashboardNavigationItems } from '../components/navigation';
+import {
+  BreadcrumbNavigator,
+  DashboardNavigationItems,
+} from '../components/navigation';
 import { UserMenu } from '../components/user-menu';
 import Languages from '../constants/languages';
 
@@ -38,6 +41,7 @@ export default async function RootLayout({
               <NextIntlClientProvider messages={messages}>
                 <DashboardLayout
                   items={DashboardNavigationItems}
+                  breadcrumbsComponent={<BreadcrumbNavigator />}
                   actionComponent={
                     <div className="ml-auto flex items-center gap-2 px-4">
                       <LanguageSwitch languages={Languages} />

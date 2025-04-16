@@ -4,6 +4,7 @@ import {
   GetDoctorsAvailabilityResponse,
   GetDoctorsRequest,
   GetPaginatedDoctorsResponse,
+  UpdateDoctorRequest,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
@@ -39,6 +40,16 @@ export const GetDoctorAvailability = async (
       params,
     }
   );
+
+  return response;
+};
+
+export const UpdateDoctor = async (payload: UpdateDoctorRequest) => {
+  const { id, userId, ...data } = payload;
+
+  const response = await request<GetDoctorResponse>(API.UPDATE, data, {
+    params: { id, userId },
+  });
 
   return response;
 };
