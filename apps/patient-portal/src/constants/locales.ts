@@ -1,11 +1,11 @@
 const Locales = [
   {
     language: 'en',
-    country: 'us',
+    country: 'gb',
   },
   {
     language: 'de',
-    country: 'nl',
+    country: 'de',
   },
 ];
 
