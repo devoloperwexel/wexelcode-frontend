@@ -19,6 +19,12 @@
     "patients": "Patients",
     "settings": "Settings"
   },
+  "options": {
+    "gender": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    }
+  },
   "dashboard": {
     "appointmentsCard": {
       "title": "Appointments Today"
@@ -131,8 +137,17 @@
       "tabs": {
         "account": {
           "title": "Account",
+          "birthday": "Birthday",
+          "gender": "Gender",
+          "address": "Address",
+          "city": "City",
+          "state": "Country",
+          "zipCode": "Zipcode",
+          "languages": "Languages",
           "firstName": "First Name",
           "lastName": "Last Name",
+          "mobile": "Mobile",
+          "select": "Select",
           "save": "Save"
         },
         "professional": {

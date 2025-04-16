@@ -19,6 +19,12 @@
     "patients": "Patienten",
     "settings": "Einstellungen"
   },
+  "options": {
+    "gender": {
+      "MALE": "Männlich",
+      "FEMALE": "Weiblich"
+    }
+  },
   "dashboard": {
     "appointmentsCard": {
       "title": "Heutige Termine"
