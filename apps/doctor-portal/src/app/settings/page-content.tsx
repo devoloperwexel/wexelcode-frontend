@@ -6,6 +6,7 @@ import {
 } from '@wexelcode/components';
 import { useTranslations } from 'next-intl';
 
+import { BreadcrumbPage } from '../../components/navigation';
 import {
   AccountDetailsTab,
   ProfessionalDetailsTab,
@@ -13,8 +14,16 @@ import {
 
 export default function SettingsPageContent() {
   const t = useTranslations('settings.settingsPage.tabs');
+
   return (
-    <div className="container max-w-4xl mx-auto ">
+    <BreadcrumbPage
+      breadcrumbs={[
+        {
+          labelKey: 'settings',
+        },
+      ]}
+      className="container max-w-4xl mx-auto "
+    >
       <Tabs defaultValue="account">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="account">{t('account.title')}</TabsTrigger>
@@ -31,6 +40,6 @@ export default function SettingsPageContent() {
           <ProfessionalDetailsTab />
         </TabsContent>
       </Tabs>
-    </div>
+    </BreadcrumbPage>
   );
 }
