@@ -8,8 +8,12 @@ const API = {
     method: 'GET',
   },
   GET_AVAILABILITY: {
-    path: '/physios/:id/availability',
+    path: 'physios/:id/availability',
     method: 'GET',
+  },
+  UPDATE: {
+    path: 'users/:userId/physios/:id',
+    method: 'PATCH',
   },
 };
 
