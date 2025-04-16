@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
+import { BreadcrumbPage } from '../../components/navigation';
 import Routes from '../../constants/routes';
 
 export default function PatientPageContent() {
@@ -40,7 +41,14 @@ export default function PatientPageContent() {
   };
 
   return (
-    <div className="flex flex-col justify-start space-y-2 h-full">
+    <BreadcrumbPage
+      breadcrumbs={[
+        {
+          labelKey: 'patients',
+        },
+      ]}
+      className="flex flex-col justify-start space-y-2 h-full"
+    >
       <div className="flex items-center justify-between">
         <div className="w-1/2">
           <Input
@@ -100,6 +108,6 @@ export default function PatientPageContent() {
       </div>
 
       <Pagination totalPages={patientsResponse?.totalPages || 0} />
-    </div>
+    </BreadcrumbPage>
   );
 }
