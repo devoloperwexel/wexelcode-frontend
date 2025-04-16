@@ -38,7 +38,8 @@ export default function AppointmentDetailPageContent({
           path: Routes.appointments,
         },
         {
-          label: patientResponse?.user.firstName,
+          label:
+            `${patientResponse?.user.firstName} ${patientResponse?.user.lastName}`.toUpperCase(),
         },
       ]}
       className="container max-w-4xl mx-auto flex flex-col justify-start space-y-2 h-full"
