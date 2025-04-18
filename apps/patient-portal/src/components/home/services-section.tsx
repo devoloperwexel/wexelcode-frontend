@@ -1,6 +1,6 @@
 import { service } from '@wexelcode/assets';
 import { AnimateOnScroll } from '@wexelcode/components';
-import { Award, HeartHandshake, ThumbsUp } from 'lucide-react';
+import { Award, HeartHandshake, ThumbsUp, FlaskConical } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import React from 'react';
@@ -30,7 +30,7 @@ export const ServicesSection = () => {
     {
       id: 'rigorousScience',
       icon: (
-        <div className="w-10 h-10 text-primary bg-[#fef2f2] p-2 rounded-full" />
+        <FlaskConical className="w-10 h-10 text-primary bg-[#fef2f2] p-2 rounded-full" />
       ),
     },
   ];
