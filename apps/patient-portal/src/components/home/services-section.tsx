@@ -1,6 +1,6 @@
 import { service } from '@wexelcode/assets';
 import { AnimateOnScroll } from '@wexelcode/components';
-import { Award, HeartHandshake, ThumbsUp, FlaskConical } from 'lucide-react';
+import { Award, FlaskConical,HeartHandshake, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import React from 'react';
