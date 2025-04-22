@@ -7,6 +7,11 @@
     "previous": "Previous",
     "next": "Next"
   },
+  "navigation": {
+    "home": "Home",
+    "appointments": "Appointments",
+    "patients": "Patients"
+  },
   "userMenu": {
     "login": "Login",
     "register": "Register",

@@ -5,17 +5,17 @@ import Routes from '../../constants/routes';
 
 export const DashboardNavigationItems: DashboardNavigationItem[] = [
   {
-    title: 'Home',
+    title: 'home',
     url: Routes.home,
     icon: <Home />,
   },
   {
-    title: 'Appointments',
+    title: 'appointments',
     url: Routes.appointments,
     icon: <CalendarCheck />,
   },
   {
-    title: 'Patients',
+    title: 'patients',
     url: Routes.patients,
     icon: <Users2 />,
   },

@@ -7,6 +7,11 @@
     "previous": "Zurück",
     "next": "Weiter"
   },
+  "navigation": {
+    "home": "Startseite",
+    "appointments": "Termine",
+    "patients": "Patienten"
+  },
   "userMenu": {
     "login": "Anmelden",
     "register": "Registrieren",
@@ -133,6 +138,34 @@
               "status": "Status"
             }
           }
+        }
+      }
+    }
+  },
+  "settings": {
+    "settingsPage": {
+      "tabs": {
+        "account": {
+          "title": "Konto",
+          "birthday": "Geburtstag",
+          "gender": "Geschlecht",
+          "address": "Adresse",
+          "city": "Stadt",
+          "state": "Land",
+          "zipCode": "Postleitzahl",
+          "languages": "Sprachen",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "mobile": "Handy",
+          "select": "Auswählen",
+          "save": "Speichern"
+        },
+        "professional": {
+          "title": "Beruflich",
+          "specialty": "Fachgebiet",
+          "description": "Beschreibung",
+          "totalYearsOfExperience": "Gesamtjahre Berufserfahrung",
+          "save": "Speichern"
         }
       }
     }

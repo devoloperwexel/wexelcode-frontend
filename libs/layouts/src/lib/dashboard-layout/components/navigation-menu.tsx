@@ -18,6 +18,7 @@ import { cn } from '@wexelcode/utils';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface NavigationMenuProps {
   items: DashboardNavigationItem[];
@@ -25,7 +26,7 @@ interface NavigationMenuProps {
 
 export default function NavigationMenu({ items }: NavigationMenuProps) {
   const path = usePathname();
-
+  const t = useTranslations('navigation');
   const isActive = (url: string) => path === url || path.startsWith(url + '/');
 
   return (
@@ -70,7 +71,7 @@ export default function NavigationMenu({ items }: NavigationMenuProps) {
                 >
                   <Link href={item.url}>
                     {item.icon && item.icon}
-                    <Text variant="large">{item.title}</Text>
+                    <Text variant="large">{t(item.title)}</Text>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
