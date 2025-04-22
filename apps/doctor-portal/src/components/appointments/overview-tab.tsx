@@ -28,9 +28,6 @@ export function AppointmentOverviewTab({
 }: AppointmentOverviewTabProps) {
   const t = useTranslations('appointments.detailsPage.overviewTab');
 
-  const router = useRouter();
-  const handleVideoJoin = () => router.push('/video-call');
-
   const { data: appointmentsResponse, isLoading } = useGetAppointmentById({
     userId: patientId,
     appointmentId: appointmentId,
@@ -94,8 +91,8 @@ export function AppointmentOverviewTab({
           {appointmentStatus === 'upcoming' && (
             <CardFooter className="border-t p-2">
               <JoinNowButton
-                onClick={handleVideoJoin}
                 appointment={appointmentsResponse}
+                patientUserId={patientId}
                 size="lg"
               />
             </CardFooter>
@@ -118,7 +115,7 @@ export function AppointmentOverviewTab({
                   <Text
                     variant="large"
                     weight="semibold"
-                    className=' capitalize'
+                    className=" capitalize"
                   >{`${patientResponse.user.firstName} ${patientResponse.user.lastName}`}</Text>
                   <Text variant="muted">{t('patient')}</Text>
                 </div>
