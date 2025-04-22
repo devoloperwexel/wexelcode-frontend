@@ -5,11 +5,9 @@ import { Text, UserAvatar } from '@wexelcode/components';
 import { useGetAllAppointments } from '@wexelcode/hooks';
 import { dateTimeFormat } from '@wexelcode/utils';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-import Routes from '../../constants/routes';
 import { JoinNowButton } from '../appointments';
 import { NoDataBanner } from '../common';
 
@@ -57,14 +55,12 @@ export function NextAppointmentCard() {
                 ),
               })}
             </Text>
-            <Link
-              href={`${Routes.appointments}/${appointmentsResponse.results[0]?.id}/video-call`}
-            >
-              <JoinNowButton
-                appointment={appointmentsResponse.results[0]}
-                className="w-full"
-              />
-            </Link>
+
+            <JoinNowButton
+              appointment={appointmentsResponse.results[0]}
+              patientUserId={appointmentsResponse.results[0].patientUser?.id}
+              className="w-full"
+            />
           </>
         ) : (
           <NoDataBanner
