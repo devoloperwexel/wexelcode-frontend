@@ -145,28 +145,40 @@
       "description": "Find answers to common questions about our physiotherapy services.",
       "questions": {
         "q1": {
-          "question": "What conditions do you treat?",
-          "answer": "Our physiotherapists treat a wide range of conditions including back pain, neck pain, sports injuries, post-surgical rehabilitation, arthritis, and more. We offer both in-person and virtual consultations to address your specific needs."
+          "question": "Do I need special software or hardware to use WexelCode?",
+          "answer": "No, WexelCode is conveniently accessible via the internet. All that is required is a stable Wi-Fi connection."
         },
         "q2": {
-          "question": "How long does a typical physiotherapy session last?",
-          "answer": "Initial consultations typically last 45-60 minutes, while follow-up sessions are usually 30-45 minutes. The exact duration may vary based on your specific condition and treatment requirements."
+          "question": "What technical and organizational measures are in place for the WexelCode premises?",
+          "answer": "It would be ideal if the meeting could take place in a quiet room with a stable internet connection and enough space for movement during the therapy session. Additionally, you will need a computer with video and microphone functionality."
         },
         "q3": {
-          "question": "Do I need a referral from a doctor?",
-          "answer": "No, you don't need a doctor's referral to book an appointment with our physiotherapists. However, some insurance providers may require a referral for coverage, so we recommend checking with your insurance company first."
+          "question": "What costs are associated with using WexelCode?",
+          "answer": "There are no costs for existing patients. As a new customer, you only need to pay €20 per therapy session."
         },
         "q4": {
-          "question": "How many sessions will I need?",
-          "answer": "The number of sessions varies depending on your condition, its severity, and how your body responds to treatment. After your initial assessment, your physiotherapist will provide a recommended treatment plan with an estimated number of sessions."
+          "question": "How can I book an appointment with WexelCode?",
+          "answer": "Register on our website, and then you can book an appointment online."
         },
         "q5": {
-          "question": "Do you accept insurance?",
-          "answer": "Yes, we accept most major insurance plans. We can provide you with the necessary documentation to submit to your insurance provider for reimbursement. We recommend verifying your coverage before your first appointment."
+          "question": "Is my data safe when using WexelCode?",
+          "answer": "Data protection is our top priority. WexelCode complies with all data protection regulations and uses end-to-end encryption for the video consultations."
         },
         "q6": {
-          "question": "What should I wear to my appointment?",
-          "answer": "Please wear comfortable, loose-fitting clothing that allows easy access to the area requiring treatment. For lower body issues, shorts are recommended, and for upper body concerns, a tank top or t-shirt is appropriate."
+          "question": "How are therapy plans personalized with WexelCode?",
+          "answer": "The therapy plan is created at the beginning of treatment in close collaboration between the patient and the physiotherapist. The goal is to develop a personalized training plan for home use by the end of the therapy session."
+        },
+        "q7": {
+          "question": "Is it possible to use WexelCode without prior knowledge of physiotherapy?",
+          "answer": " Yes, no prior knowledge is required. Any questions can be thoroughly addressed during the first therapy session."
+        },
+        "q8": {
+          "question": "Do the physiotherapists using WexelCode have the necessary qualifications?",
+          "answer": "All our staff are qualified physiotherapists with extensive experience in video therapy and receive regular training."
+        },
+        "q9": {
+          "question": "Does WexelCode offer customer service in case of questions or issues?",
+          "answer": "Yes, we offer customer service. If you have any questions or issues, simply email us at: service@wexelcode.com, and we will be happy to assist you."
         }
       }
     },

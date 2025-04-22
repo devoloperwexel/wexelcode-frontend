@@ -61,27 +61,27 @@
   },
   "home": {
     "heroSection": {
-      "title": "Erleben Sie optimale Gesundheit mit",
-      "description": "Professionelle Physiotherapie-Dienstleistungen, die auf Ihre Bedürfnisse zugeschnitten sind. Erhalten Sie personalisierte Behandlungspläne und fachkundige Betreuung von zertifizierten Physiotherapeuten.",
+      "title": "Erleben Sie optimale Gesundheit mit Wexelcode",
+      "description": "Professionelle physiotherapeutische Behandlungen – individuell auf Ihre Bedürfnisse abgestimmt. Profitieren Sie von maßgeschneiderten Therapieplänen und kompetenter Betreuung durch professionelle Physiotherapeuten.",
       "bookAppointment": "Termin vereinbaren",
       "goToDashboard": "Zum Dashboard",
       "register": "Jetzt registrieren"
     },
     "howItWorksSection": {
       "title": "So funktioniert's",
-      "description": "Unser einfacher dreistufiger Prozess macht den Zugang zu professioneller Physiotherapie einfacher denn je.",
+      "description": "Unser unkomplizierter Drei-Schritte-Prozess macht den Zugang zu professioneller Physiotherapie so einfach wie nie zuvor.",
       "steps": {
         "initialAssessment": {
-          "title": "Erstbewertung",
-          "description": "Füllen Sie unser umfassendes digitales Bewertungsformular aus, damit wir Ihren Zustand und Ihre Bedürfnisse verstehen können."
+          "title": "Medizinisches Screening",
+          "description": "Füllen Sie unser digitales Gesundheitsformular aus, um die Reise zu starten."
         },
         "virtualConsultation": {
-          "title": "Virtuelle Beratung",
-          "description": "Verbinden Sie sich über einen sicheren Videoanruf mit einem zertifizierten Physiotherapeuten für eine detaillierte Untersuchung."
+          "title": "Videoanruf",
+          "description": "Erhalten Sie in weniger als einer Woche einen Termin, ohne das Haus zu verlassen."
         },
         "personalizedTreatment": {
           "title": "Personalisierte Behandlung",
-          "description": "Erhalten Sie einen maßgeschneiderten Behandlungsplan, der speziell auf Ihre Genesungs- und Wellnessziele ausgerichtet ist."
+          "description": "Optimieren Sie Ihren Genesungsprozess, egal wie alt Sie sind."
         }
       }
     },
@@ -91,27 +91,27 @@
       "benefits": {
         "fairAndSimple": {
           "title": "Fair und einfach",
-          "description": "Zahlen Sie nur, wenn unser Service für Sie geeignet ist"
+          "description": "Zahlen Sie nur, wenn unser Service das Richtige für Sie ist"
         },
         "quality": {
-          "title": "Qualitätsbetreuung",
-          "description": "Zertifizierte Physiotherapie schnell und von zu Hause aus"
+          "title": "Qualitätsversorgung",
+          "description": "Zertifizierte Physiotherapie, schnell und bequem von zu Hause"
         },
         "personalized": {
           "title": "Personalisierte Behandlung",
-          "description": "Wo fortschrittliche Technologie auf menschliches Mitgefühl trifft"
+          "description": "Wo moderne Technik auf Empathie trifft"
         },
         "rigorousScience": {
-          "title": "Strenge Wissenschaft",
-          "description": "Hält sich an den Goldstandard der medizinischen Untersuchung"
+          "title": "Wissenschaftliche Arbeit",
+          "description": "Evidenzbasierte Behandlungen sind bei uns Goldstandards"
         }
       }
     },
     "sneakPeekSection": {
-      "title": "Hier ist ein Vorgeschmack auf das, was entwickelt wird",
+      "title": "Hier ist ein kleiner Vorgeschmack auf das, was entwickelt wird",
       "features": {
         "rightForYou": {
-          "title": "Zahlen Sie nur, wenn unser Service für Sie geeignet ist"
+          "title": "Zahlen Sie nur, wenn unser Service das Richtige für Sie ist"
         },
         "wearableIntegrations": {
           "title": "Wearable-Integrationen"
@@ -120,19 +120,19 @@
           "title": "KI-Automatisierung"
         },
         "painLevelMonitoring": {
-          "title": "Schmerzlevel-Überwachung"
+          "title": "Schmerzniveau-Überwachung"
         },
         "personalizedPlan": {
           "title": "Personalisierter Plan"
         },
         "smartExerciseRecommendations": {
-          "title": "Intelligente Trainingsempfehlungen"
+          "title": "Intelligente Übungsempfehlungen"
         },
         "progressTrackingAnalysis": {
           "title": "Fortschrittsverfolgung & Analyse"
         },
         "realTimeMonitoring": {
-          "title": "Echtzeit-Überwachung"
+          "title": "Echtzeitüberwachung"
         }
       }
     },
@@ -145,34 +145,46 @@
       "description": "Finden Sie Antworten auf häufige Fragen zu unseren Physiotherapie-Dienstleistungen.",
       "questions": {
         "q1": {
-          "question": "Welche Beschwerden behandeln Sie?",
-          "answer": "Unsere Physiotherapeuten behandeln eine Vielzahl von Beschwerden, darunter Rückenschmerzen, Nackenschmerzen, Sportverletzungen, Rehabilitation nach Operationen, Arthritis und mehr. Wir bieten sowohl persönliche als auch virtuelle Beratungen an, um Ihre spezifischen Bedürfnisse zu adressieren."
+          "question": "Benötige ich eine spezielle Software oder Hardware für die Nutzung von WexelCode?",
+          "answer": "Nein, WexelCode ist bequem über das Internet zugänglich. Alles, was dafür erforderlich ist, ist eine stabile WLAN-Verbindung."
         },
         "q2": {
-          "question": "Wie lange dauert eine typische Physiotherapie-Sitzung?",
-          "answer": "Erstberatungen dauern in der Regel 45-60 Minuten, während Folgebehandlungen normalerweise 30-45 Minuten dauern. Die genaue Dauer kann je nach Ihrem spezifischen Zustand und Behandlungsbedarf variieren."
+          "question": "Welche technischen und organisatorischen Maßnahmen sind für die Räumlichkeiten von WexelCode vorgesehen?",
+          "answer": "Es wäre ideal, wenn das Meeting in einem ruhigen Raum mit stabiler Internetverbindung abgehalten werden könnte und mit genug Platz für Bewegung während der Therapieeinheit. Desweiteren benötigen Sie einen Computer mit Video- und Mirkofonfunktion."
         },
         "q3": {
-          "question": "Benötige ich eine Überweisung von einem Arzt?",
-          "answer": "Nein, Sie benötigen keine ärztliche Überweisung, um einen Termin bei unseren Physiotherapeuten zu vereinbaren. Einige Versicherungen verlangen jedoch möglicherweise eine Überweisung für die Kostenerstattung, daher empfehlen wir Ihnen, dies vorher mit Ihrer Versicherung zu klären."
+          "question": "Welche Kosten sind mit der Nutzung von WexelCode verbunden?",
+          "answer": "Für bestehende Patienten entstehen keinerlei Kosten. Als Neukunde ist lediglich ein Betrag von 20€ pro Therapieeinheit zu entrichten."
         },
         "q4": {
-          "question": "Wie viele Sitzungen werde ich benötigen?",
-          "answer": "Die Anzahl der Sitzungen variiert je nach Ihrem Zustand, dessen Schweregrad und wie Ihr Körper auf die Behandlung reagiert. Nach Ihrer Erstbewertung wird Ihr Physiotherapeut einen empfohlenen Behandlungsplan mit einer geschätzten Anzahl von Sitzungen erstellen."
+          "question": "Wie kann ich mir einen Termin bei WexelCode buchen?",
+          "answer": "Registrieren Sie sich hier auf unsere Website und im Anschluss können Sie einen Termin online vereinbaren."
         },
         "q5": {
-          "question": "Akzeptieren Sie Versicherungen?",
-          "answer": "Ja, wir akzeptieren die meisten großen Versicherungspläne. Wir können Ihnen die notwendigen Unterlagen für die Einreichung bei Ihrer Versicherung zur Erstattung bereitstellen. Wir empfehlen Ihnen, Ihre Deckung vor dem ersten Termin zu überprüfen."
+          "question": "Sind meine Daten bei der Nutzung von WexelCode sicher?",
+          "answer": "Der Datenschutz hat für uns höchste Priorität. WexelCode erfüllt sämtliche Datenschutzbestimmungen und setzt auf eine Ende-zu-Ende-Verschlüsselung für die Videosprechstunde."
         },
         "q6": {
-          "question": "Was soll ich zu meinem Termin anziehen?",
-          "answer": "Bitte tragen Sie bequeme, lockere Kleidung, die einen einfachen Zugang zu dem zu behandelnden Bereich ermöglicht. Bei Problemen im unteren Körperbereich werden Shorts empfohlen, und bei Beschwerden im oberen Körperbereich ein Tanktop oder T-Shirt."
+          "question": "Wie erfolgt die Personalisierung von Therapieplänen bei WexelCode?",
+          "answer": "Der Therapieplan wird zu Beginn der Behandlung in enger Zusammenarbeit zwischen Patient und Physiotherapeut individuell erstellt. Ziel ist es, am Ende der Therapieeinheit einen auf den Patienten zugeschnittenen Trainingsplan für zu Hause zu erarbeiten."
+        },
+        "q7": {
+          "question": "Ist es möglich, WexelCode ohne Vorkenntnisse in der Physiotherapie zu nutzen?",
+          "answer": "Ja, hierfür sind keine Vorkenntnisse erforderlich. Alle Fragen können in der ersten Therapiesitzung ausführlich geklärt werden."
+        },
+        "q8": {
+          "question": "Verfügen die Physiotherapeuten, die WexelCode verwenden, über die erforderliche Qualifikation?",
+          "answer": "Alle unsere Mitarbeiter sind qualifizierte Physiotherapeuten mit umfassender Erfahrung im Bereich der Videotherapie und erhalten regelmäßig Schulungen."
+        },
+        "q9": {
+          "question": "Bietet WexelCode einen Kundenservice, falls Fragen oder Probleme auftreten?",
+          "answer": "Ja es gibt einen Kundenservice. Wenn Sie Fragen oder Probleme haben, schreiben Sie uns einfach eine E-Mail an: service@wexelcode.com und wir helfen Ihnen gerne weiter."
         }
       }
     },
     "ctaSection": {
-      "title": "Starten Sie noch heute Ihren Genesungsprozess",
-      "description": "Machen Sie den ersten Schritt zu besserer Gesundheit und Mobilität. Unsere erfahrenen Physiotherapeuten sind bereit, Ihnen dabei zu helfen, Ihre Wellness-Ziele zu erreichen.",
+      "title": "Verbessern Sie jetzt Ihre Gesundheit von zu Hause aus",
+      "description": "Machen Sie den ersten Schritt zu mehr Gesundheit und Beweglichkeit. Unsere erfahrenen Physiotherapeuten unterstützen Sie dabei, Ihre Gesundheitsziele zu erreichen.",
       "bookAppointment": "Termin vereinbaren",
       "register": "Jetzt registrieren",
       "goToDashboard": "Zum Dashboard"
@@ -249,11 +261,11 @@
       "goToAppointment": "Zum Termin"
     },
     "videoCallCard": {
-      "title": "Bevor Sie Ihrem Anruf beitreten",
-      "ensureInternet": "Stellen Sie sicher, dass Sie eine stabile Internetverbindung haben",
-      "joinCallFromQuiet": "Treten Sie dem Anruf aus einer ruhigen, gut beleuchteten Umgebung bei",
-      "testCamera": "Testen Sie Ihre Kamera und Ihr Mikrofon vor dem Beitritt",
-      "beReady": "Seien Sie 5 Minuten vor der geplanten Zeit bereit",
+      "title": "Bevor Sie dem Anruf beitreten",
+      "ensureInternet": "Stellen Sie sicher, dass Ihre Internetverbindung stabil ist",
+      "joinCallFromQuiet": "Wählen Sie einen ruhigen und gut beleuchteten Ort für den Anruf",
+      "testCamera": "Testen Sie Ihre Kamera und Ihr Mikrofon im Voraus",
+      "beReady": "Seien Sie 5 Minuten vor dem vereinbarten Termin bereit",
       "buttonEnableMessage": "Die Schaltfläche wird 5 Minuten vor dem Termin aktiviert",
       "joinVideoCall": "Dem Anruf beitreten"
     }
