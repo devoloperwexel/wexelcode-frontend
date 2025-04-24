@@ -205,7 +205,7 @@
   },
   "doctors": {
     "doctorListingPage": {
-      "searchTitle": "Therapeuten suchen",
+      "searchTitle": "Physiotherapeuten suchen",
       "bookAppointment": "Termin vereinbaren"
     },
     "doctorPage": {
