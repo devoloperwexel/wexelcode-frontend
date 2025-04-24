@@ -205,7 +205,7 @@
   },
   "doctors": {
     "doctorListingPage": {
-      "searchTitle": "Search Doctors",
+      "searchTitle": "Search Physios",
       "bookAppointment": "Book Appointment"
     },
     "doctorPage": {
