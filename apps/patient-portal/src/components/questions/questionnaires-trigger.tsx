@@ -50,6 +50,7 @@ export function QuestionnaireTrigger({
               <PlusCircleIcon className="w-5 h-5 mr-1" />
               {t('complete')}
             </Button>
+            <p className=" text-red-400 text-[11px] font-semibold">{t('screeningComplete')}</p>
           </>
         ) : (
           <>

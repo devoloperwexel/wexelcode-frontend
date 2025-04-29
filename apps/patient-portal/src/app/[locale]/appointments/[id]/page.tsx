@@ -1,8 +1,7 @@
 import { QueryClient } from '@tanstack/react-query';
-import { GetAppointmentById } from '@wexelcode/api';
+import { GetAnswersSummary, GetAppointmentById } from '@wexelcode/api';
 import { auth } from '@wexelcode/auth';
 import { QueryKeys } from '@wexelcode/constants';
-import { Appointment } from '@wexelcode/types';
 import { notFound } from 'next/navigation';
 
 import AppointmentDetailsPageContent from './page-content';
@@ -21,21 +20,38 @@ export default async function AppointmentDetailsPage({
   const queryClient = new QueryClient();
   const userId = session?.user?.id;
 
-  await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.appointments, appointmentId, userId],
-    queryFn: async () =>
-      GetAppointmentById({
-        appointmentId,
-        userId,
-        includes: ['physio-user'],
-      }),
-  });
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.appointments, appointmentId, userId],
+      queryFn: async () =>
+        GetAppointmentById({
+          appointmentId,
+          userId,
+          includes: ['physio-user'],
+        }),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.answersSummary, appointmentId, userId],
+      queryFn: async () =>
+        GetAnswersSummary({
+          userId,
+          appointmentId,
+        }),
+    }),
+  ]);
 
+  const answersSummary = queryClient.getQueryData([
+    QueryKeys.answersSummary,
+    appointmentId,
+    userId,
+  ]) as Awaited<ReturnType<typeof GetAnswersSummary>>;
+
+  // Check if the appointment exists in the cache
   const appointment = queryClient.getQueryData([
     QueryKeys.appointments,
     appointmentId,
     userId,
-  ]);
+  ]) as Awaited<ReturnType<typeof GetAppointmentById>>;
 
   if (!appointment) {
     notFound();
@@ -44,7 +60,8 @@ export default async function AppointmentDetailsPage({
   return (
     <AppointmentDetailsPageContent
       id={appointmentId}
-      appointment={appointment as Appointment}
+      appointment={appointment}
+      answersSummaryPercentage={answersSummary?.completedPercentage || 0}
     />
   );
 }

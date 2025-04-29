@@ -16,12 +16,14 @@ interface CheckoutPageProps {
   userId: string;
   appointmentId: string;
   amount: number;
+  disabled?: boolean;
 }
 
 export default function CheckoutForm({
   amount,
   userId,
   appointmentId,
+  disabled = false,
 }: CheckoutPageProps) {
   const t = useTranslations('appointments.paymentCard');
   const stripe = useStripe();
@@ -92,9 +94,19 @@ export default function CheckoutForm({
 
       {errorMessage && <Text variant="error">{errorMessage}</Text>}
 
-      <Button className="w-full" disabled={!stripe || loading}>
-        {t('pay')} &#8364;{amount}
-      </Button>
+      <div className="relative group ">
+        <Button
+          className=" w-full right-0"
+          disabled={!stripe || disabled || loading}
+        >
+          {t('pay')} &#8364;{amount}
+        </Button>
+        {disabled && (
+          <div className="absolute mt-1 top-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs px-2 py-1 text-[9px] text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+            {t('paymentButtonToolTip')}
+          </div>
+        )}
+      </div>
     </form>
   );
 }
