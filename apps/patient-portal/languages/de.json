@@ -247,7 +247,8 @@
     "paymentCard": {
       "title": "Zahlungsinformation",
       "total": "Gesamt",
-      "pay": "Bezahlen"
+      "pay": "Bezahlen",
+      "paymentButtonToolTip": "Um die Zahlung zu ermöglichen, muss die Überprüfung abgeschlossen sein!"
     },
     "appointmentsPage": {
       "upcoming": "Bevorstehend",
@@ -322,7 +323,8 @@
       "edit": "Screening-Fragen bearbeiten",
       "result": "Screening-Ergebnis",
       "view": "Screening-Fragen anzeigen",
-      "score": "Punktzahl"
+      "score": "Punktzahl",
+      "screeningComplete": "Hinweis: Das Screening muss vor dem Termin abgeschlossen sein!"
     }
   },
   "dashboard": {

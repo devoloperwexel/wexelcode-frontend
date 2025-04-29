@@ -5,11 +5,14 @@ import { useLocale, useTranslations } from 'next-intl';
 
 import CheckoutForm from './checkout-form';
 
-type CheckoutCardProps = React.ComponentProps<typeof CheckoutForm>;
+type CheckoutCardProps = React.ComponentProps<typeof CheckoutForm> & {
+  disabled?: boolean;
+};
 
 export function CheckoutCard(props: CheckoutCardProps) {
   const t = useTranslations('appointments.paymentCard');
   const localeValue = useLocale();
+
   return (
     <Card>
       <CardHeader>{t('title')}</CardHeader>
