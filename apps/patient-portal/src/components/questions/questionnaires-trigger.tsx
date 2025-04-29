@@ -50,7 +50,9 @@ export function QuestionnaireTrigger({
               <PlusCircleIcon className="w-5 h-5 mr-1" />
               {t('complete')}
             </Button>
-            <p className=" text-red-400 text-[11px] font-semibold">{t('screeningComplete')}</p>
+            <p className=" text-red-400 text-[11px] font-semibold">
+              {t('screeningComplete')}
+            </p>
           </>
         ) : (
           <>
@@ -69,7 +71,7 @@ export function QuestionnaireTrigger({
               className="text-primary text-md"
               onClick={openDialog}
             >
-              {disabled ? (
+              {disabled || response?.completedPercentage === 100 ? (
                 <>
                   <FileCheck className="w-5 h-5" />
                   {t('view')}{' '}
@@ -86,7 +88,7 @@ export function QuestionnaireTrigger({
       </div>
       <QuestionnaireDialog
         appointmentId={appointmentId}
-        disabled={!!appointmentId}
+        disabled={!!appointmentId || response?.completedPercentage === 100}
       />
     </Dialog>
   );
