@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
 import { ToastContainer } from 'react-toastify';
+
 import MainLayout from '../../layouts/main-layout';
 import { ProfileCompleteProvider } from '../../providers';
 import { routing } from './../../i18n/routing';
