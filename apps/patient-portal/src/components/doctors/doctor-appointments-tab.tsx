@@ -18,6 +18,7 @@ import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { useScreeningDialogStore } from '../../app/store';
 import Routes from '../../constants/routes';
@@ -125,6 +126,7 @@ export function DoctorAppointmentsTab({
 
     if (!answerSummary?.completedPercentage) {
       setBookingProgress(false);
+      toast.warn('Screening must be completed before the appointment!');
       openDialog();
     } else {
       if (!selectedTimeSlot) return;
