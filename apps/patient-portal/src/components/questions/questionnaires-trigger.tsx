@@ -74,7 +74,7 @@ export function QuestionnaireTrigger({
               {disabled || response?.completedPercentage === 100 ? (
                 <>
                   <FileCheck className="w-5 h-5" />
-                  {t('view')}{' '}
+                  {t('view')}
                 </>
               ) : (
                 <>

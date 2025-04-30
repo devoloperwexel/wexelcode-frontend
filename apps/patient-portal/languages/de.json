@@ -247,8 +247,7 @@
     "paymentCard": {
       "title": "Zahlungsinformation",
       "total": "Gesamt",
-      "pay": "Bezahlen",
-      "paymentButtonToolTip": "Um die Zahlung zu ermöglichen, muss die Überprüfung abgeschlossen sein!"
+      "pay": "Bezahlen"
     },
     "appointmentsPage": {
       "upcoming": "Bevorstehend",

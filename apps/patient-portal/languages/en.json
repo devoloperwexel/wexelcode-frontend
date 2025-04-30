@@ -247,8 +247,7 @@
     "paymentCard": {
       "title": "Payment Information",
       "total": "Total",
-      "pay": "Pay",
-      "paymentButtonToolTip":"Screening must be completed to enable payment!"
+      "pay": "Pay"
     },
     "appointmentsPage": {
       "upcoming": "Upcoming",
@@ -324,7 +323,7 @@
       "result": "Screening Result",
       "view": "View screening questions",
       "score": "Score",
-      "screeningComplete":"Note: Screening must be completed before the appointment!"
+      "screeningComplete": "Note: Screening must be completed before the appointment!"
     }
   },
   "dashboard": {

@@ -1,6 +1,13 @@
 'use client';
 
-import { Button, DatePicker, Label, ScrollArea } from '@wexelcode/components';
+import { GetAnswersSummary } from '@wexelcode/api';
+import {
+  Button,
+  DatePicker,
+  Dialog,
+  Label,
+  ScrollArea,
+} from '@wexelcode/components';
 import {
   useCreateAppointment,
   useGetDoctorAvailability,
@@ -12,8 +19,10 @@ import { signIn, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { useScreeningDialogStore } from '../../app/store';
 import Routes from '../../constants/routes';
 import { useRouter } from '../../i18n/routing';
+import { QuestionnaireDialog } from '../questions';
 import AppointmentsLoadingSkeleton from './appointments-loading-skeleton';
 import TimeSlotGuideItem from './time-slot-guide-item';
 import TimeSlotSelector from './time-slot-selector';
@@ -52,6 +61,7 @@ export function DoctorAppointmentsTab({
   const t = useTranslations('doctors.doctorPage');
   const locale = useLocale();
   const { status, data } = useSession();
+  const [isBookingProgress, setBookingProgress] = useState(false);
 
   const { push } = useRouter();
 
@@ -96,34 +106,46 @@ export function DoctorAppointmentsTab({
   });
 
   const { mutateAsync: createAppointment } = useCreateAppointment();
+  const { isOpen, openDialog } = useScreeningDialogStore();
 
   const handleTimeSlotClick = (timeSlot: string) => {
     setSelectedTimeSlot(timeSlot);
   };
-
+  const userId = data?.user.id;
   const handleOnBookAppointment = async () => {
+    setBookingProgress(true);
     if (status !== 'authenticated') {
       await signIn('keycloak', { redirectTo: window.location.href });
       return;
     }
 
-    if (!selectedTimeSlot) return;
+    const answerSummary = (await GetAnswersSummary({ userId })) as Awaited<
+      ReturnType<typeof GetAnswersSummary>
+    >;
 
-    const [h, m] = selectedTimeSlot.split(':');
+    if (!answerSummary?.completedPercentage) {
+      setBookingProgress(false);
+      openDialog();
+    } else {
+      if (!selectedTimeSlot) return;
 
-    const appointmentTime = dateTimeSet(date, {
-      hour: parseInt(h),
-      minute: parseInt(m),
-    });
+      const [h, m] = selectedTimeSlot.split(':');
 
-    const response = await createAppointment({
-      userId: data?.user.id,
-      physioUserId: doctor.userId,
-      notes: '',
-      appointmentTime: appointmentTime.toISOString(),
-    });
+      const appointmentTime = dateTimeSet(date, {
+        hour: parseInt(h),
+        minute: parseInt(m),
+      });
 
-    push(`${Routes.appointments}/${response?.id}`);
+      const response = await createAppointment({
+        userId: data?.user.id,
+        physioUserId: doctor.userId,
+        notes: '',
+        appointmentTime: appointmentTime.toISOString(),
+      });
+
+      push(`${Routes.appointments}/${response?.id}`);
+      setBookingProgress(false);
+    }
   };
   const now = new Date();
   const sixMonthsLater = new Date(now);
@@ -132,6 +154,9 @@ export function DoctorAppointmentsTab({
   return (
     <div className="flex flex-col space-y-4">
       <div className="flex items-center space-x-2 py-2 border-b">
+        <Dialog open={isOpen}>
+          <QuestionnaireDialog />
+        </Dialog>
         <Label>{t('appointmentDate')}</Label>
         <div className="w-1/4">
           <DatePicker
@@ -177,7 +202,8 @@ export function DoctorAppointmentsTab({
 
       <Button
         className="w-full mt-auto"
-        disabled={!selectedTimeSlot}
+        disabled={!selectedTimeSlot || isBookingProgress}
+        loading={isBookingProgress}
         onClick={handleOnBookAppointment}
       >
         <CalendarPlus /> {t('bookAppointment')}
