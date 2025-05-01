@@ -311,7 +311,6 @@
     "trigger": {
       "noScreening": "Keine Screening-Information verfügbar",
       "complete": "Screening-Fragen ausfüllen",
-      "edit": "Screening-Fragen bearbeiten",
       "result": "Screening-Ergebnis",
       "view": "Screening-Fragen anzeigen",
       "score": "Punktzahl",
@@ -338,7 +337,10 @@
       "date": "Screening-Datum",
       "result": "Ergebnisstatus",
       "startNew": "Neues Screening starten",
-      "noDataFound": "Kein Screening gefunden"
+      "noDataFound": "Kein Screening gefunden",
+      "screeningComplete": "Hinweis: Das Screening muss vor dem Termin abgeschlossen sein!",
+      "complete": "Screening-Fragen ausfüllen",
+      "view": "Screening-Fragen anzeigen"
     },
     "appointmentCalenderCard": {
       "title": "Terminkalender",

@@ -16,6 +16,8 @@ import {
   ActivityIcon,
   CalculatorIcon,
   CheckCircleIcon,
+  CircleAlert,
+  FileWarning,
   FileX,
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
@@ -83,6 +85,11 @@ export function ScreeningResultCard() {
               </Text>
             </div>
           </ProgressIndicator>
+          {(summeryResponse?.completedPercentage ?? 100) < 100 && (
+            <p className=" text-red-400 text-[12px] font-semibold">
+              {t('screeningComplete')}
+            </p>
+          )}
         </div>
 
         <div className="flex justify-between">
@@ -103,8 +110,20 @@ export function ScreeningResultCard() {
             <Text>{t('result')}</Text>
           </div>
           <div className="flex items-center space-x-2">
-            <CheckCircleIcon className="w-6 h-6 text-green-500" />
-            <Text variant="muted" className="!text-green-500">
+            {summeryResponse?.status === 'In Complete' ? (
+              <FileWarning className="w-5 h-5 " />
+            ) : summeryResponse?.status === 'Red' ? (
+              <CircleAlert className="w-6 h-6 text-red-500" />
+            ) : summeryResponse?.status === 'Yellow' ? (
+              <CircleAlert className="w-6 h-6 text-yellow-500" />
+            ) : (
+              <CheckCircleIcon className="w-6 h-6 text-green-500" />
+            )}
+
+            <Text
+              variant="muted"
+              className={`text-${summeryResponse?.status?.toLocaleLowerCase()}-500`}
+            >
               {summeryResponse?.status}
             </Text>
           </div>
@@ -114,10 +133,14 @@ export function ScreeningResultCard() {
       <CardFooter className="w-full">
         <Dialog open={isOpen}>
           <Button variant="outline" className="w-full" onClick={openDialog}>
-            {t('startNew')}
+            {summeryResponse?.completedPercentage === 100
+              ? t('view')
+              : t('complete')}
           </Button>
 
-          <QuestionnaireDialog />
+          <QuestionnaireDialog
+            disabled={summeryResponse?.completedPercentage === 100}
+          />
         </Dialog>
       </CardFooter>
     </Card>
