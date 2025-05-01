@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
+import { ToastContainer } from 'react-toastify';
 
 import MainLayout from '../../layouts/main-layout';
 import { ProfileCompleteProvider } from '../../providers';
@@ -45,6 +46,7 @@ export default async function LocaleLayout({
             showForHashAnchor={false}
             showSpinner={false}
           />
+          <ToastContainer theme="colored"/>
           <QueryProvider>
             <NextIntlClientProvider messages={messages}>
               <ProfileCompleteProvider>

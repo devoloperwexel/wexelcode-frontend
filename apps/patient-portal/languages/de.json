@@ -61,7 +61,7 @@
   },
   "home": {
     "heroSection": {
-      "title": "Erleben Sie optimale Gesundheit mit Wexelcode",
+      "title": "Erreichen Sie Ihre beste Gesundheit mit WexelCode",
       "description": "Professionelle physiotherapeutische Behandlungen – individuell auf Ihre Bedürfnisse abgestimmt. Profitieren Sie von maßgeschneiderten Therapieplänen und kompetenter Betreuung durch professionelle Physiotherapeuten.",
       "bookAppointment": "Termin vereinbaren",
       "goToDashboard": "Zum Dashboard",
@@ -87,7 +87,7 @@
     },
     "servicesSection": {
       "title": "Wir machen den Unterschied",
-      "description": "Unser Engagement für Exzellenz verbindet wissenschaftliche Strenge mit persönlicher Betreuung und stellt sicher, dass Sie die höchste Qualität der Behandlung bequem von zu Hause aus erhalten.",
+      "description": "Unser Höchst-Qualitätsversprechen setzt sich zusammen aus wissenschaftlicher Stringenz und einer personalisierten Versorgung und stellt somit sicher, dass eine Behandlung höchstem Niveau bequem von zu Hause aus erhalten.",
       "benefits": {
         "fairAndSimple": {
           "title": "Fair und einfach",
@@ -171,14 +171,6 @@
         "q7": {
           "question": "Ist es möglich, WexelCode ohne Vorkenntnisse in der Physiotherapie zu nutzen?",
           "answer": "Ja, hierfür sind keine Vorkenntnisse erforderlich. Alle Fragen können in der ersten Therapiesitzung ausführlich geklärt werden."
-        },
-        "q8": {
-          "question": "Verfügen die Physiotherapeuten, die WexelCode verwenden, über die erforderliche Qualifikation?",
-          "answer": "Alle unsere Mitarbeiter sind qualifizierte Physiotherapeuten mit umfassender Erfahrung im Bereich der Videotherapie und erhalten regelmäßig Schulungen."
-        },
-        "q9": {
-          "question": "Bietet WexelCode einen Kundenservice, falls Fragen oder Probleme auftreten?",
-          "answer": "Ja es gibt einen Kundenservice. Wenn Sie Fragen oder Probleme haben, schreiben Sie uns einfach eine E-Mail an: service@wexelcode.com und wir helfen Ihnen gerne weiter."
         }
       }
     },
@@ -205,7 +197,7 @@
   },
   "doctors": {
     "doctorListingPage": {
-      "searchTitle": "Physiotherapeuten suchen",
+      "searchTitle": "Therapeuten suchen",
       "bookAppointment": "Termin vereinbaren"
     },
     "doctorPage": {
@@ -247,8 +239,7 @@
     "paymentCard": {
       "title": "Zahlungsinformation",
       "total": "Gesamt",
-      "pay": "Bezahlen",
-      "paymentButtonToolTip": "Um die Zahlung zu ermöglichen, muss die Überprüfung abgeschlossen sein!"
+      "pay": "Bezahlen"
     },
     "appointmentsPage": {
       "upcoming": "Bevorstehend",
@@ -320,7 +311,6 @@
     "trigger": {
       "noScreening": "Keine Screening-Information verfügbar",
       "complete": "Screening-Fragen ausfüllen",
-      "edit": "Screening-Fragen bearbeiten",
       "result": "Screening-Ergebnis",
       "view": "Screening-Fragen anzeigen",
       "score": "Punktzahl",
@@ -347,7 +337,10 @@
       "date": "Screening-Datum",
       "result": "Ergebnisstatus",
       "startNew": "Neues Screening starten",
-      "noDataFound": "Kein Screening gefunden"
+      "noDataFound": "Kein Screening gefunden",
+      "screeningComplete": "Hinweis: Das Screening muss vor dem Termin abgeschlossen sein!",
+      "complete": "Screening-Fragen ausfüllen",
+      "view": "Screening-Fragen anzeigen"
     },
     "appointmentCalenderCard": {
       "title": "Terminkalender",
