@@ -310,8 +310,7 @@
     },
     "trigger": {
       "noScreening": "No screening information available",
-      "complete": "Complete screening questions",
-      "edit": "Edit screening questions",
+      "complete": "Complete Screening Questions",
       "result": "Screening Result",
       "view": "View screening questions",
       "score": "Score",
@@ -338,7 +337,10 @@
       "date": "Screening Date",
       "result": "Result Status",
       "startNew": "Start New Screening",
-      "noDataFound": "No screening Found"
+      "noDataFound": "No screening Found",
+      "screeningComplete": "Note: Screening must be completed before the appointment!",
+      "complete": "Complete Screening Questions",
+      "view": "View Screening Questions"
     },
     "appointmentCalenderCard": {
       "title": "Appointment Calendar",

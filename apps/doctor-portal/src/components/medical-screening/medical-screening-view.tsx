@@ -16,7 +16,7 @@ import {
 } from '@wexelcode/hooks';
 import { Question } from '@wexelcode/types';
 import { dateTimeFormat, extractLastScreening } from '@wexelcode/utils';
-import { ActivityIcon, CalculatorIcon, CheckCircleIcon } from 'lucide-react';
+import { ActivityIcon, CalculatorIcon, CheckCircleIcon, CircleAlert, FileWarning } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 
 interface MedicalScreeningViewProps {
@@ -64,7 +64,7 @@ export function MedicalScreeningView({
   const { data: summeryResponse } = useGetAnswersSummery({
     userId: patientId,
     appointmentId,
-  });
+  }) as Awaited<ReturnType<typeof useGetAnswersSummery>>;
 
   const lastScreening = extractLastScreening(answersResponse || []);
 
@@ -121,8 +121,19 @@ export function MedicalScreeningView({
               <Text>{t('result')}</Text>
             </div>
             <div className="flex items-center space-x-2">
-              <CheckCircleIcon className="w-6 h-6 text-green-500" />
-              <Text variant="muted" className="!text-green-500">
+              {summeryResponse?.status === 'In Complete' ? (
+                <FileWarning className="w-5 h-5 " />
+              ) : summeryResponse?.status === 'Red' ? (
+                <CircleAlert className="w-6 h-6 text-red-500" />
+              ) : summeryResponse?.status === 'Yellow' ? (
+                <CircleAlert className="w-6 h-6 text-yellow-500" />
+              ) : (
+                <CheckCircleIcon className="w-6 h-6 text-green-500" />
+              )}
+              <Text
+                variant="muted"
+                className={`w-6 h-6 text-${summeryResponse?.status?.toLocaleLowerCase}-500`}
+              >
                 {summeryResponse?.status}
               </Text>
             </div>

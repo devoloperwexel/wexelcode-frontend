@@ -59,7 +59,6 @@ export function QuestionnaireTrigger({
             <ProgressIndicator percentage={response.completedPercentage}>
               <div className="flex flex-col justify-center text-center">
                 <Text>{response.completedPercentage} %</Text>
-                <Text variant="muted">{t('score')}</Text>
               </div>
             </ProgressIndicator>
             <Text variant="muted" align="center">
@@ -79,10 +78,15 @@ export function QuestionnaireTrigger({
               ) : (
                 <>
                   <Edit className="w-5 h-5" />
-                  {t('edit')}
+                  {t('complete')}
                 </>
               )}
             </Button>
+            {response?.completedPercentage < 100 && (
+              <p className=" text-red-400 text-[11px] font-semibold">
+                {t('screeningComplete')}
+              </p>
+            )}
           </>
         )}
       </div>

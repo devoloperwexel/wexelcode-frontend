@@ -25,7 +25,7 @@ const ProgressIndicator = ({
   }, [percentage, circumference]);
 
   return (
-    <div className="flex justify-center mb-6">
+    <div className="flex justify-center mb-4">
       <div className="relative">
         <svg width={size} height={size}>
           <circle
