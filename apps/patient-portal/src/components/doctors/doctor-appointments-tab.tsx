@@ -124,7 +124,10 @@ export function DoctorAppointmentsTab({
       ReturnType<typeof GetAnswersSummary>
     >;
 
-    if (!answerSummary?.completedPercentage) {
+    if (
+      !answerSummary?.completedPercentage ||
+      answerSummary?.completedPercentage < 100
+    ) {
       setBookingProgress(false);
       toast.warn('Screening must be completed before the appointment!');
       openDialog();

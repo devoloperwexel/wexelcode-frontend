@@ -8,6 +8,7 @@ const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  // protect route regex
   const protectedRoutesRegex =
     /^\/(en|de)\/(profile|appointments|dashboard)(\/.*)?$/;
   const isProtectedRoute = protectedRoutesRegex.test(pathname);
