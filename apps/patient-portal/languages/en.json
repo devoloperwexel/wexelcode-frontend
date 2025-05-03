@@ -210,7 +210,13 @@
       "appointmentDate": "Appointment Date",
       "available": "Available",
       "selected": "Selected",
-      "unavailable": "Unavailable"
+      "unavailable": "Unavailable",
+      "screeningRequiredDialog":{
+        "title":"Medical Screening Required",
+        "text":"Medical Screening Should be complete before booking appointment",
+        "cancel":"Cancel",
+        "complete":"Complete Screening"
+      }
     }
   },
   "appointments": {

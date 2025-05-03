@@ -25,6 +25,7 @@ import Routes from '../../constants/routes';
 import { useRouter } from '../../i18n/routing';
 import { QuestionnaireDialog } from '../questions';
 import AppointmentsLoadingSkeleton from './appointments-loading-skeleton';
+import ScreeningRequiredDialog from './screening-required-dialog';
 import TimeSlotGuideItem from './time-slot-guide-item';
 import TimeSlotSelector from './time-slot-selector';
 
@@ -97,6 +98,7 @@ export function DoctorAppointmentsTab({
   };
 
   const [date, setDate] = useState<Date>(initialDate);
+  const [isOpenScreeningRequired, setOpenScreeningRequired] = useState(false);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<
     string | undefined
   >();
@@ -113,6 +115,13 @@ export function DoctorAppointmentsTab({
     setSelectedTimeSlot(timeSlot);
   };
   const userId = data?.user.id;
+
+  const handleScreeningRequiredCancel = () => setOpenScreeningRequired(false);
+  const handleScreeningRequiredComplete = () => {
+    setOpenScreeningRequired(false);
+    openDialog();
+  };
+
   const handleOnBookAppointment = async () => {
     setBookingProgress(true);
     if (status !== 'authenticated') {
@@ -129,8 +138,7 @@ export function DoctorAppointmentsTab({
       answerSummary?.completedPercentage < 100
     ) {
       setBookingProgress(false);
-      toast.warn('Screening must be completed before the appointment!');
-      openDialog();
+      setOpenScreeningRequired(true);
     } else {
       if (!selectedTimeSlot) return;
 
@@ -162,6 +170,12 @@ export function DoctorAppointmentsTab({
         <Dialog open={isOpen}>
           <QuestionnaireDialog />
         </Dialog>
+        {isOpenScreeningRequired && (
+          <ScreeningRequiredDialog
+            onCancel={handleScreeningRequiredCancel}
+            onCompleteScreening={handleScreeningRequiredComplete}
+          />
+        )}
         <Label>{t('appointmentDate')}</Label>
         <div className="w-1/4">
           <DatePicker
