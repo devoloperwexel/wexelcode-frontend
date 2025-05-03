@@ -210,7 +210,13 @@
       "appointmentDate": "Termindatum",
       "available": "Verfügbar",
       "selected": "Ausgewählt",
-      "unavailable": "Nicht verfügbar"
+      "unavailable": "Nicht verfügbar",
+      "screeningRequiredDialog": {
+        "title": "Medizinisches Screening erforderlich",
+        "text": "Das medizinische Screening sollte vor der Terminbuchung abgeschlossen sein",
+        "cancel": "Abbrechen",
+        "complete": "Screening abschließen"
+      }
     }
   },
   "appointments": {
