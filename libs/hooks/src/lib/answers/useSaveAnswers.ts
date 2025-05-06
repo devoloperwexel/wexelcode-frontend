@@ -9,9 +9,13 @@ export const useSaveAnswers = () => {
   return useMutation({
     mutationFn: async (request: SaveAnswersRequest) =>
       await SaveAnswer(request),
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       client.invalidateQueries({
-        queryKey: [QueryKeys.answers],
+        queryKey: [QueryKeys.answers, variables.userId],
+      });
+
+      client.invalidateQueries({
+        queryKey: [QueryKeys.answersSummary, variables.userId],
       });
     },
   });
