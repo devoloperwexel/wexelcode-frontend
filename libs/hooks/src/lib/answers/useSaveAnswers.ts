@@ -11,7 +11,7 @@ export const useSaveAnswers = () => {
       await SaveAnswer(request),
     onSuccess: () => {
       client.invalidateQueries({
-        queryKey: [QueryKeys.answers],
+        queryKey: [QueryKeys.answers, QueryKeys.answersSummary],
       });
     },
   });
