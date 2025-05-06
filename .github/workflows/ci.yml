@@ -70,8 +70,9 @@ jobs:
 
     - name: Fetch AWS SSM Parameters and Build .env
       run: |
-        branch_name="${GITHUB_REF##*/}"
-        echo "Using branch: $branch_name"
+        branch="${GITHUB_REF##*/}"
+        branch_name=$( [[ "$branch" == "main" ]] && echo "prod" || echo "$branch" )
+        echo "Using branch: $branch"
 
         echo "Fetching common parameters from AWS SSM..."
         NEXT_PUBLIC_BASE_URL=$(aws ssm get-parameter --name "/wexel/${branch_name}/frontend/base_url" --with-decryption --region ${{ vars.AWS_REGION }} --query "Parameter.Value" --output text)
