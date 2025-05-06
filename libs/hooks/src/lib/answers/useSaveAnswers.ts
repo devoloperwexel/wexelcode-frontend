@@ -11,11 +11,11 @@ export const useSaveAnswers = () => {
       await SaveAnswer(request),
     onSuccess: (_, variables) => {
       client.invalidateQueries({
-        queryKey: [
-          QueryKeys.answers,
-          QueryKeys.answersSummary,
-          variables.userId,
-        ],
+        queryKey: [QueryKeys.answers, variables.userId],
+      });
+
+      client.invalidateQueries({
+        queryKey: [QueryKeys.answersSummary, variables.userId],
       });
     },
   });
