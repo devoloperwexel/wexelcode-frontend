@@ -16,7 +16,13 @@ import {
 } from '@wexelcode/hooks';
 import { Question } from '@wexelcode/types';
 import { dateTimeFormat, extractLastScreening } from '@wexelcode/utils';
-import { ActivityIcon, CalculatorIcon, CheckCircleIcon, CircleAlert, FileWarning } from 'lucide-react';
+import {
+  ActivityIcon,
+  CalculatorIcon,
+  CheckCircleIcon,
+  CircleAlert,
+  FileWarning,
+} from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 
 interface MedicalScreeningViewProps {
@@ -134,7 +140,11 @@ export function MedicalScreeningView({
                 variant="muted"
                 className={`w-6 h-6 text-${summeryResponse?.status?.toLocaleLowerCase}-500`}
               >
-                {summeryResponse?.status}
+                {t(
+                  summeryResponse?.status === 'In Complete'
+                    ? 'inComplete'
+                    : summeryResponse?.status.toLowerCase()
+                )}
               </Text>
             </div>
           </div>

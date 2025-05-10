@@ -48,7 +48,7 @@ export function DoctorInfoCard({ user }: DoctorInfoCardProps) {
             <UserIcon className="w-5 h-5 text-primary mr-3" />
             <div>
               <Text variant="muted">{t('gender')}</Text>
-              <Text weight="semibold">{user.gender}</Text>
+              <Text weight="semibold">{t(user.gender.toLowerCase())}</Text>
             </div>
           </div>
           <div className="flex items-center">

@@ -8,14 +8,14 @@ import {
   UserAvatar,
 } from '@wexelcode/components';
 import { useGetAppointmentById } from '@wexelcode/hooks';
+import { Patient } from '@wexelcode/types';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { JoinNowButton } from './join-now-button';
 import PatientDetailItem from './patient-detail-item';
 import { AppointmentStatusBadge } from './status-badge';
-import { Patient } from '@wexelcode/types';
 
 interface AppointmentOverviewTabProps {
   appointmentId: string;
@@ -32,6 +32,7 @@ export function AppointmentOverviewTab({
   patient,
 }: AppointmentOverviewTabProps) {
   const t = useTranslations('appointments.detailsPage.overviewTab');
+  const language = useLocale();
 
   const { data: appointmentsResponse, isLoading } = useGetAppointmentById({
     userId: patientId,
@@ -55,7 +56,8 @@ export function AppointmentOverviewTab({
                   <Text weight="semibold">
                     {dateTimeFormat(
                       appointmentsResponse.appointmentTime,
-                      'Do MMMM, yyyy'
+                      'Do MMMM, yyyy',
+                      language
                     )}
                   </Text>
                 </div>
@@ -133,7 +135,7 @@ export function AppointmentOverviewTab({
               <div className="grid grid-cols-2 gap-4">
                 <PatientDetailItem
                   label={t('birthday')}
-                  value={dateTimeFormat(patient?.user?.birthDay, 'D MMM YYYY')}
+                  value={dateTimeFormat(patient?.user?.birthDay, 'DD MMM YYYY', language)}
                 />
                 <PatientDetailItem
                   label={t('address')}
@@ -149,7 +151,7 @@ export function AppointmentOverviewTab({
                 />
                 <PatientDetailItem
                   label={t('gender')}
-                  value={patient?.user.gender}
+                  value={t(patient?.user.gender.toLowerCase())}
                 />
                 <PatientDetailItem
                   label={t('languages')}

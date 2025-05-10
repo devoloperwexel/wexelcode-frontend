@@ -34,7 +34,7 @@
     },
     "language": {
       "ENGLISH": "English",
-      "GERMAN": "German",
+      "GERMAN": "Deutsche",
       "FRENCH": "French",
       "SPANISH": "Spanish"
     }
@@ -211,11 +211,13 @@
       "available": "Available",
       "selected": "Selected",
       "unavailable": "Unavailable",
-      "screeningRequiredDialog":{
-        "title":"Medical Screening Required",
-        "text":"Medical Screening Should be complete before booking appointment",
-        "cancel":"Cancel",
-        "complete":"Complete Screening"
+      "male": "Male",
+      "female": "Female",
+      "screeningRequiredDialog": {
+        "title": "Medical Screening Required",
+        "text": "Medical Screening Should be complete before booking appointment",
+        "cancel": "Cancel",
+        "complete": "Complete Screening"
       }
     }
   },
@@ -225,7 +227,9 @@
       "experience": "Experience",
       "gender": "Gender",
       "languages": "Languages",
-      "years": "years"
+      "years": "years",
+      "male": "Male",
+      "female": "Female"
     },
     "appointmentCard": {
       "title": "Appointment Information",
@@ -235,7 +239,9 @@
       "type": "Appointment Type",
       "video": "Video Consultation",
       "minutes": "minutes",
-      "joinVideoCall": "Join Call"
+      "joinVideoCall": "Join Call",
+      "pending": "Pending",
+      "success": "Success"
     },
     "medicalScreeningCard": {
       "title": "Medical Screening Information",
@@ -346,7 +352,11 @@
       "noDataFound": "No screening Found",
       "screeningComplete": "Note: Screening must be completed before the appointment!",
       "complete": "Complete Screening Questions",
-      "view": "View Screening Questions"
+      "view": "View Screening Questions",
+      "inComplete": "In Complete",
+      "red": "Red",
+      "yellow": "Yellow",
+      "green": "Green"
     },
     "appointmentCalenderCard": {
       "title": "Appointment Calendar",

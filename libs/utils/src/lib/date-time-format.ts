@@ -1,7 +1,13 @@
+import 'moment/locale/de';
+
 import moment from 'moment';
 
-export const dateTimeFormat = (date: string | Date, format: string) => {
-  return moment(date).local().format(format);
+export const dateTimeFormat = (
+  date: string | Date,
+  format: string,
+  language = 'en'
+) => {
+  return moment(date).locale(language).format(format);
 };
 
 export const dateTimeDiff = (

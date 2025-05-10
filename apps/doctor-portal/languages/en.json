@@ -51,7 +51,11 @@
   "screening": {
     "score": "Score",
     "date": "Screening Date",
-    "result": "Result Status"
+    "result": "Result Status",
+    "inComplete": "In Complete",
+    "red": "Red",
+    "yellow": "Yellow",
+    "green": "Green"
   },
   "appointments": {
     "status": {
@@ -99,7 +103,9 @@
         "weight": "Weight (kg)",
         "height": "Height (cm)",
         "activities": "Activities",
-        "patient": "Patient"
+        "patient": "Patient",
+        "male": "Male",
+        "female": "Female"
       }
     }
   },

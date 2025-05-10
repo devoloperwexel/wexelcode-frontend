@@ -13,7 +13,7 @@ import { dateTimeFormat, dateTimeSubtract } from '@wexelcode/utils';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { AppointmentStatusBadge } from '../../components/appointments';
 import { BreadcrumbPage } from '../../components/navigation';
@@ -23,6 +23,7 @@ const now = dateTimeSubtract(new Date(), 30, 'minutes').toISOString();
 
 export default function AppointmentsPageContent() {
   const t = useTranslations('appointments');
+  const language = useLocale()
 
   const { data: userData } = useSession();
 
@@ -102,7 +103,7 @@ export default function AppointmentsPageContent() {
                 const data = row.original;
                 return (
                   <Text>
-                    {dateTimeFormat(data.appointmentTime, 'Do MMMM, yyyy')}
+                    {dateTimeFormat(data.appointmentTime, 'Do MMMM, yyyy', language)}
                   </Text>
                 );
               },

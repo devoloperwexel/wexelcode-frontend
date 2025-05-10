@@ -6,7 +6,7 @@ import { dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { AppointmentStatusBadge } from '../appointments';
@@ -16,6 +16,7 @@ const now = new Date();
 export function AppointmentsTable() {
   const t = useTranslations('dashboard.appointmentsTable');
   const tAppointments = useTranslations('appointments');
+  const language = useLocale()
 
   const { data: userData } = useSession();
 
@@ -74,7 +75,7 @@ export function AppointmentsTable() {
               const data = row.original;
               return (
                 <Text>
-                  {dateTimeFormat(data.appointmentTime, 'Do MMMM, yyyy')}
+                  {dateTimeFormat(data.appointmentTime, 'Do MMMM, yyyy', language)}
                 </Text>
               );
             },

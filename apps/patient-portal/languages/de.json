@@ -211,6 +211,8 @@
       "available": "Verfügbar",
       "selected": "Ausgewählt",
       "unavailable": "Nicht verfügbar",
+      "male": "Männlich",
+      "female": "Weiblich",
       "screeningRequiredDialog": {
         "title": "Medizinisches Screening erforderlich",
         "text": "Das medizinische Screening sollte vor der Terminbuchung abgeschlossen sein",
@@ -225,7 +227,9 @@
       "experience": "Erfahrung",
       "gender": "Geschlecht",
       "languages": "Sprachen",
-      "years": "Jahre"
+      "years": "Jahre",
+      "male": "Männlich",
+      "female": "Weiblich"
     },
     "appointmentCard": {
       "title": "Termininformation",
@@ -235,7 +239,9 @@
       "type": "Termintyp",
       "video": "Video-Beratung",
       "minutes": "Minuten",
-      "joinVideoCall": "Anruf beitreten"
+      "joinVideoCall": "Anruf beitreten",
+      "pending": "Ausstehend",
+      "success": "Erfolg"
     },
     "medicalScreeningCard": {
       "title": "Medizinische Screening-Information",
@@ -346,7 +352,11 @@
       "noDataFound": "Kein Screening gefunden",
       "screeningComplete": "Hinweis: Das Screening muss vor dem Termin abgeschlossen sein!",
       "complete": "Screening-Fragen ausfüllen",
-      "view": "Screening-Fragen anzeigen"
+      "view": "Screening-Fragen anzeigen",
+      "inComplete": "Niet Volledig",
+      "red": "Rood",
+      "yellow": "Geel",
+      "green": "Groen"
     },
     "appointmentCalenderCard": {
       "title": "Terminkalender",
