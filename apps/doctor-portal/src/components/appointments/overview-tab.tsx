@@ -7,24 +7,29 @@ import {
   Text,
   UserAvatar,
 } from '@wexelcode/components';
-import { useGetAppointmentById, useGetPatientByUserId } from '@wexelcode/hooks';
-import { dateTimeFormat, getAppointmentStatus } from '@wexelcode/utils';
+import { useGetAppointmentById } from '@wexelcode/hooks';
+import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { JoinNowButton } from './join-now-button';
 import PatientDetailItem from './patient-detail-item';
 import { AppointmentStatusBadge } from './status-badge';
+import { Patient } from '@wexelcode/types';
 
 interface AppointmentOverviewTabProps {
   appointmentId: string;
   patientId: string;
+  patient?: Patient;
 }
+
+const now = new Date();
+const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
 
 export function AppointmentOverviewTab({
   appointmentId,
   patientId,
+  patient,
 }: AppointmentOverviewTabProps) {
   const t = useTranslations('appointments.detailsPage.overviewTab');
 
@@ -33,10 +38,8 @@ export function AppointmentOverviewTab({
     appointmentId: appointmentId,
   });
 
-  const { data: patientResponse } = useGetPatientByUserId(patientId);
-
-  const appointmentStatus = appointmentsResponse
-    ? getAppointmentStatus(appointmentsResponse?.appointmentTime)
+  const canJoinCall = appointmentsResponse
+    ? dateTimeDiff(appointmentsResponse.appointmentTime, thirtyMinutesAgo) > 0
     : undefined;
 
   return (
@@ -88,7 +91,7 @@ export function AppointmentOverviewTab({
             </div>
           </CardContent>
 
-          {appointmentStatus === 'upcoming' && (
+          {canJoinCall && (
             <CardFooter className="border-t p-2">
               <JoinNowButton
                 appointment={appointmentsResponse}
@@ -102,12 +105,12 @@ export function AppointmentOverviewTab({
 
       <Card>
         <CardContent className="space-y-6 py-4">
-          {patientResponse && (
+          {patient && (
             <>
               <div className="flex items-center space-x-4">
                 <UserAvatar
-                  name={`${patientResponse.user.firstName} ${patientResponse.user.lastName}`}
-                  profileUrl={patientResponse.user?.profilePictureUrl}
+                  name={`${patient?.user.firstName} ${patient?.user.lastName}`}
+                  profileUrl={patient?.user?.profilePictureUrl}
                   className="w-16 h-16"
                 />
 
@@ -116,7 +119,7 @@ export function AppointmentOverviewTab({
                     variant="large"
                     weight="semibold"
                     className=" capitalize"
-                  >{`${patientResponse.user.firstName} ${patientResponse.user.lastName}`}</Text>
+                  >{`${patient?.user.firstName} ${patient?.user.lastName}`}</Text>
                   <Text variant="muted">{t('patient')}</Text>
                 </div>
               </div>
@@ -130,30 +133,27 @@ export function AppointmentOverviewTab({
               <div className="grid grid-cols-2 gap-4">
                 <PatientDetailItem
                   label={t('birthday')}
-                  value={dateTimeFormat(
-                    patientResponse.user?.birthDay,
-                    'D MMM YYYY'
-                  )}
+                  value={dateTimeFormat(patient?.user?.birthDay, 'D MMM YYYY')}
                 />
                 <PatientDetailItem
                   label={t('address')}
-                  value={patientResponse.user.address}
+                  value={patient?.user.address}
                 />
                 <PatientDetailItem
                   label={t('city')}
-                  value={patientResponse.user.city}
+                  value={patient?.user.city}
                 />
                 <PatientDetailItem
                   label={t('zipCode')}
-                  value={patientResponse.user.zipCode.toString()}
+                  value={patient?.user.zipCode.toString()}
                 />
                 <PatientDetailItem
                   label={t('gender')}
-                  value={patientResponse.user.gender}
+                  value={patient?.user.gender}
                 />
                 <PatientDetailItem
                   label={t('languages')}
-                  value={patientResponse.user.languages.join(', ')}
+                  value={patient?.user.languages.join(', ')}
                 />
               </div>
 
@@ -166,19 +166,19 @@ export function AppointmentOverviewTab({
               <div className="grid grid-cols-2 gap-4">
                 <PatientDetailItem
                   label={t('occupation')}
-                  value={patientResponse.occupation}
+                  value={patient?.occupation}
                 />
                 <PatientDetailItem
                   label={t('weight')}
-                  value={patientResponse.weight.toString()}
+                  value={patient?.weight.toString()}
                 />
                 <PatientDetailItem
                   label={t('height')}
-                  value={patientResponse.height.toString()}
+                  value={patient?.height.toString()}
                 />
                 <PatientDetailItem
                   label={t('activities')}
-                  value={patientResponse.activities.join(', ')}
+                  value={patient?.activities.join(', ')}
                 />
               </div>
             </>
