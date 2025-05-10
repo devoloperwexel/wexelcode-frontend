@@ -2,7 +2,7 @@ import { Button } from '@wexelcode/components';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
@@ -15,6 +15,7 @@ export default function AppointmentListItem({
   appointment,
 }: AppointmentListItemProps) {
   const t = useTranslations('appointments.appointmentCard');
+  const language = useLocale()
   const isUpcoming = dateTimeDiff(appointment.appointmentTime, new Date()) > 0;
 
   const allowJoinBefore = 5 * 60 * 1000; // 5 minutes
@@ -61,7 +62,7 @@ export default function AppointmentListItem({
             <div className="flex items-center text-sm text-gray-700">
               <CalendarIcon className="w-4 h-4 mr-1 text-gray-400 flex-shrink-0" />
               <span>
-                {dateTimeFormat(appointment.appointmentTime, 'Do MMMM, yyyy')}
+                {dateTimeFormat(appointment.appointmentTime, 'Do MMMM, yyyy', language)}
               </span>
             </div>
             <div className="flex items-center text-sm text-gray-700">
