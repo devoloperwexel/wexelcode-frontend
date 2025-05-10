@@ -52,7 +52,7 @@ export default function AppointmentDetailPageContent({
         </TabsList>
 
         <TabsContent value="overview">
-          <AppointmentOverviewTab appointmentId={id} patientId={userId} />
+          <AppointmentOverviewTab appointmentId={id} patientId={userId} patient={patientResponse} />
         </TabsContent>
 
         <TabsContent value="screen">
