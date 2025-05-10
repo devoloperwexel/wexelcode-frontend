@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, Text } from '@wexelcode/components';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface AppointmentInfoCardProps {
   appointment: Appointment;
@@ -10,6 +10,7 @@ interface AppointmentInfoCardProps {
 
 export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
   const t = useTranslations('appointments.appointmentCard');
+  const language = useLocale();
 
   const getStatusColor = () => {
     switch (appointment.status) {
@@ -34,7 +35,11 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
             <div>
               <Text variant="muted">{t('date')}</Text>
               <Text weight="semibold">
-                {dateTimeFormat(appointment.appointmentTime, 'Do MMMM, yyyy')}
+                {dateTimeFormat(
+                  appointment.appointmentTime,
+                  'Do MMMM, yyyy',
+                  language
+                )}
               </Text>
             </div>
           </div>
@@ -61,7 +66,7 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
               <span
                 className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}
               >
-                {appointment.status}
+                {t(appointment.status.toLocaleLowerCase())}
               </span>
             </div>
           </div>
