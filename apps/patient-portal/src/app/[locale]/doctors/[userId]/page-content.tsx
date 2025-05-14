@@ -58,7 +58,7 @@ export default function DoctorPageContent({
           <div className="space-y-4">
             <DoctorDetailsTitle
               title={t('gender')}
-              detail={t(doctor?.data.user.gender.toLowerCase())}
+              detail={t(doctor?.data.user?.gender?.toLowerCase())}
             />
             <DoctorDetailsTitle
               title={t('experience')}
