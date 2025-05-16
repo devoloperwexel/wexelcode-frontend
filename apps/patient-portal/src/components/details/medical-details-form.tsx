@@ -1,4 +1,4 @@
-import { FormInputField, FormMultiSelectorField } from '@wexelcode/components';
+import { FormInputField, FormSmartMultiSelectorField } from '@wexelcode/components';
 import { ActivityOptions } from '@wexelcode/constants';
 import { useTranslations } from 'next-intl';
 
@@ -54,7 +54,7 @@ export function MedicalDetailsForm({
       </div>
 
       <div>
-        <FormMultiSelectorField
+        <FormSmartMultiSelectorField
           name="activities"
           label={t('activities')}
           placeholder={t('select')}
