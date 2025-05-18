@@ -5,7 +5,7 @@ import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
 import { dateTimeFormat } from '@wexelcode/utils';
 import { ClockIcon } from 'lucide-react';
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 
 import Routes from '../../constants/routes';
@@ -16,6 +16,7 @@ import { CalendarAppointmentLoading } from './loading';
 
 export function AppointmentCalenderCard() {
   const t = useTranslations('dashboard');
+  const language = useLocale();
 
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const { data: userData } = useSession();
@@ -63,7 +64,7 @@ export function AppointmentCalenderCard() {
         <div className="col-span-1 flex flex-col gap-4">
           <Text variant="h3">
             {t('appointmentCalenderCard.appointmentFor')}{' '}
-            {dateTimeFormat(startDateOfSelectedMonth, 'MMMM yyyy')}
+            {dateTimeFormat(startDateOfSelectedMonth, 'MMMM yyyy', language)}
           </Text>
 
           <div className="space-y-4 overflow-y-auto max-h-[300px]">
