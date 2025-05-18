@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
@@ -11,8 +11,10 @@ export const CTASection = () => {
 
   const { status } = useSession();
 
-  const handleOnRegister = () => {
-    // TODO: Implement registration logic
+  const handleOnRegister = async () => {
+    await signIn('keycloak', {
+      redirectTo: `${window.location.href}/dashboard`,
+    });
   };
 
   return (
