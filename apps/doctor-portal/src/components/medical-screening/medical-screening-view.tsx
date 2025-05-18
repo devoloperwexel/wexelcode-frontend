@@ -116,7 +116,11 @@ export function MedicalScreeningView({
             </div>
             {lastScreening?.createdAt && (
               <Text variant="muted">
-                {dateTimeFormat(lastScreening.createdAt, 'Do MMMM, yyyy')}
+                {dateTimeFormat(
+                  lastScreening.createdAt,
+                  'Do MMMM, yyyy',
+                  local
+                )}
               </Text>
             )}
           </div>
