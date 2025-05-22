@@ -402,9 +402,9 @@
       "complete": "Screening-Fragen ausfüllen",
       "view": "Screening-Fragen anzeigen",
       "inComplete": "Niet Volledig",
-      "red": "Rood",
-      "yellow": "Geel",
-      "green": "Groen"
+      "red": "Rot",
+      "yellow": "Gelb",
+      "green": "Grün"
     },
     "appointmentCalenderCard": {
       "title": "Terminkalender",

@@ -3,7 +3,7 @@
 import { hero } from '@wexelcode/assets';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
@@ -14,8 +14,10 @@ export const HeroSection = () => {
 
   const { status } = useSession();
 
-  const handleOnRegister = () => {
-    // TODO: Implement registration logic
+  const handleOnRegister = async () => {
+    await signIn('keycloak', {
+      redirectTo: `${window.location.href}/dashboard`,
+    });
   };
 
   return (
