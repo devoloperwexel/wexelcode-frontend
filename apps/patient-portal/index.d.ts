@@ -8,6 +8,9 @@ declare module '*.svg' {
 
 declare module 'next-auth' {
   interface Session {
+    accessToken?: string;
+    refreshToken?: string;
+    idToken?: string;
     user: CustomAdapterUser;
   }
 }
