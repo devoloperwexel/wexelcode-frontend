@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   CustomAdapterUser,
+  CustomSession,
   CustomToken,
   KeycloakAccount,
 } from '@wexelcode/types';
@@ -60,7 +61,7 @@ const config: NextAuthConfig = {
         customToken.user = session.user as CustomAdapterUser;
       }
 
-      if (Date.now() / 100 < customToken.expires) {
+      if (Date.now() / 1000 < customToken.expires) {
         return customToken;
       }
 
@@ -87,8 +88,16 @@ const config: NextAuthConfig = {
       };
     },
     session: async ({ session, token }) => {
-      session.user = token['user'] as CustomAdapterUser;
-      return session;
+      const customToken = token as CustomToken;
+      const extendedSession = session as CustomSession;
+
+      extendedSession.accessToken = customToken.accessToken;
+      extendedSession.idToken = customToken.idToken;
+      extendedSession.refreshToken = customToken.refreshToken;
+      extendedSession.expires = customToken.expires as unknown as string; // Ensure 'expires' is a string
+      extendedSession.user = { ...customToken.user };
+      //
+      return extendedSession;
     },
     authorized: async ({ auth }) => {
       return !!auth;
