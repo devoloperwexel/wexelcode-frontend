@@ -49,6 +49,7 @@ export const UpdateDoctor = async (payload: UpdateDoctorRequest) => {
 
   const response = await request<GetDoctorResponse>(API.UPDATE, data, {
     params: { id, userId },
+    isSecure: true,
   });
 
   return response;

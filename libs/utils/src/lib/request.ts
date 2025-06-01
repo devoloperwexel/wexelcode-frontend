@@ -1,3 +1,4 @@
+import { getAccessToken } from '@wexelcode/auth';
 import axios from '@wexelcode/axios';
 import type { AxiosResponse } from 'axios';
 
@@ -67,7 +68,11 @@ export const request = async <T>(
         'Content-Type': options.multipart
           ? 'multipart/form-data'
           : 'application/json',
+        ...(options.isSecure && {
+          Authorization: `Bearer ${await getAccessToken()}`,
+        }),
       },
+
       ...(['POST', 'PUT', 'PATCH', 'DELETE'].includes(metadata.method) && {
         data: JSON.stringify(data),
       }),
