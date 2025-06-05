@@ -26,6 +26,7 @@ export const SaveAnswer = async ({ userId, ...rest }: SaveAnswersRequest) => {
       params: {
         userId,
       },
+      isSecure: true,
     }
   );
 
@@ -35,6 +36,7 @@ export const SaveAnswer = async ({ userId, ...rest }: SaveAnswersRequest) => {
 export const GetAnswers = async (params: GetAnswersRequest) => {
   const response = await request<GetAnswersResponse>(API.GET_ANSWERS, null, {
     params,
+    isSecure: true,
   });
 
   return response?.data;
@@ -44,7 +46,7 @@ export const GetAnswersSummary = async (params: GetAnswersSummaryRequest) => {
   const response = await request<GetAnswersSummeryResponse>(
     API.GET_ANSWER_SUMMARY,
     null,
-    { params }
+    { params, isSecure: true }
   );
 
   return response?.data;

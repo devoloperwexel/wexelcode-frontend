@@ -1,4 +1,4 @@
-import { Account } from 'next-auth';
+import { Account, Session as NextAuthSession } from 'next-auth';
 import { AdapterUser } from 'next-auth/adapters';
 import { JWT } from 'next-auth/jwt';
 
@@ -55,4 +55,10 @@ export interface TokenResponse {
   refresh_expires_in: number;
   token_type: string;
   scope: string;
+}
+
+export interface CustomSession extends NextAuthSession {
+  accessToken?: string; // Optional access token
+  idToken?: string; // Optional ID token
+  refreshToken?: string; // Optional refresh token
 }

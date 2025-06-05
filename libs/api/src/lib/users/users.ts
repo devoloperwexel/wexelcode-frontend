@@ -10,6 +10,7 @@ import API from './constant';
 export const GetUserById = async (id: string) => {
   const response = await request<GetDoctorResponse>(API.GET_BY_ID, null, {
     params: { id },
+    isSecure: true,
   });
 
   return response;
@@ -18,6 +19,7 @@ export const GetUserById = async (id: string) => {
 export const UpdateUser = async ({ id, ...data }: UpdateUserRequest) => {
   const response = await request<GetUserResponse>(API.UPDATE, data, {
     params: { userId: id },
+    isSecure: true,
   });
 
   return response;
