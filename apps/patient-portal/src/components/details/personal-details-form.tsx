@@ -167,6 +167,7 @@ export function PersonalDetailsForm({
           label={t('languages')}
           name="languages"
           placeholder={t('select')}
+          maxItems={2}
           options={languagesOptions}
           rules={{
             required: {
