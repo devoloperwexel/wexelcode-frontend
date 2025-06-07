@@ -9,9 +9,13 @@ import { useRouter } from '../i18n/routing';
 export function ProfileCompleteProvider({ children }: PropsWithChildren) {
   const { status, data } = useSession();
   const { push } = useRouter();
+  const user = data?.user;
 
   useEffect(() => {
-    if (status === 'authenticated' && !data?.user?.address) {
+    if (
+      status === 'authenticated' &&
+      (!user?.mobile || !user?.address || !user?.country)
+    ) {
       push(`${Routes.profile.complete}/${data.user.id}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

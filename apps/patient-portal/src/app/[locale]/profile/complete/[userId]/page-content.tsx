@@ -34,7 +34,7 @@ export default function DetailsPageContent({
 }: DetailsPageContentProps) {
   const t = useTranslations('profile.completeProfilePage');
 
-  const { mutateAsync: complete } = useCompletePatientProfile();
+  const { mutateAsync: complete, isPending } = useCompletePatientProfile();
 
   const { replace } = useRouter();
 
@@ -130,7 +130,7 @@ export default function DetailsPageContent({
           </Button>
         )}
 
-        <Button onClick={onHandleButtonClick}>
+        <Button onClick={onHandleButtonClick} loading={isPending}>
           {currentStep === steps.length - 1 ? t('submit') : t('next')}
         </Button>
       </CardFooter>
