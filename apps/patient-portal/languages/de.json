@@ -334,7 +334,19 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "mobile": "Mobil",
-      "select": "Auswählen"
+      "select": "Auswählen",
+      "errorMessages": {
+        "firstNameRequiredError": "Voornaam is verplicht.",
+        "lastNameRequiredError": "Achternaam is verplicht.",
+        "birthDayRequiredError": "Geboortedatum is verplicht.",
+        "genderRequiredError": "Geslacht is verplicht.",
+        "mobileRequiredError": "Mobiel nummer is verplicht.",
+        "addressRequiredError": "Adres is verplicht.",
+        "cityRequiredError": "Stad is verplicht.",
+        "countryRequiredError": "Land is verplicht.",
+        "zipCodeRequiredError": "Postcode is verplicht.",
+        "languagesRequiredError": "Minstens één taal moet worden geselecteerd."
+      }
     },
     "completeProfilePage": {
       "title": "Profil vervollständigen",

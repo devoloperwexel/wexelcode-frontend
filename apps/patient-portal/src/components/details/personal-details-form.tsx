@@ -54,7 +54,10 @@ export function PersonalDetailsForm({
               label={t('firstName')}
               name="firstName"
               rules={{
-                required: true,
+                required: {
+                  value: true,
+                  message: t('errorMessages.firstNameRequiredError'),
+                },
               }}
             />
 
@@ -62,7 +65,10 @@ export function PersonalDetailsForm({
               label={t('lastName')}
               name="lastName"
               rules={{
-                required: true,
+                required: {
+                  value: true,
+                  message: t('errorMessages.lastNameRequiredError'),
+                },
               }}
             />
           </div>
@@ -75,7 +81,10 @@ export function PersonalDetailsForm({
           name="birthDay"
           type="date"
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.birthDayRequiredError'),
+            },
           }}
         />
         <FormSelectorField
@@ -83,7 +92,10 @@ export function PersonalDetailsForm({
           name="gender"
           options={genderOptions}
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.genderRequiredError'),
+            },
           }}
         />
       </div>
@@ -95,7 +107,10 @@ export function PersonalDetailsForm({
           name="mobile"
           label={t('mobile')}
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.mobileRequiredError'),
+            },
           }}
         />
 
@@ -103,7 +118,10 @@ export function PersonalDetailsForm({
           label={t('address')}
           name="address"
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.addressRequiredError'),
+            },
           }}
         />
       </div>
@@ -113,7 +131,10 @@ export function PersonalDetailsForm({
           label={t('city')}
           name="city"
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.cityRequiredError'),
+            },
           }}
         />
         <FormSmartSelectorField
@@ -122,7 +143,10 @@ export function PersonalDetailsForm({
           placeholder={t('select')}
           options={countryOptions}
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.countryRequiredError'),
+            },
           }}
         />
         <FormInputField
@@ -130,7 +154,10 @@ export function PersonalDetailsForm({
           name="zipCode"
           type="number"
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.zipCodeRequiredError'),
+            },
           }}
         />
       </div>
@@ -142,7 +169,10 @@ export function PersonalDetailsForm({
           placeholder={t('select')}
           options={languagesOptions}
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.languagesRequiredError'),
+            },
           }}
         />
       </div>

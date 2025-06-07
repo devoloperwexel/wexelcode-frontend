@@ -334,7 +334,19 @@
       "firstName": "First Name",
       "lastName": "Last Name",
       "mobile": "Mobile",
-      "select": "Select"
+      "select": "Select",
+      "errorMessages": {
+        "firstNameRequiredError": "First name is required.",
+        "lastNameRequiredError": "Last name is required.",
+        "birthDayRequiredError": "Birthday is required.",
+        "genderRequiredError": "Gender is required.",
+        "mobileRequiredError": "Mobile number is required.",
+        "addressRequiredError": "Address is required.",
+        "cityRequiredError": "City is required.",
+        "countryRequiredError": "Country is required.",
+        "zipCodeRequiredError": "Zip code is required.",
+        "languagesRequiredError": "At least one language must be selected."
+      }
     },
     "completeProfilePage": {
       "title": "Complete Profile",
