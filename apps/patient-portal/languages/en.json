@@ -351,7 +351,16 @@
       "weight": "Weight (kg)",
       "height": "Height (cm)",
       "activities": "Activities",
-      "select": "Select"
+      "select": "Select",
+      "errorMessages": {
+        "weightRequiredError": "Weight is required.",
+        "weightMaxError": "Weight cannot be more than 300 kg.",
+        "weightMinError": "Weight must be at least 1 kg.",
+        "heightRequiredError": "Height is required.",
+        "heightMaxError": "Height cannot be more than 300 cm.",
+        "heightMinError": "Height must be at least 30 cm.",
+        "occupationRequiredError": "Occupation is required."
+      }
     },
     "personal": "Personal",
     "medical": "Medical",
