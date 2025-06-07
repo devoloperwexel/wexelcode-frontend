@@ -1,14 +1,45 @@
 import { Text } from '@wexelcode/components';
-import { useTranslations } from 'next-intl';
+import { LanguageOptions } from '@wexelcode/constants';
+import { useLocale, useTranslations } from 'next-intl';
+import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 export function DetailsReview() {
   const t = useTranslations('profile');
+  const tOptions = useTranslations('options');
+  const local = useLocale() as 'en' | 'de';
   const { getValues } = useFormContext();
+
+  const activities = useMemo(() => {
+    return (
+      getValues('activities')?.map((act: string) =>
+        tOptions(`activity.${act.toUpperCase()}`)
+      ) || []
+    );
+  }, [getValues, tOptions]);
+
+  const languages = useMemo(() => {
+    return (
+      getValues('languages')
+        ?.map((lng: string) => {
+          const language = LanguageOptions.find(
+            (option) => option.value === lng
+          );
+          return language?.label?.[local];
+        })
+        .filter(Boolean) || []
+    );
+  }, [getValues, local]);
+
+  const birthday = new Intl.DateTimeFormat(local === 'de' ? 'de-DE' : 'en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(getValues('birthDay')));
 
   return (
     <>
-      <div className="bg-gray-50 p-4  space-y-4 rounded-md">
+      <div className="bg-gray-50 p-4  space-y-4 rounded-md capitalize">
         <Text variant="h4" className="border-b pb-2">
           {t('completeProfilePage.personalDetails')}
         </Text>
@@ -16,7 +47,7 @@ export function DetailsReview() {
         <div className="grid grid-cols-2 gap-4">
           <Text>
             {t('personalDetailsForm.birthday')}:
-            <span className="font-medium ml-2">{getValues('birthDay')}</span>
+            <span className="font-medium ml-2">{birthday}</span>
           </Text>
           <Text>
             {t('personalDetailsForm.address')}:
@@ -32,13 +63,15 @@ export function DetailsReview() {
           </Text>
           <Text>
             {t('personalDetailsForm.gender')}:
-            <span className="font-medium ml-2">{getValues('gender')}</span>
+            <span className="font-medium ml-2">
+              {tOptions(
+                `gender.${(getValues('gender') as string).toUpperCase()}`
+              )}
+            </span>
           </Text>
           <Text>
             {t('personalDetailsForm.languages')}:
-            <span className="font-medium ml-2">
-              {getValues('languages').join(', ')}
-            </span>
+            <span className="font-medium ml-2">{languages?.join(', ')}</span>
           </Text>
         </div>
       </div>
@@ -61,14 +94,10 @@ export function DetailsReview() {
             {t('medicalDetailsForm.height')}:
             <span className="font-medium ml-2">{getValues('height')}</span>
           </Text>
-          {getValues('activities') && (
-            <Text className="col-span-2">
-              {t('medicalDetailsForm.activities')}:
-              <span className="font-medium ml-2">
-                {getValues('activities').join(', ')}
-              </span>
-            </Text>
-          )}
+          <Text className="col-span-2">
+            {t('medicalDetailsForm.activities')}:
+            <span className="font-medium ml-2">{activities.join(', ')}</span>
+          </Text>
         </div>
       </div>
     </>
