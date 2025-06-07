@@ -1,4 +1,7 @@
-import { FormInputField, FormSmartMultiSelectorField } from '@wexelcode/components';
+import {
+  FormInputField,
+  FormSmartMultiSelectorField,
+} from '@wexelcode/components';
 import { ActivityOptions } from '@wexelcode/constants';
 import { useTranslations } from 'next-intl';
 
@@ -29,7 +32,10 @@ export function MedicalDetailsForm({
           label={t('occupation')}
           name="occupation"
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.occupationRequiredError'),
+            },
           }}
         />
       </div>
@@ -40,7 +46,12 @@ export function MedicalDetailsForm({
           name="weight"
           type="number"
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.weightRequiredError'),
+            },
+            max: { value: 300, message: t('errorMessages.weightMaxError') },
+            min: { value: 1, message: t('errorMessages.weightMinError') },
           }}
         />
         <FormInputField
@@ -48,7 +59,12 @@ export function MedicalDetailsForm({
           name="height"
           type="number"
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: t('errorMessages.heightRequiredError'),
+            },
+            max: { value: 300, message: t('errorMessages.heightMaxError') },
+            min: { value: 30, message: t('errorMessages.heightMinError') },
           }}
         />
       </div>

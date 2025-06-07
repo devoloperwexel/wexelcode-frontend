@@ -55,7 +55,7 @@ const FormInputField = ({
                 <Input
                   placeholder={placeholder}
                   {...field}
-                  className="capitalize"
+                  className={type !== 'date' ? 'capitalize' : ''}
                   type={type}
                   onChange={handleChange}
                 />

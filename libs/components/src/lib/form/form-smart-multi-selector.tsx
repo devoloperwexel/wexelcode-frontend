@@ -22,6 +22,7 @@ const FormSmartMultiSelectorField = ({
   searchPlaceholder,
   description,
   options = [],
+  maxItems,
   ...rest
 }: Props) => {
   return (
@@ -38,6 +39,7 @@ const FormSmartMultiSelectorField = ({
             placeholder={placeholder}
             emptyText={emptyText}
             searchPlaceholder={searchPlaceholder}
+            maxItems={maxItems}
           />
 
           {description && <FormDescription>{description}</FormDescription>}

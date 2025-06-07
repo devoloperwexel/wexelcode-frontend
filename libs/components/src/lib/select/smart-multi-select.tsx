@@ -26,6 +26,7 @@ interface SmartMultiSelectProps {
   options: SelectOption[];
   value: string[];
   onChange: (value: string[]) => void;
+  maxItems?: number;
   placeholder?: string;
   searchPlaceholder?: string;
   emptyText?: string;
@@ -44,12 +45,16 @@ export function SmartMultiSelect({
   className,
   buttonClassName,
   maxDisplay = 2,
+  maxItems = 6,
 }: SmartMultiSelectProps) {
   const [open, setOpen] = React.useState(false);
 
   const handleSelect = (selectedValue: string) => {
     if (value.includes(selectedValue)) {
       onChange(value.filter((v) => v !== selectedValue));
+    } else if (value.length >= maxItems) {
+      value.pop();
+      onChange([...value, selectedValue]);
     } else {
       onChange([...value, selectedValue]);
     }
