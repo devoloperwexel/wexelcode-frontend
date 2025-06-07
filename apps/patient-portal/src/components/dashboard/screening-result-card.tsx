@@ -109,7 +109,7 @@ export function ScreeningResultCard() {
           )}
         </div>
 
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <div className="flex items-center space-x-2">
             <ActivityIcon className="w-5 h-5 text-primary" />
             <Text>{t('result')}</Text>
@@ -137,7 +137,7 @@ export function ScreeningResultCard() {
                 )}
             </Text>
           </div>
-        </div>
+        </div> */}
       </CardContent>
 
       <CardFooter className="w-full">
