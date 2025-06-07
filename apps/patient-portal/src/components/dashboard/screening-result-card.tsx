@@ -30,7 +30,7 @@ import { LoadingAppointmentCard } from './loading';
 
 export function ScreeningResultCard() {
   const t = useTranslations('dashboard.screeningResultCard');
-  const language = useLocale()
+  const language = useLocale();
   const { data: userData } = useSession();
 
   const { isOpen, openDialog } = useScreeningDialogStore();
@@ -100,7 +100,11 @@ export function ScreeningResultCard() {
           </div>
           {lastScreening?.createdAt && (
             <Text variant="muted">
-              {dateTimeFormat(lastScreening.createdAt, 'Do MMMM, yyyy', language)}
+              {dateTimeFormat(
+                lastScreening.createdAt,
+                'Do MMMM, yyyy',
+                language
+              )}
             </Text>
           )}
         </div>
@@ -125,11 +129,12 @@ export function ScreeningResultCard() {
               variant="muted"
               className={`text-${summeryResponse?.status?.toLocaleLowerCase()}-500`}
             >
-              {t(
-                summeryResponse?.status === 'In Complete'
-                  ? 'inComplete'
-                  : summeryResponse?.status?.toLowerCase()
-              )}
+              {summeryResponse?.status &&
+                t(
+                  summeryResponse?.status === 'In Complete'
+                    ? 'inComplete'
+                    : summeryResponse?.status?.toLowerCase()
+                )}
             </Text>
           </div>
         </div>

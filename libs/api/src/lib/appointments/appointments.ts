@@ -20,6 +20,7 @@ export const CreateAppointment = async ({
       params: {
         userId,
       },
+      isSecure: true,
     }
   );
 
@@ -32,6 +33,7 @@ export const GetAppointmentById = async (params: GetAppointmentRequest) => {
     {},
     {
       params,
+      isSecure: true,
     }
   );
 
@@ -46,6 +48,7 @@ export const GetAppointmentsByUserId = async (
     null,
     {
       params,
+      isSecure: true,
     }
   );
 
@@ -58,6 +61,7 @@ export const GetAllAppointments = async (params: GetAppointmentsRequest) => {
     null,
     {
       params,
+      isSecure: true,
     }
   );
 
