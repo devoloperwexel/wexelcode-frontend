@@ -7,6 +7,10 @@ const API = {
     path: '/physios/:physioId/unavailabilities',
     method: 'GET',
   },
+  CHECK_UNAVAILABILITY: {
+    path: 'physios/:id/check-unavailabilities',
+    method: 'GET',
+  },
 };
 
 export default API;

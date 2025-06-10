@@ -7,10 +7,6 @@ const API = {
     path: 'users/:userId/physio?includes=user',
     method: 'GET',
   },
-  GET_AVAILABILITY: {
-    path: 'physios/:id/availability',
-    method: 'GET',
-  },
   UPDATE: {
     path: 'users/:userId/physios/:id',
     method: 'PATCH',

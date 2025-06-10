@@ -1,6 +1,8 @@
 import {
+  GetPhysioAvailabilityCheckResponse,
   GetPhysioUnavailabilitiesRequest,
   GetPhysioUnavailabilitiesResponse,
+  GetPhysioUnavailabilityCheckRequest,
   GetPhysioUnavailabilityResponse,
   PhysioUnavailability,
 } from '@wexelcode/types';
@@ -30,7 +32,9 @@ export const SavePhysioUnavailability = async ({
   return response?.data;
 };
 
-export const GetPhysioUnavailabilities = async (params: GetPhysioUnavailabilitiesRequest) => {
+export const GetPhysioUnavailabilities = async (
+  params: GetPhysioUnavailabilitiesRequest
+) => {
   const response = await request<GetPhysioUnavailabilitiesResponse>(
     API.GET_PHYSIO_UNAVAILABILITIES,
     null,
@@ -40,4 +44,18 @@ export const GetPhysioUnavailabilities = async (params: GetPhysioUnavailabilitie
   );
 
   return response?.data;
+};
+
+export const GetPhysioAvailabilityCheck = async (
+  params: GetPhysioUnavailabilityCheckRequest
+) => {
+  const response = await request<GetPhysioAvailabilityCheckResponse>(
+    API.CHECK_UNAVAILABILITY,
+    null,
+    {
+      params,
+    }
+  );
+
+  return response;
 };

@@ -3,3 +3,8 @@ export interface GetPhysioUnavailabilitiesRequest {
   startTime?: Date;
   endTime?: Date;
 }
+
+export interface GetPhysioUnavailabilityCheckRequest {
+  id: string;
+  date: string;
+}

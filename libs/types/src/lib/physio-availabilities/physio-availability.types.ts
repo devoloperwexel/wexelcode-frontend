@@ -10,3 +10,8 @@ export interface PhysioUnavailability {
 export interface SavedPhysioUnavailability
   extends PhysioUnavailability,
     Timestamps {}
+
+export interface PhysioAvailabilityCheck {
+  date: string;
+  unavailabilityTimes: Date[];
+}

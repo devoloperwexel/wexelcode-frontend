@@ -10,7 +10,7 @@ import {
 } from '@wexelcode/components';
 import {
   useCreateAppointment,
-  useGetDoctorAvailability,
+  useGetPhysioAvailabilityCheck,
 } from '@wexelcode/hooks';
 import { Doctor } from '@wexelcode/types';
 import { dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
@@ -18,7 +18,6 @@ import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
 
 import { useScreeningDialogStore } from '../../app/store';
 import Routes from '../../constants/routes';
@@ -74,6 +73,7 @@ export function DoctorAppointmentsTab({
       const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000); // add appointment duration
       return { start, end };
     });
+    console.log(localAppointments);
 
     return AVAILABLE_TIME_SLOT.map((slot) => {
       const [startStr, endStr] = slot.time;
@@ -103,7 +103,7 @@ export function DoctorAppointmentsTab({
     string | undefined
   >();
 
-  const { data: response, isLoading } = useGetDoctorAvailability({
+  const { data: response, isLoading } = useGetPhysioAvailabilityCheck({
     id: doctor.id,
     date: date.toDateString(),
   });
@@ -199,11 +199,11 @@ export function DoctorAppointmentsTab({
 
       <ScrollArea className="flex-grow">
         <div className="grid grid-cols-3 gap-4">
-          {isLoading || !response?.data?.appointmentTimes ? (
+          {isLoading || !response?.data?.unavailabilityTimes ? (
             <AppointmentsLoadingSkeleton />
           ) : (
             markUnavailableSlots(
-              response?.data.appointmentTimes,
+              response?.data.unavailabilityTimes,
               dateTimeFormat(date, 'YYYY-MM-DD')
             ).map((timeSlot, index) => (
               <TimeSlotSelector
