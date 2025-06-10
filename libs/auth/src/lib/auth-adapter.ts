@@ -48,6 +48,8 @@ export default function getSessionAndUsersAuthAdapter() {
   }: AccountProvider): Promise<CustomAdapterUser | null> {
     // Fetch access token from Keycloak
     const tokenData = await fetchAccessToken();
+    console.log("Fetching user by account:", providerAccountId);
+    
     try {
       const response: AxiosResponse<BaseResponse<CustomAdapterUser>> =
         await axios.get(
