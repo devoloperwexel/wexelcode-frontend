@@ -66,7 +66,6 @@ const UserAvatar = ({ name, profileUrl, ...rest }: UserAvatarProps) => {
     const [firstName, lastName] = name.split(' ');
     return `${firstName[0]}${lastName ? lastName[0] : ''}`.toLocaleUpperCase();
   };
-console.log(name);
 
   return (
     <Avatar {...rest}>

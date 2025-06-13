@@ -1,16 +1,16 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-
-import { TimeSlotToggle } from './time-slot-toggle';
 import {
-  useGetDoctorByUserId,
-  useSavePhysioUnavailability,
-  useGetPhysioUnavailabilities,
   useDeletePhysioUnavailability,
+  useGetDoctorByUserId,
+  useGetPhysioUnavailabilities,
+  useSavePhysioUnavailability,
 } from '@wexelcode/hooks';
 import { useSession } from 'next-auth/react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import AvailabilityLoadingSkeleton from './availability-loading-skeleton';
+import { TimeSlotToggle } from './time-slot-toggle';
 
 type TimeSlot = {
   time: [string, string];
@@ -124,16 +124,19 @@ export function AvailabilityDetailsTab() {
 
   const { data: doctorResponse, isLoading: isLoadingPhysio } =
     useGetDoctorByUserId(userData?.user.id);
-  const { data: unavailabilityResponse, isLoading: isLoadingUnavailability } =
-    useGetPhysioUnavailabilities(
-      {
-        physioId: doctorResponse?.data?.id || '',
-        startTime: selectedDate,
-        page: 1,
-        limit: 20,
-      },
-      !!doctorResponse?.data?.id && !!selectedDate && !isLoadingPhysio
-    );
+  const {
+    data: unavailabilityResponse,
+    isLoading: isLoadingUnavailability,
+    refetch,
+  } = useGetPhysioUnavailabilities(
+    {
+      physioId: doctorResponse?.data?.id || '',
+      startTime: selectedDate,
+      page: 1,
+      limit: 20,
+    },
+    false
+  );
   const { mutateAsync: saveUnavailability, isPending: isCreating } =
     useSavePhysioUnavailability();
   const { mutateAsync: deleteUnavailability, isPending: isDeleting } =
@@ -150,6 +153,10 @@ export function AvailabilityDetailsTab() {
       }) ?? []
     );
   }, [unavailabilityResponse]);
+
+  useEffect(() => {
+    refetch();
+  }, [doctorResponse?.data?.id, selectedDate]);
 
   useEffect(() => {
     const slots = AVAILABLE_TIME_SLOT.map((slot) => {
