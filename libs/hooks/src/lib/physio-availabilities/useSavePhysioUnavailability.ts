@@ -11,11 +11,11 @@ export const useSavePhysioUnavailability = () => {
       await SavePhysioUnavailability(request),
     onSuccess: (_, variables) => {
       client.invalidateQueries({
-        queryKey: [QueryKeys.answers, variables.physioId],
+        queryKey: [QueryKeys.physioUnavailability, variables.physioId],
       });
 
       client.invalidateQueries({
-        queryKey: [QueryKeys.answersSummary, variables.physioId],
+        queryKey: [QueryKeys.physioUnavailability, variables.physioId],
       });
     },
   });

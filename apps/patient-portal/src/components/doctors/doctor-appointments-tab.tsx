@@ -73,7 +73,6 @@ export function DoctorAppointmentsTab({
       const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000); // add appointment duration
       return { start, end };
     });
-    console.log(localAppointments);
 
     return AVAILABLE_TIME_SLOT.map((slot) => {
       const [startStr, endStr] = slot.time;
