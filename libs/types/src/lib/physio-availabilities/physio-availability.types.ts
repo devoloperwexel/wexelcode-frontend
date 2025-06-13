@@ -1,15 +1,15 @@
-import { Timestamps } from '../..';
-
 export interface PhysioUnavailability {
   id: string;
   physioId: string;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
 }
 
-export interface SavedPhysioUnavailability
-  extends PhysioUnavailability,
-    Timestamps {}
+export type SavedPhysioUnavailability = {
+  physioId: string;
+  startTime: string;
+  endTime: string;
+};
 
 export interface PhysioAvailabilityCheck {
   date: string;

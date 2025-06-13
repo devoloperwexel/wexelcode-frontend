@@ -1,10 +1,11 @@
 import {
+  DeletePhysioUnavailabilityRequest,
   GetPhysioAvailabilityCheckResponse,
   GetPhysioUnavailabilitiesRequest,
   GetPhysioUnavailabilitiesResponse,
   GetPhysioUnavailabilityCheckRequest,
   GetPhysioUnavailabilityResponse,
-  PhysioUnavailability,
+  SavedPhysioUnavailability,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
@@ -12,18 +13,37 @@ import API from './constant';
 
 export const SavePhysioUnavailability = async ({
   physioId,
-  ...rest
-}: PhysioUnavailability) => {
-  const dataToSave = {
-    physioUnavailabilities: rest,
-  };
+  ...physioUnavailabilitiesData
+}: SavedPhysioUnavailability) => {
+  console.log(physioUnavailabilitiesData);
 
   const response = await request<GetPhysioUnavailabilityResponse>(
     API.SAVE_PHYSIO_UNAVAILABILITIES,
-    dataToSave,
+    { ...physioUnavailabilitiesData },
     {
       params: {
         physioId,
+      },
+      isSecure: true,
+    }
+  );
+
+  return response?.data;
+};
+
+export const DeletePhysioUnavailability = async ({
+  physioId,
+  id,
+}: DeletePhysioUnavailabilityRequest) => {
+  console.log(id);
+  
+  const response = await request<GetPhysioUnavailabilityResponse>(
+    API.DELETE_PHYSIO_UNAVAILABILITIES,
+    {},
+    {
+      params: {
+        physioId,
+        id,
       },
       isSecure: true,
     }

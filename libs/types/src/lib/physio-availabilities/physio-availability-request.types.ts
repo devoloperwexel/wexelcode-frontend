@@ -1,7 +1,14 @@
-export interface GetPhysioUnavailabilitiesRequest {
+import { BaseRequest } from '../api/request.types';
+
+export interface GetPhysioUnavailabilitiesRequest extends BaseRequest {
   physioId: string;
-  startTime?: Date;
-  endTime?: Date;
+  startTime?: string;
+  endTime?: string;
+}
+
+export interface DeletePhysioUnavailabilityRequest {
+  physioId: string;
+  id: string;
 }
 
 export interface GetPhysioUnavailabilityCheckRequest {
