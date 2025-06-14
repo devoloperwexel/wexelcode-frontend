@@ -7,4 +7,5 @@ export const QueryKeys = {
   users: 'USERS',
   answers: 'ANSWERS',
   answersSummary: 'ANSWERS_SUMMARY',
+  physioUnavailability: 'PHYSIO_UNAVAILABILITY',
 };
