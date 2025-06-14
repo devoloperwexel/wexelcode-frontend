@@ -199,8 +199,6 @@ export function AvailabilityDetailsTab() {
       const physioId = doctorResponse.data.id;
 
       if (currentSlot.unavailableId) {
-        await deleteUnavailability({ id: currentSlot.unavailableId, physioId });
-
         setAvailableSlots((prev) => {
           const newSlots = [...prev];
           newSlots[index] = {
@@ -210,7 +208,16 @@ export function AvailabilityDetailsTab() {
           };
           return newSlots;
         });
+        await deleteUnavailability({ id: currentSlot.unavailableId, physioId });
       } else {
+        setAvailableSlots((prev) => {
+          const newSlots = [...prev];
+          newSlots[index] = {
+            ...newSlots[index],
+            available: false,
+          };
+          return newSlots;
+        });
         const startTime = toDateTime(
           selectedDate,
           currentSlot.time[0]
@@ -230,7 +237,6 @@ export function AvailabilityDetailsTab() {
           const newSlots = [...prev];
           newSlots[index] = {
             ...newSlots[index],
-            available: false,
             unavailableId: result?.id,
           };
           return newSlots;
@@ -249,11 +255,11 @@ export function AvailabilityDetailsTab() {
   return (
     <div className="bg-card rounded-lg shadow-md overflow-hidden">
       <div className="p-4 border-b w-full flex justify-end mt-2">
-        <div className=' w-[180px]'>
+        <div className=" w-[180px]">
           <DatePicker
             initialDate={new Date(selectedDate)}
             startDate={new Date()}
-            onSelect={(e) => setSelectedDate(e!.toLocaleString())}
+            onSelect={(e) => setSelectedDate(e!.toLocaleDateString('sv-SE'))}
           />
         </div>
       </div>
