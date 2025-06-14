@@ -15,8 +15,6 @@ export const SavePhysioUnavailability = async ({
   physioId,
   ...physioUnavailabilitiesData
 }: SavedPhysioUnavailability) => {
-  console.log(physioUnavailabilitiesData);
-
   const response = await request<GetPhysioUnavailabilityResponse>(
     API.SAVE_PHYSIO_UNAVAILABILITIES,
     { ...physioUnavailabilitiesData },
@@ -35,7 +33,6 @@ export const DeletePhysioUnavailability = async ({
   physioId,
   id,
 }: DeletePhysioUnavailabilityRequest) => {
-
   const response = await request<GetPhysioUnavailabilityResponse>(
     API.DELETE_PHYSIO_UNAVAILABILITIES,
     {},
