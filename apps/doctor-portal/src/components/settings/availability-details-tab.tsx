@@ -1,5 +1,6 @@
 'use client';
 
+import { DatePicker } from '@wexelcode/components';
 import {
   useDeletePhysioUnavailability,
   useGetDoctorByUserId,
@@ -247,14 +248,14 @@ export function AvailabilityDetailsTab() {
 
   return (
     <div className="bg-card rounded-lg shadow-md overflow-hidden">
-      <div className="p-4 border-b">
-        <input
-          type="date"
-          value={selectedDate}
-          min={new Date().toLocaleDateString('sv-SE')}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="w-full p-2 rounded-md bg-secondary text-secondary-foreground"
-        />
+      <div className="p-4 border-b w-full flex justify-end mt-2">
+        <div className=' w-[180px]'>
+          <DatePicker
+            initialDate={new Date(selectedDate)}
+            startDate={new Date()}
+            onSelect={(e) => setSelectedDate(e!.toLocaleString())}
+          />
+        </div>
       </div>
       {isLoadingUnavailability || isLoadingPhysio ? (
         <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
