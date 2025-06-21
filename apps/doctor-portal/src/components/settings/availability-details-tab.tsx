@@ -17,7 +17,7 @@ type TimeSlot = {
   time: [string, string];
   available: boolean;
   disabled: boolean;
-  unavailableId?: string;
+  unavailableIds?: string[];
 };
 
 const APPOINTMENT_TIME = 30;
@@ -117,9 +117,38 @@ const AVAILABLE_TIME_SLOT: TimeSlot[] = [
 const toDateTime = (date: string, time: string) =>
   new Date(`${date}T${time}:00`);
 
+function getLocalISODate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function getDatesBetween(
+  startDate: Date | string,
+  endDate: Date | string
+): string[] {
+  const dates: string[] = [];
+
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  // Loop through each day
+  while (start <= end) {
+    dates.push(getLocalISODate(start));
+    start.setDate(start.getDate() + 1);
+  }
+
+  return dates;
+}
+
 export function AvailabilityDetailsTab() {
   const { data: userData } = useSession();
-  const [selectedDate, setSelectedDate] = useState<string>(
+  const [selectedFromDate, setSelectedFromDate] = useState<string>(
+    new Date().toLocaleDateString('sv-SE')
+  );
+
+  const [selectedToDate, setSelectedToDate] = useState<string>(
     new Date().toLocaleDateString('sv-SE')
   );
 
@@ -132,9 +161,9 @@ export function AvailabilityDetailsTab() {
   } = useGetPhysioUnavailabilities(
     {
       physioId: doctorResponse?.data?.id || '',
-      startTime: selectedDate,
+      startDateRange: `${selectedFromDate}:${selectedToDate}`,
       page: 1,
-      limit: 20,
+      limit: 100,
     },
     false
   );
@@ -150,46 +179,75 @@ export function AvailabilityDetailsTab() {
       unavailabilityResponse?.results.map((unavailability) => {
         const start = new Date(unavailability.startTime);
         const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000);
-        return { unavailableId: unavailability.id, start, end };
+        return { unavailableIds: unavailability.id, start, end };
       }) ?? []
     );
   }, [unavailabilityResponse]);
 
   useEffect(() => {
     refetch();
-  }, [doctorResponse?.data?.id, selectedDate]);
+  }, [doctorResponse?.data?.id, selectedFromDate, selectedToDate]);
 
   useEffect(() => {
     const slots = AVAILABLE_TIME_SLOT.map((slot) => {
       const [startStr, endStr] = slot.time;
 
-      const start = toDateTime(selectedDate, startStr);
-      const end = toDateTime(selectedDate, endStr);
+      const start = toDateTime(selectedFromDate, startStr);
       const today = new Date();
 
-      if (start < today) {
-        slot.disabled = true;
+      if (selectedFromDate === selectedToDate) {
+        const end = toDateTime(selectedFromDate, endStr);
+        if (start < today) {
+          slot.disabled = true;
+        } else {
+          slot.disabled = false;
+        }
+        const found = localAppointments?.find((app) => {
+          return app.start < end && app.end > start;
+        });
+
+        const isOverlapping = Boolean(found);
+
+        return {
+          ...slot,
+          available: !isOverlapping,
+          unavailableIds: found && [found.unavailableIds],
+        };
       } else {
         slot.disabled = false;
+        const dates = getDatesBetween(selectedFromDate, selectedToDate).map(
+          (date) => ({
+            startDate: toDateTime(date, startStr),
+            endDate: toDateTime(date, endStr),
+          })
+        );
+
+        const foundUnbailableList: string[] = [];
+
+        dates.forEach((date) => {
+          const found = localAppointments?.find((app) => {
+            return app.start < date.endDate && app.end > date.startDate;
+          });
+          if (found) {
+            foundUnbailableList.push(found.unavailableIds);
+          }
+        });
+
+        return {
+          ...slot,
+          available:
+            foundUnbailableList.length !==
+            (start < today ? dates.length - 1 : dates.length),
+          unavailableIds: foundUnbailableList,
+        };
       }
-      const found = localAppointments?.find((app) => {
-        return app.start < end && app.end > start;
-      });
-
-      const isOverlapping = Boolean(found);
-
-      return {
-        ...slot,
-        available: !isOverlapping,
-        unavailableId: found?.unavailableId,
-      };
     });
 
     setAvailableSlots(slots);
-  }, [localAppointments, selectedDate]);
+  }, [localAppointments, selectedFromDate]);
 
   const handleToggle = useCallback(
-    async (slotKey: string) => {
+    async (slotKey: string, isActive: boolean) => {
       const index = availableSlots.findIndex(
         (slot) => `${slot.time[0]}-${slot.time[1]}` === slotKey
       );
@@ -197,18 +255,21 @@ export function AvailabilityDetailsTab() {
 
       const currentSlot = availableSlots[index];
       const physioId = doctorResponse.data.id;
+      const dates = getDatesBetween(selectedFromDate, selectedToDate);
 
-      if (currentSlot.unavailableId) {
+      if (currentSlot.unavailableIds && !isActive) {
         setAvailableSlots((prev) => {
           const newSlots = [...prev];
           newSlots[index] = {
             ...newSlots[index],
             available: true,
-            unavailableId: undefined,
+            unavailableIds: undefined,
           };
           return newSlots;
         });
-        await deleteUnavailability({ id: currentSlot.unavailableId, physioId });
+        currentSlot.unavailableIds.forEach((unavailableIds) => {
+          deleteUnavailability({ id: unavailableIds, physioId });
+        });
       } else {
         setAvailableSlots((prev) => {
           const newSlots = [...prev];
@@ -218,35 +279,40 @@ export function AvailabilityDetailsTab() {
           };
           return newSlots;
         });
-        const startTime = toDateTime(
-          selectedDate,
-          currentSlot.time[0]
-        ).toISOString();
-        const endTime = toDateTime(
-          selectedDate,
-          currentSlot.time[1]
-        ).toISOString();
+        const dates = getDatesBetween(selectedFromDate, selectedToDate).map(
+          (date) => ({
+            startDate: toDateTime(date, currentSlot.time[0]).toISOString(),
+            endDate: toDateTime(date, currentSlot.time[1]).toISOString(),
+          })
+        );
 
-        const result = await saveUnavailability({
-          physioId,
-          startTime,
-          endTime,
-        });
+        dates.forEach(async (date) => {
+          const startTime = date.startDate;
+          const endTime = date.endDate;
+          if (new Date(startTime) < new Date()) return;
 
-        setAvailableSlots((prev) => {
-          const newSlots = [...prev];
-          newSlots[index] = {
-            ...newSlots[index],
-            unavailableId: result?.id,
-          };
-          return newSlots;
+          const result = await saveUnavailability({
+            physioId,
+            startTime,
+            endTime,
+          });
+          setAvailableSlots((prev) => {
+            const newSlots = [...prev];
+            newSlots[index] = {
+              ...newSlots[index],
+              unavailableIds: newSlots[index].unavailableIds
+                ? [...newSlots[index].unavailableIds, result!.id]
+                : [result!.id],
+            };
+            return newSlots;
+          });
         });
       }
     },
     [
       availableSlots,
       doctorResponse,
-      selectedDate,
+      selectedFromDate,
       deleteUnavailability,
       saveUnavailability,
     ]
@@ -254,13 +320,28 @@ export function AvailabilityDetailsTab() {
 
   return (
     <div className="bg-card rounded-lg shadow-md overflow-hidden">
-      <div className="p-4 border-b w-full flex justify-end mt-2">
-        <div className=" w-[180px]">
-          <DatePicker
-            initialDate={new Date(selectedDate)}
-            startDate={new Date()}
-            onSelect={(e) => setSelectedDate(e!.toLocaleDateString('sv-SE'))}
-          />
+      <div className="p-4 border-b w-full flex justify-start mt-2">
+        <div className=" w-fit flex flex-row gap-12">
+          <div className=" text-[13px]">
+            <p className=" mb-1">From Date:</p>
+            <DatePicker
+              initialDate={new Date(selectedFromDate)}
+              startDate={new Date()}
+              onSelect={(e) =>
+                setSelectedFromDate(e!.toLocaleDateString('sv-SE'))
+              }
+            />
+          </div>
+          <div className=" text-[13px]">
+            <p className=" mb-1">To Date:</p>
+            <DatePicker
+              initialDate={new Date(selectedToDate)}
+              startDate={new Date()}
+              onSelect={(e) =>
+                setSelectedToDate(e!.toLocaleDateString('sv-SE'))
+              }
+            />
+          </div>
         </div>
       </div>
       {isLoadingUnavailability || isLoadingPhysio ? (
@@ -278,7 +359,7 @@ export function AvailabilityDetailsTab() {
                   startTime={time[0]}
                   endTime={time[1]}
                   isAvailable={available}
-                  onToggle={() => handleToggle(slotKey)}
+                  onToggle={() => handleToggle(slotKey, available)}
                   disabled={disabled}
                   loading={isCreating || isDeleting}
                 />
