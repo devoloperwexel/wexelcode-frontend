@@ -2,8 +2,8 @@ import { BaseRequest } from '../api/request.types';
 
 export interface GetPhysioUnavailabilitiesRequest extends BaseRequest {
   physioId: string;
-  startTime?: string;
-  endTime?: string;
+  startDateRange?: string;
+  endDateRange?: string;
 }
 
 export interface DeletePhysioUnavailabilityRequest {

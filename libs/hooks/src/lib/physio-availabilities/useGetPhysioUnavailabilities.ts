@@ -11,8 +11,8 @@ export const useGetPhysioUnavailabilities = (
     queryKey: [
       QueryKeys.physioUnavailability,
       request.physioId,
-      request.startTime,
-      request.endTime,
+      request.startDateRange,
+      request.endDateRange,
     ],
     queryFn: async () => await GetPhysioUnavailabilities(request),
     enabled,

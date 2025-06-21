@@ -175,5 +175,8 @@
         }
       }
     }
+  },
+  "datePicker": {
+    "pickDate": "Pick a date"
   }
 }
