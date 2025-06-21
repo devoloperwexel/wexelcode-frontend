@@ -8,6 +8,7 @@ import {
   useSavePhysioUnavailability,
 } from '@wexelcode/hooks';
 import { useSession } from 'next-auth/react';
+import { useLocale } from 'next-intl';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import AvailabilityLoadingSkeleton from './availability-loading-skeleton';
@@ -143,6 +144,7 @@ function getDatesBetween(
 }
 
 export function AvailabilityDetailsTab() {
+  const local = useLocale();
   const { data: userData } = useSession();
   const [selectedFromDate, setSelectedFromDate] = useState<string>(
     new Date().toLocaleDateString('sv-SE')
@@ -317,6 +319,19 @@ export function AvailabilityDetailsTab() {
       saveUnavailability,
     ]
   );
+  const selectedFromDateObj = useMemo(
+    () => new Date(selectedFromDate),
+    [selectedFromDate]
+  );
+  const selectedToDateObj = useMemo(
+    () => new Date(selectedToDate),
+    [selectedToDate]
+  );
+  const selectedToDateAfterWeekObj = useMemo(
+    () => new Date(selectedToDate),
+    [selectedToDate]
+  );
+  selectedToDateAfterWeekObj.setDate(selectedFromDateObj.getDate() + 7);
 
   return (
     <div className="bg-card rounded-lg shadow-md overflow-hidden">
@@ -325,18 +340,22 @@ export function AvailabilityDetailsTab() {
           <div className=" text-[13px]">
             <p className=" mb-1">From Date:</p>
             <DatePicker
-              initialDate={new Date(selectedFromDate)}
+              local={local}
+              initialDate={selectedFromDateObj}
               startDate={new Date()}
-              onSelect={(e) =>
-                setSelectedFromDate(e!.toLocaleDateString('sv-SE'))
-              }
+              onSelect={(e) => {
+                setSelectedFromDate(e!.toLocaleDateString('sv-SE'));
+                setSelectedToDate(e!.toLocaleDateString('sv-SE'));
+              }}
             />
           </div>
           <div className=" text-[13px]">
             <p className=" mb-1">To Date:</p>
             <DatePicker
-              initialDate={new Date(selectedToDate)}
-              startDate={new Date()}
+              local={local}
+              initialDate={selectedToDateObj}
+              toDate={selectedToDateAfterWeekObj}
+              startDate={selectedFromDateObj}
               onSelect={(e) =>
                 setSelectedToDate(e!.toLocaleDateString('sv-SE'))
               }
