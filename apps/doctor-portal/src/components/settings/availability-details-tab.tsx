@@ -1,6 +1,6 @@
 'use client';
 
-import { DatePicker } from '@wexelcode/components';
+import { Button, DatePicker } from '@wexelcode/components';
 import {
   useDeletePhysioUnavailability,
   useGetDoctorByUserId,
@@ -8,12 +8,12 @@ import {
   useSavePhysioUnavailability,
 } from '@wexelcode/hooks';
 import { useSession } from 'next-auth/react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import AvailabilityLoadingSkeleton from './availability-loading-skeleton';
-import { TimeSlotToggle } from './time-slot-toggle';
 import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constants';
+import { TimeSlotToggle } from './time-slot-toggle';
 
 type TimeSlot = {
   time: [string, string];
@@ -50,8 +50,25 @@ function getDatesBetween(
   return dates;
 }
 
+const isToday = (date: Date) => {
+  const now = new Date();
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate()
+  );
+};
+
+const isMorning = () => {
+  const now = new Date();
+  return (
+    now.getHours() < 11 || (now.getHours() === 11 && now.getMinutes() < 30)
+  );
+};
+
 export function AvailabilityDetailsTab() {
   const local = useLocale();
+  const t = useTranslations('settings.settingsPage.tabs.availability');
   const { data: userData } = useSession();
   const [selectedFromDate, setSelectedFromDate] = useState<string>(
     new Date().toLocaleDateString('sv-SE')
@@ -59,6 +76,11 @@ export function AvailabilityDetailsTab() {
 
   const [selectedToDate, setSelectedToDate] = useState<string>(
     new Date().toLocaleDateString('sv-SE')
+  );
+  const [isMorningTimes, setIsMorningTimes] = useState(
+    selectedFromDate === selectedToDate && isToday(new Date(selectedFromDate))
+      ? isMorning()
+      : true
   );
 
   const { data: doctorResponse, isLoading: isLoadingPhysio } =
@@ -85,6 +107,8 @@ export function AvailabilityDetailsTab() {
     AVAILABLE_TIME_SLOT as TimeSlot[]
   );
 
+  const handleMorningTimes = () => setIsMorningTimes((prev) => !prev);
+
   const localAppointments = useMemo(() => {
     return (
       unavailabilityResponse?.results.map((unavailability) => {
@@ -100,7 +124,18 @@ export function AvailabilityDetailsTab() {
   }, [doctorResponse?.data?.id, selectedFromDate, selectedToDate]);
 
   useEffect(() => {
-    const slots = (AVAILABLE_TIME_SLOT as TimeSlot[]).map((slot) => {
+    setIsMorningTimes(
+      selectedFromDate === selectedToDate && isToday(new Date(selectedFromDate))
+        ? isMorning()
+        : true
+    );
+  }, [selectedFromDate, selectedToDate]);
+
+  useEffect(() => {
+    const availableSlotWindow = isMorningTimes
+      ? AVAILABLE_TIME_SLOT.slice(0, 24)
+      : AVAILABLE_TIME_SLOT.slice(24);
+    const slots = (availableSlotWindow as TimeSlot[]).map((slot) => {
       const [startStr, endStr] = slot.time;
 
       const start = toDateTime(selectedFromDate, startStr);
@@ -143,19 +178,17 @@ export function AvailabilityDetailsTab() {
             foundUnbailableList.push(found.unavailableIds);
           }
         });
-
+        //
         return {
           ...slot,
-          available:
-            foundUnbailableList.length !==
-            (start < today ? dates.length - 1 : dates.length),
+          available: foundUnbailableList.length !== dates.length,
           unavailableIds: foundUnbailableList,
         };
       }
     });
 
     setAvailableSlots(slots);
-  }, [localAppointments, selectedFromDate]);
+  }, [localAppointments, selectedFromDate, selectedToDate, isMorningTimes]);
 
   const handleToggle = useCallback(
     async (slotKey: string, isActive: boolean) => {
@@ -300,9 +333,15 @@ export function AvailabilityDetailsTab() {
                 {
                   Object.values(availableSlots).filter((e) => e.available)
                     .length
-                }{' '}
-                of {availableSlots.length} slots available
+                }
+                {` ${t('of')} ${availableSlots.length} ${t('slotsAvailable')}`}
               </span>
+              <Button
+                className="bg-primary text-white"
+                onClick={handleMorningTimes}
+              >
+                {isMorningTimes ? t('evening') : t('morning')} {t('slots')}
+              </Button>
             </div>
           </div>
         </>

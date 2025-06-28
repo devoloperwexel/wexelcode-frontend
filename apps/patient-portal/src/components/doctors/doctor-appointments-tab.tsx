@@ -24,10 +24,10 @@ import Routes from '../../constants/routes';
 import { useRouter } from '../../i18n/routing';
 import { QuestionnaireDialog } from '../questions';
 import AppointmentsLoadingSkeleton from './appointments-loading-skeleton';
+import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constant';
 import ScreeningRequiredDialog from './screening-required-dialog';
 import TimeSlotGuideItem from './time-slot-guide-item';
 import TimeSlotSelector from './time-slot-selector';
-import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constant';
 
 interface DoctorAppointmentsTabProps {
   doctor: Doctor;

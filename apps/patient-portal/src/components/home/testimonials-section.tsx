@@ -1,5 +1,6 @@
 import { AnimateOnScroll } from '@wexelcode/components';
 import { useLocale } from 'next-intl';
+
 import { TESTIMONIALS } from './constant';
 
 export const TestimonialsSection = () => {
