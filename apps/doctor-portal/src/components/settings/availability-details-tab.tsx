@@ -13,6 +13,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import AvailabilityLoadingSkeleton from './availability-loading-skeleton';
 import { TimeSlotToggle } from './time-slot-toggle';
+import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constants';
 
 type TimeSlot = {
   time: [string, string];
@@ -20,100 +21,6 @@ type TimeSlot = {
   disabled: boolean;
   unavailableIds?: string[];
 };
-
-const APPOINTMENT_TIME = 30;
-const AVAILABLE_TIME_SLOT: TimeSlot[] = [
-  {
-    time: ['06:00', '06:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['07:00', '07:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['08:00', '08:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['09:00', '09:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['10:00', '10:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['11:00', '11:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['12:00', '12:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['13:00', '13:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['14:00', '14:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['15:00', '15:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['16:00', '16:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['17:00', '17:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['18:00', '18:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['19:00', '19:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['20:00', '20:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['21:00', '21:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['22:00', '22:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['22:30', '23:00'],
-    available: true,
-    disabled: false,
-  },
-];
 
 const toDateTime = (date: string, time: string) =>
   new Date(`${date}T${time}:00`);
@@ -174,7 +81,9 @@ export function AvailabilityDetailsTab() {
   const { mutateAsync: deleteUnavailability, isPending: isDeleting } =
     useDeletePhysioUnavailability();
 
-  const [availableSlots, setAvailableSlots] = useState(AVAILABLE_TIME_SLOT);
+  const [availableSlots, setAvailableSlots] = useState<TimeSlot[]>(
+    AVAILABLE_TIME_SLOT as TimeSlot[]
+  );
 
   const localAppointments = useMemo(() => {
     return (
@@ -191,7 +100,7 @@ export function AvailabilityDetailsTab() {
   }, [doctorResponse?.data?.id, selectedFromDate, selectedToDate]);
 
   useEffect(() => {
-    const slots = AVAILABLE_TIME_SLOT.map((slot) => {
+    const slots = (AVAILABLE_TIME_SLOT as TimeSlot[]).map((slot) => {
       const [startStr, endStr] = slot.time;
 
       const start = toDateTime(selectedFromDate, startStr);
