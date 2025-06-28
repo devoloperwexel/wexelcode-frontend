@@ -230,21 +230,24 @@ export function DoctorAppointmentsTab({
           )}
         </div>
       </ScrollArea>
-      <div className=" flex justify-between items-end space-x-2 pb-4">
-        <Button
-          className="w-24 h-8 mt-auto bg-white bottom-1 border-2 border-primary text-primary hover:text-white"
-          disabled={isMorningTimes || (isToday(date) ? !isMorning() : false)}
-          onClick={handleMorningTimes}
-        >
-          {'Previous'}
-        </Button>
-        <Button
-          className="w-24 h-8 mt-auto bg-white bottom-1 border-2 border-primary text-primary hover:text-white"
-          disabled={!isMorningTimes}
-          onClick={handleMorningTimes}
-        >
-          {'Next'}
-        </Button>
+      <div className=" flex justify-end items-end space-x-2 pb-4">
+        <label className="inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={isMorningTimes}
+            onChange={handleMorningTimes}
+            disabled={isToday(date) ? !isMorning() : false}
+          />
+          <div
+            className={`relative w-11 h-6 bg-primary rounded-full dark:bg-primary peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-500 dark:peer-checked:bg-red-500 cursor-${
+              isToday(date) && !isMorning() ? 'not-allowed' : 'pointer'
+            }`}
+          ></div>
+          <span className="ms-3 text-md font-semibold text-gray-900">
+            {isMorningTimes ? t('morningSlots') : t('eveningSlots')}
+          </span>
+        </label>
       </div>
       <Button
         className="w-full mt-auto"
