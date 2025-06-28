@@ -172,6 +172,13 @@
           "description": "Beschreibung",
           "totalYearsOfExperience": "Gesamtjahre Berufserfahrung",
           "save": "Speichern"
+        },
+        "availability": {
+          "evening": "Avond",
+          "morning": "Ochtend",
+          "slots": "Tijdslots",
+          "slotsAvailable": "Beschikbare tijdslots",
+          "of": "van"
         }
       }
     }

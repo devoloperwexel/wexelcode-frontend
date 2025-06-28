@@ -17,43 +17,38 @@ import { dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useScreeningDialogStore } from '../../app/store';
 import Routes from '../../constants/routes';
 import { useRouter } from '../../i18n/routing';
 import { QuestionnaireDialog } from '../questions';
 import AppointmentsLoadingSkeleton from './appointments-loading-skeleton';
+import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constant';
 import ScreeningRequiredDialog from './screening-required-dialog';
 import TimeSlotGuideItem from './time-slot-guide-item';
 import TimeSlotSelector from './time-slot-selector';
-
-const AVAILABLE_TIME_SLOT = [
-  { time: ['06:00', '06:30'], available: true },
-  { time: ['07:00', '07:30'], available: true },
-  { time: ['08:00', '08:30'], available: true },
-  { time: ['09:00', '09:30'], available: true },
-  { time: ['10:00', '10:30'], available: true },
-  { time: ['11:00', '11:30'], available: true },
-  { time: ['12:00', '12:30'], available: true },
-  { time: ['13:00', '13:30'], available: true },
-  { time: ['14:00', '14:30'], available: true },
-  { time: ['15:00', '15:30'], available: true },
-  { time: ['16:00', '16:30'], available: true },
-  { time: ['17:00', '17:30'], available: true },
-  { time: ['18:00', '18:30'], available: true },
-  { time: ['19:00', '19:30'], available: true },
-  { time: ['20:00', '20:30'], available: true },
-  { time: ['21:00', '21:30'], available: true },
-  { time: ['22:00', '22:30'], available: true },
-];
-
-const APPOINTMENT_TIME = 30;
 
 interface DoctorAppointmentsTabProps {
   doctor: Doctor;
   initialDate: Date;
 }
+
+const isToday = (date: Date) => {
+  const now = new Date();
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate()
+  );
+};
+
+const isMorning = () => {
+  const now = new Date();
+  return (
+    now.getHours() < 11 || (now.getHours() === 11 && now.getMinutes() < 30)
+  );
+};
 
 export function DoctorAppointmentsTab({
   doctor,
@@ -63,44 +58,64 @@ export function DoctorAppointmentsTab({
   const locale = useLocale();
   const { status, data } = useSession();
   const [isBookingProgress, setBookingProgress] = useState(false);
-
-  const { push } = useRouter();
-
-  const markUnavailableSlots = (appointments: Date[], dateStr: string) => {
-    // Convert appointments to local time ranges
-    const localAppointments = appointments.map((iso) => {
-      const start = new Date(iso);
-      const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000); // add appointment duration
-      return { start, end };
-    });
-
-    return AVAILABLE_TIME_SLOT.map((slot) => {
-      const [startStr, endStr] = slot.time;
-
-      const start = new Date(`${dateStr}T${startStr}:00`);
-      const end = new Date(`${dateStr}T${endStr}:00`);
-      if (start < new Date()) {
-        return {
-          ...slot,
-          available: false,
-        };
-      }
-      const isOverlapping = localAppointments.some((app) => {
-        return app.start < end && app.end > start;
-      });
-
-      return {
-        ...slot,
-        available: !isOverlapping,
-      };
-    });
-  };
-
   const [date, setDate] = useState<Date>(initialDate);
+  const [isMorningTimes, setIsMorningTimes] = useState(
+    isToday(date) ? isMorning() : true
+  );
   const [isOpenScreeningRequired, setOpenScreeningRequired] = useState(false);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<
     string | undefined
   >();
+  const userId = data?.user.id;
+  //
+  const { push } = useRouter();
+  useEffect(() => {
+    setIsMorningTimes(isToday(date) ? isMorning() : true);
+  }, [date]);
+  // Memoized constants
+  const now = useMemo(() => new Date(), []);
+  const sixMonthsLater = useMemo(() => {
+    const future = new Date(now);
+    future.setMonth(future.getMonth() + 6);
+    return future;
+  }, [now]);
+  // Mark unavailable time slots based on appointments and current time
+  const markUnavailableSlots = useCallback(
+    (appointments: Date[], dateStr: string) => {
+      const localAppointments = appointments.map((iso) => {
+        const start = new Date(iso);
+        const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000);
+        return { start, end };
+      });
+
+      const availableSlotWindow = isMorningTimes
+        ? AVAILABLE_TIME_SLOT.slice(0, 24)
+        : AVAILABLE_TIME_SLOT.slice(24);
+
+      return availableSlotWindow.map((slot) => {
+        const [startStr, endStr] = slot.time;
+        const start = new Date(`${dateStr}T${startStr}:00`);
+        const end = new Date(`${dateStr}T${endStr}:00`);
+
+        if (start < now) {
+          return {
+            ...slot,
+            available: false,
+          };
+        }
+
+        const isOverlapping = localAppointments.some(
+          (app) => app.start < end && app.end > start
+        );
+
+        return {
+          ...slot,
+          available: !isOverlapping,
+        };
+      });
+    },
+    [isMorningTimes, now]
+  );
 
   const { data: response, isLoading } = useGetPhysioAvailabilityCheck({
     id: doctor.id,
@@ -113,7 +128,6 @@ export function DoctorAppointmentsTab({
   const handleTimeSlotClick = (timeSlot: string) => {
     setSelectedTimeSlot(timeSlot);
   };
-  const userId = data?.user.id;
 
   const handleScreeningRequiredCancel = () => setOpenScreeningRequired(false);
   const handleScreeningRequiredComplete = () => {
@@ -159,9 +173,8 @@ export function DoctorAppointmentsTab({
       setBookingProgress(false);
     }
   };
-  const now = new Date();
-  const sixMonthsLater = new Date(now);
-  sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
+
+  const handleMorningTimes = () => setIsMorningTimes((prev) => !prev);
 
   return (
     <div className="flex flex-col space-y-4">
@@ -217,7 +230,25 @@ export function DoctorAppointmentsTab({
           )}
         </div>
       </ScrollArea>
-
+      <div className=" flex justify-end items-end space-x-2 pb-4">
+        <label className="inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={isMorningTimes}
+            onChange={handleMorningTimes}
+            disabled={isToday(date) ? !isMorning() : false}
+          />
+          <div
+            className={`relative w-11 h-6 bg-primary rounded-full dark:bg-primary peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-500 dark:peer-checked:bg-red-500 cursor-${
+              isToday(date) && !isMorning() ? 'not-allowed' : 'pointer'
+            }`}
+          ></div>
+          <span className="ms-3 text-md font-semibold text-gray-900">
+            {isMorningTimes ? t('morningSlots') : t('eveningSlots')}
+          </span>
+        </label>
+      </div>
       <Button
         className="w-full mt-auto"
         disabled={!selectedTimeSlot || isBookingProgress}

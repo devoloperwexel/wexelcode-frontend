@@ -1,6 +1,6 @@
 'use client';
 
-import { DatePicker } from '@wexelcode/components';
+import { Button, DatePicker } from '@wexelcode/components';
 import {
   useDeletePhysioUnavailability,
   useGetDoctorByUserId,
@@ -8,10 +8,11 @@ import {
   useSavePhysioUnavailability,
 } from '@wexelcode/hooks';
 import { useSession } from 'next-auth/react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import AvailabilityLoadingSkeleton from './availability-loading-skeleton';
+import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constants';
 import { TimeSlotToggle } from './time-slot-toggle';
 
 type TimeSlot = {
@@ -20,100 +21,6 @@ type TimeSlot = {
   disabled: boolean;
   unavailableIds?: string[];
 };
-
-const APPOINTMENT_TIME = 30;
-const AVAILABLE_TIME_SLOT: TimeSlot[] = [
-  {
-    time: ['06:00', '06:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['07:00', '07:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['08:00', '08:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['09:00', '09:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['10:00', '10:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['11:00', '11:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['12:00', '12:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['13:00', '13:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['14:00', '14:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['15:00', '15:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['16:00', '16:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['17:00', '17:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['18:00', '18:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['19:00', '19:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['20:00', '20:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['21:00', '21:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['22:00', '22:30'],
-    available: true,
-    disabled: false,
-  },
-  {
-    time: ['22:30', '23:00'],
-    available: true,
-    disabled: false,
-  },
-];
 
 const toDateTime = (date: string, time: string) =>
   new Date(`${date}T${time}:00`);
@@ -143,8 +50,25 @@ function getDatesBetween(
   return dates;
 }
 
+const isToday = (date: Date) => {
+  const now = new Date();
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate()
+  );
+};
+
+const isMorning = () => {
+  const now = new Date();
+  return (
+    now.getHours() < 11 || (now.getHours() === 11 && now.getMinutes() < 30)
+  );
+};
+
 export function AvailabilityDetailsTab() {
   const local = useLocale();
+  const t = useTranslations('settings.settingsPage.tabs.availability');
   const { data: userData } = useSession();
   const [selectedFromDate, setSelectedFromDate] = useState<string>(
     new Date().toLocaleDateString('sv-SE')
@@ -152,6 +76,11 @@ export function AvailabilityDetailsTab() {
 
   const [selectedToDate, setSelectedToDate] = useState<string>(
     new Date().toLocaleDateString('sv-SE')
+  );
+  const [isMorningTimes, setIsMorningTimes] = useState(
+    selectedFromDate === selectedToDate && isToday(new Date(selectedFromDate))
+      ? isMorning()
+      : true
   );
 
   const { data: doctorResponse, isLoading: isLoadingPhysio } =
@@ -174,7 +103,11 @@ export function AvailabilityDetailsTab() {
   const { mutateAsync: deleteUnavailability, isPending: isDeleting } =
     useDeletePhysioUnavailability();
 
-  const [availableSlots, setAvailableSlots] = useState(AVAILABLE_TIME_SLOT);
+  const [availableSlots, setAvailableSlots] = useState<TimeSlot[]>(
+    AVAILABLE_TIME_SLOT as TimeSlot[]
+  );
+
+  const handleMorningTimes = () => setIsMorningTimes((prev) => !prev);
 
   const localAppointments = useMemo(() => {
     return (
@@ -191,7 +124,18 @@ export function AvailabilityDetailsTab() {
   }, [doctorResponse?.data?.id, selectedFromDate, selectedToDate]);
 
   useEffect(() => {
-    const slots = AVAILABLE_TIME_SLOT.map((slot) => {
+    setIsMorningTimes(
+      selectedFromDate === selectedToDate && isToday(new Date(selectedFromDate))
+        ? isMorning()
+        : true
+    );
+  }, [selectedFromDate, selectedToDate]);
+
+  useEffect(() => {
+    const availableSlotWindow = isMorningTimes
+      ? AVAILABLE_TIME_SLOT.slice(0, 24)
+      : AVAILABLE_TIME_SLOT.slice(24);
+    const slots = (availableSlotWindow as TimeSlot[]).map((slot) => {
       const [startStr, endStr] = slot.time;
 
       const start = toDateTime(selectedFromDate, startStr);
@@ -234,19 +178,17 @@ export function AvailabilityDetailsTab() {
             foundUnbailableList.push(found.unavailableIds);
           }
         });
-
+        //
         return {
           ...slot,
-          available:
-            foundUnbailableList.length !==
-            (start < today ? dates.length - 1 : dates.length),
+          available: foundUnbailableList.length !== dates.length,
           unavailableIds: foundUnbailableList,
         };
       }
     });
 
     setAvailableSlots(slots);
-  }, [localAppointments, selectedFromDate]);
+  }, [localAppointments, selectedFromDate, selectedToDate, isMorningTimes]);
 
   const handleToggle = useCallback(
     async (slotKey: string, isActive: boolean) => {
@@ -391,9 +333,15 @@ export function AvailabilityDetailsTab() {
                 {
                   Object.values(availableSlots).filter((e) => e.available)
                     .length
-                }{' '}
-                of {availableSlots.length} slots available
+                }
+                {` ${t('of')} ${availableSlots.length} ${t('slotsAvailable')}`}
               </span>
+              <Button
+                className="bg-primary text-white"
+                onClick={handleMorningTimes}
+              >
+                {isMorningTimes ? t('evening') : t('morning')} {t('slots')}
+              </Button>
             </div>
           </div>
         </>
