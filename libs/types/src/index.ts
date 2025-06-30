@@ -6,6 +6,7 @@ export * from './lib/doctors';
 export * from './lib/language';
 export * from './lib/navigation';
 export * from './lib/patients';
+export * from './lib/physio-availabilities';
 export * from './lib/questions';
 export * from './lib/user';
 export * from './lib/zoom';
