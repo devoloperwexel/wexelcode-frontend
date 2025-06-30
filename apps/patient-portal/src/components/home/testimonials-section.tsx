@@ -25,16 +25,16 @@ export const TestimonialsSection = () => {
                 className="bg-white rounded-lg p-6 shadow-md border border-gray-100 hover:shadow-lg transition duration-300"
               >
                 <div className="flex items-center mb-4">
-                  <img
+                  {/* <img
                     src={testimonial.image}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
+                  /> */}
                   <div>
                     <h4 className="font-semibold text-gray-800">
                       {testimonial.name}
                     </h4>
-                    <p className="text-sm text-gray-500">{testimonial.title}</p>
+                    {/* <p className="text-sm text-gray-500">{testimonial.title}</p> */}
                   </div>
                 </div>
                 <p className="text-gray-600 italic line-clamp-6">
