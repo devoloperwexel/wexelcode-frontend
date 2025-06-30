@@ -133,8 +133,8 @@ export function AvailabilityDetailsTab() {
 
   useEffect(() => {
     const availableSlotWindow = isMorningTimes
-      ? AVAILABLE_TIME_SLOT.slice(0, 24)
-      : AVAILABLE_TIME_SLOT.slice(24);
+      ? AVAILABLE_TIME_SLOT.slice(0, 14)
+      : AVAILABLE_TIME_SLOT.slice(14);
     const slots = (availableSlotWindow as TimeSlot[]).map((slot) => {
       const [startStr, endStr] = slot.time;
 
@@ -306,12 +306,12 @@ export function AvailabilityDetailsTab() {
         </div>
       </div>
       {isLoadingUnavailability || isLoadingPhysio ? (
-        <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
+        <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-3">
           <AvailabilityLoadingSkeleton />
         </div>
       ) : (
         <>
-          <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
+          <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-3">
             {availableSlots.map(({ time, disabled, available }) => {
               const slotKey = `${time[0]}-${time[1]}`;
               return (
