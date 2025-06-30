@@ -89,8 +89,8 @@ export function DoctorAppointmentsTab({
       });
 
       const availableSlotWindow = isMorningTimes
-        ? AVAILABLE_TIME_SLOT.slice(0, 24)
-        : AVAILABLE_TIME_SLOT.slice(24);
+        ? AVAILABLE_TIME_SLOT.slice(0, 14)
+        : AVAILABLE_TIME_SLOT.slice(14);
 
       return availableSlotWindow.map((slot) => {
         const [startStr, endStr] = slot.time;
@@ -210,7 +210,7 @@ export function DoctorAppointmentsTab({
       </div>
 
       <ScrollArea className="flex-grow">
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {isLoading || !response?.data?.unavailabilityTimes ? (
             <AppointmentsLoadingSkeleton />
           ) : (
