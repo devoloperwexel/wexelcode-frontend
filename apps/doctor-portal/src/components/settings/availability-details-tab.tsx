@@ -61,9 +61,7 @@ const isToday = (date: Date) => {
 
 const isMorning = () => {
   const now = new Date();
-  return (
-    now.getHours() < 11 || (now.getHours() === 11 && now.getMinutes() < 30)
-  );
+  return now.getHours() < 14;
 };
 
 export function AvailabilityDetailsTab() {
