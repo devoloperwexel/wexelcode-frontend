@@ -1,11 +1,12 @@
 'use client';
 
 import { Badge, Card, CardContent } from '@wexelcode/components';
+import { motion } from 'framer-motion';
 import { Linkedin, Mail } from 'lucide-react';
 import Image from 'next/image';
-import { TEAM_MEMBERS } from './constant';
+
 import { Link } from '../../i18n/routing';
-import { motion } from 'framer-motion';
+import { TEAM_MEMBERS } from './constant';
 
 const TeamSection = () => {
   return (
@@ -30,9 +31,9 @@ const TeamSection = () => {
             Meet Our Expert Team
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Our diverse team combines world-class expertise in artificial
+            {`Our diverse team combines world-class expertise in artificial
             intelligence, clinical physiotherapy, and healthcare technology to
-            revolutionize patient care.
+            revolutionize patient care.`}
           </p>
         </div>
 
@@ -99,8 +100,8 @@ const TeamSection = () => {
           <div className="bg-gradient-to-r from-primary to-[#8B1309] rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">Join Our Mission</h3>
             <p className="text-red-100 mb-6 max-w-2xl mx-auto">
-              We're always looking for talented individuals who share our
-              passion for transforming healthcare through AI innovation.
+              {`We're always looking for talented individuals who share our
+              passion for transforming healthcare through AI innovation.`}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">

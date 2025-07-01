@@ -1,4 +1,4 @@
-import { patrick, oisin, majeed, andreas } from '@wexelcode/assets';
+import { andreas,majeed, oisin, patrick } from '@wexelcode/assets';
 
 export const TEAM_MEMBERS = [
   {
