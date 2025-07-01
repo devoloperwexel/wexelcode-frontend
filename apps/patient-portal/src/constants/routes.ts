@@ -8,6 +8,7 @@ const Routes = {
   imprint: '/imprint',
   doctors: '/doctors',
   appointments: '/appointments',
+  about: '/about',
   profile: {
     index: '/profile',
     complete: '/profile/complete',

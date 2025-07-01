@@ -172,8 +172,18 @@
           "description": "Description",
           "totalYearsOfExperience": "Total Years of Experience",
           "save": "Save"
+        },
+        "availability":{
+          "evening": "Evening",
+          "morning": "Morning",
+          "slots": "Slots",
+          "slotsAvailable": "Slots available",
+          "of": "of"
         }
       }
     }
+  },
+  "datePicker": {
+    "pickDate": "Pick a date"
   }
 }

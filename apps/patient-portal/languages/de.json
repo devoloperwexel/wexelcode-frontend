@@ -8,7 +8,7 @@
     "doctors": "Physiotherapie",
     "appointments": "Termine",
     "blog": "Blog",
-    "about": "Über uns",
+    "about": "Über",
     "contact": "Kontakt",
     "dashboard": "Dashboard"
   },
@@ -261,6 +261,8 @@
       "unavailable": "Nicht verfügbar",
       "male": "Männlich",
       "female": "Weiblich",
+      "eveningSlots": "Abendslots",
+      "morningSlots": "Morgenslots",
       "screeningRequiredDialog": {
         "title": "Medizinisches Screening erforderlich",
         "text": "Das medizinische Screening sollte vor der Terminbuchung abgeschlossen sein",

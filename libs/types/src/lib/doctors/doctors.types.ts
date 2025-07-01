@@ -9,22 +9,10 @@ export interface Doctor {
   totalYearsOfExperience: number;
 }
 
-export interface DoctorAvailability {
-  date: string;
-  appointmentTimes: Date[];
-}
-
-export interface GetDoctorAvailabilityRequest {
-  id: string;
-  date: string;
-}
-
 export type GetDoctorsRequest = BaseRequest;
 
 export type GetPaginatedDoctorsResponse = PaginatedResponse<Doctor>;
 
 export type GetDoctorResponse = BaseResponse<Doctor>;
-
-export type GetDoctorsAvailabilityResponse = BaseResponse<DoctorAvailability>;
 
 export type UpdateDoctorRequest = Partial<Doctor>;

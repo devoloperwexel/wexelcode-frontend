@@ -8,7 +8,7 @@
     "doctors": "Physio",
     "appointments": "Appointments",
     "blog": "Blog",
-    "about": "About us",
+    "about": "About",
     "contact": "Contact",
     "dashboard": "Dashboard"
   },
@@ -261,6 +261,8 @@
       "unavailable": "Unavailable",
       "male": "Male",
       "female": "Female",
+      "eveningSlots": "Evening Slots",
+      "morningSlots": "Morning Slots",
       "screeningRequiredDialog": {
         "title": "Medical Screening Required",
         "text": "Medical Screening Should be complete before booking appointment",
