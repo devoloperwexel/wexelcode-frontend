@@ -2,7 +2,6 @@
 
 import { Badge, Card, CardContent } from '@wexelcode/components';
 import { motion } from 'framer-motion';
-import { Linkedin, Mail } from 'lucide-react';
 import Image from 'next/image';
 
 import { Link } from '../../i18n/routing';
@@ -10,7 +9,7 @@ import { TEAM_MEMBERS } from './constant';
 
 const TeamSection = () => {
   return (
-    <section id="team" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="team" className="pb-20 pt-16 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{
           y: 20,
@@ -79,16 +78,6 @@ const TeamSection = () => {
                   <p className="text-sm text-gray-600 leading-relaxed mb-4">
                     {member.description}
                   </p>
-
-                  {/* Social Links */}
-                  <div className="flex justify-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors">
-                      <Linkedin className="w-4 h-4" />
-                    </button>
-                    <button className="p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-600 transition-colors">
-                      <Mail className="w-4 h-4" />
-                    </button>
-                  </div>
                 </div>
               </CardContent>
             </Card>
