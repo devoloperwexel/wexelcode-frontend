@@ -18,7 +18,7 @@ export const TEAM_MEMBERS = [
     badges: ['CMO', 'Practice Owner', '20+ Years'],
   },
   {
-    name: 'Majeed Hussain',
+    name: 'Abdul Majeed',
     position: 'Chief Technology Officer & AI Research Lead',
     description:
       'Over 8 years of experience in AI, ML, and MLOps with deep expertise in Computer Vision and NLP for healthcare. Specializes in building and scaling intelligent systems that solve complex medical challenges. Leads AI strategy, research, and deployment of production-grade models that drive innovation in clinical and operational outcomes.',
