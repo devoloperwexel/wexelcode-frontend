@@ -48,11 +48,18 @@ export default function Navigation() {
         </Link>
       </ProtectedVisible>
       <Link
-        // href={Routes.blog}
         href={`${Routes.home}/#blog`}
         className="text-gray-700 hover:text-primary font-medium"
       >
         {t('blog')}
+      </Link>
+      <Link
+        href={`${Routes.about}`}
+        className={`text-${
+          pathname.includes(Routes.about) ? 'primary' : 'gray-700'
+        } hover:text-primary font-medium`}
+      >
+        {t('about')}
       </Link>
       <Link
         href={Routes.contact}
