@@ -261,8 +261,8 @@
       "unavailable": "Nicht verfügbar",
       "male": "Männlich",
       "female": "Weiblich",
-      "eveningSlots": "Avondtijdslots",
-      "morningSlots": "Ochtendtijdslots",
+      "eveningSlots": "Abendslots",
+      "morningSlots": "Morgenslots",
       "screeningRequiredDialog": {
         "title": "Medizinisches Screening erforderlich",
         "text": "Das medizinische Screening sollte vor der Terminbuchung abgeschlossen sein",

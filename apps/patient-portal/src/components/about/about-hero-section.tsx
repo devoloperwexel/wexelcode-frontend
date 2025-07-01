@@ -24,9 +24,9 @@ const AboutHeroSection = () => {
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
             Built by Healthcare Professionals,
-            <span className="bg-gradient-to-r from-primary to-[#D4251A] bg-clip-text text-transparent">
+            <p className="bg-gradient-to-r from-primary to-[#D4251A] bg-clip-text text-transparent">
               Engineered by Experts
-            </span>
+            </p>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
             {`What separates WexelCode from other health-tech startups is that we
