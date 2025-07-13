@@ -1,14 +1,17 @@
-import { GetTotalCreditResponse } from '@wexelcode/types';
+import {
+  GetTotalCreditResponse,
+  GetTotalCreditsRequest,
+} from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
 import API from './constant';
 
-export const GetUserTotalCredits = async (userId?: string) => {
+export const GetUserTotalCredits = async (params: GetTotalCreditsRequest) => {
   const response = await request<GetTotalCreditResponse>(
     API.GET_TOTAL_CREDIT,
     null,
     {
-      params: { userId },
+      params,
       isSecure: true,
     }
   );

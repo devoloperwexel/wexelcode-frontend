@@ -9,4 +9,5 @@ export const QueryKeys = {
   answersSummary: 'ANSWERS_SUMMARY',
   physioUnavailability: 'PHYSIO_UNAVAILABILITY',
   package: 'PACKAGE',
+  credit:"CREDIT"
 };

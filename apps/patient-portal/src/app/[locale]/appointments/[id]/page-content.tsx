@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@wexelcode/components';
+import { useUpdateAppointment } from '@wexelcode/hooks';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeDiff } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
@@ -11,10 +12,8 @@ import {
   MedicalScreeningInfoCard,
 } from '../../../../components/appointments';
 import AppointmentVideoCallCard from '../../../../components/appointments/appointment-video-call-card';
-import { CheckoutCard } from '../../../../components/checkout';
-import { useCreateAppointment, useUpdateAppointment } from '@wexelcode/hooks';
-import Routes from 'apps/patient-portal/src/constants/routes';
-import { useRouter } from 'apps/patient-portal/src/i18n/routing';
+import Routes from '../../../../constants/routes';
+import { useRouter } from '../../../../i18n/routing';
 
 interface AppointmentDetailsPageProps {
   id: string;

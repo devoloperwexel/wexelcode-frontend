@@ -140,7 +140,7 @@ export function DoctorAppointmentsTab({
       return;
     }
     //
-    const credits = (await GetUserTotalCredits(userId)) as Awaited<
+    const credits = (await GetUserTotalCredits({ userId })) as Awaited<
       ReturnType<typeof GetUserTotalCredits>
     >;
     if (!credits?.totalCredits) {
