@@ -5,6 +5,7 @@ export * from './lib/auth';
 export * from './lib/doctors';
 export * from './lib/language';
 export * from './lib/navigation';
+export * from './lib/packages';
 export * from './lib/patients';
 export * from './lib/physio-availabilities';
 export * from './lib/questions';

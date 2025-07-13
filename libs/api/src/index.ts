@@ -1,6 +1,7 @@
 export * from './lib/answers/answers';
 export * from './lib/appointments/appointments';
 export * from './lib/doctors/doctors';
+export * from './lib/packages/packages';
 export * from './lib/patients/patients';
 export * from './lib/physio-availability/physio-availability';
 export * from './lib/questions/questions';
