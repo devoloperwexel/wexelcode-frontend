@@ -4,6 +4,7 @@ import {
   GetAppointmentResponse,
   GetAppointmentsRequest,
   GetAppointmentsResponse,
+  UpdateAppointmentRequest,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
 
@@ -19,6 +20,26 @@ export const CreateAppointment = async ({
     {
       params: {
         userId,
+      },
+      isSecure: true,
+    }
+  );
+
+  return response?.data;
+};
+
+export const UpdateAppointment = async ({
+  userId,
+  appointmentId,
+  ...data
+}: UpdateAppointmentRequest) => {
+  const response = await request<GetAppointmentResponse>(
+    API.UPDATE_APPOINTMENT,
+    data,
+    {
+      params: {
+        userId,
+        appointmentId,
       },
       isSecure: true,
     }

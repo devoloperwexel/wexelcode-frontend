@@ -14,14 +14,14 @@ import CheckoutLoading from './checkout-loading';
 
 interface CheckoutPageProps {
   userId: string;
-  appointmentId: string;
+  packageId: string;
   amount: number;
 }
 
 export default function CheckoutForm({
   amount,
   userId,
-  appointmentId,
+  packageId,
 }: CheckoutPageProps) {
   const t = useTranslations('appointments.paymentCard');
   const stripe = useStripe();
@@ -38,13 +38,13 @@ export default function CheckoutForm({
       },
       body: JSON.stringify({
         amount: convertToSubCurrency(amount),
-        userId: userId,
-        appointmentId: appointmentId,
+        userId,
+        packageId,
       }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  }, [amount, userId, appointmentId]);
+  }, [amount, userId, packageId]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
