@@ -7,6 +7,12 @@ export interface CreateAppointmentRequest {
   appointmentTime: string;
 }
 
+export interface UpdateAppointmentRequest {
+  userId: string;
+  appointmentId: string;
+  status: string;
+}
+
 export interface GetAppointmentRequest {
   userId?: string; // TODO: should remove this in future
   appointmentId: string;

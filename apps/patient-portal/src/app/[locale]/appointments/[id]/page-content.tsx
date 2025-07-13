@@ -12,6 +12,9 @@ import {
 } from '../../../../components/appointments';
 import AppointmentVideoCallCard from '../../../../components/appointments/appointment-video-call-card';
 import { CheckoutCard } from '../../../../components/checkout';
+import { useCreateAppointment, useUpdateAppointment } from '@wexelcode/hooks';
+import Routes from 'apps/patient-portal/src/constants/routes';
+import { useRouter } from 'apps/patient-portal/src/i18n/routing';
 
 interface AppointmentDetailsPageProps {
   id: string;
@@ -23,10 +26,25 @@ export default function AppointmentDetailsPageContent({
   appointment,
 }: AppointmentDetailsPageProps) {
   const { data } = useSession();
+  const { mutateAsync: createAppointment, isPending } = useUpdateAppointment();
+  const { push } = useRouter();
+  //
   const now = new Date();
   const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
   const isUpcoming =
     dateTimeDiff(appointment.appointmentTime, thirtyMinutesAgo) > 0;
+
+  const handleBookingConfirm = async () => {
+    const response = await createAppointment({
+      userId: data!.user.id,
+      appointmentId: id,
+      status: 'SUCCESS',
+    });
+
+    if (response?.id) {
+      push(`${Routes.appointments}/${response?.id}`);
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto py-4">
@@ -48,7 +66,16 @@ export default function AppointmentDetailsPageContent({
             {data?.user && appointment?.status === 'PENDING' ? (
               <div>
                 <MedicalScreeningInfoCard appointmentId={undefined} />
-                <div className=" pt-8 flex flex-row justify-center mb-20"><Button className=' w-full'>Booking Confirm</Button></div>
+                <div className=" pt-8 flex flex-row justify-center mb-20">
+                  <Button
+                    className=" w-full"
+                    onClick={handleBookingConfirm}
+                    disabled={isPending}
+                    loading={isPending}
+                  >
+                    Booking Confirm
+                  </Button>
+                </div>
               </div>
             ) : (
               appointment?.status === 'SUCCESS' &&
