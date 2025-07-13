@@ -60,7 +60,7 @@ export default async function PackagePaymentPage({
           <div>
             <CheckoutCard
               userId={userId}
-              appointmentId={packageId}
+              packageId={packageId}
               amount={packagesResponse.price}
             />
           </div>

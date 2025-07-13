@@ -4,10 +4,10 @@ export async function POST(request: NextRequest) {
   try {
     const stripe = require('stripe')(process.env.STRIPE_CLIENT_SECRET);
 
-    const { amount, appointmentId, userId } = await request.json();
+    const { amount, packageId, userId } = await request.json();
 
     const paymentIntent = await stripe.paymentIntents.create({
-      metadata: { userId, appointmentId },
+      metadata: { userId, packageId },
       amount,
       currency: 'eur',
       automatic_payment_methods: { enabled: true },
