@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@wexelcode/components';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeDiff } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
@@ -37,21 +38,18 @@ export default function AppointmentDetailsPageContent({
 
           {appointment && <AppointmentInfoCard appointment={appointment} />}
 
-          <MedicalScreeningInfoCard
-            appointmentId={
-              appointment?.status === 'SUCCESS' ? appointment.id : undefined
-            }
-          />
+          {appointment?.status === 'SUCCESS' && (
+            <MedicalScreeningInfoCard appointmentId={appointment.id} />
+          )}
         </div>
 
         <div className="col-span-1">
           <div className="sticky top-6">
             {data?.user && appointment?.status === 'PENDING' ? (
-              <CheckoutCard
-                amount={20}
-                appointmentId={id}
-                userId={data?.user.id}
-              />
+              <div>
+                <MedicalScreeningInfoCard appointmentId={undefined} />
+                <div className=" pt-8 flex flex-row justify-center mb-20"><Button className=' w-full'>Booking Confirm</Button></div>
+              </div>
             ) : (
               appointment?.status === 'SUCCESS' &&
               isUpcoming && (
