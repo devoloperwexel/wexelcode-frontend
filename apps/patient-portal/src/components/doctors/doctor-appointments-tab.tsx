@@ -143,10 +143,10 @@ export function DoctorAppointmentsTab({
     const credits = (await GetUserTotalCredits(userId)) as Awaited<
       ReturnType<typeof GetUserTotalCredits>
     >;
-    // if (!credits?.totalCredits) {
-    //   push(Routes.packages);
-    //   return;
-    // }
+    if (!credits?.totalCredits) {
+      push(Routes.packages);
+      return;
+    }
     //
     const answerSummary = (await GetAnswersSummary({ userId })) as Awaited<
       ReturnType<typeof GetAnswersSummary>
