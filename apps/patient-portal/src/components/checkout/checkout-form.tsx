@@ -66,7 +66,7 @@ export default function CheckoutForm({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${window.location.href}/success`,
+        return_url: `${window.location.href.replace('/checkout', '')}/success`,
       },
     });
 

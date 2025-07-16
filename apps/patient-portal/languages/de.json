@@ -309,11 +309,7 @@
       "noDataFound": "Keine Termine gefunden",
       "createAppointment": "Termin vereinbaren"
     },
-    "paymentSuccess": {
-      "success": "Erfolg!",
-      "message": "Ihr Termin wurde bestätigt",
-      "goToAppointment": "Zum Termin"
-    },
+
     "videoCallCard": {
       "title": "Bevor Sie dem Anruf beitreten",
       "ensureInternet": "Stellen Sie sicher, dass Ihre Internetverbindung stabil ist",
@@ -462,5 +458,12 @@
   },
   "datePicker": {
     "pickDate": "Wählen Sie ein Datum"
+  },
+  "package": {
+    "paymentSuccess": {
+      "success": "Erfolg!",
+      "message": "Je hebt {credits} credits ontvangen. Boek op elk moment je volgende fysiotherapiesessie.",
+      "bookAppointment": "Termin vereinbaren"
+    }
   }
 }

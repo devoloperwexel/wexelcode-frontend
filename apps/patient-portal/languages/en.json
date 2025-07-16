@@ -309,11 +309,6 @@
       "noDataFound": "No Appointments Found",
       "createAppointment": "Book an Appointment"
     },
-    "paymentSuccess": {
-      "success": "Success!",
-      "message": "Your appointment has been confirmed",
-      "goToAppointment": "Go to the Appointment"
-    },
     "videoCallCard": {
       "title": "Before Joining Your Call",
       "ensureInternet": "Ensure you have a stable internet connection",
@@ -462,5 +457,12 @@
   },
   "datePicker": {
     "pickDate": "Pick a date"
+  },
+  "package": {
+    "paymentSuccess": {
+      "success": "Success!",
+      "message": "You've received {credits} credits. Book your next physiotherapy appointment anytime.",
+      "bookAppointment": "Book an Appointment"
+    }
   }
 }

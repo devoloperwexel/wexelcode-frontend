@@ -2,6 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 import { GetPackageById } from '@wexelcode/api';
 import { auth } from '@wexelcode/auth';
 import { QueryKeys } from '@wexelcode/constants';
+import { calculateDiscount } from '@wexelcode/utils';
 import { ChevronLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 
@@ -35,6 +36,12 @@ export default async function PackagePaymentPage({
   if (!packagesResponse) {
     notFound();
   }
+  //
+  const { discountedPrice } = calculateDiscount({
+    price: packagesResponse.price,
+    discount: packagesResponse.discount || 0,
+    discountType: packagesResponse.discountType || 'FLAT',
+  });
   return (
     <div className="min-h-screen bg-background w-full">
       <div className="container py-12 px-4 max-w-6xl mx-auto">
@@ -55,13 +62,14 @@ export default async function PackagePaymentPage({
               description={packagesResponse.description}
               credits={packagesResponse.credits}
               price={packagesResponse.price}
+              discountPrice={discountedPrice}
             />
           </div>
           <div>
             <CheckoutCard
               userId={userId}
               packageId={packageId}
-              amount={packagesResponse.price}
+              amount={discountedPrice}
             />
           </div>
         </div>
