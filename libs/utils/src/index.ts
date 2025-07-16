@@ -6,4 +6,5 @@ export * from './lib/currency-format';
 export * from './lib/date-time-format';
 export * from './lib/form';
 export * from './lib/get-stripejs';
+export * from './lib/price';
 export * from './lib/request';

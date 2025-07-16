@@ -1,3 +1,5 @@
+import { PackageDiscountType } from '@wexelcode/types';
+import { calculateDiscount } from '@wexelcode/utils';
 import { Check } from 'lucide-react';
 
 import Routes from '../../constants/routes';
@@ -9,6 +11,8 @@ interface PackageCardProps {
   description: string;
   credits: number;
   price: number;
+  discount?: number;
+  discountType?: PackageDiscountType;
   appointments: number;
   popular: boolean;
 }
@@ -18,9 +22,16 @@ export function PackageCard({
   description,
   credits,
   price,
+  discount,
   appointments,
+  discountType,
   popular,
 }: PackageCardProps) {
+  const { discountedPrice, discountPercentage } = calculateDiscount({
+    price,
+    discount: discount || 0,
+    discountType: discountType || 'FLAT',
+  });
   return (
     <div
       className={`rounded-lg border ${
@@ -34,11 +45,31 @@ export function PackageCard({
           </span>
         </div>
       )}
+      {discount && (
+        <div className="absolute -top-3 left-4">
+          <span className="bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+            Save {discountPercentage}%
+          </span>
+        </div>
+      )}
       <div className="flex-1">
         <h3 className="text-xl font-bold mb-2">{name} Package</h3>
         <p className="text-muted-foreground mb-4">{description}</p>
-        <div className="mb-4">
-          <span className="text-3xl font-bold">€{price.toFixed(2)}</span>
+        <div className="mb-4 flex items-baseline gap-2">
+          {discount ? (
+            <>
+              <span className="text-3xl font-bold">
+                €{discountedPrice.toFixed(2)}
+              </span>
+              <span className="text-muted-foreground line-through text-sm">
+                €{price.toFixed(2)}
+              </span>
+            </>
+          ) : (
+            <span className="text-3xl font-bold">
+              €{discountedPrice.toFixed(2)}
+            </span>
+          )}
         </div>
         <ul className="space-y-2 mb-6">
           <li className="flex items-center">

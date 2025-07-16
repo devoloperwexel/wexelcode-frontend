@@ -46,6 +46,8 @@ export default async function ByuCreditsPage() {
               price={pkg.price}
               appointments={pkg.credits}
               popular={pkg.feature}
+              discount={pkg.discount}
+              discountType={pkg.discountType}
             />
           ))}
         </div>

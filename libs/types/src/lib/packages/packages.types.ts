@@ -6,5 +6,9 @@ export interface Package extends Timestamps {
   description: string;
   credits: number;
   price: number;
+  discount: number;
+  discountType: PackageDiscountType;
   feature: boolean;
 }
+
+export type PackageDiscountType = 'FLAT' | 'PERCENTAGE';

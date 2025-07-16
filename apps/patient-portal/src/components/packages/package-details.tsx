@@ -3,12 +3,14 @@ interface PackageDetailsProps {
   description: string;
   credits: number;
   price: number;
+  discountPrice: number;
 }
 export function PackageDetails({
   name,
   description,
   credits,
   price,
+  discountPrice,
 }: PackageDetailsProps) {
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
@@ -33,7 +35,16 @@ export function PackageDetails({
       </div>
       <div className="flex justify-between pt-4 border-t border-border">
         <span className="font-bold">Total</span>
-        <span className="font-bold">€{price.toFixed(2)}</span>
+        {discountPrice < price ? (
+          <div>
+            <span className="font-bold">€{discountPrice.toFixed(2)}</span>
+            <span className="text-muted-foreground line-through text-sm pl-1">
+              €{price.toFixed(2)}
+            </span>
+          </div>
+        ) : (
+          <span className="font-bold">€{price.toFixed(2)}</span>
+        )}
       </div>
     </div>
   );
