@@ -8,13 +8,11 @@ import Routes from '../../../../../constants/routes';
 import { Link } from '../../../../../i18n/routing';
 
 interface Props {
-  appointmentId: string;
+  credits: number;
 }
 
-export default function AppointmentSuccessPageContent({
-  appointmentId,
-}: Props) {
-  const t = useTranslations('appointments.paymentSuccess');
+export default function PaymentSuccessPageContent({ credits }: Props) {
+  const t = useTranslations('payments.paymentSuccess');
   return (
     <div className="h-fill flex flex-col items-center justify-center h-full space-y-6">
       <div className="text-center space-y-6 animate-[fade-in_0.5s_ease-out]">
@@ -23,10 +21,12 @@ export default function AppointmentSuccessPageContent({
           <h1 className="text-4xl font-semibold text-foreground">
             {t('success')}
           </h1>
-          <p className="text-xl text-muted-foreground">{t('message')}</p>
+          <p className="text-xl text-muted-foreground">
+            {t('message')?.replace('credits', credits.toString())}
+          </p>
           <div>
-            <Link href={`${Routes.appointments}/${appointmentId}`}>
-              <Button>{t('goToAppointment')}</Button>
+            <Link href={`${Routes.doctors}`}>
+              <Button>{t('bookAppointment')}</Button>
             </Link>
           </div>
         </div>

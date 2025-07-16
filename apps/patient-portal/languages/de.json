@@ -311,8 +311,8 @@
     },
     "paymentSuccess": {
       "success": "Erfolg!",
-      "message": "Ihr Termin wurde bestätigt",
-      "goToAppointment": "Zum Termin"
+      "message": "Je hebt {credits} credits ontvangen. Boek op elk moment je volgende fysiotherapiesessie.",
+      "bookAppointment": "Termin vereinbaren"
     },
     "videoCallCard": {
       "title": "Bevor Sie dem Anruf beitreten",

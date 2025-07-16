@@ -1,6 +1,9 @@
+import { QueryClient } from '@tanstack/react-query';
+import { GetPackageById } from '@wexelcode/api';
+import { QueryKeys } from '@wexelcode/constants';
 import { notFound } from 'next/navigation';
 
-import AppointmentSuccessPageContent from './page-content';
+import PaymentSuccessPageContent from './page-content';
 
 interface AppointmentSuccessPageProps {
   params: Promise<{
@@ -18,7 +21,21 @@ export default async function AppointmentSuccessPage({
   const queryParm = await searchParams;
   const paymentIntent = queryParm?.payment_intent;
   const status = queryParm?.redirect_status;
+  const packageId = (await params).id;
+  const queryClient = new QueryClient();
+  // Prefetch the package data
+  await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.package],
+    queryFn: async () => GetPackageById(packageId),
+  });
+  const packagesResponse = queryClient.getQueryData([
+    QueryKeys.package,
+  ]) as Awaited<ReturnType<typeof GetPackageById>>;
 
+  if (!packagesResponse) {
+    notFound();
+  }
+  // Check if payment intent exists and status is succeeded
   if (!paymentIntent || status !== 'succeeded') {
     notFound();
   }
@@ -29,7 +46,7 @@ export default async function AppointmentSuccessPage({
       notFound();
     }
 
-    return <AppointmentSuccessPageContent appointmentId={(await params).id} />;
+    return <PaymentSuccessPageContent credits={packagesResponse?.credits} />;
   } catch (_error) {
     notFound();
   }

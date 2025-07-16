@@ -311,8 +311,8 @@
     },
     "paymentSuccess": {
       "success": "Success!",
-      "message": "Your appointment has been confirmed",
-      "goToAppointment": "Go to the Appointment"
+      "message": "You've received {credits} credits. Book your next physiotherapy appointment anytime.",
+      "bookAppointment": "Book an Appointment"
     },
     "videoCallCard": {
       "title": "Before Joining Your Call",
