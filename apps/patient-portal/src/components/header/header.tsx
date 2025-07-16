@@ -2,7 +2,9 @@
 
 import { logo } from '@wexelcode/assets';
 import { LocalSwitcher } from '@wexelcode/components';
+import { useGetTotalUserCredits } from '@wexelcode/hooks';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 import Locales from '../../constants/locales';
 import { Link, usePathname } from '../../i18n/routing';
@@ -14,6 +16,9 @@ export function Header() {
   const hideLayout = /^\/appointments\/[0-9a-fA-F-]+\/video-call$/.test(
     pathname
   );
+  const { data } = useSession(); // or from session
+  const userId = data?.user?.id;
+  const { data: creditData, isLoading } = useGetTotalUserCredits({ userId });
   if (hideLayout) {
     return <></>;
   }
@@ -36,7 +41,10 @@ export function Header() {
         <div className="flex items-center space-x-4">
           <LocalSwitcher locales={Locales} />
 
-          <UserMenu />
+          <UserMenu
+            totalCredits={creditData?.totalCredits}
+            isLoadingCredit={isLoading}
+          />
         </div>
       </div>
     </nav>

@@ -8,4 +8,6 @@ export const QueryKeys = {
   answers: 'ANSWERS',
   answersSummary: 'ANSWERS_SUMMARY',
   physioUnavailability: 'PHYSIO_UNAVAILABILITY',
+  package: 'PACKAGE',
+  credit:"CREDIT"
 };

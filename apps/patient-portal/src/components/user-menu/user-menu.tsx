@@ -10,7 +10,13 @@ import {
   Skeleton,
   UserAvatar,
 } from '@wexelcode/components';
-import { ChevronsUpDown, Cog, LogOut } from 'lucide-react';
+import {
+  ChevronsUpDown,
+  CircleDollarSign,
+  Cog,
+  CreditCard,
+  LogOut,
+} from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 
@@ -18,10 +24,14 @@ import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 import { MyAvatar } from '../common';
 
-export function UserMenu() {
+interface UserMenuProps {
+  totalCredits?: number;
+  isLoadingCredit: boolean;
+}
+
+export function UserMenu({ totalCredits, isLoadingCredit }: UserMenuProps) {
   const t = useTranslations('userMenu');
   const local = useLocale();
-
   const { data, status } = useSession();
 
   const handleSinIn = async () => {
@@ -84,7 +94,16 @@ export function UserMenu() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuSeparator />
+        {!isLoadingCredit && (
+          <div className=" flex flex-row space-x-2 pl-2">
+            <CircleDollarSign color="#a90f0a" size={20} />
+            <p className=" font-semibold text-sm text-primary">
+              {totalCredits} Credits
+            </p>
+            <Link href={Routes.packages} className=' text-xs hover:text-primary/90 ml-4 underline'>Buy More</Link>
+          </div>
+        )}
+        <DropdownMenuSeparator className="mb-2" />
         <DropdownMenuGroup>
           <Link href={Routes.profile.index}>
             <DropdownMenuItem>

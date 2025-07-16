@@ -1,5 +1,7 @@
 'use client';
 
+import { Button } from '@wexelcode/components';
+import { useUpdateAppointment } from '@wexelcode/hooks';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeDiff } from '@wexelcode/utils';
 import { useSession } from 'next-auth/react';
@@ -10,7 +12,8 @@ import {
   MedicalScreeningInfoCard,
 } from '../../../../components/appointments';
 import AppointmentVideoCallCard from '../../../../components/appointments/appointment-video-call-card';
-import { CheckoutCard } from '../../../../components/checkout';
+import Routes from '../../../../constants/routes';
+import { useRouter } from '../../../../i18n/routing';
 
 interface AppointmentDetailsPageProps {
   id: string;
@@ -22,10 +25,25 @@ export default function AppointmentDetailsPageContent({
   appointment,
 }: AppointmentDetailsPageProps) {
   const { data } = useSession();
+  const { mutateAsync: createAppointment, isPending } = useUpdateAppointment();
+  const { push } = useRouter();
+  //
   const now = new Date();
   const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
   const isUpcoming =
     dateTimeDiff(appointment.appointmentTime, thirtyMinutesAgo) > 0;
+
+  const handleBookingConfirm = async () => {
+    const response = await createAppointment({
+      userId: data!.user.id,
+      appointmentId: id,
+      status: 'SUCCESS',
+    });
+
+    if (response?.id) {
+      push(`${Routes.appointments}/${response?.id}`);
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto py-4">
@@ -37,21 +55,27 @@ export default function AppointmentDetailsPageContent({
 
           {appointment && <AppointmentInfoCard appointment={appointment} />}
 
-          <MedicalScreeningInfoCard
-            appointmentId={
-              appointment?.status === 'SUCCESS' ? appointment.id : undefined
-            }
-          />
+          {appointment?.status === 'SUCCESS' && (
+            <MedicalScreeningInfoCard appointmentId={appointment.id} />
+          )}
         </div>
 
         <div className="col-span-1">
           <div className="sticky top-6">
             {data?.user && appointment?.status === 'PENDING' ? (
-              <CheckoutCard
-                amount={20}
-                appointmentId={id}
-                userId={data?.user.id}
-              />
+              <div>
+                <MedicalScreeningInfoCard appointmentId={undefined} />
+                <div className=" pt-8 flex flex-row justify-center mb-20">
+                  <Button
+                    className=" w-full"
+                    onClick={handleBookingConfirm}
+                    disabled={isPending}
+                    loading={isPending}
+                  >
+                    Booking Confirm
+                  </Button>
+                </div>
+              </div>
             ) : (
               appointment?.status === 'SUCCESS' &&
               isUpcoming && (

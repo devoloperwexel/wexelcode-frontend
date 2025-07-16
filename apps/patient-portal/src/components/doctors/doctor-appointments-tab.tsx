@@ -1,6 +1,6 @@
 'use client';
 
-import { GetAnswersSummary } from '@wexelcode/api';
+import { GetAnswersSummary, GetUserTotalCredits } from '@wexelcode/api';
 import {
   Button,
   DatePicker,
@@ -139,7 +139,15 @@ export function DoctorAppointmentsTab({
       await signIn('keycloak', { redirectTo: window.location.href });
       return;
     }
-
+    //
+    const credits = (await GetUserTotalCredits({ userId })) as Awaited<
+      ReturnType<typeof GetUserTotalCredits>
+    >;
+    if (!credits?.totalCredits) {
+      push(Routes.packages);
+      return;
+    }
+    //
     const answerSummary = (await GetAnswersSummary({ userId })) as Awaited<
       ReturnType<typeof GetAnswersSummary>
     >;
