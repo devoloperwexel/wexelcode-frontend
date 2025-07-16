@@ -78,7 +78,10 @@ export function PackageCard({
           </li>
           <li className="flex items-center">
             <Check color="#16cc59" size={20} style={{ marginRight: 6 }} />
-            <span>Book up to {appointments} appointments</span>
+            <span>
+              Book up to {appointments}{' '}
+              {credits > 1 ? 'appointments' : 'appointment'}
+            </span>
           </li>
           <li className="flex items-center">
             <Check color="#16cc59" size={20} style={{ marginRight: 6 }} />
