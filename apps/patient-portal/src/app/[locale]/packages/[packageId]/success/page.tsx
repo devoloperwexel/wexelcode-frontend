@@ -7,7 +7,7 @@ import PaymentSuccessPageContent from './page-content';
 
 interface AppointmentSuccessPageProps {
   params: Promise<{
-    id: string;
+    packageId: string;
   }>;
   searchParams: Promise<{ payment_intent?: string; redirect_status: string }>;
 }
@@ -21,7 +21,7 @@ export default async function AppointmentSuccessPage({
   const queryParm = await searchParams;
   const paymentIntent = queryParm?.payment_intent;
   const status = queryParm?.redirect_status;
-  const packageId = (await params).id;
+  const packageId = (await params).packageId;
   const queryClient = new QueryClient();
   // Prefetch the package data
   await queryClient.prefetchQuery({
@@ -31,6 +31,7 @@ export default async function AppointmentSuccessPage({
   const packagesResponse = queryClient.getQueryData([
     QueryKeys.package,
   ]) as Awaited<ReturnType<typeof GetPackageById>>;
+  console.log(packagesResponse);
 
   if (!packagesResponse) {
     notFound();
@@ -41,11 +42,11 @@ export default async function AppointmentSuccessPage({
   }
   try {
     const intent = await stripe.paymentIntents.retrieve(paymentIntent);
-
+    //
     if (intent.status !== 'succeeded') {
       notFound();
     }
-
+    //
     return <PaymentSuccessPageContent credits={packagesResponse?.credits} />;
   } catch (_error) {
     notFound();
