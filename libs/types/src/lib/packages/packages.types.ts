@@ -1,9 +1,9 @@
-import { Timestamps } from '../..';
+import { Timestamps, TranslatedField } from '../..';
 
 export interface Package extends Timestamps {
   id: string;
-  name: string;
-  description: string;
+  name: TranslatedField;
+  description: TranslatedField;
   credits: number;
   price: number;
   discount: number;
