@@ -5,6 +5,7 @@ import { QueryKeys } from '@wexelcode/constants';
 import { calculateDiscount } from '@wexelcode/utils';
 import { ChevronLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 
 import { CheckoutCard } from '../../../../../components/checkout';
 import { PackageDetails } from '../../../../../components/packages/package-details';
@@ -22,6 +23,7 @@ export default async function PackagePaymentPage({
 }: PackagePaymentProps) {
   const { packageId } = await params;
   const session = await auth();
+  const t = await getTranslations('package');
   const userId = session?.user?.id;
   //
   const queryClient = new QueryClient();
@@ -51,10 +53,10 @@ export default async function PackagePaymentPage({
             className="text-primary hover:underline flex items-center"
           >
             <ChevronLeft style={{ marginRight: 4 }} />
-            Back to packages
+            {t('backToPackages')}
           </Link>
         </div>
-        <h1 className="text-3xl font-bold mb-8">Complete Your Purchase</h1>
+        <h1 className="text-3xl font-bold mb-8">{t('complete')}</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
             <PackageDetails

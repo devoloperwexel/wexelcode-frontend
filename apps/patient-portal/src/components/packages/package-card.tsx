@@ -1,19 +1,19 @@
-import { PackageDiscountType } from '@wexelcode/types';
+import { PackageDiscountType, TranslatedField } from '@wexelcode/types';
 import { calculateDiscount } from '@wexelcode/utils';
 import { Check } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
 
 interface PackageCardProps {
   id: string;
-  name: string;
-  description: string;
+  name: TranslatedField;
+  description: TranslatedField;
   credits: number;
   price: number;
   discount?: number;
   discountType?: PackageDiscountType;
-  appointments: number;
   popular: boolean;
 }
 export function PackageCard({
@@ -23,10 +23,11 @@ export function PackageCard({
   credits,
   price,
   discount,
-  appointments,
   discountType,
   popular,
 }: PackageCardProps) {
+  const t = useTranslations('package');
+  const local = useLocale();
   const { discountedPrice, discountPercentage } = calculateDiscount({
     price,
     discount: discount || 0,
@@ -41,20 +42,22 @@ export function PackageCard({
       {popular && (
         <div className="absolute -top-3 right-4">
           <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-            Most Popular
+            {t('popular')}
           </span>
         </div>
       )}
       {discount && (
         <div className="absolute -top-3 left-4">
           <span className="bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
-            Save {discountPercentage}%
+            {t('save')} {discountPercentage}%
           </span>
         </div>
       )}
       <div className="flex-1">
-        <h3 className="text-xl font-bold mb-2">{name} Package</h3>
-        <p className="text-muted-foreground mb-4">{description}</p>
+        <h3 className="text-xl font-bold mb-2">
+          {name?.[local]} {t('package')}
+        </h3>
+        <p className="text-muted-foreground mb-4">{description?.[local]}</p>
         <div className="mb-4 flex items-baseline gap-2">
           {discount ? (
             <>
@@ -74,18 +77,20 @@ export function PackageCard({
         <ul className="space-y-2 mb-6">
           <li className="flex items-center">
             <Check color="#16cc59" size={20} style={{ marginRight: 6 }} />
-            <span>{credits} credits included</span>
-          </li>
-          <li className="flex items-center">
-            <Check color="#16cc59" size={20} style={{ marginRight: 6 }} />
             <span>
-              Book up to {appointments}{' '}
-              {credits > 1 ? 'appointments' : 'appointment'}
+              {t(credits > 1 ? 'creditsInclude' : 'creditInclude', { credits })}
             </span>
           </li>
           <li className="flex items-center">
             <Check color="#16cc59" size={20} style={{ marginRight: 6 }} />
-            <span>1 credit = 1 appointment</span>
+            <span>
+              {t('bookingUpTo', { credits })}{' '}
+              {credits > 1 ? t('appointments') : t('appointment')}
+            </span>
+          </li>
+          <li className="flex items-center">
+            <Check color="#16cc59" size={20} style={{ marginRight: 6 }} />
+            <span>{t('oneCredit')}</span>
           </li>
         </ul>
       </div>
@@ -97,7 +102,7 @@ export function PackageCard({
               : 'bg-secondary text-secondary-foreground hover:bg-primary/60 hover:text-white'
           }`}
         >
-          Buy Now
+          {t('buyNow')}
         </button>
       </Link>
     </div>

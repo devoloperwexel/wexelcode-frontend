@@ -463,6 +463,24 @@
       "success": "Success!",
       "message": "You've received {credits} credits. Book your next physiotherapy appointment anytime.",
       "bookAppointment": "Book an Appointment"
-    }
+    },
+    "popular": "Most Popular",
+    "package": "Package",
+    "credits": "Credits",
+    "pricePerCredit": "Price per credit",
+    "orderSummary": "Order Summary",
+    "total": "Total",
+    "oneCredit": "1 credit = 1 appointment",
+    "buyNow": "Buy Now",
+    "bookingUpTo": "Booking up to {credits}",
+    "save": "Save",
+    "creditInclude": "{credits} credit included",
+    "creditsInclude": "{credits} credits included",
+    "choosePackage": "Choose Your Appointment Package",
+    "selectPackage": "Select a package that suits your needs. Each appointment uses 1 credit.",
+    "appointment": "appointment",
+    "appointments": "appointments",
+    "backToPackages": "Back to packages",
+    "complete": "Complete Your Purchase"
   }
 }
