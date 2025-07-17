@@ -55,7 +55,7 @@ export function PackageCard({
       )}
       <div className="flex-1">
         <h3 className="text-xl font-bold mb-2">
-          {name?.[local]} {t('package')}
+          {name?.[local]} {local === 'en' && t('package')}
         </h3>
         <p className="text-muted-foreground mb-4">{description?.[local]}</p>
         <div className="mb-4 flex items-baseline gap-2">
