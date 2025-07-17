@@ -464,6 +464,24 @@
       "success": "Erfolg!",
       "message": "Je hebt {credits} credits ontvangen. Boek op elk moment je volgende fysiotherapiesessie.",
       "bookAppointment": "Termin vereinbaren"
-    }
+    },
+    "popular": "Am beliebtesten",
+    "package": "Paket",
+    "credits": "Guthaben",
+    "pricePerCredit": "Preis pro Kredit",
+    "orderSummary": "Order Summary",
+    "total": "Bestellübersicht",
+    "oneCredit": "1 Guthaben = 1 Termin ",
+    "buyNow": "Jetzt kaufen",
+    "bookingUpTo": "Bis zu {credits}",
+    "save": "Save",
+    "creditInclude": "{credits} Guthaben enthalten",
+    "creditsInclude": "{credits} Guthaben enthalten",
+    "choosePackage": "Wähle dein Terminpaket",
+    "selectPackage": "Wähle ein Paket, das deinen Bedürfnissen entspricht. Jeder Termin verbraucht 1 Guthaben.",
+    "appointment": "Termin",
+    "appointments": "Termine",
+    "backToPackages": "Zurück zu den Paketen",
+    "complete": "Schließen Sie Ihren Einkauf ab"
   }
 }
