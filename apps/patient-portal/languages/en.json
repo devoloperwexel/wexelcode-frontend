@@ -488,11 +488,12 @@
   "about": {
     "title": "Built by Healthcare Professionals,",
     "subTitle": "Engineered by Experts",
-    "description":"What separates WexelCode from other health-tech startups is that we are the brainchild of a successful physiotherapy practice. Comprising of over 30 trained professionals, we seek to solve challenges faced by healthcare professionals and their patients alike, developing multiple products in the process.",
+    "description": "What separates WexelCode from other health-tech startups is that we are the brainchild of a successful physiotherapy practice. Comprising of over 30 trained professionals, we seek to solve challenges faced by healthcare professionals and their patients alike, developing multiple products in the process.",
     "meetOurExperts": "Meet Our Expert Team",
     "joinOurMission": "Join Our Mission",
     "viewOpenPositions": "View Open Positions",
     "contact": "Contact Our Team",
-    "slogan":"Our diverse team combines world-class expertise in artificial intelligence, clinical physiotherapy, and healthcare technology to revolutionize patient care."
+    "weAreLooking": "We're always looking for talented individuals who share our passion for transforming healthcare through AI innovation.",
+    "slogan": "Our diverse team combines world-class expertise in artificial intelligence, clinical physiotherapy, and healthcare technology to revolutionize patient care."
   }
 }
