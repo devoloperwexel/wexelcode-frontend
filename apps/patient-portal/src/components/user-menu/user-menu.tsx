@@ -98,9 +98,9 @@ export function UserMenu({ totalCredits, isLoadingCredit }: UserMenuProps) {
           <div className=" flex flex-row space-x-2 pl-2">
             <CircleDollarSign color="#a90f0a" size={20} />
             <p className=" font-semibold text-sm text-primary">
-              {totalCredits} Credits
+              {totalCredits} {t('credits')}
             </p>
-            <Link href={Routes.packages} className=' text-xs hover:text-primary/90 ml-4 underline'>Buy More</Link>
+            <Link href={Routes.packages} className=' text-xs hover:text-primary/90 ml-4 underline'>{t('buyMore')}</Link>
           </div>
         )}
         <DropdownMenuSeparator className="mb-2" />
