@@ -16,7 +16,9 @@
     "login": "Anmelden",
     "register": "Registrieren",
     "settings": "Einstellungen",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "credits": "Guthaben",
+    "buyMore": "Kaufe mehr"
   },
   "pagination": {
     "previous": "Zurück",
@@ -468,13 +470,13 @@
     "popular": "Am beliebtesten",
     "package": "Paket",
     "credits": "Guthaben",
-    "pricePerCredit": "Preis pro Kredit",
+    "pricePerCredit": "Preis pro Guthaben",
     "orderSummary": "Bestellübersicht",
-    "total": "Bestellübersicht",
+    "total": "Gesamt",
     "oneCredit": "1 Guthaben = 1 Termin ",
     "buyNow": "Jetzt kaufen",
     "bookingUpTo": "Bis zu {credits}",
-    "save": "Save",
+    "save": "Spare",
     "creditInclude": "{credits} Guthaben enthalten",
     "creditsInclude": "{credits} Guthaben enthalten",
     "choosePackage": "Wähle dein Terminpaket",
@@ -483,5 +485,15 @@
     "appointments": "Termine",
     "backToPackages": "Zurück zu den Paketen",
     "complete": "Schließen Sie Ihren Einkauf ab"
+  },
+  "about": {
+    "title": "Von Gesundheitsprofis entwickelt,",
+    "subTitle": "Engineered by Experts",
+    "description": "Was WexelCode von anderen Health-Tech-Startups unterscheidet, ist unser Ursprung: Wir sind aus einer erfolgreichen Praxis für Physiotherapie hervorgegangen. Mit einem Team von über 30 qualifizierten Fachkräften sind wir Gesundheitsprofis, die tagtäglich Herausforderungen aus der Praxis kennen undlösen. Auf dieser Grundlage haben wir mehrere innovative Produkte entwickelt, diegezielt auf die Bedürfnisse von Therapeut:innen und Patient:innen zugeschnitten sind.",
+    "meetOurExperts": "Lernen Sie unser Expertenteam kennen",
+    "joinOurMission": "Werde Teil unserer Mission",
+    "viewOpenPositions": "Offene Stellen ansehen",
+    "contact": "Kontakt aufnehmen",
+    "slogan": "Wir sind stets auf der Suche nach talentierten Persönlichkeiten, die unsere Leidenschaft teilen: das Gesundheitswesen durch Innovation im Bereich Künstliche Intelligenz zu verändern."
   }
 }

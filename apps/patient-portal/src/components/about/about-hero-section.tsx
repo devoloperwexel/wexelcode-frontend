@@ -1,6 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 const AboutHeroSection = () => {
+  const t = useTranslations('about');
   return (
     <section className="pt-20 px-4 sm:px-6 lg:px-8">
       <motion.main
@@ -22,17 +24,11 @@ const AboutHeroSection = () => {
             </div>
           </div> */}
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            Built by Healthcare Professionals,
-            <p className=" text-primary mt-1">
-              Engineered by Experts
-            </p>
+            {t('title')}
+            <p className=" text-primary mt-1">{t('subTitle')}</p>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            {`What separates WexelCode from other health-tech startups is that we
-            are the brainchild of a successful physiotherapy practice.
-            Comprising of over 30 trained professionals, we seek to solve
-            challenges faced by healthcare professionals and their patients
-            alike, developing multiple products in the process.`}
+            {t('description')}
           </p>
         </div>
       </motion.main>
