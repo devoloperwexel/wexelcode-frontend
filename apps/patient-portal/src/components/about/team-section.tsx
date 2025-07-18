@@ -90,8 +90,7 @@ const TeamSection = () => {
           <div className="bg-gradient-to-r from-primary to-[#8B1309] rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">{t('joinOurMission')}</h3>
             <p className="text-red-100 mb-6 max-w-2xl mx-auto">
-              {`We're always looking for talented individuals who share our
-              passion for transforming healthcare through AI innovation.`}
+            {t('weAreLooking')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
