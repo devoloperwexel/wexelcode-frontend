@@ -3,11 +3,14 @@
 import { Badge, Card, CardContent } from '@wexelcode/components';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { Link } from '../../i18n/routing';
 import { TEAM_MEMBERS } from './constant';
 
 const TeamSection = () => {
+  const t = useTranslations('about');
+  const local = useLocale() as 'en' | 'de';
   return (
     <section id="team" className="pb-20 pt-16 px-4 sm:px-6 lg:px-8">
       <motion.div
@@ -27,12 +30,10 @@ const TeamSection = () => {
       >
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Meet Our Expert Team
+            {t('meetOurExperts')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            {`Our diverse team combines world-class expertise in artificial
-            intelligence, clinical physiotherapy, and healthcare technology to
-            revolutionize patient care.`}
+          {t('slogan')}
           </p>
         </div>
 
@@ -73,10 +74,10 @@ const TeamSection = () => {
                     {member.name}
                   </h3>
                   <p className="text-sm font-medium text-primary mb-3">
-                    {member.position}
+                    {member.position?.[local ?? 'en']}
                   </p>
                   <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                    {member.description}
+                    {member.description?.[local ?? 'en']}
                   </p>
                 </div>
               </CardContent>
@@ -87,18 +88,18 @@ const TeamSection = () => {
         {/* Call to Action */}
         <div className="text-center mt-16">
           <div className="bg-gradient-to-r from-primary to-[#8B1309] rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">Join Our Mission</h3>
+            <h3 className="text-2xl font-bold mb-4">{t('joinOurMission')}</h3>
             <p className="text-red-100 mb-6 max-w-2xl mx-auto">
               {`We're always looking for talented individuals who share our
               passion for transforming healthcare through AI innovation.`}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
-                View Open Positions
+                {t('viewOpenPositions')}
               </button>
               <Link href="/contact">
                 <button className="border border-white/30 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
-                  Contact Our Team
+                  {t('contact')}
                 </button>
               </Link>
             </div>
