@@ -12,7 +12,7 @@ const API = {
     method: 'GET',
   },
   CHECK_UNAVAILABILITY: {
-    path: 'physios/:id/check-unavailabilities',
+    path: 'physios/:id/check-availabilities',
     method: 'GET',
   },
 };

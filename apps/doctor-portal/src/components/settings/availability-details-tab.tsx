@@ -154,7 +154,7 @@ export function AvailabilityDetailsTab() {
 
         return {
           ...slot,
-          available: !isOverlapping,
+          available: isOverlapping,
           unavailableIds: found && [found.unavailableIds],
         };
       } else {
@@ -179,7 +179,7 @@ export function AvailabilityDetailsTab() {
         //
         return {
           ...slot,
-          available: foundUnbailableList.length !== dates.length,
+          available: foundUnbailableList.length === dates.length,
           unavailableIds: foundUnbailableList,
         };
       }
@@ -197,14 +197,13 @@ export function AvailabilityDetailsTab() {
 
       const currentSlot = availableSlots[index];
       const physioId = doctorResponse.data.id;
-      const dates = getDatesBetween(selectedFromDate, selectedToDate);
 
-      if (currentSlot.unavailableIds && !isActive) {
+      if (currentSlot.unavailableIds && isActive) {
         setAvailableSlots((prev) => {
           const newSlots = [...prev];
           newSlots[index] = {
             ...newSlots[index],
-            available: true,
+            available: false,
             unavailableIds: undefined,
           };
           return newSlots;
@@ -217,7 +216,7 @@ export function AvailabilityDetailsTab() {
           const newSlots = [...prev];
           newSlots[index] = {
             ...newSlots[index],
-            available: false,
+            available: true,
           };
           return newSlots;
         });
