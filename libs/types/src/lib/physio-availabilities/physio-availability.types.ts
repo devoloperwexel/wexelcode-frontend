@@ -13,5 +13,5 @@ export type SavedPhysioUnavailability = {
 
 export interface PhysioAvailabilityCheck {
   date: string;
-  unavailabilityTimes: Date[];
+  availabilityTimes: Date[];
 }
