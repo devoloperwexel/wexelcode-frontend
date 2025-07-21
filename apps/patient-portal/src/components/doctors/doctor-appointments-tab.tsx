@@ -108,7 +108,7 @@ export function DoctorAppointmentsTab({
 
         return {
           ...slot,
-          available: !isOverlapping,
+          available: isOverlapping,
         };
       });
     },
