@@ -217,11 +217,11 @@ export function DoctorAppointmentsTab({
 
       <ScrollArea className="flex-grow">
         <div className="grid grid-cols-2 gap-4">
-          {isLoading || !response?.data?.unavailabilityTimes ? (
+          {isLoading || !response?.data?.availabilityTimes ? (
             <AppointmentsLoadingSkeleton />
           ) : (
             markUnavailableSlots(
-              response?.data.unavailabilityTimes,
+              response?.data.availabilityTimes,
               dateTimeFormat(date, 'YYYY-MM-DD')
             ).map((timeSlot, index) => (
               <TimeSlotSelector
