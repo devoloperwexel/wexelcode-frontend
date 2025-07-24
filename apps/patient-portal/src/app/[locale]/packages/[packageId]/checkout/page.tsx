@@ -11,6 +11,8 @@ import { CheckoutCard } from '../../../../../components/checkout';
 import { PackageDetails } from '../../../../../components/packages/package-details';
 import Routes from '../../../../../constants/routes';
 import { Link } from '../../../../../i18n/routing';
+import { Checkout } from './checkout';
+import { CouponForm } from './coupon-form';
 
 interface PackagePaymentProps {
   params: Promise<{
@@ -22,9 +24,7 @@ export default async function PackagePaymentPage({
   params,
 }: PackagePaymentProps) {
   const { packageId } = await params;
-  const session = await auth();
   const t = await getTranslations('package');
-  const userId = session?.user?.id;
   //
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
@@ -39,7 +39,7 @@ export default async function PackagePaymentPage({
     notFound();
   }
   //
-  const { discountedPrice } = calculateDiscount({
+  const { discountedPrice, originalPrice } = calculateDiscount({
     price: packagesResponse.price,
     discount: packagesResponse.discount || 0,
     discountType: packagesResponse.discountType || 'FLAT',
@@ -63,16 +63,21 @@ export default async function PackagePaymentPage({
               name={packagesResponse.name}
               description={packagesResponse.description}
               credits={packagesResponse.credits}
-              price={packagesResponse.price}
+              price={originalPrice}
               discountPrice={discountedPrice}
             />
           </div>
           <div>
-            <CheckoutCard
+            <Checkout
+              subtotal={originalPrice}
+              initTotal={discountedPrice}
+              packageId={packageId}
+            />
+            {/* <CheckoutCard
               userId={userId}
               packageId={packageId}
               amount={discountedPrice}
-            />
+            /> */}
           </div>
         </div>
       </div>

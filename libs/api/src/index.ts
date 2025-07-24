@@ -1,5 +1,6 @@
 export * from './lib/answers/answers';
 export * from './lib/appointments/appointments';
+export * from './lib/coupons/coupons';
 export * from './lib/credits/credits';
 export * from './lib/doctors/doctors';
 export * from './lib/packages/packages';

@@ -2,6 +2,7 @@ export * from './lib/answers';
 export * from './lib/api';
 export * from './lib/appointments';
 export * from './lib/auth';
+export * from './lib/coupon';
 export * from './lib/credits';
 export * from './lib/doctors';
 export * from './lib/language';

@@ -31,7 +31,6 @@ export default async function AppointmentSuccessPage({
   const packagesResponse = queryClient.getQueryData([
     QueryKeys.package,
   ]) as Awaited<ReturnType<typeof GetPackageById>>;
-  console.log(packagesResponse);
 
   if (!packagesResponse) {
     notFound();
