@@ -75,7 +75,7 @@ export function calculateCouponDiscount({
   }
   const packageDiscount = price - priceAfterPackage;
   // Final price calculation
-  const totalDiscount = Math.round(packageDiscount + couponDiscountValue);
+  const totalDiscount = packageDiscount + couponDiscountValue;
   const finalPrice = Math.max(0, price - totalDiscount); // no negative price
 
   return {

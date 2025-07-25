@@ -5,6 +5,8 @@ export * from './lib/credits/credits';
 export * from './lib/doctors/doctors';
 export * from './lib/packages/packages';
 export * from './lib/patients/patients';
+export * from './lib/payments/payments';
+export * from './lib/payments/payments';
 export * from './lib/physio-availability/physio-availability';
 export * from './lib/questions/questions';
 export * from './lib/users/users';

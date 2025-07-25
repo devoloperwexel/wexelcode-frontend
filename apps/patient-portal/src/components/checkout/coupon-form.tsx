@@ -4,7 +4,7 @@ interface CouponFormProps {
   couponCode: string;
   setCouponCode: (code: string) => void;
   applyCoupon: () => void;
-  appliedCoupon: string;
+  appliedCoupon?: string;
   removeCoupon: () => void;
   couponError: string;
   discountPercentage: number;

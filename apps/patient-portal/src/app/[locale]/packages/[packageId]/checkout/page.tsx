@@ -1,18 +1,15 @@
 import { QueryClient } from '@tanstack/react-query';
 import { GetPackageById } from '@wexelcode/api';
-import { auth } from '@wexelcode/auth';
 import { QueryKeys } from '@wexelcode/constants';
 import { calculateDiscount } from '@wexelcode/utils';
 import { ChevronLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
-import { CheckoutCard } from '../../../../../components/checkout';
+import { Checkout } from '../../../../../components/checkout/checkout';
 import { PackageDetails } from '../../../../../components/packages/package-details';
 import Routes from '../../../../../constants/routes';
 import { Link } from '../../../../../i18n/routing';
-import { Checkout } from './checkout';
-import { CouponForm } from './coupon-form';
 
 interface PackagePaymentProps {
   params: Promise<{
@@ -73,11 +70,6 @@ export default async function PackagePaymentPage({
               initTotal={discountedPrice}
               packageId={packageId}
             />
-            {/* <CheckoutCard
-              userId={userId}
-              packageId={packageId}
-              amount={discountedPrice}
-            /> */}
           </div>
         </div>
       </div>

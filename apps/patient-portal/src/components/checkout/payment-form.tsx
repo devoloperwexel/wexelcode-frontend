@@ -6,45 +6,25 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import { Button, Text } from '@wexelcode/components';
-import { convertToSubCurrency } from '@wexelcode/utils';
 import { useTranslations } from 'next-intl';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import CheckoutLoading from './checkout-loading';
+import PaymentLoading from './payment-loading';
 
-interface CheckoutPageProps {
-  userId: string;
-  packageId: string;
+interface PaymentPageProps {
   amount: number;
+  clientSecret: string;
 }
 
-export default function CheckoutForm({
+export default function PaymentForm({
+  clientSecret,
   amount,
-  userId,
-  packageId,
-}: CheckoutPageProps) {
+}: PaymentPageProps) {
   const t = useTranslations('appointments.paymentCard');
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
-  const [clientSecret, setClientSecret] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    fetch('/api/create-payment-intent', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        amount: convertToSubCurrency(amount),
-        userId,
-        packageId,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
-  }, [amount, userId, packageId]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -66,7 +46,7 @@ export default function CheckoutForm({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${window.location.href.replace('/checkout', '')}/success`,
+        return_url: `${window.location.href.replace('/Payment', '')}/success`,
       },
     });
 
@@ -83,7 +63,7 @@ export default function CheckoutForm({
   };
 
   if (!clientSecret || !stripe || !elements) {
-    return <CheckoutLoading />;
+    return <PaymentLoading />;
   }
 
   return (
@@ -93,7 +73,7 @@ export default function CheckoutForm({
       {errorMessage && <Text variant="error">{errorMessage}</Text>}
 
       <Button className="w-full" disabled={!stripe || loading}>
-        {t('pay')} &#8364;{amount}
+        {t('pay')} &#8364;{amount / 100}
       </Button>
     </form>
   );
