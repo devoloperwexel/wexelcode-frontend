@@ -1,5 +1,6 @@
 import { Button } from '@wexelcode/components';
 import { Tag, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 interface CouponFormProps {
   couponCode: string;
   setCouponCode: (code: string) => void;
@@ -20,9 +21,10 @@ export const CouponForm = ({
   discountPercentage,
   isValidating = false,
 }: CouponFormProps) => {
+  const t = useTranslations('package.checkout');
   return (
     <div className="mt-4 mb-6">
-      <p className="text-sm font-medium mb-2">Have a coupon?</p>
+      <p className="text-sm font-medium mb-2">{t('haveACoupon')}?</p>
       {appliedCoupon ? (
         <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-md p-3">
           <div className="flex items-center">
@@ -32,7 +34,7 @@ export const CouponForm = ({
                 {appliedCoupon}
               </p>
               <p className="text-xs text-green-600">
-                {discountPercentage}% discount applied
+                {discountPercentage}% {t('discountApplied')}
               </p>
             </div>
           </div>
@@ -58,7 +60,7 @@ export const CouponForm = ({
               loading={isValidating}
               onClick={applyCoupon}
             >
-              Apply
+              {t('apply')}
             </Button>
           </div>
           {couponError && (

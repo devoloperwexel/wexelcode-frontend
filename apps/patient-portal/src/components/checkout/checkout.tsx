@@ -5,6 +5,7 @@ import { Button } from '@wexelcode/components';
 import { calculateCouponDiscount } from '@wexelcode/utils';
 import { isAxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 
 import { PaymentCard } from '../../components/checkout';
@@ -30,11 +31,12 @@ export const Checkout = ({ subtotal, initTotal, packageId }: CheckoutProps) => {
   const [payableAmount, setPayableAmount] = useState(0);
   const { data: session } = useSession();
   const router = useRouter();
+  const t = useTranslations('package.checkout');
 
   const applyCoupon = async () => {
     setCouponError('');
     if (!couponCode.trim()) {
-      setCouponError('Please enter a coupon code');
+      setCouponError(t('pleaseEnterCoupon'));
       return;
     }
     const userId = session?.user?.id || '';
@@ -59,14 +61,14 @@ export const Checkout = ({ subtotal, initTotal, packageId }: CheckoutProps) => {
         setTotal(finalPrice);
         setCouponCode('');
       } else {
-        setCouponError('Invalid coupon code');
+        setCouponError(t('invalidCode'));
       }
     } catch (e) {
       if (e && isAxiosError(e)) {
         if (e.response!.status >= 400 && e.response!.status < 500) {
-          setCouponError('Invalid coupon code');
+          setCouponError(t('invalidCode'));
         } else {
-          setCouponError('An error occurred while applying the coupon');
+          setCouponError(t('couponError'));
         }
       }
       return;
@@ -113,7 +115,7 @@ export const Checkout = ({ subtotal, initTotal, packageId }: CheckoutProps) => {
   }
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
-      <h2 className="text-xl font-semibold mb-4">Purchase Summary</h2>
+      <h2 className="text-xl font-semibold mb-4">{t('purchaseSummary')}</h2>
       <CouponForm
         couponCode={couponCode}
         setCouponCode={setCouponCode}
@@ -135,7 +137,7 @@ export const Checkout = ({ subtotal, initTotal, packageId }: CheckoutProps) => {
         onClick={handleContinue}
         className="w-full mt-8 text-primary-foreground py-4 px-4 rounded-md transition-opacity"
       >
-        Continue Purchase
+        {t('continuePurchase')}
       </Button>
     </div>
   );
