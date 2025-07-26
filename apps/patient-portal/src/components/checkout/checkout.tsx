@@ -100,7 +100,7 @@ export const Checkout = ({ subtotal, initTotal, packageId }: CheckoutProps) => {
           paymentIntent.paymentId
         ) {
           router.push(
-            `${Routes.packages}/${packageId}/success?paymentId=${paymentIntent.paymentId}`
+            `${Routes.packages}/${packageId}/checkout/success?paymentId=${paymentIntent.paymentId}`
           );
         }
       }
