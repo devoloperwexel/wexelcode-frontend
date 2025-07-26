@@ -1,6 +1,6 @@
 import { Skeleton } from '@wexelcode/components';
 
-export default function CheckoutLoading() {
+export default function PaymentLoading() {
   return (
     <div className="flex flex-col space-y-3">
       {/* Card Header */}

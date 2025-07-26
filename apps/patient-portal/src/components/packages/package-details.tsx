@@ -19,12 +19,11 @@ export function PackageDetails({
   const t = useTranslations('package');
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
-      <h2 className="text-2xl font-bold mb-4">{t('orderSummary')}</h2>
       <div className="mb-6 pb-6 border-b border-border">
         <h3 className="text-xl font-bold mb-2">
           {name?.[local]} {local === 'en' && t('package')}
         </h3>
-        <p className="text-muted-foreground mb-4">{description?.[local]}</p>
+        <p className="text-muted-foreground mb-8">{description?.[local]}</p>
       </div>
       <div className="space-y-3 mb-6">
         <div className="flex justify-between">

@@ -467,6 +467,20 @@
       "message": "Je hebt {credits} credits ontvangen. Boek op elk moment je volgende fysiotherapiesessie.",
       "bookAppointment": "Termin vereinbaren"
     },
+    "checkout": {
+      "haveACoupon": "Haben Sie einen Gutschein?",
+      "enterCoupon": "Geben Sie Ihren Gutscheincode ein",
+      "subtotal": "Zwischensumme",
+      "discount": "Rabatt",
+      "total": "Gesamtsumme",
+      "purchaseSummary": "Kaufübersicht",
+      "invalidCode": "Ungültiger Gutscheincode",
+      "discountApplied": "Rabatt angewendet",
+      "apply": "Anwenden",
+      "pleaseEnterCoupon": "Bitte geben Sie einen Gutscheincode ein",
+      "couponError": "Beim Anwenden des Gutscheins ist ein Fehler aufgetreten",
+      "continuePurchase": "Weiter zum Kauf"
+    },
     "popular": "Am beliebtesten",
     "package": "Paket",
     "credits": "Guthaben",
@@ -494,7 +508,7 @@
     "joinOurMission": "Werde Teil unserer Mission",
     "viewOpenPositions": "Offene Stellen ansehen",
     "contact": "Kontakt aufnehmen",
-    "weAreLooking":"Wir sind stets auf der Suche nach talentierten Persönlichkeiten, die unsere Leidenschaft teilen: das Gesundheitswesen durch Innovation im Bereich Künstliche Intelligenz zu verändern.",
+    "weAreLooking": "Wir sind stets auf der Suche nach talentierten Persönlichkeiten, die unsere Leidenschaft teilen: das Gesundheitswesen durch Innovation im Bereich Künstliche Intelligenz zu verändern.",
     "slogan": "Unser interdisziplinäres Team vereint führende Expertise in den Bereichen künstliche Intelligenz, klinische Physiotherapie und Gesundheitstechnologie. Mit dieser einzigartigen Kombination gestalten wir die Zukunft der Patientenversorgung – intelligenter, effizienter und menschlicher"
   }
 }

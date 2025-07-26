@@ -9,7 +9,11 @@ interface AppointmentSuccessPageProps {
   params: Promise<{
     packageId: string;
   }>;
-  searchParams: Promise<{ payment_intent?: string; redirect_status: string }>;
+  searchParams: Promise<{
+    payment_intent?: string;
+    redirect_status: string;
+    paymentId?: string;
+  }>;
 }
 
 const stripe = require('stripe')(process.env?.STRIPE_CLIENT_SECRET);
@@ -22,6 +26,7 @@ export default async function AppointmentSuccessPage({
   const paymentIntent = queryParm?.payment_intent;
   const status = queryParm?.redirect_status;
   const packageId = (await params).packageId;
+  const paymentId = queryParm?.paymentId;
   const queryClient = new QueryClient();
   // Prefetch the package data
   await queryClient.prefetchQuery({
@@ -31,24 +36,27 @@ export default async function AppointmentSuccessPage({
   const packagesResponse = queryClient.getQueryData([
     QueryKeys.package,
   ]) as Awaited<ReturnType<typeof GetPackageById>>;
-  console.log(packagesResponse);
 
   if (!packagesResponse) {
     notFound();
   }
-  // Check if payment intent exists and status is succeeded
-  if (!paymentIntent || status !== 'succeeded') {
-    notFound();
-  }
-  try {
-    const intent = await stripe.paymentIntents.retrieve(paymentIntent);
-    //
-    if (intent.status !== 'succeeded') {
+  if (!paymentId) {
+    // Check if payment intent exists and status is succeeded
+    if (!paymentIntent || status !== 'succeeded') {
       notFound();
     }
-    //
+    try {
+      const intent = await stripe.paymentIntents.retrieve(paymentIntent);
+      //
+      if (intent.status !== 'succeeded') {
+        notFound();
+      }
+      //
+      return <PaymentSuccessPageContent credits={packagesResponse?.credits} />;
+    } catch (_error) {
+      notFound();
+    }
+  } else {
     return <PaymentSuccessPageContent credits={packagesResponse?.credits} />;
-  } catch (_error) {
-    notFound();
   }
 }

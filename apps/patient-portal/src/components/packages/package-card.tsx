@@ -28,7 +28,7 @@ export function PackageCard({
 }: PackageCardProps) {
   const t = useTranslations('package');
   const local = useLocale();
-  const { discountedPrice, discountPercentage } = calculateDiscount({
+  const { discountedPrice, discountPercentage, originalPrice } = calculateDiscount({
     price,
     discount: discount || 0,
     discountType: discountType || 'FLAT',
@@ -65,7 +65,7 @@ export function PackageCard({
                 €{discountedPrice.toFixed(2)}
               </span>
               <span className="text-muted-foreground line-through text-sm">
-                €{price.toFixed(2)}
+                €{originalPrice.toFixed(2)}
               </span>
             </>
           ) : (

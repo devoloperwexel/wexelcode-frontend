@@ -466,11 +466,25 @@
       "message": "You've received {credits} credits. Book your next physiotherapy appointment anytime.",
       "bookAppointment": "Book an Appointment"
     },
+    "checkout": {
+      "haveACoupon": "Have a coupon",
+      "enterCoupon": "Enter your coupon",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "total": "Total",
+      "purchaseSummary": "Purchase Summary",
+      "invalidCode": "Invalid coupon code",
+      "discountApplied": "discount applied",
+      "apply": "Apply",
+      "pleaseEnterCoupon": "Please enter a coupon code",
+      "couponError": "An error occurred while applying the coupon",
+      "continuePurchase": "Continue Purchase"
+    },
     "popular": "Most Popular",
     "package": "Package",
     "credits": "Credits",
     "pricePerCredit": "Price per credit",
-    "orderSummary": "Order Summary",
+
     "total": "Total",
     "oneCredit": "1 credit = 1 appointment",
     "buyNow": "Buy Now",
