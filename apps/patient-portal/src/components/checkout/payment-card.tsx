@@ -5,11 +5,11 @@ import { Card, CardContent, CardHeader } from '@wexelcode/components';
 import { convertToSubCurrency, getStripe } from '@wexelcode/utils';
 import { useLocale, useTranslations } from 'next-intl';
 
-import CheckoutForm from './checkout-form';
+import PaymentForm from './payment-form';
 
-type CheckoutCardProps = React.ComponentProps<typeof CheckoutForm>;
+type PaymentCardProps = React.ComponentProps<typeof PaymentForm>;
 
-export function CheckoutCard(props: CheckoutCardProps) {
+export function PaymentCard(props: PaymentCardProps) {
   const t = useTranslations('appointments.paymentCard');
   const localeValue = useLocale();
   return (
@@ -25,7 +25,7 @@ export function CheckoutCard(props: CheckoutCardProps) {
             locale: localeValue === 'de' ? 'de' : 'en',
           }}
         >
-          <CheckoutForm {...props} />
+          <PaymentForm {...props} />
         </Elements>
       </CardContent>
     </Card>

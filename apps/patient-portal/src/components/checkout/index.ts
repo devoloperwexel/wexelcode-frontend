@@ -1,1 +1,1 @@
-export * from './checkout-card';
+export * from './payment-card';

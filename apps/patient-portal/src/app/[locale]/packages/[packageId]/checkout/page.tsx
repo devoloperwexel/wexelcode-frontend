@@ -1,13 +1,12 @@
 import { QueryClient } from '@tanstack/react-query';
 import { GetPackageById } from '@wexelcode/api';
-import { auth } from '@wexelcode/auth';
 import { QueryKeys } from '@wexelcode/constants';
 import { calculateDiscount } from '@wexelcode/utils';
 import { ChevronLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
-import { CheckoutCard } from '../../../../../components/checkout';
+import { Checkout } from '../../../../../components/checkout/checkout';
 import { PackageDetails } from '../../../../../components/packages/package-details';
 import Routes from '../../../../../constants/routes';
 import { Link } from '../../../../../i18n/routing';
@@ -22,9 +21,7 @@ export default async function PackagePaymentPage({
   params,
 }: PackagePaymentProps) {
   const { packageId } = await params;
-  const session = await auth();
   const t = await getTranslations('package');
-  const userId = session?.user?.id;
   //
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
@@ -39,7 +36,7 @@ export default async function PackagePaymentPage({
     notFound();
   }
   //
-  const { discountedPrice } = calculateDiscount({
+  const { discountedPrice, originalPrice } = calculateDiscount({
     price: packagesResponse.price,
     discount: packagesResponse.discount || 0,
     discountType: packagesResponse.discountType || 'FLAT',
@@ -63,15 +60,15 @@ export default async function PackagePaymentPage({
               name={packagesResponse.name}
               description={packagesResponse.description}
               credits={packagesResponse.credits}
-              price={packagesResponse.price}
+              price={originalPrice}
               discountPrice={discountedPrice}
             />
           </div>
           <div>
-            <CheckoutCard
-              userId={userId}
+            <Checkout
+              subtotal={originalPrice}
+              initTotal={discountedPrice}
               packageId={packageId}
-              amount={discountedPrice}
             />
           </div>
         </div>
