@@ -133,10 +133,10 @@ const PrivacyDePageContent = () => {
               <p>Maisacher Straße 118 82256 Fürstenfeldbruck</p>
               <p>
                 <Link
-                  href="mailto:contact@wexelcode.de"
+                  href="mailto:service@wexelcode.de"
                   className="text-primary hover:text-primary/60 transition-colors duration-20"
                 >
-                  contact@wexelcode.de
+                  service@wexelcode.de
                 </Link>
                 <br />
                 <Link
