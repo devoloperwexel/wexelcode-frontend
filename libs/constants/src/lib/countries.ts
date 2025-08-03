@@ -29,6 +29,7 @@ export const CountriesOptions = [
   { value: 'Finland', label: { en: 'Finland', de: 'Finnland' } },
   { value: 'France', label: { en: 'France', de: 'Frankreich' } },
   { value: 'Germany', label: { en: 'Germany', de: 'Deutschland' } },
+  { value: 'Morocco', label: { en: 'Morocco', de: 'Marokko' } },
   { value: 'Greece', label: { en: 'Greece', de: 'Griechenland' } },
   { value: 'Hungary', label: { en: 'Hungary', de: 'Ungarn' } },
   { value: 'India', label: { en: 'India', de: 'Indien' } },
