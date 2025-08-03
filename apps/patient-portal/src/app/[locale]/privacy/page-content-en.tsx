@@ -55,7 +55,7 @@ const PrivacyEnPageContent = () => {
             <div className="space-y-2 text-gray-600">
               <p>Wexelcode GmbH</p>
               <p>Maisacher Straße 118, 82256 Fürstenfeldbruck</p>
-              <p>Email: contact@wexelcode.de</p>
+              <p>Email: service@wexelcode.de</p>
               <p>Represented by: Andreas Sextl and Patrick Meister</p>
               <p className="mt-4">
                 Our Data Protection Officer can be contacted at

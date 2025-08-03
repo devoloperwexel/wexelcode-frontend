@@ -130,8 +130,8 @@ export const Footer = () => {
               </li>
               <li className="flex items-start">
                 <Mail size={18} className="mr-3 mt-1" />
-                <Link href="mailto:contact@wexelcode.de" prefetch={false}>
-                  contact@wexelcode.de
+                <Link href="mailto:service@wexelcode.de" prefetch={false}>
+                  service@wexelcode.de
                 </Link>
               </li>
               <li className="flex items-start">

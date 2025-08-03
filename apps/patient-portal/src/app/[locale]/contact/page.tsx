@@ -36,29 +36,33 @@ export default function ContactPage() {
           className="max-w-4xl mx-auto"
         >
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-          {t('contactUs')}
+            {t('contactUs')}
           </h1>
           <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
             <p className="text-lg text-gray-600 mb-8">
-            {t('sendYourConcerns')}
+              {t('sendYourConcerns')}
             </p>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <Mail className="w-6 h-6 text-primary mt-1" />
                 <div>
-                  <p className="text-lg font-medium text-gray-800">{t('email')}</p>
+                  <p className="text-lg font-medium text-gray-800">
+                    {t('email')}
+                  </p>
                   <a
-                    href="mailto:contact@wexelcode.de"
+                    href="mailto:service@wexelcode.de"
                     className="text-primary hover:underline"
                   >
-                    contact@wexelcode.de
+                    service@wexelcode.de
                   </a>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <Phone className="w-6 h-6 text-primary mt-1" />
                 <div>
-                  <p className="text-lg font-medium text-gray-800">{t('telephone')}</p>
+                  <p className="text-lg font-medium text-gray-800">
+                    {t('telephone')}
+                  </p>
                   <a
                     href="tel:+4981413538433"
                     className="text-primary hover:underline"
@@ -70,7 +74,9 @@ export default function ContactPage() {
               <div className="flex items-start space-x-4">
                 <Printer className="w-6 h-6 text-primary mt-1" />
                 <div>
-                  <p className="text-lg font-medium text-gray-800">{t('fax')}</p>
+                  <p className="text-lg font-medium text-gray-800">
+                    {t('fax')}
+                  </p>
                   <p className="text-gray-600">08141 3538 434</p>
                 </div>
               </div>
@@ -78,10 +84,10 @@ export default function ContactPage() {
                 <Clock className="w-6 h-6 text-primary mt-1" />
                 <div>
                   <p className="text-lg font-medium text-gray-800">
-                  {t('businessHours')}
+                    {t('businessHours')}
                   </p>
                   <p className="text-gray-600">
-                  {t('mondayFriday')}: 09:00 - 17:00
+                    {t('mondayFriday')}: 09:00 - 17:00
                   </p>
                   <p className="text-gray-600">{t('saturdaySundayCloses')}</p>
                 </div>
@@ -89,7 +95,9 @@ export default function ContactPage() {
               <div className="flex items-start space-x-4">
                 <MapPin className="w-6 h-6 text-primary mt-1" />
                 <div>
-                  <p className="text-lg font-medium text-gray-800">{t('address')}</p>
+                  <p className="text-lg font-medium text-gray-800">
+                    {t('address')}
+                  </p>
                   <p className="text-gray-600">Maisacher Straße 118</p>
                   <p className="text-gray-600">82256 Fürstenfeldbruck</p>
                   <p className="text-gray-600">Germany</p>
@@ -99,11 +107,9 @@ export default function ContactPage() {
           </div>
           <div className="bg-gray-50 rounded-lg p-8">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            {t('importantNote')}
+              {t('importantNote')}
             </h2>
-            <p className="text-gray-600">
-            {t('message')}
-            </p>
+            <p className="text-gray-600">{t('message')}</p>
           </div>
         </motion.div>
       </div>
