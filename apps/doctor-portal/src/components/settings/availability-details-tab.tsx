@@ -172,14 +172,22 @@ export function AvailabilityDetailsTab() {
           const found = localAppointments?.find((app) => {
             return app.start < date.endDate && app.end > date.startDate;
           });
+          console.log('f: ', found);
           if (found) {
             foundUnbailableList.push(found.unavailableIds);
           }
         });
+
+        const firstDate = toDateTime(getLocalISODate(today), endStr);
+        console.log(firstDate < today);
         //
         return {
           ...slot,
-          available: foundUnbailableList.length === dates.length,
+          available:
+            firstDate < today
+              ? foundUnbailableList.length === dates.length ||
+                foundUnbailableList.length === dates.length - 1
+              : foundUnbailableList.length === dates.length,
           unavailableIds: foundUnbailableList,
         };
       }
@@ -208,8 +216,22 @@ export function AvailabilityDetailsTab() {
           };
           return newSlots;
         });
-        currentSlot.unavailableIds.forEach((unavailableIds) => {
-          deleteUnavailability({ id: unavailableIds, physioId });
+        currentSlot.unavailableIds.forEach(async (unavailableId, index) => {
+          try {
+            await deleteUnavailability({ id: unavailableId, physioId });
+          } catch (error) {
+            if (index === currentSlot.unavailableIds!.length - 1) {
+              setAvailableSlots((prev) => {
+                const newSlots = [...prev];
+                newSlots[index] = {
+                  ...newSlots[index],
+                  available: true,
+                  unavailableIds: [unavailableId],
+                };
+                return newSlots;
+              });
+            }
+          }
         });
       } else {
         setAvailableSlots((prev) => {
