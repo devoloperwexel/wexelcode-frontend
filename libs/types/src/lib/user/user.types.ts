@@ -10,6 +10,7 @@ export interface User {
   city: string;
   country: string;
   mobile: string;
+  timeZone: string;
   zipCode: number;
   languages: string[];
   gender: 'MALE' | 'FEMALE';

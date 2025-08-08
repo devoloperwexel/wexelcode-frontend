@@ -64,6 +64,7 @@ export default function DetailsPageContent({
     if (currentStep === steps.length - 1) {
       const data = form.getValues() as any; // TODO: Fix type
       data.id = userId;
+      data.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
       await complete(data);
 
