@@ -13,6 +13,7 @@ import {
 } from '../components/navigation';
 import { UserMenu } from '../components/user-menu';
 import Languages from '../constants/languages';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Wexelcode - Physio',
@@ -31,6 +32,16 @@ export default async function RootLayout({
       <ThemeProvider>
         <html lang={locale}>
           <body>
+            {/* Microsoft Clarity Script */}
+            <Script id="clarity-script" strategy="afterInteractive">
+              {`
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "sqhil021m9");
+          `}
+            </Script>
             <NextTopLoader
               color="#A51008"
               speed={300}
