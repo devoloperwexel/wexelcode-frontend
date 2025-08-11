@@ -42,7 +42,7 @@ export default async function LocaleLayout({
       <html lang={locale}>
         <body>
           {/* Microsoft Clarity Script */}
-          <Script id="clarity-script" strategy="afterInteractive">
+          <Script id="hostjar-script" strategy="afterInteractive">
             {`
               (function(h, o, t, j, a, r) { 
                 h.hj = h.hj || function() {
@@ -58,7 +58,7 @@ export default async function LocaleLayout({
             `}
           </Script>
 
-          <Script id="hostjar-script" strategy="afterInteractive">
+          <Script id="clarity-script" strategy="afterInteractive">
             {`
             (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
