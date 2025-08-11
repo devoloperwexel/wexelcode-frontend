@@ -57,7 +57,7 @@ export default async function LocaleLayout({
               })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
             `}
           </Script>
-
+          {/* Microsoft Clarity Script */}
           <Script id="clarity-script" strategy="afterInteractive">
             {`
             (function(c,l,a,r,i,t,y){
