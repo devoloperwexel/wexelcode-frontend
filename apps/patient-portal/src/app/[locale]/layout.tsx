@@ -41,7 +41,7 @@ export default async function LocaleLayout({
     <AuthProvider>
       <html lang={locale}>
         <body>
-          {/* Microsoft Clarity Script */}
+          {/* Hotjar Script */}
           <Script id="hostjar-script" strategy="afterInteractive">
             {`
               (function(h, o, t, j, a, r) { 
