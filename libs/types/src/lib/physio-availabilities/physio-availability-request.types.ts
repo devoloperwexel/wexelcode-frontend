@@ -11,7 +11,8 @@ export interface DeletePhysioUnavailabilityRequest {
   id: string;
 }
 
-export interface GetPhysioUnavailabilityCheckRequest {
+export interface GetPhysioUnavailabilityTimeRequest {
   id: string;
   date: string;
+  timezone: string;
 }

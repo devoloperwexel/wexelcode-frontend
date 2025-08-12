@@ -1,4 +1,4 @@
 export * from './useDeletePhysioUnavailability';
-export * from './useGetPhysioAvailabilityCheck';
+export * from './useGetPhysioAvailabilityTime';
 export * from './useGetPhysioUnavailabilities';
 export * from './useSavePhysioUnavailability';

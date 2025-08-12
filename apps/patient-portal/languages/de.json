@@ -265,6 +265,7 @@
       "female": "Weiblich",
       "eveningSlots": "Abendslots",
       "morningSlots": "Morgenslots",
+      "timezone": "Zeitzone",
       "screeningRequiredDialog": {
         "title": "Medizinisches Screening erforderlich",
         "text": "Das medizinische Screening sollte vor der Terminbuchung abgeschlossen sein",
@@ -326,6 +327,7 @@
     "personalDetailsForm": {
       "birthday": "Geburtstag",
       "gender": "Geschlecht",
+      "timezone": "Zeitzone",
       "address": "Adresse",
       "city": "Stadt",
       "state": "Land",

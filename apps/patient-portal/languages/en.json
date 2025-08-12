@@ -265,6 +265,7 @@
       "female": "Female",
       "eveningSlots": "Evening Slots",
       "morningSlots": "Morning Slots",
+      "timezone": "Time Zone",
       "screeningRequiredDialog": {
         "title": "Medical Screening Required",
         "text": "Medical Screening Should be complete before booking appointment",
@@ -324,6 +325,7 @@
   "profile": {
     "personalDetailsForm": {
       "birthday": "Birthday",
+      "timezone": "Time Zone",
       "gender": "Gender",
       "address": "Address",
       "city": "City",
