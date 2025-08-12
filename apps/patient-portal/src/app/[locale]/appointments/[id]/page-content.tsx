@@ -24,7 +24,7 @@ export default function AppointmentDetailsPageContent({
   id,
   appointment,
 }: AppointmentDetailsPageProps) {
-  const { data } = useSession();
+  const { data, status: sessionStatus } = useSession();
   const { mutateAsync: createAppointment, isPending } = useUpdateAppointment();
   const { push } = useRouter();
   //
@@ -32,6 +32,11 @@ export default function AppointmentDetailsPageContent({
   const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
   const isUpcoming =
     dateTimeDiff(appointment.appointmentTime, thirtyMinutesAgo) > 0;
+  const timezone =
+    sessionStatus === 'loading'
+      ? ''
+      : data?.user?.timeZone ||
+        Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const handleBookingConfirm = async () => {
     const response = await createAppointment({
@@ -53,7 +58,12 @@ export default function AppointmentDetailsPageContent({
             <DoctorInfoCard user={appointment.physioUser} />
           )}
 
-          {appointment && <AppointmentInfoCard appointment={appointment} />}
+          {appointment && (
+            <AppointmentInfoCard
+              appointment={appointment}
+              timezone={timezone}
+            />
+          )}
 
           {appointment?.status === 'SUCCESS' && (
             <MedicalScreeningInfoCard appointmentId={appointment.id} />

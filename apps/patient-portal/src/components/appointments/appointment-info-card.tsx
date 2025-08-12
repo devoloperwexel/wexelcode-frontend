@@ -2,13 +2,18 @@ import { Card, CardContent, CardHeader, Text } from '@wexelcode/components';
 import { Appointment } from '@wexelcode/types';
 import { dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 
 interface AppointmentInfoCardProps {
   appointment: Appointment;
+  timezone: string;
 }
 
-export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
+export function AppointmentInfoCard({
+  appointment,
+  timezone,
+}: AppointmentInfoCardProps) {
   const t = useTranslations('appointments.appointmentCard');
   const language = useLocale();
 
@@ -38,7 +43,8 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
                 {dateTimeFormat(
                   appointment.appointmentTime,
                   'Do MMMM, yyyy',
-                  language
+                  language,
+                  timezone
                 )}
               </Text>
             </div>
@@ -48,8 +54,16 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
             <div>
               <Text variant="muted">{t('time')}</Text>
               <Text weight="semibold">
-                {dateTimeFormat(appointment.appointmentTime, 'HH:mm')} (30{' '}
-                {t('minutes')})
+                {dateTimeFormat(
+                  appointment.appointmentTime,
+                  'HH:mm',
+                  'en',
+                  timezone
+                )}{' '}
+                (30 {t('minutes')}) |{' '}
+                <span className=" text-xs text-gray-500">
+                  {timezone} {t('timezone')}
+                </span>
               </Text>
             </div>
           </div>

@@ -288,6 +288,7 @@
       "title": "Termininformation",
       "date": "Datum",
       "time": "Uhrzeit",
+      "timezone": "Zeitzone",
       "status": "Status",
       "type": "Termintyp",
       "video": "Video-Beratung",

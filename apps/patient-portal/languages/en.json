@@ -288,6 +288,7 @@
       "title": "Appointment Information",
       "date": "Date",
       "time": "Time",
+      "timezone":"Time Zone",
       "status": "Status",
       "type": "Appointment Type",
       "video": "Video Consultation",
