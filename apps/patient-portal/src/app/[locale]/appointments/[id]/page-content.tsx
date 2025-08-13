@@ -58,7 +58,7 @@ export default function AppointmentDetailsPageContent({
             <DoctorInfoCard user={appointment.physioUser} />
           )}
 
-          {appointment && (
+          {appointment && timezone && (
             <AppointmentInfoCard
               appointment={appointment}
               timezone={timezone}

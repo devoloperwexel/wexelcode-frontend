@@ -23,7 +23,7 @@ export function AppointmentListView({
   sort = 'asc',
 }: AppointmentListViewProps) {
   const t = useTranslations('appointments.appointmentsPage');
-  const { data: userData } = useSession();
+  const { data: userData, status: sessionStatus } = useSession();
 
   const queryParams = useQueryParams();
 
@@ -37,9 +37,13 @@ export function AppointmentListView({
     sortBy: `appointmentTime:${sort}`,
   });
 
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   return (
     <div className="flex flex-col space-y-4 h-fill">
-      {isLoading && (
+      {(isLoading || sessionStatus === 'loading') && (
         <div className="flex-grow">
           <AppointmentListLoadingSkeleton />
         </div>
@@ -58,9 +62,14 @@ export function AppointmentListView({
       />
 
       <div className="flex-grow flex flex-col space-y-4">
-        {response?.results?.map((appointment) => (
-          <AppointmentListItem key={appointment.id} appointment={appointment} />
-        ))}
+        {sessionStatus !== 'loading' &&
+          response?.results?.map((appointment) => (
+            <AppointmentListItem
+              key={appointment.id}
+              appointment={appointment}
+              timezone={timezone}
+            />
+          ))}
       </div>
 
       <Pagination totalPages={response?.totalPages || 0} />

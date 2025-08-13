@@ -3,6 +3,7 @@ import '@wexelcode/theme';
 import { AuthProvider } from '@wexelcode/auth';
 import { QueryProvider } from '@wexelcode/react-query';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
@@ -11,7 +12,6 @@ import { ToastContainer } from 'react-toastify';
 import MainLayout from '../../layouts/main-layout';
 import { ProfileCompleteProvider } from '../../providers';
 import { routing } from './../../i18n/routing';
-import Script from 'next/script';
 
 export const metadata = {
   title: 'WexelCode',

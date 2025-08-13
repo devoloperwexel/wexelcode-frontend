@@ -8,7 +8,7 @@ export const dateTimeFormat = (
   language = 'en',
   zone = 'UTC'
 ) => {
-  return moment.tz(date, 'UTC').zone(zone).locale(language).format(format);
+  return moment.tz(date, zone).locale(language).format(format);
 };
 
 export const dateTimeDiff = (
