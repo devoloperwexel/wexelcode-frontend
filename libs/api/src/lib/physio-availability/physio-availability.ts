@@ -1,10 +1,10 @@
 import {
   DeletePhysioUnavailabilityRequest,
-  GetPhysioAvailabilityCheckResponse,
+  GetPhysioAvailabilityTimeResponse,
   GetPhysioUnavailabilitiesRequest,
   GetPhysioUnavailabilitiesResponse,
-  GetPhysioUnavailabilityCheckRequest,
   GetPhysioUnavailabilityResponse,
+  GetPhysioUnavailabilityTimeRequest,
   SavedPhysioUnavailability,
 } from '@wexelcode/types';
 import { request } from '@wexelcode/utils';
@@ -63,11 +63,11 @@ export const GetPhysioUnavailabilities = async (
   return response?.data;
 };
 
-export const GetPhysioAvailabilityCheck = async (
-  params: GetPhysioUnavailabilityCheckRequest
+export const GetPhysioAvailabilityTime = async (
+  params: GetPhysioUnavailabilityTimeRequest
 ) => {
-  const response = await request<GetPhysioAvailabilityCheckResponse>(
-    API.CHECK_UNAVAILABILITY,
+  const response = await request<GetPhysioAvailabilityTimeResponse>(
+    API.GET_UNAVAILABILITY_TIMES,
     null,
     {
       params,

@@ -41,6 +41,11 @@ export function PersonalDetailsForm({
     value: option.value,
   }));
 
+  const timeZonesOptions = Intl.supportedValuesOf('timeZone').map((tz) => ({
+    label: tz.replaceAll('_', ' '),
+    value: tz,
+  }));
+
   return (
     <div className="space-y-4">
       {includeAllFields && (
@@ -176,6 +181,13 @@ export function PersonalDetailsForm({
             },
           }}
         />
+        <div className="mt-4">
+          <FormSmartSelectorField
+            label={t('timezone')}
+            name="timeZone"
+            options={timeZonesOptions}
+          />
+        </div>
       </div>
     </div>
   );
