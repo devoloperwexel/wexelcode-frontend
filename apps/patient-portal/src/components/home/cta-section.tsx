@@ -43,7 +43,7 @@ export const CTASection = () => {
               className="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-[#fef2f2] transition duration-300"
               onClick={handleOnRegister}
             >
-              Register Now
+              {t('register')}
             </button>
           )}
         </div>

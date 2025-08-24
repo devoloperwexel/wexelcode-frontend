@@ -1,6 +1,7 @@
 export const GenderOptions = ['MALE', 'FEMALE'];
 
 export const ActivityOptions = [
+  "RUNNING_JOGGING",
   'FOOTBALL',
   'BASKETBALL',
   'CRICKET',

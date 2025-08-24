@@ -4,7 +4,7 @@
     "en": "EN"
   },
   "navigation": {
-    "home": "Home",
+    "pricing": "Pricing",
     "doctors": "Physio",
     "appointments": "Appointments",
     "blog": "Blog",
@@ -30,6 +30,7 @@
       "FEMALE": "Female"
     },
     "activity": {
+      "RUNNING_JOGGING": "Running/Jogging",
       "FOOTBALL": "Football (Soccer)",
       "BASKETBALL": "Basketball",
       "CRICKET": "Cricket",
@@ -337,6 +338,7 @@
       "lastName": "Last Name",
       "mobile": "Mobile",
       "select": "Select",
+      "search": "Search...",
       "errorMessages": {
         "firstNameRequiredError": "First name is required.",
         "lastNameRequiredError": "Last name is required.",
@@ -366,6 +368,7 @@
       "height": "Height (cm)",
       "activities": "Activities",
       "select": "Select",
+      "search": "Search...",
       "errorMessages": {
         "weightRequiredError": "Weight is required.",
         "weightMaxError": "Weight cannot be more than 300 kg.",
