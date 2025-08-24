@@ -146,6 +146,7 @@ export function PersonalDetailsForm({
           label={t('state')}
           name="country"
           placeholder={t('select')}
+          searchPlaceholder={t('search')}
           options={countryOptions}
           rules={{
             required: {
@@ -167,11 +168,12 @@ export function PersonalDetailsForm({
         />
       </div>
 
-      <div>
+      <div className="grid grid-cols-2 gap-6">
         <FormSmartMultiSelectorField
           label={t('languages')}
           name="languages"
           placeholder={t('select')}
+          searchPlaceholder={t('search')}
           maxItems={2}
           options={languagesOptions}
           rules={{
@@ -181,13 +183,14 @@ export function PersonalDetailsForm({
             },
           }}
         />
-        <div className="mt-4">
-          <FormSmartSelectorField
-            label={t('timezone')}
-            name="timeZone"
-            options={timeZonesOptions}
-          />
-        </div>
+
+        <FormSmartSelectorField
+          label={t('timezone')}
+          searchPlaceholder={t('search')}
+          placeholder={t('select')}
+          name="timeZone"
+          options={timeZonesOptions}
+        />
       </div>
     </div>
   );

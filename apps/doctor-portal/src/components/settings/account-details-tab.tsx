@@ -130,6 +130,7 @@ export function AccountDetailsTab() {
               label={t('state')}
               name="country"
               placeholder={t('select')}
+              searchPlaceholder={t('search')}
               options={countryOptions}
               rules={{
                 required: true,
@@ -148,6 +149,7 @@ export function AccountDetailsTab() {
               label={t('languages')}
               name="languages"
               placeholder={t('select')}
+              searchPlaceholder={t('search')}
               options={languagesOptions}
               rules={{
                 required: true,
@@ -156,6 +158,8 @@ export function AccountDetailsTab() {
             <FormSmartSelectorField
               label={t('timezone')}
               name="timeZone"
+              placeholder={t('select')}
+              searchPlaceholder={t('search')}
               options={timeZonesOptions}
             />
           </form>

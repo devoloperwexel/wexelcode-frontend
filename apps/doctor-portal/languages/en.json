@@ -164,6 +164,7 @@
           "lastName": "Last Name",
           "mobile": "Mobile",
           "select": "Select",
+          "search": "Search...",
           "save": "Save",
           "timezone": "Time Zone"
         },
