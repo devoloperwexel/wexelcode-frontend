@@ -1,6 +1,6 @@
 import { BaseResponse, PaginatedResponse } from '../..';
 import {
-  PhysioAvailabilityCheck,
+  PhysioAvailabilityTime,
   PhysioUnavailability,
 } from './physio-availability.types';
 
@@ -10,5 +10,5 @@ export type GetPhysioUnavailabilityResponse =
 export type GetPhysioUnavailabilitiesResponse =
   PaginatedResponse<PhysioUnavailability>;
 
-export type GetPhysioAvailabilityCheckResponse =
-  BaseResponse<PhysioAvailabilityCheck>;
+export type GetPhysioAvailabilityTimeResponse =
+  BaseResponse<PhysioAvailabilityTime>;

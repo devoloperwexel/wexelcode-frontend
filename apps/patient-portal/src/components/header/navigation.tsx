@@ -12,12 +12,12 @@ export default function Navigation() {
   return (
     <div className="space-x-8">
       <Link
-        href={Routes.home}
+        href={Routes.pricing}
         className={`text-${
-          pathname.endsWith(Routes.home) ? 'primary' : 'gray-700'
+          pathname.endsWith(Routes.pricing) ? 'primary' : 'gray-700'
         } hover:text-primary font-medium`}
       >
-        {t('home')}
+        {t('pricing')}
       </Link>
       <ProtectedVisible>
         <Link

@@ -11,8 +11,8 @@ const API = {
     path: '/physios/:physioId/unavailabilities',
     method: 'GET',
   },
-  CHECK_UNAVAILABILITY: {
-    path: 'physios/:id/check-availabilities',
+  GET_UNAVAILABILITY_TIMES: {
+    path: 'physios/:id/get-available-times',
     method: 'GET',
   },
 };

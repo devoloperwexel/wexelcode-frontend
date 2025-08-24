@@ -4,7 +4,7 @@
     "en": "EN"
   },
   "navigation": {
-    "home": "Startseite",
+    "pricing": "Preise",
     "doctors": "Physiotherapie",
     "appointments": "Termine",
     "blog": "Blog",
@@ -30,6 +30,7 @@
       "FEMALE": "Weiblich"
     },
     "activity": {
+      "RUNNING_JOGGING": "Laufen/Joggen",
       "FOOTBALL": "Fußball",
       "BASKETBALL": "Basketball",
       "CRICKET": "Kricket",
@@ -265,6 +266,7 @@
       "female": "Weiblich",
       "eveningSlots": "Abendslots",
       "morningSlots": "Morgenslots",
+      "timezone": "Zeitzone",
       "screeningRequiredDialog": {
         "title": "Medizinisches Screening erforderlich",
         "text": "Das medizinische Screening sollte vor der Terminbuchung abgeschlossen sein",
@@ -287,6 +289,7 @@
       "title": "Termininformation",
       "date": "Datum",
       "time": "Uhrzeit",
+      "timezone": "Zeitzone",
       "status": "Status",
       "type": "Termintyp",
       "video": "Video-Beratung",
@@ -326,6 +329,7 @@
     "personalDetailsForm": {
       "birthday": "Geburtstag",
       "gender": "Geschlecht",
+      "timezone": "Zeitzone",
       "address": "Adresse",
       "city": "Stadt",
       "state": "Land",
@@ -335,6 +339,7 @@
       "lastName": "Nachname",
       "mobile": "Mobil",
       "select": "Auswählen",
+      "search": "Suche...",
       "errorMessages": {
         "firstNameRequiredError": "Voornaam is verplicht.",
         "lastNameRequiredError": "Achternaam is verplicht.",
@@ -364,6 +369,7 @@
       "height": "Größe (cm)",
       "activities": "Aktivitäten",
       "select": "Auswählen",
+      "search": "Suche...",
       "errorMessages": {
         "weightRequiredError": "Gewicht is verplicht.",
         "weightMaxError": "Gewicht mag niet meer dan 300 kg zijn.",
@@ -464,7 +470,7 @@
   "package": {
     "paymentSuccess": {
       "success": "Erfolg!",
-      "message": "Je hebt {credits} credits ontvangen. Boek op elk moment je volgende fysiotherapiesessie.",
+      "message": "Du hast ein Guthaben erhalten. Buche jederzeit deine nächste Physiotherapie-Sitzung",
       "bookAppointment": "Termin vereinbaren"
     },
     "checkout": {

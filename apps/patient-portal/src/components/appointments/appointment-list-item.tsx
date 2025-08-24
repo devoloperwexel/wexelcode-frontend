@@ -10,12 +10,14 @@ import { PhysioAvatar } from '../common';
 
 interface AppointmentListItemProps {
   appointment: Appointment;
+  timezone: string;
 }
 export default function AppointmentListItem({
   appointment,
+  timezone,
 }: AppointmentListItemProps) {
   const t = useTranslations('appointments.appointmentCard');
-  const language = useLocale()
+  const language = useLocale();
   const isUpcoming = dateTimeDiff(appointment.appointmentTime, new Date()) > 0;
 
   const allowJoinBefore = 5 * 60 * 1000; // 5 minutes
@@ -62,13 +64,18 @@ export default function AppointmentListItem({
             <div className="flex items-center text-sm text-gray-700">
               <CalendarIcon className="w-4 h-4 mr-1 text-gray-400 flex-shrink-0" />
               <span>
-                {dateTimeFormat(appointment.appointmentTime, 'Do MMMM, yyyy', language)}
+                {dateTimeFormat(
+                  appointment.appointmentTime,
+                  'Do MMMM, yyyy',
+                  language,
+                  timezone
+                )}
               </span>
             </div>
             <div className="flex items-center text-sm text-gray-700">
               <ClockIcon className="w-4 h-4 mr-1 text-gray-400 flex-shrink-0" />
               <span>
-                {dateTimeFormat(appointment.appointmentTime, 'HH:mm')}
+                {dateTimeFormat(appointment.appointmentTime, 'HH:mm', language, timezone)}
               </span>
             </div>
           </div>
