@@ -42,7 +42,7 @@ stages:
     # Set SHAs and build affected projects in one step
     - script: |
         echo "##[group]Determine Base SHA"
-        if [ -n "$(System.PullRequest.SourceBranch)" ]; then
+        if [ -n "$SYSTEM_PULLREQUEST_SOURCEBRANCH" ]; then
           # If this is a PR
           BASE_SHA=$(git merge-base origin/$(System.PullRequest.TargetBranch) HEAD)
         else
