@@ -43,26 +43,16 @@ stages:
 
     # Set SHAs and build affected projects in one step
     - script: |
-        echo "##[group]Determine Base SHA"
-        if [ -n "$SYSTEM_PULLREQUEST_SOURCEBRANCH" ]; then
-          # If this is a PR
-          export BASE_SHA=$(git merge-base origin/$(System.PullRequest.TargetBranch) HEAD)
-        else
-         git fetch origin dev --all
-          # For normal branch build, compare with qa
-          export BASE_SHA=$(git merge-base origin/qa HEAD)
-        fi
-        echo "Base SHA: $BASE_SHA"
-        echo "##vso[task.setvariable variable=BASE_SHA]$BASE_SHA"
-        echo "##[endgroup]"
+        export NX_BASE=origin/main
+        echo "Base SHA: $NX_BASE"
 
-        # Set HEAD_SHA to current commit
-        export HEAD_SHA=$(Build.SourceVersion)
-        echo "HEAD SHA: $HEAD_SHA"
+        # Set NX_HEAD to current commit
+        export NX_HEAD=$(Build.SourceVersion)
+        echo "HEAD SHA: $NX_HEAD"
 
-        npx nx affected -t build --base=$BASE_SHA --head=$HEAD_SHA --verbose
+        npx nx affected -t build --verbose
 
-        APPS=$(npx nx show projects --affected --base=$BASE_SHA --head=$HEAD_SHA | tr '\n' ' ')
+        APPS=$(npx nx show projects --affected | tr '\n' ' ')
         echo "##vso[task.setvariable variable=affected_apps]$APPS"
         echo "Affected projects: $APPS"
       displayName: "Build Affected Projects"
