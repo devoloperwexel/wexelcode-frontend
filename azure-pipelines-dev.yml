@@ -28,6 +28,8 @@ stages:
       name: $(AGENT_POOL)
     displayName: "Build & Push Job"
     steps:
+    - checkout: self
+      fetchDepth: 0
     # Install Node
     - task: UseNode@1
       inputs:
