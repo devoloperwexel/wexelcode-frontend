@@ -1,0 +1,77 @@
+# Deploy to Azure Kubernetes Service [DEV]
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- dev
+
+resources:
+- repo: self
+
+variables:
+
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: "4716bf1e-17e4-4499-9d8c-f84534e2cfd6"
+  imageRepository: $(IMAGE_REPOSITORY)
+  patientDockerfilePath: '**/apps/patient-portal/Dockerfile'
+  physioDockerfilePath: '**/apps/doctor-portal/Dockerfile'
+  tag: '$(Build.BuildId)'
+  app: frontend-web
+
+stages:
+
+- stage: Build
+  displayName: "Build & Push Docker Images 🛠️"
+  jobs:
+  - job: build_and_push
+    pool:
+      name: $(AGENT_POOL)
+    displayName: "Build & Push Job"
+    steps:
+    # Install Node
+    - task: UseNode@1
+      inputs:
+        version: 22.14.0
+
+    # Install pnpm and dependencies in one step
+    - script: |
+        npm install -g pnpm
+        pnpm install --frozen-lockfile
+      displayName: "Install pnpm and project dependencies"
+
+    # Set SHAs and build affected projects in one step
+    - script: |
+        npx nx-set-shas
+        npx nx affected -t build --verbose
+      displayName: "Build Affected Projects"
+
+    # Get affected projects and set as pipeline variable
+    - script: |
+        APPS=$(npx nx show projects --affected | tr '\n' ' ')
+        echo "##vso[task.setvariable variable=affected_apps]$APPS"
+        echo "Affected projects: $APPS"
+      displayName: "Get affected projects"
+
+    # Build & Push Patient Portal (conditionally)
+    - task: Docker@2
+      displayName: "Build & Push Patient Portal"
+      condition: contains(variables['affected_apps'], 'patient-portal')
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(patientDockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+    # Build & Push Physio Portal (conditionally)
+    - task: Docker@2
+      displayName: "Build & Push Physio Portal"
+      condition: contains(variables['affected_apps'], 'doctor-portal')
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(physioDockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
