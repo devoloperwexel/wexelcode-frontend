@@ -17,7 +17,6 @@ variables:
   patientDockerfilePath: '**/apps/patient-portal/Dockerfile'
   physioDockerfilePath: '**/apps/doctor-portal/Dockerfile'
   tag: '$(Build.BuildId)'
-  app: frontend-web
 
 stages:
 
@@ -42,8 +41,23 @@ stages:
 
     # Set SHAs and build affected projects in one step
     - script: |
-        npx nx-set-shas
-        npx nx affected -t build --verbose
+        echo "##[group]Determine Base SHA"
+        if [ -n "$(System.PullRequest.SourceBranch)" ]; then
+          # If this is a PR
+          BASE_SHA=$(git merge-base origin/$(System.PullRequest.TargetBranch) HEAD)
+        else
+          # For normal branch build, compare with main
+          BASE_SHA=$(git merge-base origin/main HEAD)
+        fi
+        echo "Base SHA: $BASE_SHA"
+        echo "##vso[task.setvariable variable=BASE_SHA]$BASE_SHA"
+        echo "##[endgroup]"
+
+        # Set HEAD_SHA to current commit
+        HEAD_SHA=$(Build.SourceVersion)
+        echo "HEAD SHA: $HEAD_SHA"
+
+        npx nx affected -t build --base=$(BASE_SHA) --head=$(HEAD_SHA) --verbose
       displayName: "Build Affected Projects"
 
     # Get affected projects and set as pipeline variable
