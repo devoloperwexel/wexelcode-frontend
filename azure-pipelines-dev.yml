@@ -63,7 +63,7 @@ stages:
         # ===== Doctor / Physio Portal =====
         echo "NEXT_PUBLIC_BASE_URL=$(dev-web-base-url)" >> apps/doctor-portal/.env
         echo "AUTH_KEYCLOAK_ISSUER=$(dev-web-auth-issuer-physio)" >> apps/doctor-portal/.env
-        echo "AUTH_KEYCLOAK_ID=$(dev-web-auth-client-id-physio)" >> apps/doctor-portal/.env
+        echo "AUTH_KEYCLOAK_ID=$(dev-web-keycloak-client-id-physio)" >> apps/doctor-portal/.env
         echo "AUTH_KEYCLOAK_SECRET=$(dev-web-keycloak-secret-physio)" >> apps/doctor-portal/.env
         echo "AUTH_SECRET=$(dev-web-nextauth-secret-physio)" >> apps/doctor-portal/.env
         echo "NEXTAUTH_URL=$(dev-web-nextauth-url-physio)" >> apps/doctor-portal/.env
