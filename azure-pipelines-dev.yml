@@ -60,7 +60,7 @@ stages:
         export HEAD_SHA=$(Build.SourceVersion)
         echo "HEAD SHA: $HEAD_SHA"
 
-        npx nx affected -t build --base=$BASE_SHA --head=$HEAD_SHA --verbose
+        npx nx affected -t build --base=origin/dev --head=$HEAD_SHA --verbose
       displayName: "Build Affected Projects"
 
     # Get affected projects and set as pipeline variable
