@@ -12,6 +12,7 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: "4716bf1e-17e4-4499-9d8c-f84534e2cfd6"
+  aksServiceConnection: "ed5acae4-5362-4981-8941-f04b6d28e2cf"
   imageRepositoryPatient: $(IMAGE_REPOSITORY_PATIENT)
   imageRepositoryPhysio: $(IMAGE_REPOSITORY_PHYSIO)
   patientDockerfilePath: '**/apps/patient-portal/Dockerfile'
@@ -40,6 +41,35 @@ stages:
         npm install -g pnpm
         pnpm install --frozen-lockfile
       displayName: "Install pnpm and project dependencies"
+
+    - task: AzureKeyVault@2
+      displayName: Fetch secrets from Azure Key Vault
+      inputs:
+        azureSubscription: $(azureSubscriptionConnection)
+        KeyVaultName: $(KEYVAULT_NAME)
+        SecretsFilter: 'dev-backend-secret-db-url'
+        RunAsPreJob: true
+    - script: |
+        # ===== Patient Portal =====
+        echo "NEXT_PUBLIC_BASE_URL=$(dev-web-base-url)" >> apps/patient-portal/.env
+        echo "AUTH_KEYCLOAK_ISSUER=$(dev-web-auth-issuer-patient)" >> apps/patient-portal/.env
+        echo "AUTH_KEYCLOAK_ID=$(dev-web-keycloak-client-id-patient)" >> apps/patient-portal/.env
+        echo "AUTH_KEYCLOAK_SECRET=$(dev-web-keycloak-secret-patient)" >> apps/patient-portal/.env
+        echo "AUTH_SECRET=$(dev-web-nextauth-secret-patient)" >> apps/patient-portal/.env
+        echo "NEXTAUTH_URL=$(dev-web-nextauth-url-patient)" >> apps/patient-portal/.env
+        echo "STRIPE_CLIENT_SECRET=$(dev-web-stripe-secret)" >> apps/patient-portal/.env
+        echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$(dev-web-stripe-publish-key)" >> apps/patient-portal/.env
+
+        # ===== Doctor / Physio Portal =====
+        echo "NEXT_PUBLIC_BASE_URL=$(dev-web-base-url)" >> apps/doctor-portal/.env
+        echo "AUTH_KEYCLOAK_ISSUER=$(dev-web-auth-issuer-physio)" >> apps/doctor-portal/.env
+        echo "AUTH_KEYCLOAK_ID=$(dev-web-auth-client-id-physio)" >> apps/doctor-portal/.env
+        echo "AUTH_KEYCLOAK_SECRET=$(dev-web-keycloak-secret-physio)" >> apps/doctor-portal/.env
+        echo "AUTH_SECRET=$(dev-web-nextauth-secret-physio)" >> apps/doctor-portal/.env
+        echo "NEXTAUTH_URL=$(dev-web-nextauth-url-physio)" >> apps/doctor-portal/.env
+
+        echo "✅ .env files generated successfully"
+      displayName: "Generate .env File"
 
     # Set SHAs and build affected projects in one step
     - script: |
