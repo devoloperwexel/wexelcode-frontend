@@ -12,7 +12,8 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: "4716bf1e-17e4-4499-9d8c-f84534e2cfd6"
-  imageRepository: $(IMAGE_REPOSITORY)
+  imageRepositoryPatient: $(IMAGE_REPOSITORY_PATIENT)
+  imageRepositoryPhysio: $(IMAGE_REPOSITORY_PHYSIO)
   patientDockerfilePath: '**/apps/patient-portal/Dockerfile'
   physioDockerfilePath: '**/apps/doctor-portal/Dockerfile'
   tag: '$(Build.BuildId)'
@@ -58,7 +59,7 @@ stages:
       condition: contains(variables['affected_apps'], 'patient-portal')
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: $(imageRepositoryPatient)
         dockerfile: $(patientDockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
@@ -70,7 +71,7 @@ stages:
       condition: contains(variables['affected_apps'], 'doctor-portal')
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: $(imageRepositoryPhysio)
         dockerfile: $(physioDockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
