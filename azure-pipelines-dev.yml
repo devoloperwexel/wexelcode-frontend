@@ -41,6 +41,7 @@ stages:
 
     # Set SHAs and build affected projects in one step
     - script: |
+        git fetch origin dev
         echo "##[group]Determine Base SHA"
         if [ -n "$SYSTEM_PULLREQUEST_SOURCEBRANCH" ]; then
           # If this is a PR
@@ -57,7 +58,7 @@ stages:
         export HEAD_SHA=$(Build.SourceVersion)
         echo "HEAD SHA: $HEAD_SHA"
 
-        npx nx affected -t build --base=$(BASE_SHA) --head=$(HEAD_SHA) --verbose
+        npx nx affected -t build --base=$BASE_SHA --head=$HEAD_SHA --verbose
       displayName: "Build Affected Projects"
 
     # Get affected projects and set as pipeline variable
