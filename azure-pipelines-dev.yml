@@ -12,7 +12,7 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: "4716bf1e-17e4-4499-9d8c-f84534e2cfd6"
-  aksServiceConnection: "ed5acae4-5362-4981-8941-f04b6d28e2cf"
+  azureSubscriptionConnection: "cecdb484-e6e0-4862-9ee7-f90d1c44536e"
   imageRepositoryPatient: $(IMAGE_REPOSITORY_PATIENT)
   imageRepositoryPhysio: $(IMAGE_REPOSITORY_PHYSIO)
   patientDockerfilePath: '**/apps/patient-portal/Dockerfile'
