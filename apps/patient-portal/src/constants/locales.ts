@@ -1,3 +1,5 @@
+// This file contains the supported locales for the application.
+
 const Locales = [
   {
     language: 'en',
