@@ -43,14 +43,14 @@ stages:
 
     # Set SHAs and build affected projects in one step
     - script: |
-        git fetch origin dev
         echo "##[group]Determine Base SHA"
         if [ -n "$SYSTEM_PULLREQUEST_SOURCEBRANCH" ]; then
           # If this is a PR
           export BASE_SHA=$(git merge-base origin/$(System.PullRequest.TargetBranch) HEAD)
         else
-          # For normal branch build, compare with dev
-          export BASE_SHA=$(git merge-base origin/dev HEAD)
+         git fetch origin dev --all
+          # For normal branch build, compare with qa
+          export BASE_SHA=$(git merge-base origin/qa HEAD)
         fi
         echo "Base SHA: $BASE_SHA"
         echo "##vso[task.setvariable variable=BASE_SHA]$BASE_SHA"
