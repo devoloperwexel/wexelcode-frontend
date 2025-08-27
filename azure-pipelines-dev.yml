@@ -44,17 +44,17 @@ stages:
         echo "##[group]Determine Base SHA"
         if [ -n "$SYSTEM_PULLREQUEST_SOURCEBRANCH" ]; then
           # If this is a PR
-          BASE_SHA=$(git merge-base origin/$(System.PullRequest.TargetBranch) HEAD)
+          export BASE_SHA=$(git merge-base origin/$(System.PullRequest.TargetBranch) HEAD)
         else
-          # For normal branch build, compare with main
-          BASE_SHA=$(git merge-base origin/main HEAD)
+          # For normal branch build, compare with dev
+          export BASE_SHA=$(git merge-base origin/dev HEAD)
         fi
         echo "Base SHA: $BASE_SHA"
         echo "##vso[task.setvariable variable=BASE_SHA]$BASE_SHA"
         echo "##[endgroup]"
 
         # Set HEAD_SHA to current commit
-        HEAD_SHA=$(Build.SourceVersion)
+        export HEAD_SHA=$(Build.SourceVersion)
         echo "HEAD SHA: $HEAD_SHA"
 
         npx nx affected -t build --base=$(BASE_SHA) --head=$(HEAD_SHA) --verbose
