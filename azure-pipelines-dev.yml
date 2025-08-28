@@ -112,8 +112,9 @@ stages:
         tags: |
           $(tag)
 
-- stage: Deploy Patient Portal [DEV] 🚀
-  displayName: Deploy Patient Portal to Azure Web App
+- stage: Deploy
+  displayName: Deploy Patient Portal [DEV] 🚀
+  dependsOn: Build
   jobs:
   - job: DeployContainer
     displayName: Deploy Container
