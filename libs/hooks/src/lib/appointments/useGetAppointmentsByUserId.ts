@@ -10,6 +10,7 @@ export const useGetAppointmentsByUserId = (request: GetAppointmentsRequest) => {
       request.userId,
       request.startDate,
       request.endDate,
+      request.timezone,
       request.limit,
       request.page,
     ],
