@@ -20,6 +20,9 @@ export function AppointmentCalenderCard() {
 
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const { data: userData } = useSession();
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const startDateOfSelectedMonth = useMemo(() => {
     const date = new Date(new Date().getFullYear(), selectedMonth, 1);
@@ -44,6 +47,7 @@ export function AppointmentCalenderCard() {
     page: 1,
     includes: ['physio-user'],
     sortBy: 'appointmentTime:desc',
+    timezone,
     startDate: startDateOfSelectedMonth,
     endDate: endDateOfSelectedMonth,
   });
@@ -55,7 +59,12 @@ export function AppointmentCalenderCard() {
         <div>
           <Calendar
             selectedDates={appointmentResponse?.results.map((appointment) => {
-              return dateTimeFormat(appointment.appointmentTime, 'yyyy-MM-DD');
+              return dateTimeFormat(
+                appointment.appointmentTime,
+                'yyyy-MM-DD',
+                'en',
+                timezone
+              );
             })}
             onMonthChange={(year, month) => setSelectedMonth(month)}
           />
@@ -64,7 +73,12 @@ export function AppointmentCalenderCard() {
         <div className="col-span-1 flex flex-col gap-4">
           <Text variant="h3">
             {t('appointmentCalenderCard.appointmentFor')}{' '}
-            {dateTimeFormat(startDateOfSelectedMonth, 'MMMM yyyy', language)}
+            {dateTimeFormat(
+              startDateOfSelectedMonth,
+              'MMMM yyyy',
+              language,
+              timezone
+            )}
           </Text>
 
           <div className="space-y-4 overflow-y-auto max-h-[300px]">
@@ -74,7 +88,12 @@ export function AppointmentCalenderCard() {
               <NoDataBanner
                 message={`${t(
                   'appointmentCalenderCard.noDataFound'
-                )} ${dateTimeFormat(startDateOfSelectedMonth, 'MMMM')}`}
+                )} ${dateTimeFormat(
+                  startDateOfSelectedMonth,
+                  'MMMM',
+                  language,
+                  timezone
+                )}`}
               />
             )}
 
@@ -91,12 +110,19 @@ export function AppointmentCalenderCard() {
                           {t(
                             `calendar.days.${dateTimeFormat(
                               appointment.appointmentTime,
-                              'ddd'
+                              'ddd',
+                              language,
+                              timezone
                             ).toLowerCase()}`
                           )}
                         </div>
                         <Text>
-                          {dateTimeFormat(appointment.appointmentTime, 'D')}
+                          {dateTimeFormat(
+                            appointment.appointmentTime,
+                            'D',
+                            language,
+                            timezone
+                          )}
                         </Text>
                       </div>
                     </div>
@@ -110,7 +136,12 @@ export function AppointmentCalenderCard() {
                     <div className="flex items-center text-sm text-gray-700">
                       <ClockIcon className="w-4 h-4 mr-1 text-gray-400 flex-shrink-0" />
                       <span>
-                        {dateTimeFormat(appointment.appointmentTime, 'HH:mm')}
+                        {dateTimeFormat(
+                          appointment.appointmentTime,
+                          'HH:mm',
+                          'en',
+                          timezone
+                        )}
                       </span>
                     </div>
                   </div>
