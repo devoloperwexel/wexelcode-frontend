@@ -124,7 +124,7 @@ stages:
     steps:
     - task: AzureWebAppContainer@1
       inputs:
-        azureSubscription: $(azureSubscriptionConnection)
+        azureSubscription: '5a186980-6e23-429e-8928-93f7e8f710b7'
         appName: $(appName)
         containers: |
           $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
