@@ -24,8 +24,11 @@ export function AppointmentListView({
 }: AppointmentListViewProps) {
   const t = useTranslations('appointments.appointmentsPage');
   const { data: userData, status: sessionStatus } = useSession();
-
   const queryParams = useQueryParams();
+  //
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const { data: response, isLoading } = useGetAppointmentsByUserId({
     page: queryParams.getInt('page') || 1,
@@ -33,13 +36,10 @@ export function AppointmentListView({
     userId: userData?.user?.id,
     startDate,
     endDate,
+    timezone,
     includes: ['physio-user'],
     sortBy: `appointmentTime:${sort}`,
   });
-
-  const timezone =
-    userData?.user?.timeZone ||
-    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
     <div className="flex flex-col space-y-4 h-fill">

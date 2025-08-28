@@ -14,9 +14,10 @@ export const dateTimeFormat = (
 export const dateTimeDiff = (
   first: string | Date,
   second: string | Date,
+  zone = 'UTC',
   unit?: moment.unitOfTime.Diff
 ) => {
-  return moment(first).diff(moment(second), unit);
+  return moment.tz(first, zone).diff(moment(second), unit);
 };
 
 export const dateTimeAdd = (

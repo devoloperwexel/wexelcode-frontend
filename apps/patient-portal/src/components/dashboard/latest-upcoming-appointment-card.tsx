@@ -11,10 +11,10 @@ import {
 } from '@wexelcode/components';
 import { useGetAppointmentsByUserId } from '@wexelcode/hooks';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
-import { CalendarIcon, ClockIcon, Info,VideoIcon } from 'lucide-react';
+import { CalendarIcon, ClockIcon, Info, VideoIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { Link } from '../../i18n/routing';
@@ -29,15 +29,17 @@ export function LatestUpcomingAppointmentCard({
   now,
 }: LatestUpcomingAppointmentCardProps) {
   const t = useTranslations('dashboard.latestUpcomingAppointmentCard');
-
+  const language = useLocale();
   const { data: userData } = useSession();
+  const timezone = userData?.user?.timeZone;
 
   const { data: response, isLoading } = useGetAppointmentsByUserId({
     userId: userData?.user?.id,
     limit: 1,
     page: 1,
     includes: ['physio-user'],
-    sortBy: 'appointmentTime:desc',
+    sortBy: 'appointmentTime:asc',
+    timezone,
     startDate: now.toISOString(),
   });
 
@@ -80,7 +82,8 @@ export function LatestUpcomingAppointmentCard({
   const appointment = response?.results[0];
   const allowJoinBefore = 5 * 60 * 1000; // 5 minutes
   const isJoinable =
-    dateTimeDiff(appointment?.appointmentTime, new Date()) < allowJoinBefore;
+    dateTimeDiff(appointment?.appointmentTime, new Date(), timezone) <
+    allowJoinBefore;
 
   return (
     <Card className="flex flex-col">
@@ -111,7 +114,9 @@ export function LatestUpcomingAppointmentCard({
                 {appointment?.appointmentTime &&
                   dateTimeFormat(
                     appointment?.appointmentTime,
-                    'DD, MMMM, yyyy'
+                    'DD, MMMM, yyyy',
+                    language,
+                    timezone
                   )}
               </Text>
             </div>
@@ -123,7 +128,12 @@ export function LatestUpcomingAppointmentCard({
               <Text variant="muted">{t('time')}</Text>
               <Text weight="semibold">
                 {appointment?.appointmentTime &&
-                  dateTimeFormat(appointment?.appointmentTime, 'HH:mm')}{' '}
+                  dateTimeFormat(
+                    appointment?.appointmentTime,
+                    'HH:mm',
+                    'en',
+                    timezone
+                  )}
                 (30 {t('minutes')})
               </Text>
             </div>
