@@ -14,6 +14,7 @@ variables:
   dockerRegistryServiceConnection: "4716bf1e-17e4-4499-9d8c-f84534e2cfd6"
   azureSubscriptionConnection: "cecdb484-e6e0-4862-9ee7-f90d1c44536e"
   acrName: $(ACR_NAME)
+  appName: $(WEB_APP_NAME)
   imageRepositoryPatient: $(IMAGE_REPOSITORY_PATIENT)
   imageRepositoryPhysio: $(IMAGE_REPOSITORY_PHYSIO)
   patientDockerfilePath: '**/apps/patient-portal/Dockerfile'
@@ -121,7 +122,7 @@ stages:
     pool:
       name: $(AGENT_POOL)
     steps:
-    - task: AzureWebAppContainer@2
+    - task: AzureWebAppContainer@1
       inputs:
         azureSubscription: $(azureSubscription)
         appName: $(appName)
