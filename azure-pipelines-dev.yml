@@ -112,8 +112,7 @@ stages:
         tags: |
           $(tag)
 
-stages:
-- stage: Deploy Patient Portal [DEV]
+- stage: Deploy Patient Portal [DEV] 🚀
   displayName: Deploy Patient Portal to Azure Web App
   jobs:
   - job: DeployContainer
