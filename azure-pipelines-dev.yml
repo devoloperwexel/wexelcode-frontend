@@ -155,5 +155,5 @@ stages:
               azureSubscription: $(azureSubscriptionWebAppConnection)
               appName: $(physioAppName)
               containers: |
-                $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
+                $(acrName).azurecr.io/$(imageRepositoryPhysio):$(tag)
               configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPhysio):$(tag)'
