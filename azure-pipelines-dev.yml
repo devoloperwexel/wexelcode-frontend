@@ -120,8 +120,8 @@ stages:
   displayName: Deploy Patient Portal [DEV] 🚀
   dependsOn: Build
   jobs:
-  - job: DeployContainer
-    displayName: Deploy Container
+  - deployment: DeployPatientPortal
+    displayName: Deploy Patient Portal
     pool:
       name: $(AGENT_POOL)
     environment: 'dev-patient-frontend-web-app'
@@ -141,8 +141,8 @@ stages:
   displayName: Deploy Physio Portal [QA] 🚀
   dependsOn: Build
   jobs:
-  - job: DeployContainer
-    displayName: Deploy Container
+  - deployment: DeployPhysioPortal
+    displayName: Deploy Physio Portal
     pool:
       name: $(AGENT_POOL)
     environment: 'qa-physio-frontend-web-app'
