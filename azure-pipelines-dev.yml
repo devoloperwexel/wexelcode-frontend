@@ -138,14 +138,14 @@ stages:
               configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)'
 
 - stage: DeployPhysio
-  displayName: Deploy Physio Portal [QA] 🚀
+  displayName: Deploy Physio Portal [DEV] 🚀
   dependsOn: Build
   jobs:
   - deployment: DeployPhysioPortal
     displayName: Deploy Physio Portal
     pool:
       name: $(AGENT_POOL)
-    environment: 'qa-physio-frontend-web-app'
+    environment: 'dev-physio-frontend-web-app'
     strategy:
       runOnce:
         deploy:

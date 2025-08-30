@@ -119,34 +119,40 @@ stages:
   displayName: Deploy Patient Portal [QA] 🚀
   dependsOn: Build
   jobs:
-  - job: DeployContainer
-    displayName: Deploy Container
+  - deployment: DeployPatientPortal
+    displayName: Deploy Patient Portal
     pool:
       name: $(AGENT_POOL)
     environment: 'qa-patient-frontend-web-app'
-    steps:
-    - task: AzureWebAppContainer@1
-      inputs:
-        azureSubscription: $(azureSubscriptionWebAppConnection)
-        appName: $(patientAppName)
-        containers: |
-          $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
-        configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebAppContainer@1
+            inputs:
+              azureSubscription: $(azureSubscriptionWebAppConnection)
+              appName: $(patientAppName)
+              containers: |
+                $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
+              configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)'
 
 - stage: DeployPhysio
   displayName: Deploy Physio Portal [QA] 🚀
   dependsOn: Build
   jobs:
-  - job: DeployContainer
-    displayName: Deploy Container
+  - deployment: DeployPhysioPortal
+    displayName: Deploy Physio Portal
     pool:
       name: $(AGENT_POOL)
     environment: 'qa-physio-frontend-web-app'
-    steps:
-    - task: AzureWebAppContainer@1
-      inputs:
-        azureSubscription: $(azureSubscriptionWebAppConnection)
-        appName: $(physioAppName)
-        containers: |
-          $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
-        configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPhysio):$(tag)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebAppContainer@1
+            inputs:
+              azureSubscription: $(azureSubscriptionWebAppConnection)
+              appName: $(physioAppName)
+              containers: |
+                $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
+              configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPhysio):$(tag)'
