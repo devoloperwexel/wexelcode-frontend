@@ -125,14 +125,17 @@ stages:
     pool:
       name: $(AGENT_POOL)
     environment: 'dev-patient-frontend-web-app'
-    steps:
-    - task: AzureWebAppContainer@1
-      inputs:
-        azureSubscription: $(azureSubscriptionWebAppConnection)
-        appName: $(patientAppName)
-        containers: |
-          $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
-        configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebAppContainer@1
+            inputs:
+              azureSubscription: $(azureSubscriptionWebAppConnection)
+              appName: $(patientAppName)
+              containers: |
+                $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
+              configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)'
 
 - stage: DeployPhysio
   displayName: Deploy Physio Portal [QA] 🚀
@@ -143,11 +146,14 @@ stages:
     pool:
       name: $(AGENT_POOL)
     environment: 'qa-physio-frontend-web-app'
-    steps:
-    - task: AzureWebAppContainer@1
-      inputs:
-        azureSubscription: $(azureSubscriptionWebAppConnection)
-        appName: $(physioAppName)
-        containers: |
-          $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
-        configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPhysio):$(tag)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebAppContainer@1
+            inputs:
+              azureSubscription: $(azureSubscriptionWebAppConnection)
+              appName: $(physioAppName)
+              containers: |
+                $(acrName).azurecr.io/$(imageRepositoryPatient):$(tag)
+              configurationStrings: '-DOCKER_CUSTOM_IMAGE_NAME=$(acrName).azurecr.io/$(imageRepositoryPhysio):$(tag)'
