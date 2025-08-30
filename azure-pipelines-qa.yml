@@ -13,7 +13,7 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: "4716bf1e-17e4-4499-9d8c-f84534e2cfd6"
   azureSubscriptionKeyVaultConnection: "cecdb484-e6e0-4862-9ee7-f90d1c44536e"
-  azureSubscriptionWebAppConnection: '5a186980-6e23-429e-8928-93f7e8f710b7'
+  azureSubscriptionWebAppConnection: '632124d4-3851-4858-a190-db747c72d4c3'
   acrName: $(ACR_NAME)
   patientAppName: $(PATIENT_WEB_APP_NAME)
   physioAppName: $(PHYSIO_WEB_APP_NAME)
