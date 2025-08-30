@@ -1,9 +1,9 @@
-# Deploy to Azure Kubernetes Service [DEV]
+# Deploy to Azure Kubernetes Service [QA]
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+# https://docs.microsoft.com/azure/qaops/pipelines/languages/docker
 
 trigger:
-- dev
+- qa
 
 resources:
 - repo: self
@@ -13,9 +13,8 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: "4716bf1e-17e4-4499-9d8c-f84534e2cfd6"
   azureSubscriptionKeyVaultConnection: "cecdb484-e6e0-4862-9ee7-f90d1c44536e"
-  azureSubscriptionWebAppConnection: '632124d4-3851-4858-a190-db747c72d4c3'
+  azureSubscriptionWebAppConnection: '5a186980-6e23-429e-8928-93f7e8f710b7'
   acrName: $(ACR_NAME)
-  appName: $(WEB_APP_NAME)
   patientAppName: $(PATIENT_WEB_APP_NAME)
   physioAppName: $(PHYSIO_WEB_APP_NAME)
   imageRepositoryPatient: $(IMAGE_REPOSITORY_PATIENT)
@@ -56,22 +55,22 @@ stages:
         RunAsPreJob: true
     - script: |
         # ===== Patient Portal =====
-        echo "NEXT_PUBLIC_BASE_URL=$(dev-web-base-url)" >> apps/patient-portal/.env
-        echo "AUTH_KEYCLOAK_ISSUER=$(dev-web-auth-issuer-patient)" >> apps/patient-portal/.env
-        echo "AUTH_KEYCLOAK_ID=$(dev-web-keycloak-client-id-patient)" >> apps/patient-portal/.env
-        echo "AUTH_KEYCLOAK_SECRET=$(dev-web-keycloak-secret-patient)" >> apps/patient-portal/.env
-        echo "AUTH_SECRET=$(dev-web-nextauth-secret-patient)" >> apps/patient-portal/.env
-        echo "NEXTAUTH_URL=$(dev-web-nextauth-url-patient)" >> apps/patient-portal/.env
-        echo "STRIPE_CLIENT_SECRET=$(dev-web-stripe-secret)" >> apps/patient-portal/.env
-        echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$(dev-web-stripe-publish-key)" >> apps/patient-portal/.env
+        echo "NEXT_PUBLIC_BASE_URL=$(qa-web-base-url)" >> apps/patient-portal/.env
+        echo "AUTH_KEYCLOAK_ISSUER=$(qa-web-auth-issuer-patient)" >> apps/patient-portal/.env
+        echo "AUTH_KEYCLOAK_ID=$(qa-web-keycloak-client-id-patient)" >> apps/patient-portal/.env
+        echo "AUTH_KEYCLOAK_SECRET=$(qa-web-keycloak-secret-patient)" >> apps/patient-portal/.env
+        echo "AUTH_SECRET=$(qa-web-nextauth-secret-patient)" >> apps/patient-portal/.env
+        echo "NEXTAUTH_URL=$(qa-web-nextauth-url-patient)" >> apps/patient-portal/.env
+        echo "STRIPE_CLIENT_SECRET=$(qa-web-stripe-secret)" >> apps/patient-portal/.env
+        echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$(qa-web-stripe-publish-key)" >> apps/patient-portal/.env
 
         # ===== Doctor / Physio Portal =====
-        echo "NEXT_PUBLIC_BASE_URL=$(dev-web-base-url)" >> apps/doctor-portal/.env
-        echo "AUTH_KEYCLOAK_ISSUER=$(dev-web-auth-issuer-physio)" >> apps/doctor-portal/.env
-        echo "AUTH_KEYCLOAK_ID=$(dev-web-keycloak-client-id-physio)" >> apps/doctor-portal/.env
-        echo "AUTH_KEYCLOAK_SECRET=$(dev-web-keycloak-secret-physio)" >> apps/doctor-portal/.env
-        echo "AUTH_SECRET=$(dev-web-nextauth-secret-physio)" >> apps/doctor-portal/.env
-        echo "NEXTAUTH_URL=$(dev-web-nextauth-url-physio)" >> apps/doctor-portal/.env
+        echo "NEXT_PUBLIC_BASE_URL=$(qa-web-base-url)" >> apps/doctor-portal/.env
+        echo "AUTH_KEYCLOAK_ISSUER=$(qa-web-auth-issuer-physio)" >> apps/doctor-portal/.env
+        echo "AUTH_KEYCLOAK_ID=$(qa-web-keycloak-client-id-physio)" >> apps/doctor-portal/.env
+        echo "AUTH_KEYCLOAK_SECRET=$(qa-web-keycloak-secret-physio)" >> apps/doctor-portal/.env
+        echo "AUTH_SECRET=$(qa-web-nextauth-secret-physio)" >> apps/doctor-portal/.env
+        echo "NEXTAUTH_URL=$(qa-web-nextauth-url-physio)" >> apps/doctor-portal/.env
 
         echo "✅ .env files generated successfully"
       displayName: "Generate .env File"
@@ -117,14 +116,14 @@ stages:
           $(tag)
 
 - stage: DeployPatient
-  displayName: Deploy Patient Portal [DEV] 🚀
+  displayName: Deploy Patient Portal [QA] 🚀
   dependsOn: Build
   jobs:
   - job: DeployContainer
     displayName: Deploy Container
     pool:
       name: $(AGENT_POOL)
-    environment: 'dev-patient-frontend-web-app'
+    environment: 'qa-patient-frontend-web-app'
     steps:
     - task: AzureWebAppContainer@1
       inputs:
