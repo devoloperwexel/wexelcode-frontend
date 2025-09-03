@@ -31,7 +31,9 @@ export function LatestUpcomingAppointmentCard({
   const t = useTranslations('dashboard.latestUpcomingAppointmentCard');
   const language = useLocale();
   const { data: userData } = useSession();
-  const timezone = userData?.user?.timeZone;
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const { data: response, isLoading } = useGetAppointmentsByUserId({
     userId: userData?.user?.id,
