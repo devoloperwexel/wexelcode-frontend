@@ -13,6 +13,9 @@ export function AppointmentsCard() {
   const t = useTranslations('dashboard.appointmentsCard');
 
   const { data: userData } = useSession();
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const startDate = dateTimeSet(now, {
     hour: 0,
@@ -33,6 +36,7 @@ export function AppointmentsCard() {
     includes: ['patient-user'],
     startDate,
     endDate,
+    timezone,
   });
 
   return (

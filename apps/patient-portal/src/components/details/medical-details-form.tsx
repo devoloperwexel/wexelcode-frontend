@@ -74,6 +74,7 @@ export function MedicalDetailsForm({
           name="activities"
           label={t('activities')}
           placeholder={t('select')}
+          searchPlaceholder={t('search')}
           options={activities}
         />
       </div>

@@ -10,21 +10,20 @@ import {
 } from '@wexelcode/components';
 import {
   useCreateAppointment,
-  useGetPhysioAvailabilityCheck,
+  useGetPhysioAvailabilityTime,
 } from '@wexelcode/hooks';
 import { Doctor } from '@wexelcode/types';
-import { dateTimeFormat, dateTimeSet } from '@wexelcode/utils';
+import { dateTimeSet } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useScreeningDialogStore } from '../../app/store';
 import Routes from '../../constants/routes';
 import { useRouter } from '../../i18n/routing';
 import { QuestionnaireDialog } from '../questions';
 import AppointmentsLoadingSkeleton from './appointments-loading-skeleton';
-import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constant';
 import ScreeningRequiredDialog from './screening-required-dialog';
 import TimeSlotGuideItem from './time-slot-guide-item';
 import TimeSlotSelector from './time-slot-selector';
@@ -65,6 +64,8 @@ export function DoctorAppointmentsTab({
     string | undefined
   >();
   const userId = data?.user.id;
+  const timezone =
+    data?.user?.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
   //
   const { push } = useRouter();
   useEffect(() => {
@@ -72,52 +73,16 @@ export function DoctorAppointmentsTab({
   }, [date]);
   // Memoized constants
   const now = useMemo(() => new Date(), []);
-  const sixMonthsLater = useMemo(() => {
+  const threeMonthsLater = useMemo(() => {
     const future = new Date(now);
-    future.setMonth(future.getMonth() + 6);
+    future.setMonth(future.getMonth() + 3);
     return future;
   }, [now]);
-  // Mark unavailable time slots based on appointments and current time
-  const markUnavailableSlots = useCallback(
-    (appointments: Date[], dateStr: string) => {
-      const localAppointments = appointments.map((iso) => {
-        const start = new Date(iso);
-        const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000);
-        return { start, end };
-      });
 
-      const availableSlotWindow = isMorningTimes
-        ? AVAILABLE_TIME_SLOT.slice(0, 14)
-        : AVAILABLE_TIME_SLOT.slice(14);
-
-      return availableSlotWindow.map((slot) => {
-        const [startStr, endStr] = slot.time;
-        const start = new Date(`${dateStr}T${startStr}:00`);
-        const end = new Date(`${dateStr}T${endStr}:00`);
-
-        if (start < now) {
-          return {
-            ...slot,
-            available: false,
-          };
-        }
-
-        const isOverlapping = localAppointments.some(
-          (app) => app.start < end && app.end > start
-        );
-
-        return {
-          ...slot,
-          available: isOverlapping,
-        };
-      });
-    },
-    [isMorningTimes, now]
-  );
-
-  const { data: response, isLoading } = useGetPhysioAvailabilityCheck({
+  const { data: response, isLoading } = useGetPhysioAvailabilityTime({
     id: doctor.id,
     date: date.toDateString(),
+    timezone,
   });
 
   const { mutateAsync: createAppointment } = useCreateAppointment();
@@ -179,12 +144,13 @@ export function DoctorAppointmentsTab({
       setBookingProgress(false);
     }
   };
-
   const handleMorningTimes = () => setIsMorningTimes((prev) => !prev);
-
+  const slots = isMorningTimes
+    ? response?.data?.availableSlots.slice(0, 14)
+    : response?.data?.availableSlots.slice(14);
   return (
     <div className="flex flex-col space-y-4">
-      <div className="flex items-center space-x-2 py-2 border-b">
+      <div className="flex items-center justify-between  py-2 border-b">
         <Dialog open={isOpen}>
           <QuestionnaireDialog />
         </Dialog>
@@ -194,19 +160,22 @@ export function DoctorAppointmentsTab({
             onCompleteScreening={handleScreeningRequiredComplete}
           />
         )}
-        <Label>{t('appointmentDate')}</Label>
-        <div className="w-1/4">
-          <DatePicker
-            initialDate={initialDate}
-            local={locale}
-            startDate={new Date()}
-            toDate={sixMonthsLater}
-            onSelect={(date) => {
-              if (!date) return;
-              setDate(date);
-            }}
-          />
+        <div className="flex items-center space-x-2 w-1/2">
+          <Label>{t('appointmentDate')}</Label>
+          <div>
+            <DatePicker
+              initialDate={initialDate}
+              local={locale}
+              startDate={new Date()}
+              toDate={threeMonthsLater}
+              onSelect={(date) => {
+                if (!date) return;
+                setDate(date);
+              }}
+            />
+          </div>
         </div>
+        <Label> {`${t('timezone')}: ${timezone.replaceAll('_', ' ')}`}</Label>
       </div>
 
       <div className="flex space-x-4">
@@ -217,13 +186,10 @@ export function DoctorAppointmentsTab({
 
       <ScrollArea className="flex-grow">
         <div className="grid grid-cols-2 gap-4">
-          {isLoading || !response?.data?.availabilityTimes ? (
+          {isLoading || !slots ? (
             <AppointmentsLoadingSkeleton />
           ) : (
-            markUnavailableSlots(
-              response?.data.availabilityTimes,
-              dateTimeFormat(date, 'YYYY-MM-DD')
-            ).map((timeSlot, index) => (
+            slots.map((timeSlot, index) => (
               <TimeSlotSelector
                 key={index}
                 start={timeSlot.time[0]}

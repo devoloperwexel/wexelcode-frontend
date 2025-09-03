@@ -44,6 +44,11 @@ export function AccountDetailsTab() {
     value: option.value,
   }));
 
+  const timeZonesOptions = Intl.supportedValuesOf('timeZone').map((tz) => ({
+    label: tz.replaceAll('_', ' '),
+    value: tz,
+  }));
+
   const { data: userData } = useSession();
 
   const form = useForm();
@@ -125,6 +130,7 @@ export function AccountDetailsTab() {
               label={t('state')}
               name="country"
               placeholder={t('select')}
+              searchPlaceholder={t('search')}
               options={countryOptions}
               rules={{
                 required: true,
@@ -139,17 +145,23 @@ export function AccountDetailsTab() {
               }}
             />
 
-            <div className="col-span-2">
-              <FormSmartMultiSelectorField
-                label={t('languages')}
-                name="languages"
-                placeholder={t('select')}
-                options={languagesOptions}
-                rules={{
-                  required: true,
-                }}
-              />
-            </div>
+            <FormSmartMultiSelectorField
+              label={t('languages')}
+              name="languages"
+              placeholder={t('select')}
+              searchPlaceholder={t('search')}
+              options={languagesOptions}
+              rules={{
+                required: true,
+              }}
+            />
+            <FormSmartSelectorField
+              label={t('timezone')}
+              name="timeZone"
+              placeholder={t('select')}
+              searchPlaceholder={t('search')}
+              options={timeZonesOptions}
+            />
           </form>
         </Form>
       </CardContent>

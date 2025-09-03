@@ -1,21 +1,23 @@
 import 'moment/locale/de';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 export const dateTimeFormat = (
   date: string | Date,
   format: string,
-  language = 'en'
+  language = 'en',
+  zone = 'UTC'
 ) => {
-  return moment(date).locale(language).format(format);
+  return moment.tz(date, zone).locale(language).format(format);
 };
 
 export const dateTimeDiff = (
   first: string | Date,
   second: string | Date,
+  zone = 'UTC',
   unit?: moment.unitOfTime.Diff
 ) => {
-  return moment(first).diff(moment(second), unit);
+  return moment.tz(first, zone).diff(moment(second), unit);
 };
 
 export const dateTimeAdd = (

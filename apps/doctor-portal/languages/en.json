@@ -164,7 +164,9 @@
           "lastName": "Last Name",
           "mobile": "Mobile",
           "select": "Select",
-          "save": "Save"
+          "search": "Search...",
+          "save": "Save",
+          "timezone": "Time Zone"
         },
         "professional": {
           "title": "Professional",
@@ -173,7 +175,7 @@
           "totalYearsOfExperience": "Total Years of Experience",
           "save": "Save"
         },
-        "availability":{
+        "availability": {
           "evening": "Evening",
           "morning": "Morning",
           "slots": "Slots",
@@ -185,5 +187,6 @@
   },
   "datePicker": {
     "pickDate": "Pick a date"
-  }
+  },
+  "timezone": { "timezone": "Time Zone" }
 }

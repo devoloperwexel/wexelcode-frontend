@@ -11,6 +11,7 @@ import {
   BreadcrumbNavigator,
   DashboardNavigationItems,
 } from '../components/navigation';
+import { Timezone } from '../components/timezone';
 import { UserMenu } from '../components/user-menu';
 import Languages from '../constants/languages';
 
@@ -44,6 +45,7 @@ export default async function RootLayout({
                   breadcrumbsComponent={<BreadcrumbNavigator />}
                   actionComponent={
                     <div className="ml-auto flex items-center gap-2 px-4">
+                      <Timezone />
                       <LanguageSwitch languages={Languages} />
                       <UserMenu />
                     </div>

@@ -23,13 +23,17 @@ const now = dateTimeSubtract(new Date(), 30, 'minutes').toISOString();
 
 export default function AppointmentsPageContent() {
   const t = useTranslations('appointments');
-  const language = useLocale()
+  const language = useLocale();
 
   const { data: userData } = useSession();
 
   const router = useRouter();
 
   const queryParams = useQueryParams();
+
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const { data: appointmentsResponse } = useGetAllAppointments({
     page: queryParams.getInt('page') || 1,
@@ -40,6 +44,7 @@ export default function AppointmentsPageContent() {
     endDate: queryParams.getString('status') === 'past' ? now : undefined,
     sortBy: 'appointmentTime:desc',
     name: queryParams.getString('search'),
+    timezone
   });
 
   const handleOnSearch = (search: string) => {
@@ -103,7 +108,12 @@ export default function AppointmentsPageContent() {
                 const data = row.original;
                 return (
                   <Text>
-                    {dateTimeFormat(data.appointmentTime, 'Do MMMM, yyyy', language)}
+                    {dateTimeFormat(
+                      data.appointmentTime,
+                      'Do MMMM, yyyy',
+                      language,
+                      timezone
+                    )}
                   </Text>
                 );
               },
@@ -114,7 +124,14 @@ export default function AppointmentsPageContent() {
               cell: ({ row }) => {
                 const data = row.original;
                 return (
-                  <Text>{dateTimeFormat(data.appointmentTime, 'HH:mm')}</Text>
+                  <Text>
+                    {dateTimeFormat(
+                      data.appointmentTime,
+                      'HH:mm',
+                      language,
+                      timezone
+                    )}
+                  </Text>
                 );
               },
             },

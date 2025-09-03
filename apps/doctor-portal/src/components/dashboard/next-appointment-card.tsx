@@ -17,6 +17,9 @@ export function NextAppointmentCard() {
   const t = useTranslations('dashboard.nextAppointmentCard');
 
   const { data: userData } = useSession();
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const { data: appointmentsResponse } = useGetAllAppointments({
     page: 1,
@@ -25,6 +28,7 @@ export function NextAppointmentCard() {
     includes: ['patient-user'],
     sortBy: 'appointmentTime:desc',
     startDate: now.toISOString(),
+    timezone,
   });
 
   return (

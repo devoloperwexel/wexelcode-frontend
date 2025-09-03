@@ -5,7 +5,7 @@ import { useGetAppointmentsByUserId, useQueryParams } from '@wexelcode/hooks';
 import { dateTimeFormat, dateTimeSubtract } from '@wexelcode/utils';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import Routes from '../../constants/routes';
 import { AppointmentStatusBadge } from '../appointments';
@@ -20,6 +20,10 @@ export function PatientAppointmentsTab({
 }: PatientAppointmentsTabProps) {
   const t = useTranslations('patients.detailsPage.tabs.appointments');
   const { data: userData } = useSession();
+  const language = useLocale();
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const router = useRouter();
 
@@ -33,6 +37,7 @@ export function PatientAppointmentsTab({
     startDate: queryParams.getString('status') === 'upcoming' ? now : undefined,
     endDate: queryParams.getString('status') === 'past' ? now : undefined,
     sortBy: 'appointmentTime:desc',
+    timezone
   });
 
   return (
@@ -64,7 +69,12 @@ export function PatientAppointmentsTab({
               cell: ({ row }) => {
                 const data = row.original;
 
-                return dateTimeFormat(data.appointmentTime, 'hh:mm a');
+                return dateTimeFormat(
+                  data.appointmentTime,
+                  'hh:mm a',
+                  language,
+                  timezone
+                );
               },
             },
             {
@@ -73,7 +83,12 @@ export function PatientAppointmentsTab({
               cell: ({ row }) => {
                 const data = row.original;
 
-                return dateTimeFormat(data.appointmentTime, 'Do MMMM, yyyy');
+                return dateTimeFormat(
+                  data.appointmentTime,
+                  'Do MMMM, yyyy',
+                  language,
+                  timezone
+                );
               },
             },
             {

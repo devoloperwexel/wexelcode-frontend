@@ -11,7 +11,11 @@ export type SavedPhysioUnavailability = {
   endTime: string;
 };
 
-export interface PhysioAvailabilityCheck {
+export interface PhysioAvailabilityTime {
   date: string;
-  availabilityTimes: Date[];
+  timezone: string;
+  availableSlots: {
+    time: string[];
+    available: boolean;
+  }[];
 }

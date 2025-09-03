@@ -153,6 +153,7 @@
       "tabs": {
         "account": {
           "title": "Konto",
+          "timezone": "Zeitzone",
           "birthday": "Geburtstag",
           "gender": "Geschlecht",
           "address": "Adresse",
@@ -164,6 +165,7 @@
           "lastName": "Nachname",
           "mobile": "Handy",
           "select": "Auswählen",
+          "search": "Suchen...",
           "save": "Speichern"
         },
         "professional": {
@@ -185,5 +187,6 @@
   },
   "datePicker": {
     "pickDate": "Wählen Sie ein Datum"
-  }
+  },
+  "timezone": { "timezone": "Zeitzone" }
 }

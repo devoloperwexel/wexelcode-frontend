@@ -4,7 +4,7 @@
     "en": "EN"
   },
   "navigation": {
-    "home": "Home",
+    "pricing": "Pricing",
     "doctors": "Physio",
     "appointments": "Appointments",
     "blog": "Blog",
@@ -30,6 +30,7 @@
       "FEMALE": "Female"
     },
     "activity": {
+      "RUNNING_JOGGING": "Running/Jogging",
       "FOOTBALL": "Football (Soccer)",
       "BASKETBALL": "Basketball",
       "CRICKET": "Cricket",
@@ -265,6 +266,7 @@
       "female": "Female",
       "eveningSlots": "Evening Slots",
       "morningSlots": "Morning Slots",
+      "timezone": "Time Zone",
       "screeningRequiredDialog": {
         "title": "Medical Screening Required",
         "text": "Medical Screening Should be complete before booking appointment",
@@ -287,6 +289,7 @@
       "title": "Appointment Information",
       "date": "Date",
       "time": "Time",
+      "timezone":"Time Zone",
       "status": "Status",
       "type": "Appointment Type",
       "video": "Video Consultation",
@@ -324,6 +327,7 @@
   "profile": {
     "personalDetailsForm": {
       "birthday": "Birthday",
+      "timezone": "Time Zone",
       "gender": "Gender",
       "address": "Address",
       "city": "City",
@@ -334,6 +338,7 @@
       "lastName": "Last Name",
       "mobile": "Mobile",
       "select": "Select",
+      "search": "Search...",
       "errorMessages": {
         "firstNameRequiredError": "First name is required.",
         "lastNameRequiredError": "Last name is required.",
@@ -363,6 +368,7 @@
       "height": "Height (cm)",
       "activities": "Activities",
       "select": "Select",
+      "search": "Search...",
       "errorMessages": {
         "weightRequiredError": "Weight is required.",
         "weightMaxError": "Weight cannot be more than 300 kg.",

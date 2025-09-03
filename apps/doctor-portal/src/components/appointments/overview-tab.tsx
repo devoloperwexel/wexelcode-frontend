@@ -11,6 +11,7 @@ import { useGetAppointmentById } from '@wexelcode/hooks';
 import { Patient } from '@wexelcode/types';
 import { dateTimeDiff, dateTimeFormat } from '@wexelcode/utils';
 import { CalendarIcon, ClockIcon, VideoIcon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 
 import { JoinNowButton } from './join-now-button';
@@ -31,6 +32,7 @@ export function AppointmentOverviewTab({
   patientId,
   patient,
 }: AppointmentOverviewTabProps) {
+  const { data, status: sessionStatus } = useSession();
   const t = useTranslations('appointments.detailsPage.overviewTab');
   const language = useLocale();
 
@@ -42,6 +44,11 @@ export function AppointmentOverviewTab({
   const canJoinCall = appointmentsResponse
     ? dateTimeDiff(appointmentsResponse.appointmentTime, thirtyMinutesAgo) > 0
     : undefined;
+  const timezone =
+    sessionStatus === 'loading'
+      ? ''
+      : data?.user?.timeZone ||
+        Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
     <div className="space-y-6">
@@ -57,7 +64,8 @@ export function AppointmentOverviewTab({
                     {dateTimeFormat(
                       appointmentsResponse.appointmentTime,
                       'Do MMMM, yyyy',
-                      language
+                      language,
+                      timezone
                     )}
                   </Text>
                 </div>
@@ -69,7 +77,9 @@ export function AppointmentOverviewTab({
                   <Text weight="semibold">
                     {dateTimeFormat(
                       appointmentsResponse.appointmentTime,
-                      'HH:mm'
+                      'HH:mm',
+                      language,
+                      timezone
                     )}{' '}
                     (30 {t('minutes')})
                   </Text>
@@ -135,7 +145,11 @@ export function AppointmentOverviewTab({
               <div className="grid grid-cols-2 gap-4">
                 <PatientDetailItem
                   label={t('birthday')}
-                  value={dateTimeFormat(patient?.user?.birthDay, 'DD MMM YYYY', language)}
+                  value={dateTimeFormat(
+                    patient?.user?.birthDay,
+                    'DD MMM YYYY',
+                    language
+                  )}
                 />
                 <PatientDetailItem
                   label={t('address')}
