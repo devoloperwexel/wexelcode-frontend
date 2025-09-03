@@ -197,6 +197,7 @@ jobs:
         sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
         kubectl apply -f ./manifests/deployment.yaml -n dev
         kubectl apply -f ./manifests/service.yaml -n dev
+        cat ./manifests/deployment.yaml 
         echo "Physio Portal Deployment to Dev completed successfully! 🔥"
 
   deploy-qa:
@@ -245,6 +246,7 @@ jobs:
         sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
         kubectl apply -f ./manifests/deployment.yaml -n qa
         kubectl apply -f ./manifests/service.yaml -n qa
+        cat ./manifests/deployment.yaml 
         echo "Physio Portal Deployment to QA completed successfully! 🔥"
 
   deploy-staging:
@@ -341,4 +343,5 @@ jobs:
         sed -i "s/<VERSION>/${{ github.run_number }}/g" ./manifests/deployment.yaml
         kubectl apply -f ./manifests/deployment.yaml -n prod
         kubectl apply -f ./manifests/service.yaml -n prod
+        cat ./manifests/deployment.yaml 
         echo "Physio Portal Deployment to Production completed successfully! 🔥"
