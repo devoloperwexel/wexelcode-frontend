@@ -16,9 +16,12 @@ const now = new Date();
 export function AppointmentsTable() {
   const t = useTranslations('dashboard.appointmentsTable');
   const tAppointments = useTranslations('appointments');
-  const language = useLocale()
+  const language = useLocale();
 
   const { data: userData } = useSession();
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const startDate = dateTimeSet(now, {
     hour: 0,
@@ -42,6 +45,7 @@ export function AppointmentsTable() {
     sortBy: 'appointmentTime:desc',
     startDate,
     endDate,
+    timezone,
   });
 
   return (
@@ -75,7 +79,11 @@ export function AppointmentsTable() {
               const data = row.original;
               return (
                 <Text>
-                  {dateTimeFormat(data.appointmentTime, 'Do MMMM, yyyy', language)}
+                  {dateTimeFormat(
+                    data.appointmentTime,
+                    'Do MMMM, yyyy',
+                    language
+                  )}
                 </Text>
               );
             },

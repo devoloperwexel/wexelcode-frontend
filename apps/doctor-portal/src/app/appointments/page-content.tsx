@@ -44,6 +44,7 @@ export default function AppointmentsPageContent() {
     endDate: queryParams.getString('status') === 'past' ? now : undefined,
     sortBy: 'appointmentTime:desc',
     name: queryParams.getString('search'),
+    timezone
   });
 
   const handleOnSearch = (search: string) => {
