@@ -82,7 +82,8 @@ export function AppointmentsTable() {
                   {dateTimeFormat(
                     data.appointmentTime,
                     'Do MMMM, yyyy',
-                    language
+                    language,
+                    timezone
                   )}
                 </Text>
               );
@@ -94,7 +95,7 @@ export function AppointmentsTable() {
             cell: ({ row }) => {
               const data = row.original;
               return (
-                <Text>{dateTimeFormat(data.appointmentTime, 'HH:mm')}</Text>
+                <Text>{dateTimeFormat(data.appointmentTime, 'HH:mm', "en", timezone)}</Text>
               );
             },
           },
