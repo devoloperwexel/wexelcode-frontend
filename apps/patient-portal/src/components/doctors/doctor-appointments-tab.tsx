@@ -132,9 +132,6 @@ export function DoctorAppointmentsTab({
       setOpenScreeningRequired(true);
     } else {
       if (!selectedTimeSlot) return;
-
-      const [h, m] = selectedTimeSlot.split(':');
-
       const appointmentTime = createDateTimeWithZone(
         formatDate(date),
         selectedTimeSlot,
