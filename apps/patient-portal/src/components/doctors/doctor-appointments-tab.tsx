@@ -13,7 +13,7 @@ import {
   useGetPhysioAvailabilityTime,
 } from '@wexelcode/hooks';
 import { Doctor } from '@wexelcode/types';
-import { dateTimeSet } from '@wexelcode/utils';
+import { createDateTimeWithZone } from '@wexelcode/utils';
 import { CalendarPlus } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -47,6 +47,13 @@ const isMorning = () => {
   return now.getHours() < 14;
 };
 
+const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export function DoctorAppointmentsTab({
   doctor,
   initialDate,
@@ -65,7 +72,7 @@ export function DoctorAppointmentsTab({
   >();
   const userId = data?.user.id;
   const timezone =
-    data?.user?.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
+    doctor?.user?.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
   //
   const { push } = useRouter();
   useEffect(() => {
@@ -128,10 +135,11 @@ export function DoctorAppointmentsTab({
 
       const [h, m] = selectedTimeSlot.split(':');
 
-      const appointmentTime = dateTimeSet(date, {
-        hour: parseInt(h),
-        minute: parseInt(m),
-      });
+      const appointmentTime = createDateTimeWithZone(
+        formatDate(date),
+        selectedTimeSlot,
+        timezone
+      );
 
       const response = await createAppointment({
         userId: data?.user.id,
