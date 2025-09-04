@@ -47,7 +47,6 @@ export function AppointmentCalenderCard() {
     page: 1,
     includes: ['physio-user'],
     sortBy: 'appointmentTime:desc',
-    timezone,
     startDate: startDateOfSelectedMonth,
     endDate: endDateOfSelectedMonth,
   });

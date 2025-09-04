@@ -4,7 +4,7 @@ import { Button, DatePicker } from '@wexelcode/components';
 import {
   useDeletePhysioUnavailability,
   useGetDoctorByUserId,
-  useGetPhysioAvailabilityTime,
+  useGetPhysioUnavailabilities,
   useSavePhysioUnavailability,
 } from '@wexelcode/hooks';
 import { useSession } from 'next-auth/react';
@@ -12,57 +12,22 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import AvailabilityLoadingSkeleton from './availability-loading-skeleton';
-import { AVAILABLE_TIME_SLOT } from './constants';
+import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constants';
 import { TimeSlotToggle } from './time-slot-toggle';
-import { createDateTimeWithZone } from '@wexelcode/utils';
+import {
+  createDateTimeWithZone,
+  getDatesBetween,
+  getLocalISODate,
+  isMorning,
+  isToday,
+  toDateTime,
+} from '@wexelcode/utils';
 
 type TimeSlot = {
   time: [string, string];
   available: boolean;
   disabled: boolean;
   unavailableIds?: string[];
-};
-
-const toDateTime = (date: string, time: string) =>
-  new Date(`${date}T${time}:00`);
-
-function getLocalISODate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-function getDatesBetween(
-  startDate: Date | string,
-  endDate: Date | string
-): string[] {
-  const dates: string[] = [];
-
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-
-  // Loop through each day
-  while (start <= end) {
-    dates.push(getLocalISODate(start));
-    start.setDate(start.getDate() + 1);
-  }
-
-  return dates;
-}
-
-const isToday = (date: Date) => {
-  const now = new Date();
-  return (
-    date.getFullYear() === now.getFullYear() &&
-    date.getMonth() === now.getMonth() &&
-    date.getDate() === now.getDate()
-  );
-};
-
-const isMorning = () => {
-  const now = new Date();
-  return now.getHours() < 14;
 };
 
 export function AvailabilityDetailsTab() {
@@ -88,13 +53,19 @@ export function AvailabilityDetailsTab() {
 
   const { data: doctorResponse, isLoading: isLoadingPhysio } =
     useGetDoctorByUserId(userData?.user.id);
-
-  const { data: response, isLoading } = useGetPhysioAvailabilityTime({
-    id: doctorResponse?.data?.id || '',
-    date: selectedToDate,
-    timezone,
-  });
-
+  const {
+    data: unavailabilityResponse,
+    isLoading: isLoadingUnavailability,
+    refetch,
+  } = useGetPhysioUnavailabilities(
+    {
+      physioId: doctorResponse?.data?.id || '',
+      startDateRange: `${selectedFromDate}:${selectedToDate}`,
+      page: 1,
+      limit: 100,
+    },
+    false
+  );
   const { mutateAsync: saveUnavailability, isPending: isCreating } =
     useSavePhysioUnavailability();
   const { mutateAsync: deleteUnavailability, isPending: isDeleting } =
@@ -106,19 +77,19 @@ export function AvailabilityDetailsTab() {
 
   const handleMorningTimes = () => setIsMorningTimes((prev) => !prev);
 
-  // const localAppointments = useMemo(() => {
-  //   return (
-  //     unavailabilityResponse?.results.map((unavailability) => {
-  //       const start = new Date(unavailability.startTime);
-  //       const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000);
-  //       return { unavailableIds: unavailability.id, start, end };
-  //     }) ?? []
-  //   );
-  // }, [unavailabilityResponse]);
+  const localAppointments = useMemo(() => {
+    return (
+      unavailabilityResponse?.results.map((unavailability) => {
+        const start = new Date(unavailability.startTime);
+        const end = new Date(start.getTime() + APPOINTMENT_TIME * 60 * 1000);
+        return { unavailableIds: unavailability.id, start, end };
+      }) ?? []
+    );
+  }, [unavailabilityResponse]);
 
-  // useEffect(() => {
-  //   refetch();
-  // }, [doctorResponse?.data?.id, selectedFromDate, selectedToDate]);
+  useEffect(() => {
+    refetch();
+  }, [doctorResponse?.data?.id, selectedFromDate, selectedToDate]);
 
   useEffect(() => {
     setIsMorningTimes(
@@ -128,72 +99,72 @@ export function AvailabilityDetailsTab() {
     );
   }, [selectedFromDate, selectedToDate]);
 
-  // useEffect(() => {
-  //   const availableSlotWindow = isMorningTimes
-  //     ? AVAILABLE_TIME_SLOT.slice(0, 14)
-  //     : AVAILABLE_TIME_SLOT.slice(14);
-  //   const slots = (availableSlotWindow as TimeSlot[]).map((slot) => {
-  //     const [startStr, endStr] = slot.time;
+  useEffect(() => {
+    const availableSlotWindow = isMorningTimes
+      ? AVAILABLE_TIME_SLOT.slice(0, 14)
+      : AVAILABLE_TIME_SLOT.slice(14);
+    const slots = (availableSlotWindow as TimeSlot[]).map((slot) => {
+      const [startStr, endStr] = slot.time;
 
-  //     const start = toDateTime(selectedFromDate, startStr);
-  //     const today = new Date();
+      const start = toDateTime(selectedFromDate, startStr);
+      const today = new Date();
 
-  //     if (selectedFromDate === selectedToDate) {
-  //       const end = toDateTime(selectedFromDate, endStr);
-  //       if (start < today) {
-  //         slot.disabled = true;
-  //       } else {
-  //         slot.disabled = false;
-  //       }
-  //       const found = localAppointments?.find((app) => {
-  //         return app.start < end && app.end > start;
-  //       });
+      if (selectedFromDate === selectedToDate) {
+        const end = toDateTime(selectedFromDate, endStr);
+        if (start < today) {
+          slot.disabled = true;
+        } else {
+          slot.disabled = false;
+        }
+        const found = localAppointments?.find((app) => {
+          return app.start < end && app.end > start;
+        });
 
-  //       const isOverlapping = Boolean(found);
+        const isOverlapping = Boolean(found);
 
-  //       return {
-  //         ...slot,
-  //         available: isOverlapping,
-  //         unavailableIds: found && [found.unavailableIds],
-  //       };
-  //     } else {
-  //       slot.disabled = false;
-  //       const dates = getDatesBetween(selectedFromDate, selectedToDate).map(
-  //         (date) => ({
-  //           startDate: toDateTime(date, startStr),
-  //           endDate: toDateTime(date, endStr),
-  //         })
-  //       );
+        return {
+          ...slot,
+          available: isOverlapping,
+          unavailableIds: found && [found.unavailableIds],
+        };
+      } else {
+        slot.disabled = false;
+        const dates = getDatesBetween(selectedFromDate, selectedToDate).map(
+          (date) => ({
+            startDate: toDateTime(date, startStr),
+            endDate: toDateTime(date, endStr),
+          })
+        );
 
-  //       const foundUnbailableList: string[] = [];
+        const foundUnbailableList: string[] = [];
 
-  //       dates.forEach((date) => {
-  //         const found = localAppointments?.find((app) => {
-  //           return app.start < date.endDate && app.end > date.startDate;
-  //         });
-  //         console.log('f: ', found);
-  //         if (found) {
-  //           foundUnbailableList.push(found.unavailableIds);
-  //         }
-  //       });
+        dates.forEach((date) => {
+          const found = localAppointments?.find((app) => {
+            return app.start < date.endDate && app.end > date.startDate;
+          });
+          console.log('f: ', found);
+          if (found) {
+            foundUnbailableList.push(found.unavailableIds);
+          }
+        });
 
-  //       const firstDate = toDateTime(getLocalISODate(today), endStr);
-  //       console.log(firstDate < today);
-  //       //
-  //       return {
-  //         ...slot,
-  //         available:
-  //           firstDate < today
-  //             ? foundUnbailableList.length === dates.length ||
-  //               foundUnbailableList.length === dates.length - 1
-  //             : foundUnbailableList.length === dates.length,
-  //         unavailableIds: foundUnbailableList,
-  //       };
-  //     }
-  //   });
+        const firstDate = toDateTime(getLocalISODate(today), endStr);
+        console.log(firstDate < today);
+        //
+        return {
+          ...slot,
+          available:
+            firstDate < today
+              ? foundUnbailableList.length === dates.length ||
+                foundUnbailableList.length === dates.length - 1
+              : foundUnbailableList.length === dates.length,
+          unavailableIds: foundUnbailableList,
+        };
+      }
+    });
 
-  //   setAvailableSlots(slots);
-  // }, [localAppointments, selectedFromDate, selectedToDate, isMorningTimes]);
+    setAvailableSlots(slots);
+  }, [localAppointments, selectedFromDate, selectedToDate, isMorningTimes]);
 
   const handleToggle = useCallback(
     async (slotKey: string, isActive: boolean) => {
@@ -300,9 +271,7 @@ export function AvailabilityDetailsTab() {
     [selectedToDate]
   );
   selectedToDateAfterWeekObj.setDate(selectedFromDateObj.getDate() + 7);
-  const slots = isMorningTimes
-    ? response?.data?.availableSlots.slice(0, 14)
-    : response?.data?.availableSlots.slice(14);
+
   return (
     <div className="bg-card rounded-lg shadow-md overflow-hidden">
       <div className="p-4 border-b w-full flex justify-start mt-2">
@@ -333,14 +302,14 @@ export function AvailabilityDetailsTab() {
           </div>
         </div>
       </div>
-      {isLoading || !slots ? (
+      {isLoadingUnavailability || isLoadingPhysio ? (
         <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-3">
           <AvailabilityLoadingSkeleton />
         </div>
       ) : (
         <>
           <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-3">
-            {slots.map(({ time, available }) => {
+            {availableSlots.map(({ time, disabled, available }) => {
               const slotKey = `${time[0]}-${time[1]}`;
               return (
                 <TimeSlotToggle
@@ -349,6 +318,7 @@ export function AvailabilityDetailsTab() {
                   endTime={time[1]}
                   isAvailable={available}
                   onToggle={() => handleToggle(slotKey, available)}
+                  disabled={disabled}
                   loading={isCreating || isDeleting}
                 />
               );
