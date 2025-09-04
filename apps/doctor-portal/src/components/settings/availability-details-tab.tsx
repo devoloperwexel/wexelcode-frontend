@@ -14,6 +14,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import AvailabilityLoadingSkeleton from './availability-loading-skeleton';
 import { APPOINTMENT_TIME, AVAILABLE_TIME_SLOT } from './constants';
 import { TimeSlotToggle } from './time-slot-toggle';
+import { createDateTimeWithZone } from '@wexelcode/utils';
 
 type TimeSlot = {
   time: [string, string];
@@ -71,6 +72,10 @@ export function AvailabilityDetailsTab() {
   const [selectedFromDate, setSelectedFromDate] = useState<string>(
     new Date().toLocaleDateString('sv-SE')
   );
+
+  const timezone =
+    userData?.user?.timeZone ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const [selectedToDate, setSelectedToDate] = useState<string>(
     new Date().toLocaleDateString('sv-SE')
@@ -244,8 +249,16 @@ export function AvailabilityDetailsTab() {
         });
         const dates = getDatesBetween(selectedFromDate, selectedToDate).map(
           (date) => ({
-            startDate: toDateTime(date, currentSlot.time[0]).toISOString(),
-            endDate: toDateTime(date, currentSlot.time[1]).toISOString(),
+            startDate: createDateTimeWithZone(
+              date,
+              currentSlot.time[0],
+              timezone
+            ).toISOString(),
+            endDate: createDateTimeWithZone(
+              date,
+              currentSlot.time[1],
+              timezone
+            ).toISOString(),
           })
         );
 
