@@ -45,7 +45,6 @@ export function AppointmentsTable() {
     sortBy: 'appointmentTime:desc',
     startDate,
     endDate,
-    timezone,
   });
 
   return (

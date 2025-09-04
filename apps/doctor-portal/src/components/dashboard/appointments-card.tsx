@@ -36,7 +36,6 @@ export function AppointmentsCard() {
     includes: ['patient-user'],
     startDate,
     endDate,
-    timezone,
   });
 
   return (

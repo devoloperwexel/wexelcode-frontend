@@ -24,6 +24,5 @@ export interface GetAppointmentsRequest extends BaseRequest {
   physioUserId?: string;
   startDate?: string;
   endDate?: string;
-  timezone: string; 
   name?: string; // TODO: should remove this in future
 }

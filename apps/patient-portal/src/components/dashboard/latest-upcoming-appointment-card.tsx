@@ -41,7 +41,6 @@ export function LatestUpcomingAppointmentCard({
     page: 1,
     includes: ['physio-user'],
     sortBy: 'appointmentTime:asc',
-    timezone,
     startDate: now.toISOString(),
   });
 
