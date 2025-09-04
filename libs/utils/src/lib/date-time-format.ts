@@ -38,7 +38,15 @@ export const dateTimeSubtract = (
 
 export const dateTimeSet = (
   date: string | Date,
-  object: moment.MomentSetObject
+  object: moment.MomentSetObject,
 ) => {
   return moment(date).set(object).toDate();
+};
+
+export const createDateTimeWithZone = (
+  date: string,
+  time: string,
+  zone = 'UTC'
+) => {
+  return moment.tz(`${date} ${time}`, 'YYYY-MM-DD HH:mm', zone);
 };
