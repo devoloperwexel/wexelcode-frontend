@@ -37,7 +37,6 @@ export function PatientAppointmentsTab({
     startDate: queryParams.getString('status') === 'upcoming' ? now : undefined,
     endDate: queryParams.getString('status') === 'past' ? now : undefined,
     sortBy: 'appointmentTime:desc',
-    timezone
   });
 
   return (

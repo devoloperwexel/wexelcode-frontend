@@ -36,7 +36,6 @@ export function AppointmentListView({
     userId: userData?.user?.id,
     startDate,
     endDate,
-    timezone,
     includes: ['physio-user'],
     sortBy: `appointmentTime:${sort}`,
   });
